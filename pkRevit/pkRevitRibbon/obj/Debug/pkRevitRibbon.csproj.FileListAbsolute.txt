@@ -1,0 +1,14 @@
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\pkRevitRibbon.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\pkRevitRibbon.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\RevitAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\RevitAPIUI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\RevitAPI.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\RevitAPIUI.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.csprojAssemblyReference.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.csproj.CoreCompileInputs.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.csproj.CopyComplete
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Images\013 Button Image Uninstall.png
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Images\Button0010_pkRevitDatasheets.png
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\pkRevitRibbon.dll.config

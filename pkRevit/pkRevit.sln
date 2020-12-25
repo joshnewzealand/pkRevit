@@ -5,6 +5,12 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitDatasheets", "pkRevitDatasheets\pkRevitDatasheets.csproj", "{F9A408DC-E37C-4FD4-B512-54F3A889EF79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitRibbon", "pkRevitRibbon\pkRevitRibbon.csproj", "{0E2C6ED4-C909-49A4-A5EE-FAE0E92E16A2}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "pkRevit joshnewzealand", "pkRevit joshnewzealand\pkRevit joshnewzealand.vdproj", "{2DA38A26-FA79-4F70-988D-0559D936D830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitCustomMethods", "pkRevitCustomMethods\pkRevitCustomMethods.csproj", "{A0ED3729-E945-4616-A331-034E90FFDA28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,16 @@ Global
 		{F9A408DC-E37C-4FD4-B512-54F3A889EF79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9A408DC-E37C-4FD4-B512-54F3A889EF79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9A408DC-E37C-4FD4-B512-54F3A889EF79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E2C6ED4-C909-49A4-A5EE-FAE0E92E16A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E2C6ED4-C909-49A4-A5EE-FAE0E92E16A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E2C6ED4-C909-49A4-A5EE-FAE0E92E16A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E2C6ED4-C909-49A4-A5EE-FAE0E92E16A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DA38A26-FA79-4F70-988D-0559D936D830}.Debug|Any CPU.ActiveCfg = Debug
+		{2DA38A26-FA79-4F70-988D-0559D936D830}.Release|Any CPU.ActiveCfg = Release
+		{A0ED3729-E945-4616-A331-034E90FFDA28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0ED3729-E945-4616-A331-034E90FFDA28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0ED3729-E945-4616-A331-034E90FFDA28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0ED3729-E945-4616-A331-034E90FFDA28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
