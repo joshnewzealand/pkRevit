@@ -5,9 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pkRevitDatasheets"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="484,140,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="buttonSetStoreFolder" Content="Set Storage Parent Folder" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="168" Click="buttonSetStoreFolder_Click" />
+        <Label x:Name="label_DropboxGoogleDriveOnedrive" Content="DropboxGoogleDriveOnedrive" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="308"/>
+        <Label Content="Storage Parent Directory:" HorizontalAlignment="Left" Margin="7,0,0,0" VerticalAlignment="Top" Width="146"/>
+        <ListView x:Name="lv_DragDirectory"  AllowDrop="True" HorizontalAlignment="Left" Height="249" Margin="250,91,0,0" VerticalAlignment="Top" Width="219" MouseMove="lv_DragDirectory_MouseMove" Drop="lv_DragDirectory_Drop" IsEnabled="False">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Width="1000" />
+                </GridView>
+            </ListView.View>
 
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="lv_DragDirectory_PreviewMouseDoubleClick"/>
+                    <!--<EventSetter Event="RequestBringIntoView" Handler="RequestBringIntoView"></EventSetter>-->
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <ListView x:Name="lv_MasterList"                  
+
+            HorizontalAlignment="Left" Height="249" Margin="469,91,0,0" VerticalAlignment="Top" Width="181">
+
+            <ListView.Resources>
+                <Style TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                </Style>
+            </ListView.Resources>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding FolderName}" Header="File Name" Width="280" />
+                </GridView>
+            </ListView.View>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="UIElement.MouseUp" Handler="lv_MasterList_PreviewMouseDoubleClick"/>
+                    <!--<EventSetter Event="RequestBringIntoView" Handler="RequestBringIntoView"></EventSetter>-->
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+        </ListView>
+        <Button x:Name="buttonNew_in_Lieu_of_FromType" Content="New" HorizontalAlignment="Left" Margin="250,340,0,0" VerticalAlignment="Top" Width="87" Click="buttonNew_in_Lieu_of_FromType_Click"/>
+        <Button Content="Clean" HorizontalAlignment="Left" Margin="54,242,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Stick items into master list" HorizontalAlignment="Left" Margin="469,52,0,0" VerticalAlignment="Top" Width="176" Foreground="Red"/>
+        <Label x:Name="myLabel_Directory" Content="yyyyMMdd HHmm ss" HorizontalAlignment="Left" Margin="219,373,0,0" VerticalAlignment="Top" Width="373"/>
+        <Button x:Name="butIMAGE" Content="Clipboard Image To File" HorizontalAlignment="Left" Height="66" Margin="22,284,0,0" VerticalAlignment="Top" Width="196" Click="butIMAGE_Click"/>
+        <Button x:Name="buttonDelete_in_Lieu_of_FromType" Content="Delete" HorizontalAlignment="Left" Margin="337,340,0,0" VerticalAlignment="Top" Width="87" Click="buttonDelete_in_Lieu_of_FromType_Click" />
+        <Label x:Name="label_ProjectGUID" Content="label_ProjectGUID" HorizontalAlignment="Left" Margin="250,43,0,0" VerticalAlignment="Top" Width="395"/>
+        <Button x:Name="buttonNewFromRevit" Content="Select the fitting you wish to save&#xD;&#xA;to the database" HorizontalAlignment="Left" Height="66" Margin="22,119,0,0" VerticalAlignment="Top" Width="196" Click="buttonNewFromRevit_Click" />
     </Grid>
 </Window>

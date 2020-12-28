@@ -32,8 +32,6 @@ namespace pkRevitRibbon
                 return Result.Succeeded;
             }
 
-
-
             TaskDialog.Show("Me", "Please use Add Remove Programs List from Control Panel." + Environment.NewLine + Environment.NewLine + "The name of the application is: 'pkRevit joshnewzealand'." + Environment.NewLine + Environment.NewLine + "Tip: Sort by 'Installed On' date.");
             ////Manually Remove Programs from the Add Remove Programs List
 
@@ -49,14 +47,11 @@ namespace pkRevitRibbon
         {
             try
             {
-
                 Properties.Settings.Default.MakeTheNextOneDevelopment = true;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
                 Autodesk.Revit.UI.TaskDialog.Show("Next Click", "Now please click the desired ribbon button, to set the development path.");
-
-
             }
 
             #region catch and finally

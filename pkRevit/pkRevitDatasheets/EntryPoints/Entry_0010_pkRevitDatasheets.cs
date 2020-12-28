@@ -1,0 +1,77 @@
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using _952_PRLoogleClassLibrary;
+using pkRevitDatasheets.BuildingCoderClasses;
+
+namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
+{
+    public partial class Entry_0010_pkRevitDatasheets
+    {
+        public ExternalEvents.EE00_CopyTemplate myEE00_CopyTemplate { get; set; }
+        public ExternalEvent myExternalEvent_EE00_CopyTemplate { get; set; }
+
+        public ExternalCommandData commandData { get; set; }
+
+
+        public Result StartMethod_01(ExternalCommandData cd, ref string message, ElementSet elements)
+        {
+
+            commandData = cd;
+            //////////////////////MainWindow mainWindow = new MainWindow();
+            //////////////////////mainWindow.Topmost = true;
+            //////////////////////mainWindow.Show();
+
+            Document doc = commandData.Application.ActiveUIDocument.Document;
+
+            string name = "TrackChanges_project_identifier";
+            Guid named_guid;
+
+            bool rc = JtNamedGuidStorage.Get(doc, name, out named_guid, false);
+
+            if (rc)
+            {
+                ////////////////////DatabaseMethods.InfoMsg(string.Format("This document already has a project " + "identifier: {0} = {1}", name, named_guid.ToString()));
+
+                ////////////////////rslt = Result.Succeeded;
+            }
+            else
+            {
+                rc = JtNamedGuidStorage.Get(doc, name, out named_guid, true);
+
+                if (rc)
+                {
+                    DatabaseMethods.InfoMsg(string.Format("Created a new project identifier " + "for this document: {0} = {1}", name, named_guid.ToString()));
+                }
+                else
+                {
+                    DatabaseMethods.ErrorMsg("Something went wrong");
+                }
+            }
+
+            MainWindow mainWindow = new MainWindow(named_guid);
+            mainWindow.classEntryPoint = this;
+            mainWindow.Topmost = true;
+            mainWindow.Show();
+
+
+            if (false)
+            {
+                myEE00_CopyTemplate = new ExternalEvents.EE00_CopyTemplate();
+                myExternalEvent_EE00_CopyTemplate = ExternalEvent.Create(myEE00_CopyTemplate);
+                ////myMainWindow.Topmost = true;
+                ////myMainWindow.commandData = commandData;
+                //////////////.//////////////////////////// myMainWindow.Show();
+                ///
+                myExternalEvent_EE00_CopyTemplate.Raise();
+            }
+
+
+            return Result.Succeeded;
+        }
+    }
+}

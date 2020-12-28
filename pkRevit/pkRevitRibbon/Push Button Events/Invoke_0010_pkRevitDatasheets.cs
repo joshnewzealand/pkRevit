@@ -65,7 +65,7 @@ namespace pkRevitRibbon
                 }
 
 
-                string strCommandName = "thisapplication"; 
+                string strCommandName = "Entry_0010_pkRevitDatasheets"; 
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -75,7 +75,7 @@ namespace pkRevitRibbon
                         if (objType.Name.ToLower() == strCommandName.ToLower())
                         {
                             object ibaseObject = Activator.CreateInstance(objType);
-                            object[] arguments = new object[] { commandData, "EE01_OpenDragWindow|" + path, elements }; 
+                            object[] arguments = new object[] { commandData, path, elements }; 
                             object result = null;
 
                             result = objType.InvokeMember("StartMethod_01", BindingFlags.Default | BindingFlags.InvokeMethod, null, ibaseObject, arguments);
@@ -119,6 +119,7 @@ namespace pkRevitRibbon
     {
         //I count 1,6 = 7 places that need to change
 
+        string dllModuleFolder = "pkRevitDatasheets"; //<--------------------------------------------- edit here
         string dllModuleName = "pkRevitDatasheets.exe"; //<--------------------------------------------- edit here
 
 
@@ -128,9 +129,7 @@ namespace pkRevitRibbon
             {
                 if (Properties.Settings.Default.AssemblyNeedLoading) RibbonSupportMethods.loadPackages();
 
-
                 string myString_TestFileLocation = Properties.Settings.Default.pkRevitDatasheets_DevLocation2; //<--- appears 4 places in code
-
 
                 if (true)//candidate for methodisation 202012251141
                 {
@@ -164,7 +163,7 @@ namespace pkRevitRibbon
 
                 Assembly objAssembly01 = Assembly.Load(File.ReadAllBytes(Properties.Settings.Default.pkRevitDatasheets_DevLocation2));
 
-                string strCommandName = "thisapplication";
+                string strCommandName = "Entry_0010_pkRevitDatasheets";
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -174,7 +173,7 @@ namespace pkRevitRibbon
                         if (objType.Name.ToLower() == strCommandName.ToLower())
                         {
                             object ibaseObject = Activator.CreateInstance(objType);
-                            object[] arguments = new object[] { commandData, "EE01_OpenDragWindow|" + System.IO.Path.GetDirectoryName(Properties.Settings.Default.pkRevitDatasheets_DevLocation2), elements };
+                            object[] arguments = new object[] { commandData, System.IO.Path.GetDirectoryName(Properties.Settings.Default.pkRevitDatasheets_DevLocation2), elements };
                             object result = null;
 
                             result = objType.InvokeMember("StartMethod_01", BindingFlags.Default | BindingFlags.InvokeMethod, null, ibaseObject, arguments);
@@ -191,7 +190,7 @@ namespace pkRevitRibbon
                 string pathPreHeader = "DevInvoke_0010_pkRevitDatasheets" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + Environment.NewLine;
                 string pathHeader = pathPreHeader + "Please check this file (and directory) exist: " + Environment.NewLine;
                 string path = Properties.Settings.Default.DevelopmentPathRoot + "";
-                RibbonSupportMethods.writeDebug(pathHeader + path + "\\" + dllModuleName + "\\AddIn\\" + dllModuleName + ".dll", true);
+                RibbonSupportMethods.writeDebug(pathHeader + path + "\\" + dllModuleFolder + "\\AddIn\\" + dllModuleName, true);
             }
             finally
             {

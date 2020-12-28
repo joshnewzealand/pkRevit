@@ -9,7 +9,8 @@ using System.Data.OleDb;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-
+using Autodesk.Revit.UI;
+using WinForms = System.Windows.Forms;
 
 namespace _952_PRLoogleClassLibrary
 {
@@ -60,6 +61,27 @@ namespace _952_PRLoogleClassLibrary
             objWriter.Close();
 
             if (AndShow) System.Diagnostics.Process.Start(FILE_NAME);
+        }
+
+        const string _caption = "The Building Coder";
+
+        public static void InfoMsg(string msg)
+        {
+            Debug.WriteLine(msg);
+            WinForms.MessageBox.Show(msg,
+              _caption,
+              WinForms.MessageBoxButtons.OK,
+              WinForms.MessageBoxIcon.Information);
+        }
+
+
+        public static void ErrorMsg(string msg)
+        {
+            Debug.WriteLine(msg);
+            WinForms.MessageBox.Show(msg,
+              _caption,
+              WinForms.MessageBoxButtons.OK,
+              WinForms.MessageBoxIcon.Error);
         }
 
 

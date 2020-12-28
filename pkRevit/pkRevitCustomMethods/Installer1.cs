@@ -53,6 +53,9 @@ namespace pkRevitCustomMethods
             rkbase = Microsoft.Win32.RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, Microsoft.Win32.RegistryView.Registry64);
             rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("XceedVersion", typeof(Xceed.Wpf.Toolkit.PropertyGrid.PropertyGrid).Assembly.FullName);
             rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("OokiiVersion", typeof(Ookii.Dialogs.Wpf.CredentialDialog).Assembly.FullName);
+            rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("SQLite", typeof(System.Data.SQLite.SQLiteConnection).Assembly.FullName);
+
+            //rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("SQLite", typeof(System.Data.stu).Assembly.FullName);
             //2 August 2019: End.
 
 

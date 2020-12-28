@@ -108,7 +108,6 @@ namespace pkRevitRibbon
                     }
                 } //delete all this
 
-
             }
 
             #region catch and finally

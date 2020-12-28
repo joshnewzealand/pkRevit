@@ -36,20 +36,25 @@ namespace pkRevitRibbon
             //2 August 2019: Start, The the following lines were added in Take 10 in order prevent double loading of packages.
             Microsoft.Win32.RegistryKey rkbase = null;
             rkbase = Microsoft.Win32.RegistryKey.OpenBaseKey(Microsoft.Win32.RegistryHive.LocalMachine, Microsoft.Win32.RegistryView.Registry64);
-            string stringTargetOokiiVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\cSharpPlaypen joshnewzealand").GetValue("OokiiVersion").ToString();
-            string stringTargetXceedVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\cSharpPlaypen joshnewzealand").GetValue("XceedVersion").ToString();
+            string stringTargetOokiiVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("OokiiVersion").ToString();
+            string stringTargetXceedVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("XceedVersion").ToString();
+            string stringTargetSQLiteVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLite").ToString();
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetOokiiVersion).Count() == 0)
             {
-                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\cSharpPlaypen joshnewzealand").GetValue("TARGETDIR").ToString();
+                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
                 Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\Ookii.Dialogs.Wpf.dll"));
             }
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetXceedVersion).Count() == 0)
             {
-                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\cSharpPlaypen joshnewzealand").GetValue("TARGETDIR").ToString();
+                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
                 Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\Xceed.Wpf.Toolkit.dll"));
             }
+            if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersion).Count() == 0)
+            {
+                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+                Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\System.Data.SQLite.dll"));
+            }
             //2 August 2019: End.
-
 
             Properties.Settings.Default.AssemblyNeedLoading = false;
             Properties.Settings.Default.Save();
