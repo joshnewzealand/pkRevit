@@ -1,0 +1,52 @@
+﻿<Window x:Class="pkRevitDatasheets.Window_MoreParameters"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pkRevitDatasheets"
+        mc:Ignorable="d"
+        Title="Window_MoreParameters" Height="685.5" Width="800" Topmost="True" Closing="Window_Closing">
+    <Grid>
+        <ListView x:Name="lv_Result_BuiltIn" Margin="0,0,0,342">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Value.sName}" Header="Sort Order" Width="200" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Value.sValue}" Header="Sort Order" Width="1000" />
+
+                    <!--
+                    <GridViewColumn Header="ALL_Families_Master_List" Width="1000" DisplayMemberBinding="{Binding Converter={StaticResource StringToBoolConverterKey}}"/>
+-->
+                </GridView>
+            </ListView.View>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="lv_Result_BuiltIn_PreviewMouseDoubleClick"/>
+                    <!--<EventSetter Event="RequestBringIntoView" Handler="RequestBringIntoView"></EventSetter>-->
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <ListView x:Name="lv_Result_Shared" Margin="0,313,0,0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Value.sName}" Header="Sort Order" Width="200" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Value.sValue}" Header="Sort Order" Width="1000" />
+
+                    <!--
+                    <GridViewColumn Header="ALL_Families_Master_List" Width="1000" DisplayMemberBinding="{Binding Converter={StaticResource StringToBoolConverterKey}}"/>
+-->
+                </GridView>
+            </ListView.View>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="lv_Result_Shared_PreviewMouseDoubleClick"/>
+                    <!--<EventSetter Event="RequestBringIntoView" Handler="RequestBringIntoView"></EventSetter>-->
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+    </Grid>
+</Window>

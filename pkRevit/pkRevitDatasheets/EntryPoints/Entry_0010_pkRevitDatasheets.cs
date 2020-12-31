@@ -16,12 +16,13 @@ namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
         public ExternalEvent myExternalEvent_EE00_CopyTemplate { get; set; }
 
         public ExternalCommandData commandData { get; set; }
-
+        public string executionLocation { get; set; }
 
         public Result StartMethod_01(ExternalCommandData cd, ref string message, ElementSet elements)
         {
 
             commandData = cd;
+            executionLocation = message;
             //////////////////////MainWindow mainWindow = new MainWindow();
             //////////////////////mainWindow.Topmost = true;
             //////////////////////mainWindow.Show();
@@ -33,13 +34,7 @@ namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
 
             bool rc = JtNamedGuidStorage.Get(doc, name, out named_guid, false);
 
-            if (rc)
-            {
-                ////////////////////DatabaseMethods.InfoMsg(string.Format("This document already has a project " + "identifier: {0} = {1}", name, named_guid.ToString()));
-
-                ////////////////////rslt = Result.Succeeded;
-            }
-            else
+            if (!rc)
             {
                 rc = JtNamedGuidStorage.Get(doc, name, out named_guid, true);
 

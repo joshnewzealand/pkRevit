@@ -4,30 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pkRevitDatasheets"
+            xmlns:t="clr-namespace:QuickZip.Tools"    
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    <Grid>
-        <Button x:Name="buttonSetStoreFolder" Content="Set Storage Parent Folder" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top" Width="168" Click="buttonSetStoreFolder_Click" />
-        <Label x:Name="label_DropboxGoogleDriveOnedrive" Content="DropboxGoogleDriveOnedrive" HorizontalAlignment="Left" Margin="150,0,0,0" VerticalAlignment="Top" Width="308"/>
-        <Label Content="Storage Parent Directory:" HorizontalAlignment="Left" Margin="7,0,0,0" VerticalAlignment="Top" Width="146"/>
-        <ListView x:Name="lv_DragDirectory"  AllowDrop="True" HorizontalAlignment="Left" Height="249" Margin="250,91,0,0" VerticalAlignment="Top" Width="219" MouseMove="lv_DragDirectory_MouseMove" Drop="lv_DragDirectory_Drop" IsEnabled="False">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn  Width="1000" />
-                </GridView>
-            </ListView.View>
+        Title="File Bucket" Height="765" Width="843.5" Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <t:FileToIconConverter x:Key="fic" />
+        <SolidColorBrush x:Key="SharedBackgroundBrush" Color="Transparent" />
+    </Window.Resources>
 
-            <ListView.ItemContainerStyle>
-                <Style TargetType="{x:Type ListViewItem}">
-                    <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="lv_DragDirectory_PreviewMouseDoubleClick"/>
-                    <!--<EventSetter Event="RequestBringIntoView" Handler="RequestBringIntoView"></EventSetter>-->
-                    <Setter Property="VerticalContentAlignment" Value="Top"/>
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
+    <Grid>
+        <Button x:Name="buttonSetStoreFolder" Content="Set Storage Parent Folder" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" Width="168" Click="buttonSetStoreFolder_Click" />
+        <Label x:Name="label_DropboxGoogleDriveOnedrive" Content="DropboxGoogleDriveOnedrive" HorizontalAlignment="Left" Margin="334,0,0,0" VerticalAlignment="Top" Width="308"/>
+        <Label Content="Storage Parent Directory:" HorizontalAlignment="Left" Margin="183,0,0,0" VerticalAlignment="Top" Width="146"/>
         <ListView x:Name="lv_MasterList"                  
 
-            HorizontalAlignment="Left" Height="249" Margin="469,91,0,0" VerticalAlignment="Top" Width="181">
+            HorizontalAlignment="Left" Height="287" Margin="10,91,0,0" VerticalAlignment="Top" Width="405">
 
             <ListView.Resources>
                 <Style TargetType="{x:Type GridViewColumnHeader}">
@@ -43,20 +34,148 @@
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
-                    <EventSetter Event="UIElement.MouseUp" Handler="lv_MasterList_PreviewMouseDoubleClick"/>
+                    <EventSetter Event="UIElement.MouseUp" Handler="lv_MasterList_MouseUp"/>
                     <!--<EventSetter Event="RequestBringIntoView" Handler="RequestBringIntoView"></EventSetter>-->
                     <Setter Property="VerticalContentAlignment" Value="Top"/>
                 </Style>
             </ListView.ItemContainerStyle>
 
         </ListView>
-        <Button x:Name="buttonNew_in_Lieu_of_FromType" Content="New" HorizontalAlignment="Left" Margin="250,340,0,0" VerticalAlignment="Top" Width="87" Click="buttonNew_in_Lieu_of_FromType_Click"/>
-        <Button Content="Clean" HorizontalAlignment="Left" Margin="54,242,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label Content="Stick items into master list" HorizontalAlignment="Left" Margin="469,52,0,0" VerticalAlignment="Top" Width="176" Foreground="Red"/>
-        <Label x:Name="myLabel_Directory" Content="yyyyMMdd HHmm ss" HorizontalAlignment="Left" Margin="219,373,0,0" VerticalAlignment="Top" Width="373"/>
-        <Button x:Name="butIMAGE" Content="Clipboard Image To File" HorizontalAlignment="Left" Height="66" Margin="22,284,0,0" VerticalAlignment="Top" Width="196" Click="butIMAGE_Click"/>
-        <Button x:Name="buttonDelete_in_Lieu_of_FromType" Content="Delete" HorizontalAlignment="Left" Margin="337,340,0,0" VerticalAlignment="Top" Width="87" Click="buttonDelete_in_Lieu_of_FromType_Click" />
-        <Label x:Name="label_ProjectGUID" Content="label_ProjectGUID" HorizontalAlignment="Left" Margin="250,43,0,0" VerticalAlignment="Top" Width="395"/>
-        <Button x:Name="buttonNewFromRevit" Content="Select the fitting you wish to save&#xD;&#xA;to the database" HorizontalAlignment="Left" Height="66" Margin="22,119,0,0" VerticalAlignment="Top" Width="196" Click="buttonNewFromRevit_Click" />
+        <Label x:Name="myLabel_Directory" Content="yyyyMMdd HHmm ss" HorizontalAlignment="Left" Margin="515,698,0,0" VerticalAlignment="Top" Width="174"/>
+        <Button x:Name="butIMAGE" Content="Clipboard Image To File" HorizontalAlignment="Left" Height="32" Margin="650,385,0,0" VerticalAlignment="Top" Width="167" Click="butIMAGE_Click"/>
+        <Button x:Name="buttonDelete_in_Lieu_of_FromType" Content="Delete" HorizontalAlignment="Left" Margin="218,385,0,0" VerticalAlignment="Top" Width="88" Click="buttonDelete_in_Lieu_of_FromType_Click" />
+        <Label x:Name="label_ProjectGUID" Content="label_ProjectGUID" HorizontalAlignment="Left" Margin="280,700,0,0" VerticalAlignment="Top" Width="230"/>
+        <Button x:Name="buttonNewFromRevit" Content="New From Revit" HorizontalAlignment="Left" Height="20" Margin="98,385,0,0" VerticalAlignment="Top" Width="107" Click="buttonNewFromRevit_Click" />
+        <ListView x:Name="lv_ReorderThis" Margin="415,91,0,0" Height="287" VerticalAlignment="Top" HorizontalAlignment="Left" Width="402">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Item2}" Header="Parameter Name" Width="150" />
+                    <GridViewColumn Header="Param Value" Width="210">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Item3}" Width="200"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseDoubleClick" Handler="lv_Ordered_PreviewMouseDoubleClick"/>
+                    <!--<EventSetter Event="RequestBringIntoView" Handler="RequestBringIntoView"></EventSetter>-->
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+        </ListView>
+        <Label Content="Last synced:" HorizontalAlignment="Left" Margin="429,65,0,0" VerticalAlignment="Top" Width="76"/>
+        <Label Content="nicely formatted date" HorizontalAlignment="Left" Margin="510,65,0,0" VerticalAlignment="Top" Width="170"/>
+        <Button x:Name="but_moreParameters"    FontSize="14"   Content="More Parameters" HorizontalAlignment="Left" Margin="685,51,0,0" VerticalAlignment="Top" Width="132" Click="but_moreParameters_Click" Height="35"/>
+
+        <CheckBox IsChecked="{Binding ShowFolders}" Content="Show Folders" DockPanel.Dock="Left" VerticalAlignment="Top" Margin="26,706,1351,0"  />
+        <CheckBox IsChecked="{Binding ShowFiles}" Content="Show Files" DockPanel.Dock="Left" VerticalAlignment="Top" Margin="143,706,1243,0" />
+        <Slider x:Name="slider" Value="75" Maximum="150" Minimum="16" MinWidth="300" ToolTip="{Binding ElementName=slider, Path=Value}" Margin="22,675,677,30"/>
+        <TextBlock Text="Drag and drop file(s) here"  Foreground="Gray" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="163,538,0,0" Height="60" Width="433" FontSize="36"/>
+        <ListBox x:Name="lb_listBox"   ItemsSource="{Binding Files}" AllowDrop="True" HorizontalAlignment="Left" Height="248" Margin="10,422,0,0" VerticalAlignment="Top" Width="807"   Drop="lv_DragDirectory_Drop" DragEnter="DropBorder_OnDragEnter" DragLeave="DropBorder_OnPreviewDragLeave" Background="{StaticResource SharedBackgroundBrush}">
+
+
+            <ListBox.ItemContainerStyle>
+
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <EventSetter Event="PreviewMouseDoubleClick" Handler="ListBoxItem_PreviewMouseDoubleClick"/>
+                    <!--<EventSetter Event="RequestBringIntoView" Handler="RequestBringIntoView"></EventSetter>-->
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True" >
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="Background" Value="LightBlue" />
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="1" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                    </Style.Resources>
+
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.Style>
+                <Style>
+                    <Style.Triggers>
+                        <Trigger Property="local:DragDropHelper.IsDragOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.Target="{StaticResource SharedBackgroundBrush}" Storyboard.TargetProperty="Color">
+                                        <ColorAnimation From="Transparent" To="LightGreen" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.Target="{StaticResource SharedBackgroundBrush}" Storyboard.TargetProperty="Color">
+                                        <ColorAnimation From="LightGreen" To="Transparent" Duration="0:0:0.2" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Style>
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" 
+                               Width="{Binding ActualWidth,RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+
+                    <DockPanel >
+                        <TextBlock Text="{Binding Converter={x:Static t:PathToNameConverter.Instance}}"  TextAlignment="Center"
+                                   TextTrimming="CharacterEllipsis" DockPanel.Dock="Bottom" Width="{Binding ElementName=slider, Path=Value}" />
+                        <Image x:Name="img" Height="{Binding ElementName=slider, Path=Value}" Width="{Binding ElementName=slider, Path=Value}" Stretch="UniformToFill">
+                            <Image.Source>
+                                <MultiBinding Converter="{StaticResource fic}">
+                                    <Binding />
+                                    <Binding ElementName="slider" Path="Value" />
+                                </MultiBinding >
+                            </Image.Source>
+                            <Image.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Open" Click="Open_Click"/>
+                                    <MenuItem Header="Open with..." Click="Openwith_Click"/>
+                                    <MenuItem Header="Delete" Click="Delete_Click"/>
+                                </ContextMenu>
+                            </Image.ContextMenu>
+                        </Image>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Image Grid.Column="0" Source="PRLoogle Graphic-4.png" Height="60" VerticalAlignment="Top" Margin="326,3,688,0"/>
+        <Image Grid.Column="0" Source="PRLoogle Graphic-4.png" Height="60" VerticalAlignment="Top" Margin="326,3,688,0"/>
+        <TextBox
+            x:Name="textBoxSearch"
+            Height="35"
+            Margin="10,51,0,0"
+            VerticalAlignment="Top"
+            BorderThickness="3"
+            FontSize="16"
+            TextWrapping="Wrap" KeyUp="textBoxSearch_KeyUp" TextChanged="textBoxSearch_TextChanged" HorizontalAlignment="Left" Width="307" />
+        <Button
+            x:Name="buttonClearSearchField" Margin="322,51,0,0"           FontSize="14"   Width="93"
+            Height="35" VerticalAlignment="Top" HorizontalAlignment="Left"
+  
+            Click="buttonClearSearchField_Click"           Content="Clear ✖"/>
+        <Label Content="Search Tip: Use the Reference e.g. &quot;L3.5&quot;" HorizontalAlignment="Left" Margin="13,23,0,0" VerticalAlignment="Top" Width="293" Height="26"/>
     </Grid>
 </Window>

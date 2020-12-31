@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("startdb.db")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sqlite.interop.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("startdb.db")]
 
 
