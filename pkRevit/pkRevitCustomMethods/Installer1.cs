@@ -54,6 +54,12 @@ namespace pkRevitCustomMethods
             rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("XceedVersion", typeof(Xceed.Wpf.Toolkit.PropertyGrid.PropertyGrid).Assembly.FullName);
             rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("OokiiVersion", typeof(Ookii.Dialogs.Wpf.CredentialDialog).Assembly.FullName);
             rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("SQLite", typeof(System.Data.SQLite.SQLiteConnection).Assembly.FullName);
+            rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("WindowsAPICodePack", typeof(Microsoft.WindowsAPICodePack.Controls.CommonControlException).Assembly.FullName);
+            rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("WindowsAPICodePackShell", typeof(Microsoft.WindowsAPICodePack.Shell.AeroGlassCompositionChangedEventArgs).Assembly.FullName);
+
+            
+            //////Assembly.Load(File.ReadAllBytes(@"R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\Microsoft.WindowsAPICodePack.dll"));
+            //////Assembly.Load(File.ReadAllBytes(@"R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll"));
 
             //rkbase.CreateSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree).SetValue("SQLite", typeof(System.Data.stu).Assembly.FullName);
             //2 August 2019: End.

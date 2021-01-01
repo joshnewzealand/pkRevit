@@ -392,7 +392,7 @@ namespace QuickZip.Tools
         private ImageSource addToDic(string fileName, IconSize size)
         {
             string key = returnKey(fileName, size);
-            string stringstring = @"C:\Users\Joshua\Dropbox\pkRevit Storage (do not edit directly)\Database File\Admin Storage\20201229 1732 57\002 LR LR install studio and microsoft installer projects.pdf";
+        //    string stringstring = @"C:\Users\Joshua\Dropbox\pkRevit Storage (do not edit directly)\Database File\Admin Storage\20201229 1732 57\002 LR LR install studio and microsoft installer projects.pdf";
 
 
             if (size == IconSize.thumbnail || isExecutable(fileName))
@@ -582,13 +582,29 @@ namespace QuickZip.Tools
         #region IMultiValueConverter Members
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            int eL = -1;
             int size = defaultsize;
-            if (values.Length > 1 && values[1] is double)
-                size = (int)(float)(double)values[1];
 
-            if (values[0] is string)
-                return GetImage(values[0] as string, size);
-            else return GetImage("", size);
+            try
+            {
+                if (values.Length > 1 && values[1] is double)
+                    size = (int)(float)(double)values[1];
+
+                if (values[0] is string)
+                    return GetImage(values[0] as string, size);
+                else return GetImage("", size);
+            }
+
+            #region catch and finally
+            catch (Exception ex)
+            {
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("Convert, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+            }
+            finally
+            {
+            }
+            #endregion
+            return GetImage("", size);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

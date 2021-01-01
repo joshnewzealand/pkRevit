@@ -29,3 +29,13 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Deb
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Microsoft.WindowsAPICodePack.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Microsoft.WindowsAPICodePack.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Microsoft.WindowsAPICodePack.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Microsoft.WindowsAPICodePack.Shell.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Microsoft.WindowsAPICodePack.ShellExtensions.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.csproj.CoreCompileInputs.cache

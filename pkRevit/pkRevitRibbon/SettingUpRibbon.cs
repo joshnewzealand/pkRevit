@@ -48,6 +48,7 @@ namespace pkRevitRibbon
             string stringProductVersion = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("ProductVersion").ToString();
             ComboBox01.AddItem(new ComboBoxMemberData("Release", "Release: " + stringProductVersion));
             ComboBox01.AddItem(new ComboBoxMemberData("Development", "C# Developer Mode"));
+            ComboBox01.Current = ComboBox01.GetItems()[0];
             ComboBox01.CurrentChanged += new EventHandler<Autodesk.Revit.UI.Events.ComboBoxCurrentChangedEventArgs>(SwitchBetweenDeveloperAndRelease);
 
             RibbonPanelCurrent.AddSeparator();

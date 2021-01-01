@@ -96,14 +96,25 @@ namespace pkRevitDatasheets
             #endregion
         }
 
+        bool bool_ClosingForeReal { get; set; } = false;
+
+        public void closeSpecial()
+        {
+            bool_ClosingForeReal = true;
+            Close();
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             int eL = -1;
 
             try
             {
-                Hide();
-                e.Cancel = true;
+                if(!bool_ClosingForeReal)
+                {
+                    Hide();
+                    e.Cancel = true;
+                }
             }
 
             #region catch and finally

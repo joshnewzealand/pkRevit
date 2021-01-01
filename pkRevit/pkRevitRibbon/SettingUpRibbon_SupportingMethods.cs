@@ -28,7 +28,6 @@ namespace pkRevitRibbon
 
     public class RibbonSupportMethods
     {
-
         public SettingUpRibbon mySettingUpRibbon { get; set; }
 
         public static void loadPackages()
@@ -39,6 +38,8 @@ namespace pkRevitRibbon
             string stringTargetOokiiVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("OokiiVersion").ToString();
             string stringTargetXceedVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("XceedVersion").ToString();
             string stringTargetSQLiteVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLite").ToString();
+            string stringWindowsAPICodePack = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("WindowsAPICodePack").ToString();
+            string stringWindowsAPICodePackShell = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("WindowsAPICodePackShell").ToString();
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetOokiiVersion).Count() == 0)
             {
                 string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
@@ -53,6 +54,16 @@ namespace pkRevitRibbon
             {
                 string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
                 Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\System.Data.SQLite.dll"));
+            }
+            if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringWindowsAPICodePack).Count() == 0)
+            {
+                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+                Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\Microsoft.WindowsAPICodePack.dll"));
+            }
+            if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringWindowsAPICodePackShell).Count() == 0)
+            {
+                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+                Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\Microsoft.WindowsAPICodePack.Shell.dll"));
             }
             //2 August 2019: End.
 
@@ -87,7 +98,6 @@ namespace pkRevitRibbon
 
             return dlg;
         }
-
 
 
         public string exeConfigPath(string path)

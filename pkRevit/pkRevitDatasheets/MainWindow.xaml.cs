@@ -27,6 +27,7 @@ using System.ComponentModel;
 using QuickZip.Tools;
 using System.Windows.Controls;
 using System.Drawing;
+using System.Windows.Media;
 
 namespace pkRevitDatasheets
 {
@@ -105,24 +106,48 @@ namespace pkRevitDatasheets
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(
-                    this,
-                    new PropertyChangedEventArgs(propertyName)
-                    );
-            }
-             
-            //Lazy =D
-            if (propertyName == "Path" || propertyName == "ShowFiles" || propertyName == "ShowFolders")
-            {
-                _view.ClearCache();
-                List<string> folderAndFiles = new List<string>();
-                if (ShowFolders) folderAndFiles.AddRange(Directory.GetDirectories(Path).ToArray());
-                if (ShowFiles) folderAndFiles.AddRange(Directory.GetFiles(Path).Where(x => (new FileInfo(x).Attributes & FileAttributes.Hidden) == 0).ToArray());
+            int eL = -1;
 
-                Files = folderAndFiles.ToArray();
+            try
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(
+                        this,
+                        new PropertyChangedEventArgs(propertyName)
+                        );
+                }
+
+                //////if (Path != "")
+                //////{
+                //Lazy =D
+                if (propertyName == "Path" || propertyName == "ShowFiles" || propertyName == "ShowFolders")
+                    {
+                        _view.ClearCache();
+                        List<string> folderAndFiles = new List<string>();
+                        if (ShowFolders) folderAndFiles.AddRange(Directory.GetDirectories(Path).ToArray());
+                        if (ShowFiles) folderAndFiles.AddRange(Directory.GetFiles(Path).Where(x => (new FileInfo(x).Attributes & FileAttributes.Hidden) == 0).ToArray());
+
+                        Files = folderAndFiles.ToArray();
+                    }
+                //////}
+                //////else
+                //////{
+                //////    _view.ClearCache();
+                //////    Files = new List<string>().ToArray();
+                //////}
+
             }
+
+            #region catch and finally
+            catch (Exception ex)
+            {
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("OnPropertyChanged, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+            }
+            finally
+            {
+            }
+            #endregion
         }
     }
 
@@ -159,31 +184,41 @@ namespace pkRevitDatasheets
         {
             named_guid = ng;
 
-            //////Assembly.Load(File.ReadAllBytes(@"R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\Microsoft.WindowsAPICodePack.dll"));
-            //////Assembly.Load(File.ReadAllBytes(@"R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll"));
-
             win_moreParam = new Window_MoreParameters(this);
+
+            this.Top = Properties.Settings.Default.Top;
+            this.Left = Properties.Settings.Default.Left;
             InitializeComponent();
+            this.slider.Value = Properties.Settings.Default.DoubleSlider;
+            buttonNewFromRevit.IsEnabled = true;
+
+            textBoxSearch.Foreground = new SolidColorBrush(Colors.Gray);
+            this.textBoxSearch.Text = "Type anything ... to search";
+
+            this.textBoxSearch.GotFocus += (source, e) =>
+            {
+                this.textBoxSearch.Text = "";
+                this.textBoxSearch.Foreground = new SolidColorBrush(Colors.Black);
+            };
+
+            this.textBoxSearch.LostFocus += (source, e) =>
+            {
+                if (string.IsNullOrEmpty(this.textBoxSearch.Text))
+                {
+                    this.textBoxSearch.Text = "Type anything here ... to search";
+                    this.textBoxSearch.Foreground = new SolidColorBrush(Colors.Gray);
+                }
+            };
 
             // buttonNewFromRevit.Click += new RoutedEventHandler(buttonNewFromRevit_Click);  //buttonNewFromRevit_Click
 
             //fe0a121e-b4e2-47c5-85a1-e8da1ccf6a87
 
-            buttonNewFromRevit.Click += new RoutedEventHandler(buttonNewFromRevit_Click_Alternative);
+            // buttonNewFromRevit.Click += new RoutedEventHandler(buttonNewFromRevit_Click_Alternative);
 
-            model = new Model(this);
-            DataContext = model;
-            model.Path = @"C:\Users\Joshua\Dropbox\pkRevit Storage (do not edit directly)\Database File\Admin Storage\20201229 1732 57";
-            ///model.Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            FileToIconConverter fic = this.Resources["fic"] as FileToIconConverter;
-            fic.DefaultSize = 200;
-            lb_listBox.AddHandler(System.Windows.Controls.ListViewItem.PreviewMouseDownEvent, new MouseButtonEventHandler(list_MouseDown));
+        }
 
-            buttonNewFromRevit.Click -= new RoutedEventHandler(buttonNewFromRevit_Click);
-            buttonNewFromRevit.Click += new RoutedEventHandler(buttonNewFromRevit_Click_Alternative);
-         }
-
-        //named_guid
+        //named_guid focus
 
         ///unique id for the project please
         ///unique id for the type please, this is just element ID which is fine
@@ -213,13 +248,11 @@ namespace pkRevitDatasheets
         ///+2 i want the properties to show up on double click a it appears in the schedule, these form the basis of search terms, if fact it will update search terms on each click over
         ///get it to open in revit now figure out how many dlls need to be loaded
         ///.
-        ///keep focusing on dragging on stuff, 
-        ///keep focusing on dragging on stuff 
-        ///keep focusing on dragging on stuff
         ///.
-        ///get the delete button working, this shouldn't take 5 minutes with an are you sure
-        ///then get it working and tested with revit, and then you can delte the 3 lines above
-        ///rename the table, then get the search box working
+        ///get the 'one level up' button working
+        ///filer, filter, filter, filter, filter, filter, filter 
+        ///filer, filter, filter, filter, filter, filter, filter 
+        ///filer, filter, filter, filter, filter, filter, filter  and remember the index will break down when this happens
 
         public void ClearCache()
         {
@@ -234,22 +267,43 @@ namespace pkRevitDatasheets
             named_guid = Guid.Parse("00000000-0000-0000-0000-000000000000");
 
             win_moreParam = new Window_MoreParameters(this);
-            InitializeComponent();
 
-            model = new Model(this);
-            DataContext = model;
-            model.Path = @"C:\Users\Joshua\Dropbox\pkRevit Storage (do not edit directly)\Database File\Admin Storage\20201229 1732 57";
+            this.Top = Properties.Settings.Default.Top;
+            this.Left = Properties.Settings.Default.Left;
+            InitializeComponent();
+            this.slider.Value = Properties.Settings.Default.DoubleSlider;
+
+            textBoxSearch.Foreground = new SolidColorBrush(Colors.Gray);
+            this.textBoxSearch.Text = "Type anything ... to search";
+
+            this.textBoxSearch.GotFocus += (source, e) =>
+            {
+                    this.textBoxSearch.Text = "";
+                    this.textBoxSearch.Foreground = new SolidColorBrush(Colors.Black);
+            };
+
+            this.textBoxSearch.LostFocus += (source, e) =>
+            {
+                if (string.IsNullOrEmpty(this.textBoxSearch.Text))
+                {
+                    this.textBoxSearch.Text = "Type anything here ... to search";
+                    this.textBoxSearch.Foreground = new SolidColorBrush(Colors.Gray); 
+                }
+            };
+
+
+
+            ////////////model = new Model(this);
+            ////////////DataContext = model;
+            ////////////model.Path = @"C:\Users\Joshua\Dropbox\pkRevit Storage (do not edit directly)\Database File\Admin Storage\20201229 1732 57";
             ///model.Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            FileToIconConverter fic = this.Resources["fic"] as FileToIconConverter;
-            fic.DefaultSize = 200;
-            lb_listBox.AddHandler(System.Windows.Controls.ListViewItem.PreviewMouseDownEvent, new MouseButtonEventHandler(list_MouseDown));
-             
+            ////////////FileToIconConverter fic = this.Resources["fic"] as FileToIconConverter;
+            ////////////fic.DefaultSize = 200;
+            ////////////lb_listBox.AddHandler(System.Windows.Controls.ListViewItem.PreviewMouseDownEvent, new MouseButtonEventHandler(list_MouseDown));
+
             buttonNewFromRevit.Click -= new RoutedEventHandler(buttonNewFromRevit_Click);
             buttonNewFromRevit.Click += new RoutedEventHandler(buttonNewFromRevit_Click_Alternative);
         }
-
-
-        
 
         private void DropBorder_OnDragEnter(object sender, DragEventArgs e)
         {
@@ -323,7 +377,6 @@ namespace pkRevitDatasheets
             #endregion
         }
 
-
         private void Open_Click(object sender, RoutedEventArgs e)
         {
             int eL = -1;
@@ -371,11 +424,25 @@ namespace pkRevitDatasheets
             try
             {
                 //(string)lb_listBox.SelectedItem
+                //System.Diagnostics.Process.Start((string)lb_listBox.SelectedItem);
 
+                MessageBoxResult result = System.Windows.MessageBox.Show("Delete '" + Path.GetFileNameWithoutExtension((string)lb_listBox.SelectedItem) + "'?", "Warning", System.Windows.MessageBoxButton.YesNoCancel);
 
+                if (result == MessageBoxResult.Yes)
+                {
+                    File.Delete((string)lb_listBox.SelectedItem);
 
+                    methodRefresh_LoadUp_lvDragDirectory(LoadDirectoryOrNot.LoadIconDirectoryOnly);
+                }
+                else if (result == MessageBoxResult.No)
+                {
+                    //code for No
+                }
+                else if (result == MessageBoxResult.Cancel)
+                {
+                    //code for Cancel
+                }
             }
-
             #region catch and finally
             catch (Exception ex)
             {
@@ -387,7 +454,7 @@ namespace pkRevitDatasheets
             #endregion
         }
 
-        private void buttonSetStoreFolder_Click(object sender, RoutedEventArgs e) //keep this one here to copy the try statement
+        private void buttonSetStoreFolder_Click(object sender, RoutedEventArgs e) //focus2 keep this one here to copy the try statement
         {
             int eL = -1;
 
@@ -517,15 +584,46 @@ namespace pkRevitDatasheets
                 } //directory setups please collapse
                 eL = 239;
 
+
+                model = new Model(this);
+                DataContext = model;
+
+                if (dataTable.Rows.Count != 0)
+                {
+                    string string_DirectoryToCreate = label_DropboxGoogleDriveOnedrive.Content + @"\pkRevit Storage (do not edit directly)\Database File";
+                    string string_DirectoryToCreate_Storage = string_DirectoryToCreate + @"\Admin Storage\";
+
+                    /////////////////////////////model.Path = string_DirectoryToCreate_Storage + dataTable.DefaultView[0]["FolderName"];
+                    ///model.Path = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    FileToIconConverter fic = this.Resources["fic"] as FileToIconConverter;
+                    fic.DefaultSize = 200;
+                    lb_listBox.AddHandler(System.Windows.Controls.ListViewItem.PreviewMouseDownEvent, new MouseButtonEventHandler(list_MouseDown));
+                }
+                //DropboxOrGoogleDriveOrOnedrive_Path
+
+
                 method_LoadUpMasterList();
 
                 eL = 343;
 
-                if (lv_MasterList.Items.Count != 0)
+               // MessageBox.Show(Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive.ToString());
+
+                if(Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive != -1)
                 {
-                    lv_MasterList.SelectedIndex = Properties.Settings.Default.lvMasterListSelectedIndex;
-                    methodRefresh_LoadUp_lvDragDirectory(LoadDirectoryOrNot.LoadEverything);
+                    eL = 614;
+                    if (Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive < dataTable.Rows.Count)
+                    {
+                        eL = 617;
+                        lv_MasterList.SelectedIndex = Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive;
+                        methodRefresh_LoadUp_lvDragDirectory(LoadDirectoryOrNot.LoadEverything);
+                    }else
+                    {
+                        eL = 622;
+                        lv_MasterList.SelectedIndex = 0;
+                        methodRefresh_LoadUp_lvDragDirectory(LoadDirectoryOrNot.LoadEverything);
+                    }
                 }
+
 
                 //MessageBox.Show(dataTable.Rows.Count.ToString());
 
@@ -546,7 +644,7 @@ namespace pkRevitDatasheets
         public void method_LoadUpMasterList()
         {
             dataTable.Clear();
-            dataTable = GetDataTable("SELECT * FROM [JustSomeDragging] order by [SortOrder] desc ");
+            dataTable = GetDataTable("SELECT * FROM [pkRevitMasterTable] order by [SortOrder] desc ");
             lv_MasterList.ItemsSource = dataTable.DefaultView;
         }
 
@@ -777,20 +875,20 @@ namespace pkRevitDatasheets
             #endregion
         }
 
-        private string method_XML_Parameters_BuiltIn()
+        private string method_XML_Parameters_BuiltIn(string s)
         {
             string string_DirectoryToCreate_Storage = method_Storage_DBFile_Directory() + @"\Admin Storage";
-            string DirPath_Date_Dir = string_DirectoryToCreate_Storage + "\\" + ((DataRowView)lv_MasterList.SelectedItem)["FolderName"] + @"\\";
+            string DirPath_Date_Dir = string_DirectoryToCreate_Storage + "\\" + (s == "" ? ((DataRowView)lv_MasterList.SelectedItem)["FolderName"] : s) + @"\\";
 
             string myXmlFilePath = DirPath_Date_Dir + "Parameters_BuiltIn.xml";
 
             return myXmlFilePath;
         }
 
-        private string method_XML_Parameters_Shared()
+        private string method_XML_Parameters_Shared(string s)
         {
             string string_DirectoryToCreate_Storage = method_Storage_DBFile_Directory() + @"\Admin Storage";
-            string DirPath_Date_Dir = string_DirectoryToCreate_Storage + "\\" + ((DataRowView)lv_MasterList.SelectedItem)["FolderName"] + @"\\";
+            string DirPath_Date_Dir = string_DirectoryToCreate_Storage + "\\" + (s == "" ? ((DataRowView)lv_MasterList.SelectedItem)["FolderName"] : s) + @"\\";
 
             string myXmlFilePath = DirPath_Date_Dir + "Parameters_Shared.xml";
 
@@ -810,7 +908,7 @@ namespace pkRevitDatasheets
         {
             if(true)
             {
-                string fileString = method_XML_Parameters_BuiltIn();
+                string fileString = method_XML_Parameters_BuiltIn("");
 
                 if (System.IO.File.Exists(fileString))
                 {
@@ -827,7 +925,7 @@ namespace pkRevitDatasheets
 
             if (true)
             {
-                string fileString = method_XML_Parameters_Shared();
+                string fileString = method_XML_Parameters_Shared("");
 
                 if (System.IO.File.Exists(fileString))
                 {
@@ -890,14 +988,14 @@ namespace pkRevitDatasheets
                 MessageBox.Show("Directory has been deleted.");
 
 
-                lb_listBox.Items.Clear();
+                ///lb_listBox.Items.Clear();
                 lb_listBox.IsEnabled = false;
                 return false;
             }
 
             if (whatToLoad == LoadDirectoryOrNot.LoadEverything)
             {
-                Properties.Settings.Default.lvMasterListSelectedIndex = lv_MasterList.SelectedIndex;
+                Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive = lv_MasterList.SelectedIndex;
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
@@ -909,7 +1007,17 @@ namespace pkRevitDatasheets
             } //just directory refresh
 
 
+            ////if (lb_listBox.ItemsSource == null)
+            ////{
+            ////    lb_listBox.ItemsSource = model.Files;
+            ////    ////model = new Model(this);
+            ////    ////DataContext = model;
+            ////}
+
             model.Path = myString_DataStore;
+
+
+
 
             if (whatToLoad == LoadDirectoryOrNot.LoadEverything)
             {
@@ -1014,17 +1122,30 @@ namespace pkRevitDatasheets
                                                   select myRow;
 
                 results = from myRow in results.Cast<DataRow>()
-                          where Guid.Parse(Encoding.ASCII.GetString(myRow.Field<byte[]>("ProjectGUID"))) == named_guid 
-                                                  select myRow;
+                          where Guid.Parse(Encoding.ASCII.GetString(myRow.Field<byte[]>("ProjectGUID"))) == named_guid
+                          select myRow;
 
+                string myString_Date = "";
 
                 if (results.Cast<DataRow>().Count() != 0)
                 {
                     lv_MasterList.SelectedIndex = dataTable.Rows.IndexOf(results.Cast<DataRow>().First());
-                }
-                else
+                    new FileInfo(method_XML_Parameters_BuiltIn("")).Attributes &= ~FileAttributes.Hidden;
+                    new FileInfo(method_XML_Parameters_Shared("")).Attributes &= ~FileAttributes.Hidden;
+                } else
                 {
-                    method_NewEntry(elementType.Id.IntegerValue);
+                    string string_DirectoryToCreate_Storage = method_Storage_DBFile_Directory() + @"\Admin Storage";
+
+                    myString_Date = DateTime.Now.ToString("yyyyMMdd HHmm ss");
+                    string myString_DataStore = string_DirectoryToCreate_Storage + "\\" + myString_Date;
+
+                    if (System.IO.Directory.Exists(myString_DataStore))
+                    {
+                        MessageBox.Show("Please allow 1 second between clicks to avoid duplicates.");
+                        return;
+                    }
+
+                    System.IO.Directory.CreateDirectory(myString_DataStore);
                 }
 
 
@@ -1067,23 +1188,46 @@ namespace pkRevitDatasheets
 
                 if (true)
                 {
-                    Stream stream = new FileStream(method_XML_Parameters_BuiltIn(), FileMode.Create, FileAccess.Write);
+                    Stream stream = new FileStream(method_XML_Parameters_BuiltIn(myString_Date), FileMode.Create, FileAccess.Write);
                     DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<int, NameAndValue>));  //four of four
                     serializer.WriteObject(stream, dictParameters_BuiltInt); stream.Close();
-                    new FileInfo(method_XML_Parameters_BuiltIn()).Attributes |= FileAttributes.Hidden;
+                    new FileInfo(method_XML_Parameters_BuiltIn(myString_Date)).Attributes |= FileAttributes.Hidden;
                 }
                 eL = 889;
                 if (true)
                 {
-                    Stream stream = new FileStream(method_XML_Parameters_Shared(), FileMode.Create, FileAccess.Write);
+                    Stream stream = new FileStream(method_XML_Parameters_Shared(myString_Date), FileMode.Create, FileAccess.Write);
                     DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<Guid, NameAndValue>));  //four of four
                     serializer.WriteObject(stream, dictParameters_Shared); stream.Close();
-                    new FileInfo(method_XML_Parameters_Shared()).Attributes |= FileAttributes.Hidden;
+                    new FileInfo(method_XML_Parameters_Shared(myString_Date)).Attributes |= FileAttributes.Hidden;
                 }
                 eL = 756;
 
-                methodRefresh_LoadUp_lvDragDirectory(LoadDirectoryOrNot.LoadEverything);
 
+                if (results.Cast<DataRow>().Count() != 0)
+                {
+                   // MessageBox.Show(results.Cast<DataRow>().ToList()[0][0].ToString() + string_SearchStringAccumlation());
+
+                    method_UpdateEntry((Int64) results.Cast<DataRow>().ToList()[0][0], string_SearchStringAccumlation());
+
+                    Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive = lv_MasterList.SelectedIndex;
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+
+                }
+                else
+                {
+                    method_NewEntry(elementType.Id.IntegerValue, myString_Date, string_SearchStringAccumlation());
+
+                    Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive = 0;
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+                }
+
+                method_LoadUpMasterList();
+                lv_MasterList.SelectedIndex = Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive;
+
+                methodRefresh_LoadUp_lvDragDirectory(LoadDirectoryOrNot.LoadEverything);
             }
 
             #region catch and finally
@@ -1097,46 +1241,15 @@ namespace pkRevitDatasheets
             #endregion
         }
 
-        private void method_NewEntry(Int64 FamilySymbolID)
-        {
-            //find the family id in this project document, but is this the correct way to do it
 
-            string string_DirectoryToCreate_Storage = method_Storage_DBFile_Directory() + @"\Admin Storage";
 
-            string myString_Date = DateTime.Now.ToString("yyyyMMdd HHmm ss");
-            string myString_DataStore = string_DirectoryToCreate_Storage + "\\" + myString_Date;
 
-            if (System.IO.Directory.Exists(myString_DataStore))
-            {
-                MessageBox.Show("Please allow 1 second between clicks to avoid duplicates.");
-                return;
-            }
 
-            System.IO.Directory.CreateDirectory(myString_DataStore);
-            Int64 Int64_LastMaxCount = methodNewScalar("JustSomeDragging");
 
-            OleDbConnection_ButtonOK = reconnectPrivateFlexible(false, string_DatabaseLocation, connRLPrivateFlexible);
-            using (SQLiteCommand cmdInsert = ConnectionCommandType(OleDbConnection_ButtonOK))
-            {
-                cmdInsert.CommandText = @"INSERT INTO [JustSomeDragging] ([FolderName],[SortOrder],[SearchTerms],[ProjectGUID],[FamilySymbolID]) values (@a,@b,@c,@d,@e)";
-                cmdInsert.Parameters.Clear();
-                cmdInsert.Parameters.AddWithValue("@a", myString_Date);
-                cmdInsert.Parameters.AddWithValue("@b", Int64_LastMaxCount);
-                cmdInsert.Parameters.AddWithValue("@c", "test search term");
-                cmdInsert.Parameters.AddWithValue("@d", GuidToByteArray(named_guid.ToString()));
-                cmdInsert.Parameters.AddWithValue("@e", FamilySymbolID);
 
-                OleDbConnection_ButtonOK.Open();
-                cmdInsert.ExecuteNonQuery();
-                OleDbConnection_ButtonOK.Close();
-                OleDbConnection_ButtonOK.Dispose();
-                GC.Collect();
-            }
 
-            //int int_PreviousSelectedIndex = lv_MasterList.SelectedIndex;
-            method_LoadUpMasterList();
-            lv_MasterList.SelectedIndex = 0;
-        }
+
+
 
         public static byte[] GuidToByteArray(string guidData)
         {
@@ -1204,6 +1317,8 @@ namespace pkRevitDatasheets
                 }
 
                 methodRefresh_LoadUp_lvDragDirectory(LoadDirectoryOrNot.LoadIconDirectoryOnly);
+
+                DragDropHelper.SetIsDragOver((DependencyObject)sender, false);
             }
 
             #region catch and finally
@@ -1294,10 +1409,19 @@ namespace pkRevitDatasheets
 
             try
             {
+                MessageBoxResult result = System.Windows.MessageBox.Show("Deleting the selected item." + Environment.NewLine + Environment.NewLine + "Are you really sure?", "", System.Windows.MessageBoxButton.YesNoCancel);
+
+
+                if (result != MessageBoxResult.Yes)
+                {
+                    return;
+                }
+
+
                 OleDbConnection_ButtonOK = reconnectPrivateFlexible(false, string_DatabaseLocation, connRLPrivateFlexible);
                 using (SQLiteCommand cmdInsert = ConnectionCommandType(OleDbConnection_ButtonOK))
                 {
-                    cmdInsert.CommandText = @"delete from JustSomeDragging where FolderName = '" + ((DataRowView)lv_MasterList.SelectedItem)["FolderName"] + "';";
+                    cmdInsert.CommandText = @"delete from pkRevitMasterTable where FolderName = '" + ((DataRowView)lv_MasterList.SelectedItem)["FolderName"] + "';";
 
                     OleDbConnection_ButtonOK.Open();
                     //   if (!myMainWindow.boolDeveloperMode) cmdInsert.ExecuteNonQueryAsync();
@@ -1309,7 +1433,7 @@ namespace pkRevitDatasheets
 
                 if (((DataRowView)lv_MasterList.SelectedItem)["FolderName"] == myLabel_Directory.Content)
                 {
-                    lb_listBox.Items.Clear();
+                    model.Files = new List<string>().ToArray();
                     myLabel_Directory.Content = "yyyyMMdd HHmm ss";
                     lb_listBox.IsEnabled = false;
                 }
@@ -1361,7 +1485,16 @@ namespace pkRevitDatasheets
 
             try
             {
-                win_moreParam.Close();
+                Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive = lv_MasterList.SelectedIndex;
+
+                Properties.Settings.Default.Top = this.Top;
+                Properties.Settings.Default.Left = this.Left;
+                Properties.Settings.Default.Height = this.Height;
+                Properties.Settings.Default.Width = this.Width;
+                Properties.Settings.Default.DoubleSlider = this.slider.Value;
+                Properties.Settings.Default.Save();
+
+                win_moreParam.closeSpecial();
             }
 
             #region catch and finally
@@ -1407,5 +1540,110 @@ namespace pkRevitDatasheets
             #endregion
         }
 
+
+        private void method_UpdateEntry(Int64 index, string str_SearchTerms)
+        {
+
+            OleDbConnection_ButtonOK = reconnectPrivateFlexible(false, string_DatabaseLocation, connRLPrivateFlexible);
+            using (SQLiteCommand cmdInsert = ConnectionCommandType(OleDbConnection_ButtonOK))
+            {
+                cmdInsert.CommandText = @"update [pkRevitMasterTable] SET [SearchTerms] = @a WHERE ID = @b";
+                cmdInsert.Parameters.Clear();
+                cmdInsert.Parameters.AddWithValue("@a", str_SearchTerms);
+                cmdInsert.Parameters.AddWithValue("@b", index);
+
+                OleDbConnection_ButtonOK.Open();
+                cmdInsert.ExecuteNonQuery();
+                OleDbConnection_ButtonOK.Close();
+                OleDbConnection_ButtonOK.Dispose();
+                GC.Collect();
+            }
+        }
+
+
+        private void method_NewEntry(Int64 FamilySymbolID, string str_String_Date, string str_SearchTerms)
+        {
+            Int64 Int64_LastMaxCount = methodNewScalar("pkRevitMasterTable");
+
+            OleDbConnection_ButtonOK = reconnectPrivateFlexible(false, string_DatabaseLocation, connRLPrivateFlexible);
+            using (SQLiteCommand cmdInsert = ConnectionCommandType(OleDbConnection_ButtonOK))
+            {
+                cmdInsert.CommandText = @"INSERT INTO [pkRevitMasterTable] ([FolderName],[SortOrder],[SearchTerms],[ProjectGUID],[FamilySymbolID]) values (@a,@b,@c,@d,@e)";
+                cmdInsert.Parameters.Clear();
+                cmdInsert.Parameters.AddWithValue("@a", str_String_Date);
+                cmdInsert.Parameters.AddWithValue("@b", Int64_LastMaxCount);
+                cmdInsert.Parameters.AddWithValue("@c", str_SearchTerms);
+                cmdInsert.Parameters.AddWithValue("@d", GuidToByteArray(named_guid.ToString()));
+                cmdInsert.Parameters.AddWithValue("@e", FamilySymbolID);
+
+                OleDbConnection_ButtonOK.Open();
+                cmdInsert.ExecuteNonQuery();
+                OleDbConnection_ButtonOK.Close();
+                OleDbConnection_ButtonOK.Dispose();
+                GC.Collect();
+            }
+        }
+
+        private string string_SearchStringAccumlation()
+        {
+            string str_SearchStringAccumlation = "";
+
+            if (true)
+            {
+                Stream stream = new FileStream(string_Default_Parameters_BuiltIn, FileMode.Open, FileAccess.Read);
+                DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<int, int>));   //one of four
+                dict_SortOrdered_BuiltIn = serializer.ReadObject(stream) as Dictionary<int, int>; stream.Close();  //two of four
+
+                foreach (KeyValuePair<int, int> kpv in dict_SortOrdered_BuiltIn)
+                {
+                    if (dictParameters_BuiltInt.ContainsKey(kpv.Value))
+                    {
+                        str_SearchStringAccumlation = str_SearchStringAccumlation + "," + dictParameters_BuiltInt[kpv.Value].sValue;
+                    }
+                }
+            }
+
+            if (true)
+            {
+                Stream stream = new FileStream(string_Default_Parameters_Shared, FileMode.Open, FileAccess.Read);
+                DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<int, Guid>));   //one of four
+                dict_SortOrdered_Shared = serializer.ReadObject(stream) as Dictionary<int, Guid>; stream.Close();  //two of four
+
+                foreach (KeyValuePair<int, Guid> kpv in dict_SortOrdered_Shared)
+                {
+                    if (dictParameters_Shared.ContainsKey(kpv.Value))
+                    {
+                        str_SearchStringAccumlation = str_SearchStringAccumlation + "," + dictParameters_Shared[kpv.Value].sValue;
+                    }
+                }
+            }
+            str_SearchStringAccumlation = str_SearchStringAccumlation.Substring(1);
+
+            return str_SearchStringAccumlation;
+        }
+
+
+        private void btn_SearchTermLoad_Click(object sender, RoutedEventArgs e)
+        {
+            int eL = -1;
+
+            try
+            {
+
+
+                MessageBox.Show(string_SearchStringAccumlation());
+
+            }
+
+            #region catch and finally
+            catch (Exception ex)
+            {
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("btn_SearchTermLoad_Click, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+            }
+            finally
+            {
+            }
+            #endregion
+        }
     }
 }
