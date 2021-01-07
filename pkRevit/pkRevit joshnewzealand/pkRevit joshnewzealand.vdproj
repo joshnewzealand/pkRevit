@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_024C53A9D0B149BA9B1C0138359208EA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_1060CB24C64349669B5BC2649D96FEC0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -514,6 +520,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_024C53A9D0B149BA9B1C0138359208EA"
+            {
+            "SourcePath" = "8:..\\pkRevitDatasheets\\PDF Love Heart Icon.ico"
+            "TargetName" = "8:PDF Love Heart Icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_30C74BBEC0AD4FCA9F1C199999C24F12"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_16C01A783B77063732660946403EAF6B"
             {
             "AssemblyRegister" = "3:1"
@@ -1004,17 +1030,17 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:pkRevit joshnewzealand"
-        "ProductCode" = "8:{C62A5DE5-E4C9-4EFE-BF2C-C19814BB2A48}"
-        "PackageCode" = "8:{A09F8D0F-BB16-44DA-A021-222818C0283C}"
+        "ProductCode" = "8:{A536668D-50F8-46E7-AEC8-F2353B3189DF}"
+        "PackageCode" = "8:{364D5735-E5C4-49E7-8C26-266D3478D4C6}"
         "UpgradeCode" = "8:{6B315FD6-B23E-4984-B2DD-BC92E5647909}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.32"
+        "ProductVersion" = "8:1.0.43"
         "Manufacturer" = "8:Pedersen Read Limited"
-        "ARPHELPTELEPHONE" = "8:"
+        "ARPHELPTELEPHONE" = "8:AKTUNG switch back to 64"
         "ARPHELPLINK" = "8:"
         "Title" = "8:pkRevit joshnewzealand"
         "Subject" = "8:"
@@ -1155,6 +1181,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A95B9DD867E24D0D9DD8BC7CBD1901D7"
+            {
+            "Name" = "8:Datasheet PDFs"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_47D7427163EA4845ADC3640000CDE130"
+            "Folder" = "8:_D346F8B2A5644EA3AF667EC2ADB64259"
+            "WorkingFolder" = "8:_30C74BBEC0AD4FCA9F1C199999C24F12"
+            "Icon" = "8:_024C53A9D0B149BA9B1C0138359208EA"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FD9C96EA8E584CD28028586367FF4D68"
+            {
+            "Name" = "8:Datasheet PDFs"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_47D7427163EA4845ADC3640000CDE130"
+            "Folder" = "8:_057A7618D9514566A8E9EC8A5158BF0D"
+            "WorkingFolder" = "8:_30C74BBEC0AD4FCA9F1C199999C24F12"
+            "Icon" = "8:_024C53A9D0B149BA9B1C0138359208EA"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

@@ -43,12 +43,22 @@ namespace pkRevitDatasheets
                 list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_BuiltIn.Keys);
                 int int_NewMax = list_IntFindMax.Max() + 1;
 
-                mainWindow.lv_ReorderThis.Items.Add(new Tuple<int, string, string, bool>(int_NewMax, mainWindow.dictParameters_BuiltInt[int_Key].sName, mainWindow.dictParameters_BuiltInt[int_Key].sValue, true));
+                if (mainWindow.lv_ReorderThis.Items.Cast<Tuple<int, string, string, bool, bool>>().Where(x => x.Item2 == mainWindow.dictParameters_BuiltInt[int_Key].sName).Count() != 0)
+                {
+                    MessageBox.Show(mainWindow.dictParameters_BuiltInt[int_Key].sName + " has already been added");
+                    return;
+                }
+
+                mainWindow.lv_ReorderThis.Items.Add(new Tuple<int, string, string, bool, bool>(int_NewMax, mainWindow.dictParameters_BuiltInt[int_Key].sName, mainWindow.dictParameters_BuiltInt[int_Key].sValue, true, false));
+                mainWindow.lv_ReorderThis.SelectedIndex = mainWindow.lv_ReorderThis.Items.Count - 1;
+                mainWindow.lv_ReorderThis.ScrollIntoView(mainWindow.lv_ReorderThis.SelectedItem);
+
                 mainWindow.dict_SortOrdered_BuiltIn.Add(int_NewMax, int_Key);
 
                 Stream stream = new FileStream(mainWindow.string_Default_Parameters_BuiltIn, FileMode.Create, FileAccess.Write);
                 DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<int, int>));  //four of four
                 serializer.WriteObject(stream, mainWindow.dict_SortOrdered_BuiltIn); stream.Close();
+
             }
 
             #region catch and finally
@@ -62,6 +72,49 @@ namespace pkRevitDatasheets
             #endregion
         }
 
+        private void lv_Result_Project_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            int eL = -1;
+
+            try
+            {
+                string string_Key = ((KeyValuePair<string, NameAndValue>)lv_Result_Project.SelectedItem).Key;
+
+                List<int> list_IntFindMax = new List<int>();
+                list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_Shared.Keys);
+                list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_Project.Keys);
+                list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_BuiltIn.Keys);
+                int int_NewMax = list_IntFindMax.Max() + 1;
+
+                if (mainWindow.lv_ReorderThis.Items.Cast<Tuple<int, string, string, bool, bool>>().Where(x => x.Item2 == mainWindow.dictParameters_Project[string_Key].sName).Count() != 0)
+                {
+                    MessageBox.Show(mainWindow.dictParameters_Project[string_Key].sName + " has already been added");
+                    return;
+                }
+
+                mainWindow.lv_ReorderThis.Items.Add(new Tuple<int, string, string, bool, bool>(int_NewMax, mainWindow.dictParameters_Project[string_Key].sName, mainWindow.dictParameters_Project[string_Key].sValue, false, false));
+                mainWindow.lv_ReorderThis.SelectedIndex = mainWindow.lv_ReorderThis.Items.Count - 1;
+                mainWindow.lv_ReorderThis.ScrollIntoView(mainWindow.lv_ReorderThis.SelectedItem);
+
+                mainWindow.dict_SortOrdered_Project.Add(int_NewMax, string_Key);
+
+                Stream stream = new FileStream(mainWindow.string_Default_Parameters_Project, FileMode.Create, FileAccess.Write);
+                DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<int, string>));  //four of four
+                serializer.WriteObject(stream, mainWindow.dict_SortOrdered_Project); stream.Close();
+            }
+
+            #region catch and finally
+            catch (Exception ex)
+            {
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("lv_Result_Project_PreviewMouseDoubleClick, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+            }
+            finally
+            {
+            }
+            #endregion
+        }
+
+
         private void lv_Result_Shared_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             int eL = -1;
@@ -70,14 +123,22 @@ namespace pkRevitDatasheets
             {
                 Guid Guid_Key = ((KeyValuePair<Guid, NameAndValue>)lv_Result_Shared.SelectedItem).Key;
 
-                // lv_ReorderThis.Items.Add(dictParameters_Shared[Guid_Key]);
-
                 List<int> list_IntFindMax = new List<int>();
                 list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_Shared.Keys);
                 list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_BuiltIn.Keys);
                 int int_NewMax = list_IntFindMax.Max() + 1;
 
-                mainWindow.lv_ReorderThis.Items.Add(new Tuple<int, string, string, bool>(int_NewMax, mainWindow.dictParameters_Shared[Guid_Key].sName, mainWindow.dictParameters_Shared[Guid_Key].sValue, false));
+                if (mainWindow.lv_ReorderThis.Items.Cast<Tuple<int, string, string, bool, bool>>().Where(x => x.Item2 == mainWindow.dictParameters_Shared[Guid_Key].sName).Count() != 0)
+                {
+                    MessageBox.Show(mainWindow.dictParameters_Shared[Guid_Key].sName + " has already been added");
+                    return;
+                }
+
+                mainWindow.lv_ReorderThis.Items.Add(new Tuple<int, string, string, bool, bool>(int_NewMax, mainWindow.dictParameters_Shared[Guid_Key].sName, mainWindow.dictParameters_Shared[Guid_Key].sValue, false, true));
+                mainWindow.lv_ReorderThis.SelectedIndex = mainWindow.lv_ReorderThis.Items.Count - 1;
+                mainWindow.lv_ReorderThis.ScrollIntoView(mainWindow.lv_ReorderThis.SelectedItem);
+
+
                 mainWindow.dict_SortOrdered_Shared.Add(int_NewMax, Guid_Key);
 
                 Stream stream = new FileStream(mainWindow.string_Default_Parameters_Shared, FileMode.Create, FileAccess.Write);

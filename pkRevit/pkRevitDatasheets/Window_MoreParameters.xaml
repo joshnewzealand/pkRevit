@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pkRevitDatasheets"
         mc:Ignorable="d"
-        Title="Window_MoreParameters" Height="685.5" Width="800" Topmost="True" Closing="Window_Closing">
+        Title="Window_MoreParameters" Height="997.833" Width="800" Topmost="True" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid>
-        <ListView x:Name="lv_Result_BuiltIn" Margin="0,0,0,342">
+        <ListView x:Name="lv_Result_BuiltIn" Margin="0,36,0,0" Height="294" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Value.sName}" Header="Sort Order" Width="200" />
@@ -27,7 +27,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <ListView x:Name="lv_Result_Shared" Margin="0,313,0,0">
+        <ListView x:Name="lv_Result_Shared" Margin="0,356,0,0" Height="284" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Value.sName}" Header="Sort Order" Width="200" />
@@ -47,6 +47,32 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
+        <Label Content="Built-in Parameters" HorizontalAlignment="Left" Margin="300,10,0,0" VerticalAlignment="Top" Width="200"/>
+        <Label Content="Shared Parameters" HorizontalAlignment="Left" Margin="300,330,0,0" VerticalAlignment="Top" Width="200"/>
+        <Label Content="Double click to add parameter" HorizontalAlignment="Left" Margin="88,10,0,0" VerticalAlignment="Top" Width="191" FontWeight="Bold"/>
+        <Label Content="Double click to add parameter" HorizontalAlignment="Left" Margin="88,330,0,0" VerticalAlignment="Top" Width="191" FontWeight="Bold"/>
+        <ListView x:Name="lv_Result_Project" Margin="-1,676,1,0" Height="289" VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Value.sName}" Header="Sort Order" Width="200" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Value.sValue}" Header="Sort Order" Width="1000" />
+
+                    <!--
+                    <GridViewColumn Header="ALL_Families_Master_List" Width="1000" DisplayMemberBinding="{Binding Converter={StaticResource StringToBoolConverterKey}}"/>
+-->
+                </GridView>
+            </ListView.View>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="lv_Result_Project_PreviewMouseDoubleClick"/>
+                    <!--<EventSetter Event="RequestBringIntoView" Handler="RequestBringIntoView"></EventSetter>-->
+                    <Setter Property="VerticalContentAlignment" Value="Top"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+        <Label Content="Project Parameters Type (not instance)" HorizontalAlignment="Left" Margin="300,645,0,0" VerticalAlignment="Top" Width="255"/>
+        <Label Content="Double click to add parameter" HorizontalAlignment="Left" Margin="88,645,0,0" VerticalAlignment="Top" Width="192" FontWeight="Bold" />
 
     </Grid>
 </Window>

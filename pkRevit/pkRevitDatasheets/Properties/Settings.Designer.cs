@@ -97,7 +97,7 @@ namespace pkRevitDatasheets.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("75")]
+        [global::System.Configuration.DefaultSettingValueAttribute("65")]
         public double DoubleSlider {
             get {
                 return ((double)(this["DoubleSlider"]));

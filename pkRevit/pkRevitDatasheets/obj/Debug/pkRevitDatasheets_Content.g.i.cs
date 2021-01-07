@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("pdf%20love%20heart%20icon.ico")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sqlite.interop.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("startdb.db")]
 

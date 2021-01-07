@@ -15,15 +15,73 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Threading;
 using Microsoft.WindowsAPICodePack.Shell;
+using System.Drawing.Imaging;
+using System.Threading.Tasks;
 
 namespace QuickZip.Tools
 {
 
+    public static class helpers
+    {
+        private static System.Windows.Media.PixelFormat ConvertPixelFormat(System.Drawing.Imaging.PixelFormat sourceFormat)
+        {
+            switch (sourceFormat)
+            {
+                case System.Drawing.Imaging.PixelFormat.Format24bppRgb:
+                    return PixelFormats.Bgr24;
+
+                case System.Drawing.Imaging.PixelFormat.Format32bppArgb:
+                    return PixelFormats.Bgra32;
+
+                case System.Drawing.Imaging.PixelFormat.Format32bppRgb:
+                    return PixelFormats.Bgr32;
+            }
+
+            return new System.Windows.Media.PixelFormat();
+        }
+
+        public static BitmapSource GetBitmapSource(this Bitmap image)
+        {
+            var rect = new Rectangle(0, 0, image.Width, image.Height);
+            var bitmap_data = image.LockBits(rect, ImageLockMode.ReadOnly, image.PixelFormat);
+
+            try
+            {
+                BitmapPalette palette = null;
+
+                if (image.Palette.Entries.Length > 0)
+                {
+                    var palette_colors = image.Palette.Entries.Select(entry => System.Windows.Media.Color.FromArgb(entry.A, entry.R, entry.G, entry.B)).ToList();
+                    palette = new BitmapPalette(palette_colors);
+                }
+
+                return BitmapSource.Create(
+                    image.Width,
+                    image.Height,
+                    image.HorizontalResolution,
+                    image.VerticalResolution,
+                    ConvertPixelFormat(image.PixelFormat),
+                    palette,
+                    bitmap_data.Scan0,
+                    bitmap_data.Stride * image.Height,
+                    bitmap_data.Stride
+                );
+            }
+            finally
+            {
+                image.UnlockBits(bitmap_data);
+            }
+        }
+    }
+
+
     [ValueConversion(typeof(string), typeof(ImageSource))]
     public class FileToIconConverter : IMultiValueConverter
     {
-        private static string imageFilter = ".jpg,.jpeg,.png,.gif";
-        private static string exeFilter = ".exe,.lnk";
+        //private static string imageFilter = ".jpg,.jpeg,.png,.gif";
+        private static string imageFilter = ".jpg,.jpeg,.gif";
+        //private static string exeFilter = ".exe,.lnk";
+        private static string exeFilter = ".exe";
         private int defaultsize;
 
         public int DefaultSize { get { return defaultsize; } set { defaultsize = value; } }
@@ -287,7 +345,7 @@ namespace QuickZip.Tools
 
         private static string returnKey(string fileName, IconSize size)
         {
-            string key = Path.GetExtension(fileName).ToLower();
+            string key = Path.GetFileName(fileName).ToLower();
 
             if (isExecutable(fileName))
                 key = fileName.ToLower();
@@ -392,44 +450,90 @@ namespace QuickZip.Tools
         private ImageSource addToDic(string fileName, IconSize size)
         {
             string key = returnKey(fileName, size);
-        //    string stringstring = @"C:\Users\Joshua\Dropbox\pkRevit Storage (do not edit directly)\Database File\Admin Storage\20201229 1732 57\002 LR LR install studio and microsoft installer projects.pdf";
+            //    string stringstring = @"C:\Users\Joshua\Dropbox\pkRevit Storage (do not edit directly)\Database File\Admin Storage\20201229 1732 57\002 LR LR install studio and microsoft installer projects.pdf";
 
+            //MessageBox.Show(fileName);
 
-            if (size == IconSize.thumbnail || isExecutable(fileName))
+            if (size == IconSize.large || size == IconSize.extraLarge || size == IconSize.jumbo || size == IconSize.thumbnail || isExecutable(fileName))
             {
-                if (!thumbDic.ContainsKey(key))
-                    lock (thumbDic)
-                    {
-                        if (fileName == "")
+                int eL = -1;
+
+                try
+                {
+
+                    if (!thumbDic.ContainsKey(key))
+                        lock (thumbDic)
                         {
-                            thumbDic.Add(key, getImage(fileName, size));
-                        }
-                        else if ((File.GetAttributes(fileName) & FileAttributes.Directory) == FileAttributes.Directory)
-                        {
-                            thumbDic.Add(key, ShellFolder.FromParsingName(fileName).Thumbnail.BitmapSource);
-                        }
-                        else
-                        {
-                            if (!ShellFile.FromFilePath(fileName).IsLink)
+                            if (fileName == "")
                             {
-                                thumbDic.Add(key, ShellFile.FromFilePath(fileName).Thumbnail.BitmapSource);
+                                thumbDic.Add(key, getImage(fileName, size));
+                            }
+                            else if ((File.GetAttributes(fileName) & FileAttributes.Directory) == FileAttributes.Directory)
+                            {
+                                thumbDic.Add(key, ShellFolder.FromParsingName(fileName).Thumbnail.BitmapSource);
                             }
                             else
                             {
-                                Icon icon;
-                                string lookup = "aaa" + Path.GetExtension(fileName).ToLower();
-                                if (!key.StartsWith("."))
-                                    lookup = fileName;
-
-                                _imgList.ImageListSize = SysImageListSize.extraLargeIcons;
-                                icon = _imgList.Icon(_imgList.IconIndex(lookup, isFolder(fileName)));
+                                ShellFile sf = ShellFile.FromFilePath(fileName);
 
 
-                                thumbDic.Add(key, loadBitmap(icon.ToBitmap()));
+                                ///so I am completely drawing a blank on where, where, where, where was the original code that gave me the full side icon
+                                ///full size icon
+                                ///full size icon
+                                ///full size icon
+                                ///
+
+
+                                if (ShellFile.FromFilePath(fileName).IsLink)
+                                {
+                                    //resizeImage(ShellFile.FromFilePath(fileName).Thumbnail.CurrentSize.Width < 256)
+
+                                    Bitmap bitmap = resizeImage(ShellFile.FromFilePath(fileName).Thumbnail.SmallBitmap, new System.Drawing.Size(256, 256), 0);
+                                    thumbDic.Add(key, helpers.GetBitmapSource(bitmap));
+
+                                    //BitmapSource src = ShellFile.FromFilePath(fileName).Thumbnail.SmallBitmapSource;
+                                    //thumbDic.Add(key, src);
+
+                                } else if (sf.Thumbnail.BitmapSource.PixelWidth != sf.Thumbnail.BitmapSource.PixelHeight)
+                                {
+
+                                    Bitmap bitmap = resizeImage(ShellFile.FromFilePath(fileName).Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+                                    thumbDic.Add(key, helpers.GetBitmapSource(bitmap));
+                                }
+                                else
+                                {
+
+                                    Bitmap bitmap = resizeImage(ShellFile.FromParsingName(fileName).Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+                                    thumbDic.Add(key, helpers.GetBitmapSource(bitmap));
+
+                                    //MessageBox.Show("hello");
+
+                                    ////////Icon icon;
+                                    ////////string lookup = "aaa" + Path.GetExtension(fileName).ToLower();
+                                    ////////if (!key.StartsWith("."))
+                                    ////////    lookup = fileName;
+
+                                    ////////_imgList.ImageListSize = SysImageListSize.smallIcons;
+                                    ////////icon = _imgList.Icon(_imgList.IconIndex(lookup, isFolder(fileName)));
+
+                                    ////////thumbDic.Add(key, loadBitmap(icon.ToBitmap()));
+                                }
                             }
                         }
-                    }
+                }
+
+                #region catch and finally
+                catch (Exception ex)
+                {
+                    _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("addToDic, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+                }
+                finally
+                {
+                }
+                #endregion
+
                 return thumbDic[key];
+
             }
             else
             {
@@ -464,6 +568,7 @@ namespace QuickZip.Tools
             //////}
         }
 
+
         public ImageSource GetImage(string fileName, int iconSize)
         {
             IconSize size;
@@ -474,6 +579,7 @@ namespace QuickZip.Tools
             else if (iconSize <= 72) size = IconSize.jumbo;
             else size = IconSize.thumbnail;
 
+            //size = IconSize.jumbo;
             return addToDic(fileName, size);
         }
 
@@ -530,7 +636,6 @@ namespace QuickZip.Tools
             //////////string stringstring2 = @"C:\Users\Joshua\Documents\93 saturday processing\20191123 1359\" + Path.GetFileNameWithoutExtension(fileName) + ".bmp";
             //////////mtSource.LargeBitmap.Save(stringstring2);
 
-
             if (isExecutable(fileName))
             {
 
@@ -546,6 +651,7 @@ namespace QuickZip.Tools
                     case IconSize.thumbnail:
                         if (isImage(fileName))
                         {
+
                             //Load as jumbo icon first.                         
                             WriteableBitmap bitmap = new WriteableBitmap(addToDic(fileName, IconSize.jumbo) as BitmapSource);
                             //WriteableBitmap bitmap = ShellFile.FromFilePath(fileName).Thumbnail.BitmapSource; 

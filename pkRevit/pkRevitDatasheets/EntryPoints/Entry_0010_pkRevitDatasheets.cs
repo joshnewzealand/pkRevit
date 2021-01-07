@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using _952_PRLoogleClassLibrary;
 using pkRevitDatasheets.BuildingCoderClasses;
+using System.IO;
+using System.Runtime.Serialization;
 
 namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
 {
@@ -20,6 +22,8 @@ namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
 
         public Result StartMethod_01(ExternalCommandData cd, ref string message, ElementSet elements)
         {
+
+          
 
             commandData = cd;
             executionLocation = message;
@@ -48,10 +52,14 @@ namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
                 }
             }
 
-            MainWindow mainWindow = new MainWindow(named_guid);
-            mainWindow.classEntryPoint = this;
-            mainWindow.Topmost = true;
-            mainWindow.Show();
+
+            MainWindow mainWindow = new MainWindow(named_guid, this);
+
+            if(mainWindow.bool_ContinueOpening_DatabaseChecksOut)
+            {
+                mainWindow.Topmost = true;
+                mainWindow.Show();
+            }
 
 
             if (false)
@@ -65,8 +73,9 @@ namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
                 myExternalEvent_EE00_CopyTemplate.Raise();
             }
 
-
             return Result.Succeeded;
         }
+
+
     }
 }

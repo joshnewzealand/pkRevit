@@ -21,7 +21,7 @@
       <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="DoubleSlider" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">75</Value>
+      <Value Profile="(Default)">65</Value>
     </Setting>
   </Settings>
 </SettingsFile>

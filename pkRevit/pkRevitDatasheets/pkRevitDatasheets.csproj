@@ -37,9 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Button0010_pkRevitDatasheets.ico</ApplicationIcon>
+    <ApplicationIcon>PDF Love Heart Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAPICodePack-Core.1.1.0.0\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
     </Reference>
@@ -147,6 +148,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Resource Include="Button0010_pkRevitDatasheets.ico" />
+    <Content Include="PDF Love Heart Icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SQLite.Interop.dll" />
     <Content Include="StartDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
