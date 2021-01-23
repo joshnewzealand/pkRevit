@@ -20,8 +20,8 @@
         <Button x:Name="buttonSetStoreFolder" Content="Set Storage Parent Folder" HorizontalAlignment="Left" Margin="10,3,0,0" VerticalAlignment="Top" Width="161" Click="buttonSetStoreFolder_Click" />
         <Label x:Name="label_DropboxGoogleDriveOnedrive"  Content="DropboxGoogleDriveOnedrive" HorizontalAlignment="Left" VerticalAlignment="Top" Width="476" Margin="171,0,0,0"/>
 
-        <Image Grid.Column="0" Source="PRLoogle Graphic-4.png" Height="60" VerticalAlignment="Top" Margin="326,3,688,0"/>
-        <Image Grid.Column="0" Source="PRLoogle Graphic-4.png" Height="60" VerticalAlignment="Top" Margin="326,3,688,0"/>
+        <Image Grid.Column="0" Height="60" VerticalAlignment="Top" Margin="326,3,688,0"/>
+        <Image Grid.Column="0"  Height="60" VerticalAlignment="Top" Margin="326,3,688,0"/>
         <Grid Margin="10,86,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
@@ -118,7 +118,7 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Slider x:Name="slider" Value="75" Maximum="150" Minimum="16" ToolTip="{Binding Value, ElementName=slider}" Margin="0,0,13,6" Grid.Column="1" Height="22" VerticalAlignment="Bottom"/>
+                <Slider x:Name="slider" Value="90" Maximum="150" Minimum="16" ToolTip="{Binding Value, ElementName=slider}" Margin="0,0,13,6" Grid.Column="1" Height="22" VerticalAlignment="Bottom"/>
                 <Label x:Name="myLabel_Directory" Content="yyyyMMdd HHmm ss" HorizontalAlignment="Left" Margin="0,0,0,23" VerticalAlignment="Bottom" Width="144"/>
                 <Label x:Name="label_ProjectGUID" Content="label_ProjectGUID" HorizontalAlignment="Left" Margin="0,0,0,2" VerticalAlignment="Bottom" Width="188"/>
                 <ListView x:Name="lv_ReorderThis" Margin="0,39,0,87">
@@ -269,7 +269,6 @@
             <ComboBox x:Name="ComboBoxProjectFilter" Margin="0,29,0,0" VerticalAlignment="Top" DropDownClosed="ComboBoxProjectFilter_DropDownClosed" Height="26" Grid.Column="1"  />
             <Label x:Name="lbl_ScheduleName_Project" Content="" Margin="0,55,55,-7" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         </Grid>
-        <Label Content="scale up start using it and see what breaks" HorizontalAlignment="Left" Margin="671,171,0,0" VerticalAlignment="Top" Width="301" Foreground="Red"/>
 
 
     </Grid>

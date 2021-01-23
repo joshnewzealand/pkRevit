@@ -17,6 +17,8 @@ using System.Windows.Threading;
 using Microsoft.WindowsAPICodePack.Shell;
 using System.Drawing.Imaging;
 using System.Threading.Tasks;
+using Color = System.Drawing.Color;
+using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
 namespace QuickZip.Tools
 {
@@ -406,7 +408,6 @@ namespace QuickZip.Tools
         private void PollIconCallback(object state)
         {
 
-
             thumbnailInfo input = state as thumbnailInfo;
             string fileName = input.fullPath;
             WriteableBitmap writeBitmap = input.bitmap;
@@ -444,7 +445,6 @@ namespace QuickZip.Tools
                 copyBitmap(inputBitmapSource, writeBitmap, true);
             }
             catch { }
-
         }
 
         private ImageSource addToDic(string fileName, IconSize size)
@@ -483,40 +483,104 @@ namespace QuickZip.Tools
                                 ///full size icon
                                 ///
 
-
                                 if (ShellFile.FromFilePath(fileName).IsLink)
                                 {
                                     //resizeImage(ShellFile.FromFilePath(fileName).Thumbnail.CurrentSize.Width < 256)
 
-                                    Bitmap bitmap = resizeImage(ShellFile.FromFilePath(fileName).Thumbnail.SmallBitmap, new System.Drawing.Size(256, 256), 0);
+                                    Bitmap bitmap = resizeImage(ShellFile.FromParsingName(fileName).Thumbnail.SmallBitmap, new System.Drawing.Size(256, 256), 0);
                                     thumbDic.Add(key, helpers.GetBitmapSource(bitmap));
 
                                     //BitmapSource src = ShellFile.FromFilePath(fileName).Thumbnail.SmallBitmapSource;
                                     //thumbDic.Add(key, src);
 
-                                } else if (sf.Thumbnail.BitmapSource.PixelWidth != sf.Thumbnail.BitmapSource.PixelHeight)
+                                } else if (fileName.Substring(fileName.Length - 3) == "jpg" | fileName.Substring(fileName.Length - 3) == "png" )
                                 {
+                                    if (System.IO.File.Exists(fileName))
+                                    {
+                                        ////DateTime modDate = System.IO.File.GetLastWriteTime(fileName);
+                                        ////System.IO.File.SetLastWriteTime(fileName, modDate.AddSeconds(1.0));
+                                        ////System.IO.File.SetLastWriteTime(fileName, modDate.AddSeconds(-1.0));
+                                        //  Bitmap bitmap2 = GetFileIcon(fileName, IconSize.large).ToBitmap();
 
-                                    Bitmap bitmap = resizeImage(ShellFile.FromFilePath(fileName).Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+                                        ShellThumbnail shellthumbnail = ShellFile.FromParsingName(fileName).Thumbnail;
+                                        shellthumbnail.FormatOption = ShellThumbnailFormatOption.ThumbnailOnly;
+
+
+                                        int timeOut = 0;
+                                        LoopLoop:
+                                        Bitmap bm;
+                                        try
+                                        {
+                                            bm = shellthumbnail.Bitmap;
+                                            System.Threading.Thread.Sleep(2);
+                                        }
+                                        catch // errors can occur with windows api calls so just skip
+                                        {
+                                            timeOut++;
+                                            if(timeOut < 50)
+                                            {
+                                                goto LoopLoop;
+                                            } else
+                                            {
+                                                shellthumbnail.FormatOption = ShellThumbnailFormatOption.IconOnly;
+                                                bm = shellthumbnail.Bitmap;
+                                            }
+
+                                        }
+
+                                        Bitmap bitmap = resizeImage(bm, new System.Drawing.Size(256, 256), 0);
+
+                                        //////int THUMB_SIZE = 256;
+                                        //////Bitmap thumbnail = WindowsThumbnailProvider.GetThumbnail(
+                                        //////   fileName, THUMB_SIZE, THUMB_SIZE, ThumbnailOptions.InMemoryOnly);
+
+                                        //////////////Thread.Sleep(200);
+
+                                        //////////////shellobject = ShellFile.FromParsingName(fileName);
+                                        //////////////bitmap = resizeImage(shellobject.Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+                                        //bitmap = resizeImage(ShellFile.FromParsingName(fileName).Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+                                        thumbDic.Add(key, helpers.GetBitmapSource(bitmap));
+                                    }
+
+                                }
+                                else if (sf.Thumbnail.BitmapSource.PixelWidth != sf.Thumbnail.BitmapSource.PixelHeight)
+                                {
+                                    ////DateTime modDate = System.IO.File.GetLastWriteTime(fileName);
+                                    ////System.IO.File.SetLastWriteTime(fileName, modDate.AddSeconds(1.0));
+                                    ////System.IO.File.SetLastWriteTime(fileName, modDate.AddSeconds(-1.0));
+                                    //Bitmap bitmap2 = GetFileIcon(fileName, IconSize.large).ToBitmap();
+
+                                    ShellObject shellobject = ShellFile.FromParsingName(fileName);
+                                    Bitmap bitmap = resizeImage(shellobject.Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+
+                                    //////////////////Thread.Sleep(200);
+
+                                    //////////////////shellobject = ShellFile.FromParsingName(fileName);
+                                    //////////////////bitmap = resizeImage(shellobject.Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+
+                                    // bitmap = resizeImage(ShellFile.FromParsingName(fileName).Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
                                     thumbDic.Add(key, helpers.GetBitmapSource(bitmap));
                                 }
                                 else
                                 {
+                                    BitmapSource src = ShellFile.FromParsingName(fileName).Thumbnail.SmallBitmapSource;
+                                    thumbDic.Add(key, src);
 
-                                    Bitmap bitmap = resizeImage(ShellFile.FromParsingName(fileName).Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
-                                    thumbDic.Add(key, helpers.GetBitmapSource(bitmap));
+
+                                    ////Bitmap bitmap = resizeImage(ShellFile.FromParsingName(fileName).Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+                                    ////thumbDic.Add(key, helpers.GetBitmapSource(bitmap));
 
                                     //MessageBox.Show("hello");
 
-                                    ////////Icon icon;
-                                    ////////string lookup = "aaa" + Path.GetExtension(fileName).ToLower();
-                                    ////////if (!key.StartsWith("."))
-                                    ////////    lookup = fileName;
+                                    //////Icon icon;
+                                    //////string lookup = "aaa" + Path.GetExtension(fileName).ToLower();
+                                    //////if (!key.StartsWith("."))
+                                    //////    lookup = fileName;
 
-                                    ////////_imgList.ImageListSize = SysImageListSize.smallIcons;
-                                    ////////icon = _imgList.Icon(_imgList.IconIndex(lookup, isFolder(fileName)));
+                                    //////_imgList.ImageListSize = SysImageListSize.smallIcons;
+                                    //////icon = _imgList.Icon(_imgList.IconIndex(lookup, isFolder(fileName)));
 
-                                    ////////thumbDic.Add(key, loadBitmap(icon.ToBitmap()));
+                                    ////thumbDic.Add(key, loadBitmap(bitmap));
                                 }
                             }
                         }
@@ -719,4 +783,5 @@ namespace QuickZip.Tools
         }
         #endregion
     }
-}
+
+   }

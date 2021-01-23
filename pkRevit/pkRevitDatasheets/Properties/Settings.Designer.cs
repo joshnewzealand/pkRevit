@@ -97,13 +97,85 @@ namespace pkRevitDatasheets.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("65")]
+        [global::System.Configuration.DefaultSettingValueAttribute("90")]
         public double DoubleSlider {
             get {
                 return ((double)(this["DoubleSlider"]));
             }
             set {
                 this["DoubleSlider"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00000000-0000-0000-0000-000000000000")]
+        public global::System.Guid ComboBoxProjectFilter {
+            get {
+                return ((global::System.Guid)(this["ComboBoxProjectFilter"]));
+            }
+            set {
+                this["ComboBoxProjectFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SearchStringRemember {
+            get {
+                return ((string)(this["SearchStringRemember"]));
+            }
+            set {
+                this["SearchStringRemember"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool bool_IsolationIsOn {
+            get {
+                return ((bool)(this["bool_IsolationIsOn"]));
+            }
+            set {
+                this["bool_IsolationIsOn"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public long str_carryOverScheduleId {
+            get {
+                return ((long)(this["str_carryOverScheduleId"]));
+            }
+            set {
+                this["str_carryOverScheduleId"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00000000-0000-0000-0000-000000000000")]
+        public global::System.Guid str_carryOverGuid {
+            get {
+                return ((global::System.Guid)(this["str_carryOverGuid"]));
+            }
+            set {
+                this["str_carryOverGuid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string str_carryOverScheduleId_string {
+            get {
+                return ((string)(this["str_carryOverScheduleId_string"]));
+            }
+            set {
+                this["str_carryOverScheduleId_string"] = value;
             }
         }
     }

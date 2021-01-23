@@ -38,8 +38,13 @@ namespace pkRevitRibbon
             string stringTargetOokiiVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("OokiiVersion").ToString();
             string stringTargetXceedVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("XceedVersion").ToString();
             string stringTargetSQLiteVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLite").ToString();
+            ////string stringTargetSQLiteVersionBatteries = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLiteBatteries").ToString();
+            ////string stringTargetSQLiteVersionCore = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLiteCore").ToString();
+            ////string stringTargetSQLiteVersionNative = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLiteNative").ToString();
+            ////string stringTargetSQLiteVersionProvider = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLiteProvider").ToString();
             string stringWindowsAPICodePack = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("WindowsAPICodePack").ToString();
             string stringWindowsAPICodePackShell = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("WindowsAPICodePackShell").ToString();
+            ////string stringSystemMemory = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SystemMemory").ToString();
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetOokiiVersion).Count() == 0)
             {
                 string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
@@ -55,6 +60,38 @@ namespace pkRevitRibbon
                 string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
                 Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\System.Data.SQLite.dll"));
             }
+            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersionBatteries).Count() == 0)
+            ////{
+            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\SQLitePCLRaw.batteries_v2.dll"));
+            ////}
+
+            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringSystemMemory).Count() == 0)
+            ////{
+            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\System.Memory.dll"));
+            ////}
+
+
+
+            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersionCore).Count() == 0)
+            ////{
+            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\SQLitePCLRaw.core.dll"));
+            ////}
+
+            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersionNative).Count() == 0)
+            ////{
+            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\SQLitePCLRaw.nativelibrary.dll"));
+            ////}
+
+            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersionProvider).Count() == 0)
+            ////{
+            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\SQLitePCLRaw.provider.dynamic_cdecl.dll"));
+            ////}
+
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringWindowsAPICodePack).Count() == 0)
             {
                 string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
@@ -104,8 +141,6 @@ namespace pkRevitRibbon
         {
             return Path.GetDirectoryName(path) + "\\" + mySettingUpRibbon.dllName + ".dll";
         }
-
-
 
         public PushButtonData Button02_Uninstall(string Name, string ChecklistsNumber, string path)
         {

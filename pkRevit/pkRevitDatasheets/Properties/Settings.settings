@@ -21,7 +21,25 @@
       <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="DoubleSlider" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">65</Value>
+      <Value Profile="(Default)">90</Value>
+    </Setting>
+    <Setting Name="ComboBoxProjectFilter" Type="System.Guid" Scope="User">
+      <Value Profile="(Default)">00000000-0000-0000-0000-000000000000</Value>
+    </Setting>
+    <Setting Name="SearchStringRemember" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="bool_IsolationIsOn" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="str_carryOverScheduleId" Type="System.Int64" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="str_carryOverGuid" Type="System.Guid" Scope="User">
+      <Value Profile="(Default)">00000000-0000-0000-0000-000000000000</Value>
+    </Setting>
+    <Setting Name="str_carryOverScheduleId_string" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

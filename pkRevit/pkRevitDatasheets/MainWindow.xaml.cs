@@ -3,7 +3,9 @@ using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Data;
+//using System.Data.SQLite;
 using System.Data.SQLite;
+
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -30,6 +32,8 @@ using System.Drawing;
 using System.Windows.Media;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Microsoft.Win32;
+using System.DirectoryServices;
 
 namespace pkRevitDatasheets
 {
@@ -127,6 +131,8 @@ namespace pkRevitDatasheets
 
             try
             {
+                if (_view.dataTable == null) return;
+
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(
@@ -139,14 +145,14 @@ namespace pkRevitDatasheets
                 //////{
                 //Lazy =D
                 if (propertyName == "Path" || propertyName == "ShowFiles" || propertyName == "ShowFolders")
-                    {
-                        _view.ClearCache();
-                        List<string> folderAndFiles = new List<string>();
-                        if (ShowFolders) folderAndFiles.AddRange(Directory.GetDirectories(Path).ToArray());
-                        if (ShowFiles) folderAndFiles.AddRange(Directory.GetFiles(Path).Where(x => System.IO.Path.GetFileName(x) != "Parameters_BuiltIn.xml" & System.IO.Path.GetFileName(x) != "Parameters_Project.xml" & System.IO.Path.GetFileName(x) != "Parameters_Shared.xml").ToArray());
+                {
+                    _view.ClearCache();
+                    List<string> folderAndFiles = new List<string>();
+                    if (ShowFolders) folderAndFiles.AddRange(Directory.GetDirectories(Path).ToArray());
+                    if (ShowFiles) folderAndFiles.AddRange(Directory.GetFiles(Path).Where(x => System.IO.Path.GetFileName(x) != "Parameters_BuiltIn.xml" & System.IO.Path.GetFileName(x) != "Parameters_Project.xml" & System.IO.Path.GetFileName(x) != "Parameters_Shared.xml").ToArray());
 
-                        Files = folderAndFiles.ToArray();
-                    }
+                    Files = folderAndFiles.ToArray();
+                }
                 //////}
                 //////else
                 //////{
@@ -251,12 +257,7 @@ namespace pkRevitDatasheets
         //named_guid focus3
 
         /// 
-        ///there is a different one here, 
-        ///what i would like is a different database for each having only different
-        ///a different database to contain all the fields values from the type
         ///
-        ///what is the next step, start storing for clutha (turn off the models)
-        ///sadly clutha is in 2019, therefore our testing one needs to be 
         /// 
         ///the main guide is the schedule
         ///5177 Foodstuffs Hornby DC Project Nest (Bottling Plant)
@@ -273,25 +274,13 @@ namespace pkRevitDatasheets
         ///the independant backup system is nice and fast we can use that
         ///the independant backup system is nice and fast we can use that
         ///.
-        ///scaling up problems
-        ///set a net project id, with alias name and possible reversal
+        ///.
+        ///please see Miro, and tasks 'weekend coding'
         ///.
         ///.
-        ///.
-        ///.
-        ///we're sort of done almost, 
-        ///button on tool bar to assign different project id, and a list of historical project id's the user can select to restore
-        ///Warning once this project ID has changed, it will pkRevit DB will start saving elementTypes to new entries, which could result in unintentional duplicate entires
-        ///are you completely sure this is what you want to do? (note to reverse this decision come back here and double click on a previous GUID.
-        ///.
-        ///.scale up start usisng it and see what breaks
-        ///scale up start using it and see what breaks
-        ///scale up starta using it and see what breaks
-        ///.
-        ///.
-        ///.
-        ///.
-        ///reorder parameters
+        /// now we are going, to get the select text understanding tags (which it currently doesn't on use of the main button)
+        /// i don't think it matters much where that code comes from, but do some minimal research into miro to find it
+
 
         public void ClearCache()
         {
@@ -301,8 +290,15 @@ namespace pkRevitDatasheets
         }
         
         Model model;
+               
+
         public MainWindow()
-        { 
+        {
+            // Enable32BitAppOnWin64(Environment.MachineName, "DefaultAppPool");
+
+            //Assembly.Load(File.ReadAllBytes(@"R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Data.SQLite.dll"));
+          
+
             named_guid = Guid.Parse("00000000-0000-0000-0000-000000000000");
 
             win_moreParam = new Window_MoreParameters(this);
@@ -369,17 +365,31 @@ namespace pkRevitDatasheets
 
             if (bool_Ask_Questionaire)
             {
-                if ((!System.IO.Directory.Exists(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path + @"\pkRevit Storage (do not edit directly)")) | Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path == "")
+                if /*candidate for methodisation 20210123*/ ((!System.IO.Directory.Exists(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path + @"\pkRevit Storage (do not edit directly)")) | Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path == "")
                 {
                     bool bool_ManuallySetInitialDirectory = true;
 
-                    if (System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\~PRearch❤️ - General\~Datasheet❤️ Expansion"))
+                    if (System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\PRearch❤️ - General")) //\~Datasheet❤️ Expansion"))
                     {
                         MessageBoxResult result = System.Windows.MessageBox.Show("First time load...use Teams (recommended)?", "Use Teams?", System.Windows.MessageBoxButton.YesNoCancel);
 
                         if (result == MessageBoxResult.Yes)
                         {
-                            Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\~PRearch❤️ - General\~Datasheet❤️ Expansion";
+                            Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\PRearch❤️ - General";//\~Datasheet❤️ Expansion";
+                            Properties.Settings.Default.Save();
+                            Properties.Settings.Default.Reload();
+
+                            label_DropboxGoogleDriveOnedrive.Content = Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path;
+
+                            bool_ManuallySetInitialDirectory = false;
+                        }
+                    } else if  /*candidate for methodisation 20210123*/ (System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\~PRearch❤️ - General"))
+                    {
+                        MessageBoxResult result = System.Windows.MessageBox.Show("First time load...use Teams (recommended)?", "Use Teams?", System.Windows.MessageBoxButton.YesNoCancel);
+
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\~PRearch❤️ - General";//\~Datasheet❤️ Expansion";
                             Properties.Settings.Default.Save();
                             Properties.Settings.Default.Reload();
 
@@ -389,7 +399,7 @@ namespace pkRevitDatasheets
                         }
                     }
 
-                    if (bool_ManuallySetInitialDirectory)
+                        if (bool_ManuallySetInitialDirectory)
                     {
                         if (System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Dropbox"))
                         {
@@ -489,6 +499,8 @@ namespace pkRevitDatasheets
                     DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<Guid, string>));  //four of four
                     serializer.WriteObject(stream, dict_GuidToAlias); stream.Close();
                 }
+
+
 
                 ComboBoxProjectFilter.ItemsSource = dict_GuidToAlias;
                 ComboBoxProjectFilter.DisplayMemberPath = "Value";
@@ -796,7 +808,7 @@ namespace pkRevitDatasheets
                 serializer.WriteObject(stream, dict_SortOrdered_Project); stream.Close();
             }
         }
-
+        
         public SQLiteConnection OleDbConnection_ButtonOK { get; set; }
         public string string_DatabaseLocation { get; set; }
         public string string_Default_Parameters_BuiltIn { get; set; }
@@ -834,7 +846,7 @@ namespace pkRevitDatasheets
 
             try
             {
-                this.Refresh();
+                ///////////////////////////////////////////////////////////////////////////this.Refresh();
 
                 model = new Model(this);
                 DataContext = model;
@@ -854,11 +866,64 @@ namespace pkRevitDatasheets
                 //DropboxOrGoogleDriveOrOnedrive_Path
                 eL = 850;
 
+
+
+                ///onDirectorySwitch_OrFirstRender
+                ///
+                foreach (KeyValuePair<Guid, string> kpv in dict_GuidToAlias)
+                {
+                    if (kpv.Key == Properties.Settings.Default.ComboBoxProjectFilter)
+                    {
+                        ComboBoxProjectFilter.SelectedItem = kpv;
+                    }
+                }
+
+                bool_IsolationIsOn = Properties.Settings.Default.bool_IsolationIsOn;
+
+                textBoxSearch.Text = Properties.Settings.Default.SearchStringRemember;
+
+                str_carryOverScheduleId = Properties.Settings.Default.str_carryOverScheduleId;
+                str_carryOverGuid = Properties.Settings.Default.str_carryOverGuid;
+                str_carryOverScheduleId_string = Properties.Settings.Default.str_carryOverScheduleId_string; 
+
+                lbl_ScheduleName.Content = str_carryOverScheduleId_string;
+                lbl_ScheduleName_Project.Content = dict_GuidToAlias[str_carryOverGuid];
+
+
                 method_LoadUpMasterList();
                 //  InvalidateVisual();
                   eL = 343;
-                this.Refresh();
+                /////////////////////////////////////////////////////////////////////////////////this.Refresh();
                 // MessageBox.Show(Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive.ToString());
+
+                /* what is th epurpose of this
+                List<Int64> list_Int64 = new List<Int64>();
+
+                if (lv_MasterList.SelectedIndex != -1)
+                {
+                    foreach (DataRowView drb in lv_MasterList.SelectedItems.Cast<DataRowView>())
+                    {
+                        list_Int64.Add((Int64)drb["ID"]);
+                    }
+                }
+                */
+
+                rowFilter(bool_IsolationIsOn);
+
+                /* what is the purpose of this
+
+                foreach (Int64 theInt in list_Int64)
+                {
+                    int indexOf = lv_MasterList.Items.Cast<DataRowView>().ToList().IndexOf(lv_MasterList.Items.Cast<DataRowView>().Where(x => (Int64)x["ID"] == theInt).First());
+                    //MessageBox.Show(indexOf.ToString());
+                    lv_MasterList.SelectedItems.Add(lv_MasterList.Items[indexOf]);
+                }
+                 */
+
+                /* what is the purpose of this 
+
+                lv_MasterList.ScrollIntoView(lv_MasterList.SelectedItem);
+                */
 
                 if (Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive != -1)
                 {
@@ -926,20 +991,31 @@ namespace pkRevitDatasheets
                 eL = 120;
 
                 if (lv_MasterList == null) MessageBox.Show("the itemsource is null");
-                if (dataTable == null) MessageBox.Show("the dataTable is null");
+                if (dataTable == null)
+                {
+                    MessageBox.Show("The dataTable is null" + Environment.NewLine + "Please check 'Set Storage Parent Folder' the button is top left.");
+                    
+                }  else
+                {
 
-                lv_MasterList.ItemsSource = dataTable.DefaultView;
-                eL = 130;
-                if (bool_NoFilterTheFirstTime)
-                {
-                    eL = 140;
-                    rowFilter(bool_IsolationIsOn);
+                    lv_MasterList.ItemsSource = dataTable.DefaultView;
+                    eL = 130;
+                    if (bool_NoFilterTheFirstTime)
+                    {
+                        eL = 140;
+                        rowFilter(bool_IsolationIsOn);
+
+                        //MessageBox.Show("shoudl not be hitting this");
+                    }
+                    else
+                    {
+                        eL = 140;
+                        bool_NoFilterTheFirstTime = true;
+                    }
                 }
-                else
-                {
-                    eL = 140;
-                    bool_NoFilterTheFirstTime = true;
-                }
+
+               
+
             }
             #region catch and finally
             catch (Exception ex)
@@ -956,15 +1032,25 @@ namespace pkRevitDatasheets
 
         public DataTable GetDataTable(string sql) 
         {
+            int eL = -1;
+
             try
             {
+                //SQLitePCL.Batteries_V2.Init();
+
                 DataTable dt = new DataTable();
 
                 OleDbConnection_ButtonOK = reconnectPrivateFlexible(false, string_DatabaseLocation, connRLPrivateFlexible);
                 using (SQLiteCommand command = ConnectionCommandType(OleDbConnection_ButtonOK))
                 {
-                    OleDbConnection_ButtonOK.Open();
+                    // SQLitePCL.Batteries.Init();
+               
+                    //SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_dynamic_cdecl());
+                    eL = 994;
                     command.CommandText = sql;// ORDER BY [TargetSort] DESC";
+
+                    eL = 994;
+                    OleDbConnection_ButtonOK.Open();
 
                     SQLiteDataReader dataReader = command.ExecuteReader();
 
@@ -978,11 +1064,18 @@ namespace pkRevitDatasheets
 
                 return dt;
             }
-            catch (Exception e)
+
+            #region catch and finally
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
-                return null;
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("GetDataTable, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
             }
+            finally
+            {
+            }
+            #endregion
+
+            return null;
         }
 
         public static SQLiteConnection reconnectPrivateFlexible(bool azure, string path000000, SQLiteConnection connRLPrivateFlexible) //new methods here need to be updated in 1 2 3 4 5 places and one by the directives
@@ -996,7 +1089,7 @@ namespace pkRevitDatasheets
                 eL = 1000;
                 myConnectionString = "Data Source=" + path000000 + "; Version=3";
                 eL =1010;
-                connRLPrivateFlexible = new SQLiteConnection(myConnectionString, true);
+                connRLPrivateFlexible = new SQLiteConnection(myConnectionString);
             }
 
             #region catch and finally
@@ -1389,8 +1482,7 @@ namespace pkRevitDatasheets
             Guid aguid = new Guid("{" + ((DataRowView)lv_MasterList.SelectedItem)["ProjectGuid"] + "}" );
 
             lbl_ProjectOfSelection.Content = dict_GuidToAlias[aguid];
-            lbl_Date.Content = DateTime.FromOADate((double)((DataRowView)lv_MasterList.SelectedItem)["Date"] - 2415018.5).ToString("U",
-                  CultureInfo.CreateSpecificCulture("en-US"));
+            lbl_Date.Content = DateTime.FromOADate((double)((DataRowView)lv_MasterList.SelectedItem)["Date"] - 2415018.5).ToString("U", CultureInfo.CreateSpecificCulture("en-US"));
 
             return true;
         }
@@ -1401,6 +1493,10 @@ namespace pkRevitDatasheets
 
             try
             {
+                MessageBoxResult result = System.Windows.MessageBox.Show("This will remove the parameter." + Environment.NewLine + Environment.NewLine + "Are you really sure?", "", System.Windows.MessageBoxButton.YesNoCancel);
+
+                if (result != MessageBoxResult.Yes) return;
+
 
                 Tuple<int, string, string, bool, bool> tuple = (Tuple<int, string, string, bool, bool>)lv_ReorderThis.SelectedItem;
 
@@ -1503,6 +1599,7 @@ namespace pkRevitDatasheets
             #endregion
         }
 
+
         private void buttonNewFromRevit_Click(object sender, RoutedEventArgs e)
         {
             int eL = -1;
@@ -1540,16 +1637,13 @@ namespace pkRevitDatasheets
 
                 if (listDataRow.Count() == 0)
                 {
-                    //UIDocument uidoc = classEntryPoint.commandData.Application.ActiveUIDocument;  //uidoc.ActiveView.Id.IntegerValue);
-
                     if(uidoc.ActiveView.ViewType != ViewType.Schedule)
                     {
                         MessageBox.Show("Because this is the first time this fitting has been saved, please do it from a 'Schedule' type view so that it can be isolated with its friends on the same schedule.");
                         return;
                     }
                 }
-
-                  
+                 
 
                 if (listDataRow.Count() != 0)
                 {
@@ -1659,16 +1753,20 @@ namespace pkRevitDatasheets
                 if (elementType.LookupParameter("Photometric Web File") != null)
                 {
                     string myString_Filename = elementType.get_Parameter(BuiltInParameter.FBX_LIGHT_PHOTOMETRIC_FILE).AsString();
-                    string myString_IESCache = elementType.get_Parameter(BuiltInParameter.FBX_LIGHT_PHOTOMETRIC_FILE_CACHE).AsString();
 
-                    byte[] data = System.Text.UnicodeEncoding.Unicode.GetBytes(myString_IESCache);
+                    if(myString_Filename != "")
+                    {
+                        string myString_IESCache = elementType.get_Parameter(BuiltInParameter.FBX_LIGHT_PHOTOMETRIC_FILE_CACHE).AsString();
 
-                    string string_DirectoryToCreate_Storage = method_Storage_DBFile_Directory() + @"\Admin Storage";
-                    string DirPath_Date_Dir = string_DirectoryToCreate_Storage + "\\" + myString_Date + @"\\";
+                        byte[] data = System.Text.UnicodeEncoding.Unicode.GetBytes(myString_IESCache);
 
-                    string myString_FullFilePath = DirPath_Date_Dir + myString_Filename;
+                        string string_DirectoryToCreate_Storage = method_Storage_DBFile_Directory() + @"\Admin Storage";
+                        string DirPath_Date_Dir = string_DirectoryToCreate_Storage + "\\" + myString_Date + @"\\";
 
-                    File.WriteAllBytes(myString_FullFilePath, data);
+                        string myString_FullFilePath = DirPath_Date_Dir + myString_Filename;
+
+                        File.WriteAllBytes(myString_FullFilePath, data);
+                    }
                 }
                 eL = 7452;
 
@@ -1861,6 +1959,9 @@ namespace pkRevitDatasheets
 
             try
             {
+
+                if (dataTable == null) return;
+
                 string string_DirectoryToCreate_Storage = method_Storage_DBFile_Directory() + @"\Admin Storage";
                 string myString_DataStore = string_DirectoryToCreate_Storage + "\\" + ((DataRowView)lv_MasterList.SelectedItem)["FolderName"];
                 string s_NewFolderName = stringFolderStore + "01";
@@ -2071,18 +2172,16 @@ namespace pkRevitDatasheets
 
             firstElement = doc.GetElement(uidoc.Selection.GetElementIds().Last());
 
+            if (firstElement.GetType() == typeof(IndependentTag))
+            {
+                IndependentTag myIndependentTag_1355 = firstElement as IndependentTag;
+                if (myIndependentTag_1355.TaggedLocalElementId == null) return null;
+
+                firstElement = doc.GetElement(myIndependentTag_1355.TaggedLocalElementId);
+            }
             if (firstElement.get_Geometry(new Options()) == null) return null;
 
-            Element myElement = doc.GetElement(uidoc.Selection.GetElementIds().First());
-            if (myElement.GetType() == typeof(IndependentTag))
-            {
-                IndependentTag myIndependentTag_1355 = myElement as IndependentTag;
-                if (myIndependentTag_1355.TaggedLocalElementId == null) return null;
-                return new Tuple<Element, Element> (null, doc.GetElement(myIndependentTag_1355.TaggedLocalElementId));
-            }
-
-            //if (myElement.GetType() != typeof(FamilyInstance)) return null;
-            return new Tuple<Element, Element> (firstElement, doc.GetElement(myElement.GetTypeId()));
+            return new Tuple<Element, Element> (firstElement, doc.GetElement(firstElement.GetTypeId()));
         }
 
         private void butIMAGE_Click(object sender, RoutedEventArgs e)
@@ -2091,6 +2190,10 @@ namespace pkRevitDatasheets
 
             try
             {
+
+                if (dataTable == null) return;
+
+
                 if (!System.Windows.Clipboard.ContainsImage())
                 {
                     MessageBox.Show("clipboard does not contain image");
@@ -2204,6 +2307,7 @@ namespace pkRevitDatasheets
 
             try
             {
+                if (dataTable == null) return;
                 rowFilter(bool_IsolationIsOn);
             }
 
@@ -2242,6 +2346,8 @@ namespace pkRevitDatasheets
 
             try
             {
+                if (dataTable == null) return;
+
                 textBoxSearch.Text = "";
                 rowFilter(bool_IsolationIsOn);
                 //dataTable.DefaultView.RowFilter = "" ;//implication of one text filter
@@ -2266,7 +2372,20 @@ namespace pkRevitDatasheets
 
             try
             {
+                //ComboBoxProjectFilter
+                Properties.Settings.Default.ComboBoxProjectFilter = ((KeyValuePair<Guid, string>)ComboBoxProjectFilter.SelectedItem).Key;
+
+                Properties.Settings.Default.SearchStringRemember = textBoxSearch.Text;
+
                 Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive = lv_MasterList.SelectedIndex;
+
+                Properties.Settings.Default.bool_IsolationIsOn = bool_IsolationIsOn;
+
+                
+                Properties.Settings.Default.str_carryOverScheduleId = str_carryOverScheduleId;
+                Properties.Settings.Default.str_carryOverGuid = str_carryOverGuid;
+                Properties.Settings.Default.str_carryOverScheduleId_string = str_carryOverScheduleId_string;
+
 
                 Properties.Settings.Default.Top = this.Top;
                 Properties.Settings.Default.Left = this.Left;
@@ -2516,7 +2635,6 @@ namespace pkRevitDatasheets
                 }
 
 
-
                 foreach (DataRow dr in dataTable.Rows)
                 {
 
@@ -2601,6 +2719,8 @@ namespace pkRevitDatasheets
         {
             try
             {
+                if (dataTable == null) return;
+
                 methodRefresh_LoadUp_lvDragDirectory(LoadDirectoryOrNot.LoadEverything);  //this returns a false if the directoy is not there
             }
             #region catch and finally
@@ -2620,6 +2740,8 @@ namespace pkRevitDatasheets
 
             try
             {
+
+                if (dataTable == null) return;
                 rowFilter(bool_IsolationIsOn);
             }
 
@@ -2636,8 +2758,9 @@ namespace pkRevitDatasheets
 
         //                //ProjectGUID, ScheduleID
 
-        string str_carryOverGuid = "";
+        Guid str_carryOverGuid = new Guid("{00000000-0000-0000-0000-000000000000}");
         Int64 str_carryOverScheduleId = 0;
+        string str_carryOverScheduleId_string = "";
 
 
         private void rowFilter(bool UseScheduleIsolation)
@@ -2653,24 +2776,21 @@ namespace pkRevitDatasheets
 
             if (UseScheduleIsolation)
             {
-                string guid = label_ProjectGUID.Content.ToString();
+                //string guid = label_ProjectGUID.Content.ToString();
 
                 if (lv_MasterList.SelectedIndex != -1)
                 {
-                    Int64 int64_ScheduleID = (Int64)((DataRowView)lv_MasterList.SelectedItem)["ScheduleID"];
-                    str_carryOverScheduleId = int64_ScheduleID;
+                    str_carryOverScheduleId = (Int64)((DataRowView)lv_MasterList.SelectedItem)["ScheduleID"];
+                    str_carryOverGuid = Guid.Parse(((DataRowView)lv_MasterList.SelectedItem)["ProjectGUID"].ToString());
+                    str_carryOverScheduleId_string = ((DataRowView)lv_MasterList.SelectedItem)["ScheduleName"].ToString();
 
-                    lbl_ScheduleName.Content = ((DataRowView)lv_MasterList.SelectedItem)["ScheduleName"];
-
-                    guid = ((DataRowView)lv_MasterList.SelectedItem)["ProjectGUID"].ToString();
-                    str_carryOverGuid = guid;
-
-                    lbl_ScheduleName_Project.Content = dict_GuidToAlias[new Guid(guid)];
+                    lbl_ScheduleName.Content = str_carryOverScheduleId_string;
+                    lbl_ScheduleName_Project.Content = dict_GuidToAlias[str_carryOverGuid];
                 }
 
                 if (stringFilter != "") stringFilter = stringFilter + " AND ";
                 stringFilter = stringFilter + "ScheduleID = " + str_carryOverScheduleId;
-               
+              
 
                 stringFilter = stringFilter + " AND ";
                 stringFilter = stringFilter + "ProjectGUID LIKE '%" + str_carryOverGuid + "%'";
@@ -2740,10 +2860,11 @@ namespace pkRevitDatasheets
             try
             {
                 lbl_ScheduleName.Content = "";
-                lbl_ScheduleName_Project.Content = "";
+                lbl_ScheduleName_Project.Content = "Show all Projects";
 
-                str_carryOverGuid = "";
+                str_carryOverGuid = Guid.Parse("00000000-0000-0000-0000-000000000000"); ;
                 str_carryOverScheduleId = 0;
+                str_carryOverScheduleId_string = "";
 
                 bool_IsolationIsOn = false;
                 rowFilter(bool_IsolationIsOn);
@@ -2992,28 +3113,46 @@ SELECT * FROM [pkRevitMasterTable] order by [SortOrder];
 
         private void btn_refresh_Click(object sender, RoutedEventArgs e)
         {
-            List<Int64> list_Int64 = new List<Int64>();
+            int eL = -1;
 
-            if (lv_MasterList.SelectedIndex != -1)
+            try
             {
-                foreach (DataRowView drb in lv_MasterList.SelectedItems.Cast<DataRowView>())
+                if (dataTable == null) return;
+
+                List<Int64> list_Int64 = new List<Int64>();
+
+                if (lv_MasterList.SelectedIndex != -1)
                 {
-                    list_Int64.Add((Int64)drb["ID"]);
+                    foreach (DataRowView drb in lv_MasterList.SelectedItems.Cast<DataRowView>())
+                    {
+                        list_Int64.Add((Int64)drb["ID"]);
+                    }
                 }
+
+                method_LoadUpMasterList();
+
+                rowFilter(bool_IsolationIsOn);
+
+                foreach (Int64 theInt in list_Int64)
+                {
+                    int indexOf = lv_MasterList.Items.Cast<DataRowView>().ToList().IndexOf(lv_MasterList.Items.Cast<DataRowView>().Where(x => (Int64)x["ID"] == theInt).First());
+
+                    lv_MasterList.SelectedItems.Add(lv_MasterList.Items[indexOf]);
+                }
+
+                lv_MasterList.ScrollIntoView(lv_MasterList.SelectedItem);
             }
 
-            method_LoadUpMasterList();
-
-            rowFilter(bool_IsolationIsOn);
-
-            foreach (Int64 theInt in list_Int64)
+            #region catch and finally
+            catch (Exception ex)
             {
-                int indexOf = lv_MasterList.Items.Cast<DataRowView>().ToList().IndexOf(lv_MasterList.Items.Cast<DataRowView>().Where(x => (Int64)x["ID"] == theInt).First());
-
-                lv_MasterList.SelectedItems.Add(lv_MasterList.Items[indexOf]);
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("btn_refresh_Click, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
             }
+            finally
+            {
+            }
+            #endregion
 
-            lv_MasterList.ScrollIntoView(lv_MasterList.SelectedItem);
         }
     }
 }
