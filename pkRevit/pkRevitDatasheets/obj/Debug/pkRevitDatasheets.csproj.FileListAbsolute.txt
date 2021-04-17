@@ -1,11 +1,9 @@
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\MainWindow.g.cs
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\Window_MoreParameters.g.cs
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\App.g.cs
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets_Content.g.cs
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\GeneratedInternalTypeHelper.g.cs
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets_MarkupCompile.cache
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets_MarkupCompile.lref
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\packages.config
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\PDF Love Heart Icon-3.ico
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\PDF Love Heart Icon-4.ico
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\StartDB.db
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\x64\SQLite.Interop.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\x86\SQLite.Interop.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\pkRevitDatasheets.exe.config
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\pkRevitDatasheets.exe
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\pkRevitDatasheets.pdb
@@ -18,6 +16,7 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\RevitAPI.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\RevitAPIUI.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Buffers.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Data.SQLite.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Diagnostics.DiagnosticSource.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Memory.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Numerics.Vectors.dll
@@ -41,6 +40,7 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\RevitAPI.xml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\RevitAPIUI.xml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Buffers.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Data.SQLite.xml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Memory.xml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Numerics.Vectors.xml
@@ -56,6 +56,13 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\MainWindow.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\Window_MoreParameters.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\App.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets_Content.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\GeneratedInternalTypeHelper.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets_MarkupCompile.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets_MarkupCompile.lref
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\MainWindow.baml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\Window_MoreParameters.baml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets.g.resources
@@ -64,11 +71,7 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets.csproj.CopyComplete
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets.exe
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets.pdb
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Data.SQLite.dll
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\System.Data.SQLite.xml
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\packages.config
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\x64\SQLite.Interop.dll
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\x86\SQLite.Interop.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\DuplicateStage1.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\DuplicateStage1.baml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\PresentationFramework.Aero.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets.csprojAssemblyReference.cache
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\bin\Debug\PDF Love Heart Icon-3.ico
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets.csproj.CoreCompileInputs.cache

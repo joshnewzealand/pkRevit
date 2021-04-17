@@ -21,7 +21,7 @@
       <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="DoubleSlider" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">90</Value>
+      <Value Profile="(Default)">120</Value>
     </Setting>
     <Setting Name="ComboBoxProjectFilter" Type="System.Guid" Scope="User">
       <Value Profile="(Default)">00000000-0000-0000-0000-000000000000</Value>
@@ -39,7 +39,13 @@
       <Value Profile="(Default)">00000000-0000-0000-0000-000000000000</Value>
     </Setting>
     <Setting Name="str_carryOverScheduleId_string" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">ALL Schedules</Value>
+    </Setting>
+    <Setting Name="str_carryOverCategory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ALL Categories</Value>
+    </Setting>
+    <Setting Name="str_CurrentModeOfExplorer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ModeProject</Value>
     </Setting>
   </Settings>
 </SettingsFile>

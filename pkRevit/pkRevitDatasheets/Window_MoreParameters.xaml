@@ -3,11 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:pkRevitDatasheets"
         mc:Ignorable="d"
         Title="Window_MoreParameters" Height="997.833" Width="800" Topmost="True" Closing="Window_Closing" ResizeMode="NoResize">
+
+
+    <!--<Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PresentationFramework.Aero;component/themes/Aero.NormalColor.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>-->
+
     <Grid>
-        <ListView x:Name="lv_Result_BuiltIn" Margin="0,36,0,0" Height="294" VerticalAlignment="Top">
+        <ListView x:Name="lv_Result_BuiltIn" Margin="0,36,0,0" Height="294" VerticalAlignment="Top" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Value.sName}" Header="Sort Order" Width="200" />

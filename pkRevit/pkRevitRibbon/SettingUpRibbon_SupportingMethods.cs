@@ -73,7 +73,6 @@ namespace pkRevitRibbon
             ////}
 
 
-
             ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersionCore).Count() == 0)
             ////{
             ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
@@ -153,7 +152,132 @@ namespace pkRevitRibbon
         public PushButtonData Button0010_pkRevitDatasheets(string Name, string ChecklistsNumber, string path)
         {
             PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0010_pkRevitDatasheets");
-            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0010_pkRevitDatasheets.png"), UriKind.Absolute));
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0020_pkRevitDatasheets_WholeSchedule.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0020_pkRevitDatasheets_WholeSchedule(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0020_pkRevitDatasheets_WholeSchedule");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0020_pkRevitDatasheets_WholeSchedule-2.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0030_OpenParentView(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0030_pkRevitMisc_OpenParentView");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0030_OpenParent.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0040_BringToFront(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0040_pkRevitMisc_BrintToFront");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0040_BringToFront.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0050_SizePositionViewport(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0050_pkRevitMisc_SizePositionViewport");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0050_SizePositionViewport.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0060_Filters(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0060_pkRevitMisc_Filters");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0060_Filters.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+
+        public PushButtonData Button0080_Spacers(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0080_pkRevitMisc_Spacers");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0080_Spacers.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0090_Lines(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0090_pkRevitMisc_Lines");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0090_Lines.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0100_DrawArrows(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0100_pkRevitMisc_DrawArrows");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0100_DrawArrows.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0110_TypesAndTags(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0110_pkRevitMisc_TypesAndTags");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0110_TypesAndTags.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0120_MakeAPlatform(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0120_pkRevitMisc_MakeAPlatform");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0120_MakeAPlatform.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+        public PushButtonData Button0130_SelectReferencePoint(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0130_pkRevitMisc_SelectReferencePoint");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0130_SelectReferencePoint.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0140_RotatePlatform(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0140_pkRevitMisc_RotatePlatform");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0140_RotatePlatform.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0150_SortOrder(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0150_pkRevitMisc_SortOrder");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0150_SortOrder.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+        public PushButtonData Button0160_EditSchedule(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0160_pkRevitMisc_EditSchedule");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0160_EditSchedule.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0170_AddFields(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0170_pkRevitMisc_AddFields");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0170_AddFields.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0180_SmileyFace(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0180_pkRevitMisc_SmileyFace");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0180_SmileyFace.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0190_UnderStandingTransforms(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0190_pkRevitMisc_UnderStandingTransforms");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0190_UnderStandingTransforms.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0200_NurfGun(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0200_pkRevitMisc_NurfGun");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0200_NurfGun.png"), UriKind.Absolute));
             return myPushButtonData;
         }
 

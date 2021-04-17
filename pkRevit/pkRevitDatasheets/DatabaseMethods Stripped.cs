@@ -45,7 +45,6 @@ namespace _952_PRLoogleClassLibrary
     {
         public static void writeDebug(string x, bool AndShow)
         {
-
             string path = (System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\` aa PRLGoogle Backups");
             if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
 

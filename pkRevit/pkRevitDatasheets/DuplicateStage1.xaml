@@ -1,0 +1,90 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pkRevitDatasheets"
+        xmlns:Converters="clr-namespace:pkRevitDatasheets.Converters" x:Class="pkRevitDatasheets.DuplicateStage1"
+        mc:Ignorable="d"
+        Title="DuplicateStage1" Height="249.603" Width="924.004" Topmost="True" ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <Converters:PutExtensionFirst x:Key="PutExtensionFirst" />
+
+        <Converters:BitMapToBitmapImage x:Key="ImageSourceFromBitmap" />
+    </Window.Resources>
+    <Grid>
+        <ListBox x:Name="listbox_objectmodel" SelectionMode="Single" ItemsSource="{Binding model2.ImageDictionary}" Margin="-3,0,3,39" >
+            <ListBox.Style>
+                <Style>
+                    <Style.Triggers>
+                        <Trigger Value="True" Property="local:DragDropHelper.IsDragOver">
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Background.Color">
+                                        <ColorAnimation Duration="0:0:0.2" From="LightGreen" To="Transparent"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Background.Opacity">
+                                        <DoubleAnimation Duration="0:0:0.2" From="1" To=".01"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Background.Color">
+                                        <ColorAnimation Duration="0:0:0.2" From="Transparent" To="LightGreen"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                                <BeginStoryboard>
+                                    <Storyboard Storyboard.TargetProperty="Background.Opacity">
+                                        <DoubleAnimation Duration="0:0:0.2" From="0.01" To="1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Style>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"/>
+                    </Style.Resources>
+                    <!--<Setter Property="VerticalContentAlignment" Value="Top"/>-->
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Background" Value="LightBlue"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect ShadowDepth="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <TextBlock Width="{Binding Value, ElementName=slider}" TextTrimming="CharacterEllipsis" Text="{Binding Key, Converter={StaticResource PutExtensionFirst}}" TextAlignment="Center" DockPanel.Dock="Bottom"/>
+                        <Image x:Name="img" Width="{Binding Value, ElementName=slider}" Stretch="UniformToFill" Source="{Binding Value, Converter={StaticResource ImageSourceFromBitmap}}" Height="{Binding Value, ElementName=slider}">
+                        </Image>
+                    </DockPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type ScrollContentPresenter}}}"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.Background>
+                <SolidColorBrush Color="White" Opacity="0.01"/>
+            </ListBox.Background>
+        </ListBox>
+        <Button x:Name="but_CopyIntoCurrent" Content="Copy Into Current" HorizontalAlignment="Right" Margin="0,0,62,10" VerticalAlignment="Bottom" Width="114" Click="but_CopyIntoCurrent_Click" Background="Red"/>
+        <Slider x:Name="slider" Value="120" Maximum="150" Minimum="16" ToolTip="{Binding Value, ElementName=slider}" Margin="-3,0,365,5" Height="22" VerticalAlignment="Bottom"/>
+        <Label x:Name="myLabel_Directory" Content="yyyyMMdd HHmm ss" HorizontalAlignment="Right" Margin="0,0,192,7" VerticalAlignment="Bottom" Width="130"/>
+    </Grid>
+</Window>

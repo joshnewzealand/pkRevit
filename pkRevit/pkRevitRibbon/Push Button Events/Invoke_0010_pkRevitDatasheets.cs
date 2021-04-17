@@ -28,22 +28,30 @@ namespace pkRevitRibbon
             {
                 if (Properties.Settings.Default.AssemblyNeedLoading) RibbonSupportMethods.loadPackages();
 
-                string myString_TestFileLocation = Properties.Settings.Default.pkRevitDatasheets_DevLocation2; //<--- appears 4 places in code
+               //////////////// string myString_TestFileLocation = Properties.Settings.Default.pkRevitDatasheets_DevLocation_DataSheets; //<--- appears 4 places in code
 
-
-                if (Properties.Settings.Default.MakeTheNextOneDevelopment)
+                //if we're not setting the back one back instead of this sae
+                if (Properties.Settings.Default.MakeTheNextOneDevelopment)  //why is this here at all
                 {
-                    TaskDialog.Show("Switch", "Please switch to development mode.");
-                    return Result.Cancelled;
+                    //TaskDialog.Show("Switch", "Please switch to development mode.");
+                    Properties.Settings.Default.MakeTheNextOneDevelopment = false;
+                    Properties.Settings.Default.Save();
+                    Properties.Settings.Default.Reload();
+
+                   // return Result.Cancelled;
                 }
 
                 string path = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString(); ;
 
                 Assembly objAssembly01 = null;
 
-
                 if (Properties.Settings.Default.pkRevitDatasheetsLoadName == "")
                 {
+                    if (!File.Exists(path + "\\" + dllModuleName))  //watchparty (search for this)
+                    {
+                        RibbonSupportMethods.writeDebug(path + "\\" + dllModuleName + Environment.NewLine + "The above file does not exist.", true);
+                    }
+
                     objAssembly01 = Assembly.Load(File.ReadAllBytes(path + "\\" + dllModuleName));
                     Properties.Settings.Default.pkRevitDatasheetsLoadName = objAssembly01.FullName;
                     Properties.Settings.Default.Save();
@@ -53,10 +61,15 @@ namespace pkRevitRibbon
                 {
                     if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == Properties.Settings.Default.pkRevitDatasheetsLoadName).Count() > 0)
                     {
-                        objAssembly01 = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == Properties.Settings.Default.pkRevitDatasheetsLoadName).FirstOrDefault();
+                        objAssembly01 = AppDomain.CurrentDomain.GetAssemblies().Reverse().Where(x => x.FullName == Properties.Settings.Default.pkRevitDatasheetsLoadName).FirstOrDefault();
                     }
                     else
                     {
+                        if (!File.Exists(path + "\\" + dllModuleName))  //watchparty (search for this)
+                        {
+                            RibbonSupportMethods.writeDebug(path + "\\" + dllModuleName + Environment.NewLine + "The above file does not exist.", true);
+                        }
+
                         objAssembly01 = Assembly.Load(File.ReadAllBytes(path + "\\" + dllModuleName));
                         Properties.Settings.Default.pkRevitDatasheetsLoadName = objAssembly01.FullName;
                         Properties.Settings.Default.Save();
@@ -64,7 +77,8 @@ namespace pkRevitRibbon
                     }
                 }
 
-
+                bool bool_Found = false;
+                string strCommandName_Method = "StartMethod_01";
                 string strCommandName = "Entry_0010_pkRevitDatasheets"; 
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
@@ -75,14 +89,21 @@ namespace pkRevitRibbon
                         if (objType.Name.ToLower() == strCommandName.ToLower())
                         {
                             object ibaseObject = Activator.CreateInstance(objType);
-                            object[] arguments = new object[] { commandData, path, elements }; 
+                            object[] arguments = new object[] { commandData, "Release|" + path, elements }; 
                             object result = null;
 
-                            result = objType.InvokeMember("StartMethod_01", BindingFlags.Default | BindingFlags.InvokeMethod, null, ibaseObject, arguments);
+                            result = objType.InvokeMember(strCommandName_Method, BindingFlags.Default | BindingFlags.InvokeMethod, null, ibaseObject, arguments);
 
+                            bool_Found = true;
                             break;
                         }
                     }
+                }
+
+                if (!bool_Found)  //nor only COPY this 6 times, and remove the slash, but also copy the big where the files exists FROM 3
+                {
+                    RibbonSupportMethods.writeDebug("Invoke_0010_pkRevitDatasheets" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
+                        + strCommandName_Method + Environment.NewLine + strCommandName + Environment.NewLine + path + "\\" + dllModuleName, true);
                 }
             }
 
@@ -129,7 +150,7 @@ namespace pkRevitRibbon
             {
                 if (Properties.Settings.Default.AssemblyNeedLoading) RibbonSupportMethods.loadPackages();
 
-                string myString_TestFileLocation = Properties.Settings.Default.pkRevitDatasheets_DevLocation2; //<--- appears 4 places in code
+                string myString_TestFileLocation = Properties.Settings.Default.pkRevitDatasheets_DevLocation_DataSheets; //<--- appears 4 places in code
 
                 if (true)//candidate for methodisation 202012251141
                 {
@@ -148,7 +169,7 @@ namespace pkRevitRibbon
 
                         if (myDia.ShowDialog() == true)
                         {
-                            Properties.Settings.Default.pkRevitDatasheets_DevLocation2 = myDia.FileName;
+                            Properties.Settings.Default.pkRevitDatasheets_DevLocation_DataSheets = myDia.FileName;
                             Properties.Settings.Default.MakeTheNextOneDevelopment = false;
                             Properties.Settings.Default.Save();
                             Properties.Settings.Default.Reload();
@@ -161,8 +182,14 @@ namespace pkRevitRibbon
                 }
 
 
-                Assembly objAssembly01 = Assembly.Load(File.ReadAllBytes(Properties.Settings.Default.pkRevitDatasheets_DevLocation2));
+                Assembly objAssembly01 = Assembly.Load(File.ReadAllBytes(Properties.Settings.Default.pkRevitDatasheets_DevLocation_DataSheets));
 
+                ////Properties.Settings.Default.pkRevitDatasheetsLoadName = "";
+                ////Properties.Settings.Default.Save();
+                ////Properties.Settings.Default.Reload();
+
+                bool bool_Found = false;
+                string strCommandName_Method = "StartMethod_01";
                 string strCommandName = "Entry_0010_pkRevitDatasheets";
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
@@ -173,14 +200,22 @@ namespace pkRevitRibbon
                         if (objType.Name.ToLower() == strCommandName.ToLower())
                         {
                             object ibaseObject = Activator.CreateInstance(objType);
-                            object[] arguments = new object[] { commandData, System.IO.Path.GetDirectoryName(Properties.Settings.Default.pkRevitDatasheets_DevLocation2), elements };
+                            object[] arguments = new object[] { commandData, "Dev|" + System.IO.Path.GetDirectoryName(Properties.Settings.Default.pkRevitDatasheets_DevLocation_DataSheets), elements };
                             object result = null;
 
-                            result = objType.InvokeMember("StartMethod_01", BindingFlags.Default | BindingFlags.InvokeMethod, null, ibaseObject, arguments);
+                            result = objType.InvokeMember(strCommandName_Method, BindingFlags.Default | BindingFlags.InvokeMethod, null, ibaseObject, arguments);
 
+
+                            bool_Found = true;
                             break;
                         }
                     }
+                }
+
+                if (!bool_Found)  //nor only COPY this 6 times, and remove the slash, but also copy the big where the files exists FROM 3
+                {
+                    RibbonSupportMethods.writeDebug("DevInvoke_0010_pkRevitDatasheets" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
+                        + strCommandName_Method + Environment.NewLine + strCommandName + Environment.NewLine + Properties.Settings.Default.pkRevit_DevLocation_Misc, true);
                 }
             }
 

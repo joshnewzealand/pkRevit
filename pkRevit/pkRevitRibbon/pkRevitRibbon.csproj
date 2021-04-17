@@ -250,6 +250,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Push Button Events\Invoke_0200_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0040_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0050_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0060_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0080_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0090_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0100_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0110_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0120_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0130_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0140_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0150_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0160_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0170_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0180_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0190_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0030_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0020_pkRevitDatasheets.cs" />
     <Compile Include="Push Button Events\InvokesToSetDevelopmentPaths.cs" />
     <Compile Include="Push Button Events\Invoke_0010_pkRevitDatasheets.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -265,8 +283,68 @@
     <Content Include="Images\013 Button Image Uninstall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Button0010_pkRevitDatasheets-2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Button0010_pkRevitDatasheets.ico" />
     <Content Include="Images\Button0010_pkRevitDatasheets.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0020_pkRevitDatasheets_WholeSchedule-2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0020_pkRevitDatasheets_WholeSchedule.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0030_OpenParent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0040_BringToFront.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0050_SizePositionViewport.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0060_Filters.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0080_Spacers.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0200_NurfGun.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0150_SortOrder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0140_RotatePlatform.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0130_SelectReferencePoint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0090_Lines.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0110_TypesAndTags.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0100_DrawArrows.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0160_EditSchedule.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0170_AddFields.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0190_UnderStandingTransforms.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0120_MakeAPlatform.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0180_SmileyFace.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

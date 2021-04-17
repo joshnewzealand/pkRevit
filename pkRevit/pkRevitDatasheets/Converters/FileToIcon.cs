@@ -222,8 +222,39 @@ namespace QuickZip.Tools
             }
         }
 
+        public static Bitmap Bolden(Bitmap bmp0)
+        {
+            float f = 2f;
+
+            Bitmap bmp = new Bitmap(bmp0.Width, bmp0.Height);
+            using (Bitmap bmp1 = new Bitmap(bmp0, new System.Drawing.Size((int)(bmp0.Width * f),
+                                                           (int)(bmp0.Height * f))))
+            {
+                float contrast = 1f;
+
+                ColorMatrix colorMatrix = new ColorMatrix(new float[][]
+                        {
+            new float[] {contrast, 0, 0, 0, 0},
+            new float[] {0,contrast, 0, 0, 0},
+            new float[] {0, 0, contrast, 0, 0},
+            new float[] {0, 0, 0, 1, 0},
+            new float[] {0, 0, 0, 0, 1}
+                        });
+
+                ImageAttributes attributes = new ImageAttributes();
+                attributes.SetColorMatrix(colorMatrix, ColorMatrixFlag.Default,
+                                                        ColorAdjustType.Bitmap);
+                attributes.SetGamma(7.5f, ColorAdjustType.Bitmap);
+                using (Graphics g = Graphics.FromImage(bmp))
+                    g.DrawImage(bmp1, new Rectangle(0, 0, bmp.Width, bmp.Height),
+                             0, 0, bmp1.Width, bmp1.Height, GraphicsUnit.Pixel, attributes);
+
+            }
+            return bmp;
+        }
+
         //http://blog.paranoidferret.com/?p=11 , modified a little.
-        private static Bitmap resizeImage(Bitmap imgToResize, System.Drawing.Size size, int spacing)
+        public static Bitmap resizeImage(Bitmap imgToResize, System.Drawing.Size size, int spacing, bool bool_darken)
         {
             int sourceWidth = imgToResize.Width;
             int sourceHeight = imgToResize.Height;
@@ -248,21 +279,29 @@ namespace QuickZip.Tools
 
 
             Bitmap b = new Bitmap(size.Width, size.Height);
+            
             Graphics g = Graphics.FromImage((Image)b);
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
-            g.DrawLines(System.Drawing.Pens.Silver, new PointF[] {
-                new PointF(leftOffset - spacing, topOffset + destHeight + spacing), //BottomLeft
-                new PointF(leftOffset - spacing, topOffset -spacing),                 //TopLeft
-                new PointF(leftOffset + destWidth + spacing, topOffset - spacing)});//TopRight
+            g.Clear(Color.White);
+            //g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            //////g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighSpeed;
+            ////g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
-            g.DrawLines(System.Drawing.Pens.Gray, new PointF[] {
-                new PointF(leftOffset + destWidth + spacing, topOffset - spacing),  //TopRight
-                new PointF(leftOffset + destWidth + spacing, topOffset + destHeight + spacing), //BottomRight
-                new PointF(leftOffset - spacing, topOffset + destHeight + spacing),}); //BottomLeft
+     
+            ////////////g.DrawLines(System.Drawing.Pens.Silver, new PointF[] {
+            ////////////    new PointF(leftOffset - spacing, topOffset + destHeight + spacing), //BottomLeft
+            ////////////    new PointF(leftOffset - spacing, topOffset -spacing),                 //TopLeft
+            ////////////    new PointF(leftOffset + destWidth + spacing, topOffset - spacing)});//TopRight
+
+            ////////////g.DrawLines(System.Drawing.Pens.Gray, new PointF[] {
+            ////////////    new PointF(leftOffset + destWidth + spacing, topOffset - spacing),  //TopRight
+            ////////////    new PointF(leftOffset + destWidth + spacing, topOffset + destHeight + spacing), //BottomRight
+            ////////////    new PointF(leftOffset - spacing, topOffset + destHeight + spacing),}); //BottomLeft
 
             g.DrawImage(imgToResize, leftOffset, topOffset, destWidth, destHeight);
             g.Dispose();
 
+            if(bool_darken) b = Bolden(b);
             return b;
         }
 
@@ -382,14 +421,13 @@ namespace QuickZip.Tools
             System.Drawing.Color empty = System.Drawing.Color.FromArgb(0, 0, 0, 0);
 
             if (bitmap.Width < 256)
-                bitmap = resizeImage(bitmap, new System.Drawing.Size(256, 256), 0);
+                bitmap = resizeImage(bitmap, new System.Drawing.Size(256, 256), 0, false);
             else
                 if (bitmap.GetPixel(100, 100) == empty && bitmap.GetPixel(200, 200) == empty && bitmap.GetPixel(200, 200) == empty)
             {
                 _imgList.ImageListSize = SysImageListSize.largeIcons;
                 bitmap = resizeJumbo(_imgList.Icon(_imgList.IconIndex(lookup)).ToBitmap(), new System.Drawing.Size(200, 200), 5);
             }
-
             return bitmap;
         }
 
@@ -404,10 +442,8 @@ namespace QuickZip.Tools
             //System.GC.Collect();
         }
 
-
         private void PollIconCallback(object state)
         {
-
             thumbnailInfo input = state as thumbnailInfo;
             string fileName = input.fullPath;
             WriteableBitmap writeBitmap = input.bitmap;
@@ -417,7 +453,7 @@ namespace QuickZip.Tools
             Bitmap inputBitmap = origBitmap;
             if (size == IconSize.jumbo || size == IconSize.thumbnail)
                 inputBitmap = resizeJumbo(origBitmap, getDefaultSize(size), 5);
-            else inputBitmap = resizeImage(origBitmap, getDefaultSize(size), 0);
+            else inputBitmap = resizeImage(origBitmap, getDefaultSize(size), 0, false);
 
             BitmapSource inputBitmapSource = loadBitmap(inputBitmap);
             origBitmap.Dispose();
@@ -437,7 +473,7 @@ namespace QuickZip.Tools
             try
             {
                 Bitmap origBitmap = new Bitmap(fileName);
-                Bitmap inputBitmap = resizeImage(origBitmap, getDefaultSize(size), 5);
+                Bitmap inputBitmap = resizeImage(origBitmap, getDefaultSize(size), 5, false);
                 BitmapSource inputBitmapSource = loadBitmap(inputBitmap);
                 origBitmap.Dispose();
                 inputBitmap.Dispose();
@@ -460,7 +496,6 @@ namespace QuickZip.Tools
 
                 try
                 {
-
                     if (!thumbDic.ContainsKey(key))
                         lock (thumbDic)
                         {
@@ -476,7 +511,6 @@ namespace QuickZip.Tools
                             {
                                 ShellFile sf = ShellFile.FromFilePath(fileName);
 
-
                                 ///so I am completely drawing a blank on where, where, where, where was the original code that gave me the full side icon
                                 ///full size icon
                                 ///full size icon
@@ -487,7 +521,7 @@ namespace QuickZip.Tools
                                 {
                                     //resizeImage(ShellFile.FromFilePath(fileName).Thumbnail.CurrentSize.Width < 256)
 
-                                    Bitmap bitmap = resizeImage(ShellFile.FromParsingName(fileName).Thumbnail.SmallBitmap, new System.Drawing.Size(256, 256), 0);
+                                    Bitmap bitmap = resizeImage(ShellFile.FromParsingName(fileName).Thumbnail.SmallBitmap, new System.Drawing.Size(256, 256), 0, false);
                                     thumbDic.Add(key, helpers.GetBitmapSource(bitmap));
 
                                     //BitmapSource src = ShellFile.FromFilePath(fileName).Thumbnail.SmallBitmapSource;
@@ -504,7 +538,6 @@ namespace QuickZip.Tools
 
                                         ShellThumbnail shellthumbnail = ShellFile.FromParsingName(fileName).Thumbnail;
                                         shellthumbnail.FormatOption = ShellThumbnailFormatOption.ThumbnailOnly;
-
 
                                         int timeOut = 0;
                                         LoopLoop:
@@ -525,10 +558,9 @@ namespace QuickZip.Tools
                                                 shellthumbnail.FormatOption = ShellThumbnailFormatOption.IconOnly;
                                                 bm = shellthumbnail.Bitmap;
                                             }
-
                                         }
 
-                                        Bitmap bitmap = resizeImage(bm, new System.Drawing.Size(256, 256), 0);
+                                        Bitmap bitmap = resizeImage(bm, new System.Drawing.Size(256, 256), 0, false);
 
                                         //////int THUMB_SIZE = 256;
                                         //////Bitmap thumbnail = WindowsThumbnailProvider.GetThumbnail(
@@ -551,7 +583,7 @@ namespace QuickZip.Tools
                                     //Bitmap bitmap2 = GetFileIcon(fileName, IconSize.large).ToBitmap();
 
                                     ShellObject shellobject = ShellFile.FromParsingName(fileName);
-                                    Bitmap bitmap = resizeImage(shellobject.Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+                                    Bitmap bitmap = resizeImage(shellobject.Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0, false);
 
                                     //////////////////Thread.Sleep(200);
 
@@ -563,8 +595,41 @@ namespace QuickZip.Tools
                                 }
                                 else
                                 {
-                                    BitmapSource src = ShellFile.FromParsingName(fileName).Thumbnail.SmallBitmapSource;
+                                    ////////ShellObject shellobject = ShellFile.FromParsingName(fileName);
+                                    ////////Bitmap bitmap = resizeImage((Bitmap)Image.FromFile(fileName), new System.Drawing.Size(256, 256), 0);
+                                    //////////thumbDic.Add(key, helpers.GetBitmapSource((Bitmap)Image.FromFile(fileName)));
+
+                                    Icon appIcon = Icon.ExtractAssociatedIcon(fileName);
+                                    
+
+                                    BitmapSource src = ShellFile.FromParsingName(fileName).Thumbnail.BitmapSource;
+
+                                    ///////////////////////////thumbDic.Add(key, helpers.GetBitmapSource(appIcon.ToBitmap()));
                                     thumbDic.Add(key, src);
+
+
+
+                                    //////                                    Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+
+                                    //////                                    {
+                                    //////                                        ////////ShellObject shellobject = null;
+                                    //////                                        ////////shellobject = ShellFile.FromFilePath(fileName);
+                                    //////                                        ////////shellobject.Thumbnail.FormatOption = ShellThumbnailFormatOption.ThumbnailOnly;
+
+                                    //////                                        ////////////ShellObject shellobject = ShellFile.FromParsingName(fileName);
+                                    //////                                        ////////////Bitmap bitmap = resizeImage(shellobject.Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
+
+                                    //////                                        BitmapSource src = ShellFile.FromParsingName(fileName).Thumbnail.SmallBitmapSource;
+
+                                    //////                                        thumbDic.Add(key, src);
+                                    //////                                        // BitmapSource src = helpers.GetBitmapSource(bitmap));
+                                    //////                                        // bitmap.Save(@"C:\sdf.sdf");
+
+
+                                    //////                                    }
+                                    //////)); ;
+                                    ////////////////////BitmapSource src = ShellFile.FromParsingName(fileName).Thumbnail.SmallBitmapSource;
+                                    ////////////////////thumbDic.Add(key, src);
 
 
                                     ////Bitmap bitmap = resizeImage(ShellFile.FromParsingName(fileName).Thumbnail.Bitmap, new System.Drawing.Size(256, 256), 0);
@@ -631,6 +696,72 @@ namespace QuickZip.Tools
             //////    return iconDic[key];
             //////}
         }
+
+
+        public static byte[] ConvertImageToByteArray(Image imageToConvert)
+        {
+            using (var ms = new MemoryStream())
+            {
+                ImageFormat format;
+                format = ImageFormat.Bmp;
+                //////switch (imageToConvert.MimeType())	
+                //////{	
+                //////    case "image/png":	
+                //////        format = ImageFormat.Png;	
+                //////        break;	
+                //////    case "image/gif":	
+                //////        format = ImageFormat.Gif;	
+                //////        break;	
+                //////    default:	
+                //////        format = ImageFormat.Jpeg;	
+                //////        break;	
+                //////}	
+                imageToConvert.Save(ms, format);
+                return ms.ToArray();
+            }
+        }
+        public static System.Drawing.Icon GetRegisteredIcon(string filePath)
+        {
+            var shinfo = new SHfileInfo();
+            Win32.SHGetFileInfo(filePath, 0, ref shinfo, (uint)Marshal.SizeOf(shinfo), Win32.SHGFI_ICON | Win32.SHGFI_SMALLICON);
+            return System.Drawing.Icon.FromHandle(shinfo.hIcon);
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SHfileInfo
+        {
+            public IntPtr hIcon;
+            public int iIcon;
+            public uint dwAttributes;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            public string szDisplayName;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+            public string szTypeName;
+        }
+        internal sealed class Win32
+        {
+            public const uint SHGFI_ICON = 0x100;
+            public const uint SHGFI_LARGEICON = 0x0; // large	
+            public const uint SHGFI_SMALLICON = 0x1; // small	
+            [System.Runtime.InteropServices.DllImport("shell32.dll")]
+            public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHfileInfo psfi, uint cbSizeFileInfo, uint uFlags);
+        }
+
+
+        //////////public Dictionary<string, ImageSource> GetValueById(Dictionary<string, ImageSource> thumbDic, string key, string fileName)
+        //////////{
+        //////////    return Application.Current.Dispatcher.Invoke(() =>
+        //////////    {
+        //////////        var main = Application.Current.MainWindow as pkRevitDatasheets.MainWindow;
+        //////////        if (main != null)
+        //////////        {
+        //////////            BitmapSource src = ShellFile.FromParsingName(fileName).Thumbnail.SmallBitmapSource;
+
+        //////////            thumbDic.Add(key, src);
+
+        //////////            return thumbDic;
+        //////////        }
+        //////////    });
+        //////////}
 
 
         public ImageSource GetImage(string fileName, int iconSize)

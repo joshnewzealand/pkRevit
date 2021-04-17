@@ -40,6 +40,7 @@ namespace pkRevitDatasheets
                 
                 List<int> list_IntFindMax = new List<int>();
                 list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_Shared.Keys);
+                list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_Project.Keys);
                 list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_BuiltIn.Keys);
                 int int_NewMax = list_IntFindMax.Max() + 1;
 
@@ -48,6 +49,11 @@ namespace pkRevitDatasheets
                     MessageBox.Show(mainWindow.dictParameters_BuiltInt[int_Key].sName + " has already been added");
                     return;
                 }
+
+                ///this is bringing it in from mainWindow.dictParameters_BuiltInt
+                ///and now we need to figure out how to load up dictParameters_BuiltInt
+
+
 
                 mainWindow.lv_ReorderThis.Items.Add(new Tuple<int, string, string, bool, bool>(int_NewMax, mainWindow.dictParameters_BuiltInt[int_Key].sName, mainWindow.dictParameters_BuiltInt[int_Key].sValue, true, false));
                 mainWindow.lv_ReorderThis.SelectedIndex = mainWindow.lv_ReorderThis.Items.Count - 1;
@@ -58,7 +64,6 @@ namespace pkRevitDatasheets
                 Stream stream = new FileStream(mainWindow.string_Default_Parameters_BuiltIn, FileMode.Create, FileAccess.Write);
                 DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<int, int>));  //four of four
                 serializer.WriteObject(stream, mainWindow.dict_SortOrdered_BuiltIn); stream.Close();
-
             }
 
             #region catch and finally
@@ -125,6 +130,7 @@ namespace pkRevitDatasheets
 
                 List<int> list_IntFindMax = new List<int>();
                 list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_Shared.Keys);
+                list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_Project.Keys);
                 list_IntFindMax.AddRange(mainWindow.dict_SortOrdered_BuiltIn.Keys);
                 int int_NewMax = list_IntFindMax.Max() + 1;
 

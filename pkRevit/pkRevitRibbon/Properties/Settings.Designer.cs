@@ -12,7 +12,7 @@ namespace pkRevitRibbon.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.3.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -62,12 +62,12 @@ namespace pkRevitRibbon.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string pkRevitDatasheets_DevLocation2 {
+        public string pkRevitDatasheets_DevLocation_DataSheets {
             get {
-                return ((string)(this["pkRevitDatasheets_DevLocation2"]));
+                return ((string)(this["pkRevitDatasheets_DevLocation_DataSheets"]));
             }
             set {
-                this["pkRevitDatasheets_DevLocation2"] = value;
+                this["pkRevitDatasheets_DevLocation_DataSheets"] = value;
             }
         }
         
@@ -80,6 +80,30 @@ namespace pkRevitRibbon.Properties {
             }
             set {
                 this["pkRevitDatasheetsLoadName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_DevLocation_Misc {
+            get {
+                return ((string)(this["pkRevit_DevLocation_Misc"]));
+            }
+            set {
+                this["pkRevit_DevLocation_Misc"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_LoadName_Misc {
+            get {
+                return ((string)(this["pkRevit_LoadName_Misc"]));
+            }
+            set {
+                this["pkRevit_LoadName_Misc"] = value;
             }
         }
     }

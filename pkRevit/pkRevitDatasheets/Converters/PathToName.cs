@@ -44,7 +44,7 @@ namespace QuickZip.Tools
         {
             if (targetType != typeof(double)) { return null; }
 
-            double dParentWidth = Double.Parse(value.ToString()) - 40;
+            double dParentWidth = Double.Parse(value.ToString()) - 250;
            // double dAdjustedWidth = dParentWidth - m_Margin.Left - m_Margin.Right;
             return (dParentWidth < 0 ? 0 : dParentWidth);
         }
@@ -53,7 +53,6 @@ namespace QuickZip.Tools
         {
             throw new NotImplementedException();
         }
-
         #endregion
     }
 
@@ -72,8 +71,10 @@ namespace QuickZip.Tools
         {
             if (targetType != typeof(double)) { return null; }
 
-            double dParentWidth = Double.Parse(value.ToString()) - 30;
+            double dParentWidth = Double.Parse(value.ToString()) - 270;
             // double dAdjustedWidth = dParentWidth - m_Margin.Left - m_Margin.Right;
+
+
             return (dParentWidth < 0 ? 0 : dParentWidth);
         }
 

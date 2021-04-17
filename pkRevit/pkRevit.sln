@@ -11,6 +11,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "pkRevit joshnewzealand", "p
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitCustomMethods", "pkRevitCustomMethods\pkRevitCustomMethods.csproj", "{A0ED3729-E945-4616-A331-034E90FFDA28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitMisc", "pkRevitMisc\pkRevitMisc.csproj", "{1E792849-6BF3-4CDE-ABBD-453FD075217F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{A0ED3729-E945-4616-A331-034E90FFDA28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0ED3729-E945-4616-A331-034E90FFDA28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0ED3729-E945-4616-A331-034E90FFDA28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E792849-6BF3-4CDE-ABBD-453FD075217F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E792849-6BF3-4CDE-ABBD-453FD075217F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E792849-6BF3-4CDE-ABBD-453FD075217F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E792849-6BF3-4CDE-ABBD-453FD075217F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

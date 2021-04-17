@@ -11,10 +11,16 @@
     <Setting Name="MakeTheNextOneDevelopment" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="pkRevitDatasheets_DevLocation2" Type="System.String" Scope="User">
+    <Setting Name="pkRevitDatasheets_DevLocation_DataSheets" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="pkRevitDatasheetsLoadName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="pkRevit_DevLocation_Misc" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="pkRevit_LoadName_Misc" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

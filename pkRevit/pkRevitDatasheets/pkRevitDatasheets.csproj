@@ -47,7 +47,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>PDF Love Heart Icon-3.ico</ApplicationIcon>
+    <ApplicationIcon>PDF Love Heart Icon-4.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -73,6 +73,10 @@
     </Reference>
     <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero">
+      <Private>True</Private>
     </Reference>
     <Reference Include="RevitAPI">
       <HintPath>C:\ProgramData\Autodesk\Revit\Macros\2019\RevitAPI.dll</HintPath>
@@ -253,7 +257,6 @@
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="Xceed.Wpf.AvalonDock, Version=4.0.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.4.0.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -275,11 +278,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ImageSourceFromBitmap.cs" />
+    <Compile Include="Converters\ProjectName.cs" />
     <Compile Include="Converters\PathToName.cs" />
     <Compile Include="Converters\SysImageList.cs" />
+    <Compile Include="EntryPoints\Entry_0020_pkRevitDatasheets.cs" />
+    <Compile Include="DuplicateStage1.xaml.cs">
+      <DependentUpon>DuplicateStage1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window_MoreParameters.xaml.cs">
       <DependentUpon>Window_MoreParameters.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf.Util.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -297,6 +307,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="DuplicateStage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window_MoreParameters.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -329,6 +343,9 @@
     </None>
     <Resource Include="Button0010_pkRevitDatasheets.ico" />
     <Content Include="PDF Love Heart Icon-3.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PDF Love Heart Icon-4.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="StartDB.db">

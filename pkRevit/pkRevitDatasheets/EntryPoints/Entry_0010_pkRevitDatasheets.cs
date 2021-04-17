@@ -17,16 +17,13 @@ namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
         public ExternalEvents.EE00_CopyTemplate myEE00_CopyTemplate { get; set; }
         public ExternalEvent myExternalEvent_EE00_CopyTemplate { get; set; }
 
-        public ExternalCommandData commandData { get; set; }
-        public string executionLocation { get; set; }
+        ////public ExternalCommandData commandData { get; set; }
+        ////public string executionLocation { get; set; }
 
         public Result StartMethod_01(ExternalCommandData cd, ref string message, ElementSet elements)
         {
-
-          
-
-            commandData = cd;
-            executionLocation = message;
+            ExternalCommandData commandData = cd;
+            string executionLocation = message;
             //////////////////////MainWindow mainWindow = new MainWindow();
             //////////////////////mainWindow.Topmost = true;
             //////////////////////mainWindow.Show();
@@ -51,16 +48,21 @@ namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
                     DatabaseMethods.ErrorMsg("Something went wrong");
                 }
             }
+            ToAvoidLoadingRevitDLLs toavoidloadingrevitdlls = new ToAvoidLoadingRevitDLLs();
+            toavoidloadingrevitdlls.commandData = commandData;
+            toavoidloadingrevitdlls.executionLocation = executionLocation;
 
-
-            MainWindow mainWindow = new MainWindow(named_guid, this);
+            MainWindow mainWindow = new MainWindow(named_guid, toavoidloadingrevitdlls);
 
             if(mainWindow.bool_ContinueOpening_DatabaseChecksOut)
             {
+                //////////////mainWindow.method_LoadUpMasterList();
+                //////////////mainWindow.ExtractEntireSchedule();
+
                 mainWindow.Topmost = true;
                 mainWindow.Show();
             }
-
+            GC.Collect();
 
             if (false)
             {
@@ -75,7 +77,5 @@ namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
 
             return Result.Succeeded;
         }
-
-
     }
 }

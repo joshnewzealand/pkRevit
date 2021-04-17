@@ -12,7 +12,7 @@ namespace pkRevitDatasheets.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.3.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -97,7 +97,7 @@ namespace pkRevitDatasheets.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("90")]
+        [global::System.Configuration.DefaultSettingValueAttribute("120")]
         public double DoubleSlider {
             get {
                 return ((double)(this["DoubleSlider"]));
@@ -169,13 +169,37 @@ namespace pkRevitDatasheets.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ALL Schedules")]
         public string str_carryOverScheduleId_string {
             get {
                 return ((string)(this["str_carryOverScheduleId_string"]));
             }
             set {
                 this["str_carryOverScheduleId_string"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ALL Categories")]
+        public string str_carryOverCategory {
+            get {
+                return ((string)(this["str_carryOverCategory"]));
+            }
+            set {
+                this["str_carryOverCategory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ModeProject")]
+        public string str_CurrentModeOfExplorer {
+            get {
+                return ((string)(this["str_CurrentModeOfExplorer"]));
+            }
+            set {
+                this["str_CurrentModeOfExplorer"] = value;
             }
         }
     }
