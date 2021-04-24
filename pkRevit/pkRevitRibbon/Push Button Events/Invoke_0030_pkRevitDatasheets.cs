@@ -72,8 +72,8 @@ namespace pkRevitRibbon
                 }
 
                 bool bool_Found = false;
-                string strCommandName_Method = "StartMethod_0030"; //<--------------------------------------------- edit here
                 string strCommandName = "Entry_0030_pkRevitMisc"; //<--------------------------------------------- edit here
+                string strCommandName_Method = "StartMethod_0030"; //<--------------------------------------------- edit here
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -133,7 +133,7 @@ namespace pkRevitRibbon
     {
         //I count 1,6 = 7 places that need to change
 
-        string dllModuleFolder = "pkRevitMisc"; //<--------------------------------------------- edit here
+        //string dllModuleFolder = "pkRevitMisc"; //<--------------------------------------------- edit here
         string dllModuleName = "pkRevitMisc.dll"; //<--------------------------------------------- edit here
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -173,8 +173,8 @@ namespace pkRevitRibbon
                 Assembly objAssembly01 = Assembly.Load(File.ReadAllBytes(Properties.Settings.Default.pkRevit_DevLocation_Misc));
 
                 bool bool_Found = false;
-                string strCommandName_Method = "StartMethod_0030";//<--------------------------------------------- edit here
                 string strCommandName = "Entry_0030_pkRevitMisc";//<--------------------------------------------- edit here
+                string strCommandName_Method = "StartMethod_0030";//<--------------------------------------------- edit here
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -208,7 +208,7 @@ namespace pkRevitRibbon
                 string pathPreHeader = "DevInvoke_0030_pkRevitMisc_OpenParentView" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + Environment.NewLine;//<--------------------------------------------- edit here
                 string pathHeader = pathPreHeader + "Please check this file (and directory) exist: " + Environment.NewLine;
                 string path = Properties.Settings.Default.DevelopmentPathRoot + "";
-                RibbonSupportMethods.writeDebug(pathHeader + path + "\\" + dllModuleFolder + "\\AddIn\\" + dllModuleName, true);
+                RibbonSupportMethods.writeDebug(pathHeader + path + "\\...\\" + dllModuleName, true);
             }
             finally
             {

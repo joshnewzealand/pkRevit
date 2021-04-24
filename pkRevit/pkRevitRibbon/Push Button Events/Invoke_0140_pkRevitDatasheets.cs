@@ -72,8 +72,8 @@ namespace pkRevitRibbon
                 }
 
                 bool bool_Found = false;
-                string strCommandName_Method = "StartMethod_0140"; //<--------------------------------------------- edit here
                 string strCommandName = "Entry_0140_pkRevitMisc"; //<--------------------------------------------- edit here
+                string strCommandName_Method = "StartMethod_0140"; //<--------------------------------------------- edit here
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -96,7 +96,7 @@ namespace pkRevitRibbon
 
                 if (!bool_Found)  
                 {
-                    RibbonSupportMethods.writeDebug("Invoke_0140_pkRevitMisc_OpenParentView" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
+                    RibbonSupportMethods.writeDebug("Invoke_0140_pkRevitMisc_RotatePlatform" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
                         + strCommandName_Method + Environment.NewLine + strCommandName + Environment.NewLine + path + dllModuleName, true);
                 }
             }
@@ -133,7 +133,7 @@ namespace pkRevitRibbon
     {
         //I count 1,6 = 7 places that need to change
 
-        string dllModuleFolder = "pkRevitMisc"; //<--------------------------------------------- edit here
+        //string dllModuleFolder = "pkRevitMisc"; //<--------------------------------------------- edit here
         string dllModuleName = "pkRevitMisc.dll"; //<--------------------------------------------- edit here
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -173,8 +173,8 @@ namespace pkRevitRibbon
                 Assembly objAssembly01 = Assembly.Load(File.ReadAllBytes(Properties.Settings.Default.pkRevit_DevLocation_Misc));
 
                 bool bool_Found = false;
-                string strCommandName_Method = "StartMethod_0140";//<--------------------------------------------- edit here
                 string strCommandName = "Entry_0140_pkRevitMisc";//<--------------------------------------------- edit here
+                string strCommandName_Method = "StartMethod_0140";//<--------------------------------------------- edit here
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -197,7 +197,7 @@ namespace pkRevitRibbon
 
                 if (!bool_Found)  //nor only COPY this 6 times, and remove the slash, but also copy the big where the files exists FROM 3
                 {
-                    RibbonSupportMethods.writeDebug("DevInvoke_0140_pkRevitMisc_OpenParentView" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
+                    RibbonSupportMethods.writeDebug("DevInvoke_0140_pkRevitMisc_RotatePlatform" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
                         + strCommandName_Method + Environment.NewLine + strCommandName + Environment.NewLine + Properties.Settings.Default.pkRevit_DevLocation_Misc, true);
                 }
             }
@@ -205,10 +205,10 @@ namespace pkRevitRibbon
             #region catch and finally
             catch (Exception ex)
             {
-                string pathPreHeader = "DevInvoke_0140_pkRevitMisc_OpenParentView" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + Environment.NewLine;//<--------------------------------------------- edit here
+                string pathPreHeader = "DevInvoke_0140_pkRevitMisc_RotatePlatform" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + Environment.NewLine;//<--------------------------------------------- edit here
                 string pathHeader = pathPreHeader + "Please check this file (and directory) exist: " + Environment.NewLine;
                 string path = Properties.Settings.Default.DevelopmentPathRoot + "";
-                RibbonSupportMethods.writeDebug(pathHeader + path + "\\" + dllModuleFolder + "\\AddIn\\" + dllModuleName, true);
+                RibbonSupportMethods.writeDebug(pathHeader + path + "\\...\\" + dllModuleName, true);
             }
             finally
             {

@@ -106,5 +106,77 @@ namespace pkRevitRibbon.Properties {
                 this["pkRevit_LoadName_Misc"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_LoadName_ScheduleEdit {
+            get {
+                return ((string)(this["pkRevit_LoadName_ScheduleEdit"]));
+            }
+            set {
+                this["pkRevit_LoadName_ScheduleEdit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_DevLocation_ScheduleEdit {
+            get {
+                return ((string)(this["pkRevit_DevLocation_ScheduleEdit"]));
+            }
+            set {
+                this["pkRevit_DevLocation_ScheduleEdit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_LoadName_TransformSliders {
+            get {
+                return ((string)(this["pkRevit_LoadName_TransformSliders"]));
+            }
+            set {
+                this["pkRevit_LoadName_TransformSliders"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_DevLocation_TransformSliders {
+            get {
+                return ((string)(this["pkRevit_DevLocation_TransformSliders"]));
+            }
+            set {
+                this["pkRevit_DevLocation_TransformSliders"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_LoadName_CircleOutFamilies {
+            get {
+                return ((string)(this["pkRevit_LoadName_CircleOutFamilies"]));
+            }
+            set {
+                this["pkRevit_LoadName_CircleOutFamilies"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_DevLocation_CircleOutFamilies {
+            get {
+                return ((string)(this["pkRevit_DevLocation_CircleOutFamilies"]));
+            }
+            set {
+                this["pkRevit_DevLocation_CircleOutFamilies"] = value;
+            }
+        }
     }
 }

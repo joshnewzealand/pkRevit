@@ -13,6 +13,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitCustomMethods", "pkR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitMisc", "pkRevitMisc\pkRevitMisc.csproj", "{1E792849-6BF3-4CDE-ABBD-453FD075217F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitScheduleEdit", "pkRevitScheduleEdit\pkRevitScheduleEdit.csproj", "{9916E4F9-D3C7-464C-97BF-A8A2CC243D45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Transaction Projects", "Transaction Projects", "{F3D4D32A-BF56-4D6C-BB86-4FD10131E387}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitCircleOutFamilies", "pkRevitCircleOutFamilies\pkRevitCircleOutFamilies.csproj", "{3B871775-AAA9-4DCA-B548-CD1F7EA9672D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pkRevitTransformSliders", "pkRevitTransformSliders\pkRevitTransformSliders.csproj", "{D42B5D72-D99B-4B24-9903-1DB0430FCD1F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,9 +45,28 @@ Global
 		{1E792849-6BF3-4CDE-ABBD-453FD075217F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E792849-6BF3-4CDE-ABBD-453FD075217F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E792849-6BF3-4CDE-ABBD-453FD075217F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9916E4F9-D3C7-464C-97BF-A8A2CC243D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9916E4F9-D3C7-464C-97BF-A8A2CC243D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9916E4F9-D3C7-464C-97BF-A8A2CC243D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9916E4F9-D3C7-464C-97BF-A8A2CC243D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B871775-AAA9-4DCA-B548-CD1F7EA9672D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B871775-AAA9-4DCA-B548-CD1F7EA9672D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B871775-AAA9-4DCA-B548-CD1F7EA9672D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B871775-AAA9-4DCA-B548-CD1F7EA9672D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D42B5D72-D99B-4B24-9903-1DB0430FCD1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D42B5D72-D99B-4B24-9903-1DB0430FCD1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D42B5D72-D99B-4B24-9903-1DB0430FCD1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D42B5D72-D99B-4B24-9903-1DB0430FCD1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F9A408DC-E37C-4FD4-B512-54F3A889EF79} = {F3D4D32A-BF56-4D6C-BB86-4FD10131E387}
+		{1E792849-6BF3-4CDE-ABBD-453FD075217F} = {F3D4D32A-BF56-4D6C-BB86-4FD10131E387}
+		{9916E4F9-D3C7-464C-97BF-A8A2CC243D45} = {F3D4D32A-BF56-4D6C-BB86-4FD10131E387}
+		{3B871775-AAA9-4DCA-B548-CD1F7EA9672D} = {F3D4D32A-BF56-4D6C-BB86-4FD10131E387}
+		{D42B5D72-D99B-4B24-9903-1DB0430FCD1F} = {F3D4D32A-BF56-4D6C-BB86-4FD10131E387}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41C78983-F4A6-4C07-8999-22CDA7952DC0}

@@ -19,7 +19,7 @@ namespace pkRevitRibbon
     {
         //I count 1,5 = 6 places that need to change
 
-        string dllModuleName = "pkRevitMisc.dll"; //<--------------------------------------------- edit here
+        string dllModuleName = "pkRevitCircleOutFamilies.dll"; //<--------------------------------------------- edit here
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
@@ -39,7 +39,7 @@ namespace pkRevitRibbon
 
                 Assembly objAssembly01 = null;
 
-                if (Properties.Settings.Default.pkRevit_LoadName_Misc == "")
+                if (Properties.Settings.Default.pkRevit_LoadName_CircleOutFamilies == "")
                 {
                     if (!File.Exists(path + "\\" + dllModuleName))  //watchparty (search for this)
                     {
@@ -47,15 +47,15 @@ namespace pkRevitRibbon
                     }
 
                     objAssembly01 = Assembly.Load(File.ReadAllBytes(path + "\\" + dllModuleName));
-                    Properties.Settings.Default.pkRevit_LoadName_Misc = objAssembly01.FullName;
+                    Properties.Settings.Default.pkRevit_LoadName_CircleOutFamilies = objAssembly01.FullName;
                     Properties.Settings.Default.Save();
                     Properties.Settings.Default.Reload();
                 }
                 else
                 {
-                    if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == Properties.Settings.Default.pkRevit_LoadName_Misc).Count() > 0)
+                    if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == Properties.Settings.Default.pkRevit_LoadName_CircleOutFamilies).Count() > 0)
                     {
-                        objAssembly01 = AppDomain.CurrentDomain.GetAssemblies().Reverse().Where(x => x.FullName == Properties.Settings.Default.pkRevit_LoadName_Misc).FirstOrDefault();
+                        objAssembly01 = AppDomain.CurrentDomain.GetAssemblies().Reverse().Where(x => x.FullName == Properties.Settings.Default.pkRevit_LoadName_CircleOutFamilies).FirstOrDefault();
                     }
                     else
                     {
@@ -65,15 +65,15 @@ namespace pkRevitRibbon
                         }
 
                         objAssembly01 = Assembly.Load(File.ReadAllBytes(path + "\\" + dllModuleName));
-                        Properties.Settings.Default.pkRevit_LoadName_Misc = objAssembly01.FullName;
+                        Properties.Settings.Default.pkRevit_LoadName_CircleOutFamilies = objAssembly01.FullName;
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();
                     }
                 }
 
                 bool bool_Found = false;
+                string strCommandName = "Entry_0110_pkRevitCircleOutFamilies"; //<--------------------------------------------- edit here
                 string strCommandName_Method = "StartMethod_0110"; //<--------------------------------------------- edit here
-                string strCommandName = "Entry_0110_pkRevitMisc"; //<--------------------------------------------- edit here
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -96,7 +96,7 @@ namespace pkRevitRibbon
 
                 if (!bool_Found)  
                 {
-                    RibbonSupportMethods.writeDebug("Invoke_0110_pkRevitMisc_OpenParentView" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
+                    RibbonSupportMethods.writeDebug("Invoke_0110_pkRevitMisc_TypesAndTags" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
                         + strCommandName_Method + Environment.NewLine + strCommandName + Environment.NewLine + path + dllModuleName, true);
                 }
             }
@@ -133,8 +133,8 @@ namespace pkRevitRibbon
     {
         //I count 1,6 = 7 places that need to change
 
-        string dllModuleFolder = "pkRevitMisc"; //<--------------------------------------------- edit here
-        string dllModuleName = "pkRevitMisc.dll"; //<--------------------------------------------- edit here
+        //string dllModuleFolder = "pkRevitMisc"; //<--------------------------------------------- edit here
+        string dllModuleName = "pkRevitCircleOutFamilies.dll"; //<--------------------------------------------- edit here
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
@@ -142,7 +142,7 @@ namespace pkRevitRibbon
             {
                 if (Properties.Settings.Default.AssemblyNeedLoading) RibbonSupportMethods.loadPackages();
 
-                string myString_TestFileLocation = Properties.Settings.Default.pkRevit_DevLocation_Misc; //<--- appears 4 places in code
+                string myString_TestFileLocation = Properties.Settings.Default.pkRevit_DevLocation_CircleOutFamilies; //<--- appears 4 places in code
 
                 if (true)//candidate for methodisation 202012251141
                 {
@@ -161,7 +161,7 @@ namespace pkRevitRibbon
 
                         if (myDia.ShowDialog() == true)
                         {
-                            Properties.Settings.Default.pkRevit_DevLocation_Misc = myDia.FileName;
+                            Properties.Settings.Default.pkRevit_DevLocation_CircleOutFamilies = myDia.FileName;
                             Properties.Settings.Default.MakeTheNextOneDevelopment = false;
                             Properties.Settings.Default.Save();
                             Properties.Settings.Default.Reload();
@@ -170,11 +170,11 @@ namespace pkRevitRibbon
                     }
                 }
 
-                Assembly objAssembly01 = Assembly.Load(File.ReadAllBytes(Properties.Settings.Default.pkRevit_DevLocation_Misc));
+                Assembly objAssembly01 = Assembly.Load(File.ReadAllBytes(Properties.Settings.Default.pkRevit_DevLocation_CircleOutFamilies));
 
                 bool bool_Found = false;
+                string strCommandName = "Entry_0110_pkRevitCircleOutFamilies";//<--------------------------------------------- edit here
                 string strCommandName_Method = "StartMethod_0110";//<--------------------------------------------- edit here
-                string strCommandName = "Entry_0110_pkRevitMisc";//<--------------------------------------------- edit here
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -184,7 +184,7 @@ namespace pkRevitRibbon
                         if (objType.Name.ToLower() == strCommandName.ToLower())
                         {
                             object ibaseObject = Activator.CreateInstance(objType);
-                            object[] arguments = new object[] { commandData, "Dev|" + System.IO.Path.GetDirectoryName(Properties.Settings.Default.pkRevit_DevLocation_Misc), elements };
+                            object[] arguments = new object[] { commandData, "Dev|" + System.IO.Path.GetDirectoryName(Properties.Settings.Default.pkRevit_DevLocation_CircleOutFamilies), elements };
                             object result = null;
 
                             result = objType.InvokeMember(strCommandName_Method, BindingFlags.Default | BindingFlags.InvokeMethod, null, ibaseObject, arguments);
@@ -197,18 +197,18 @@ namespace pkRevitRibbon
 
                 if (!bool_Found)  //nor only COPY this 6 times, and remove the slash, but also copy the big where the files exists FROM 3
                 {
-                    RibbonSupportMethods.writeDebug("DevInvoke_0110_pkRevitMisc_OpenParentView" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
-                        + strCommandName_Method + Environment.NewLine + strCommandName + Environment.NewLine + Properties.Settings.Default.pkRevit_DevLocation_Misc, true);
+                    RibbonSupportMethods.writeDebug("DevInvoke_0110_pkRevitMisc_TypesAndTags" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
+                        + strCommandName_Method + Environment.NewLine + strCommandName + Environment.NewLine + Properties.Settings.Default.pkRevit_DevLocation_CircleOutFamilies, true);
                 }
             }
 
             #region catch and finally
             catch (Exception ex)
             {
-                string pathPreHeader = "DevInvoke_0110_pkRevitMisc_OpenParentView" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + Environment.NewLine;//<--------------------------------------------- edit here
+                string pathPreHeader = "DevInvoke_0110_pkRevitMisc_TypesAndTags" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + Environment.NewLine;//<--------------------------------------------- edit here
                 string pathHeader = pathPreHeader + "Please check this file (and directory) exist: " + Environment.NewLine;
                 string path = Properties.Settings.Default.DevelopmentPathRoot + "";
-                RibbonSupportMethods.writeDebug(pathHeader + path + "\\" + dllModuleFolder + "\\AddIn\\" + dllModuleName, true);
+                RibbonSupportMethods.writeDebug(pathHeader + path + "\\...\\" + dllModuleName, true);
             }
             finally
             {

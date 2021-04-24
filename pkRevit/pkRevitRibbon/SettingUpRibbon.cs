@@ -102,7 +102,7 @@ namespace pkRevitRibbon
             String ApiButtonText0100 = "Draw\nArrow Types";//Draw.\nArrow Types            //<-- two places
             //
             String ApiButtonName0110 = "0110_TypesAndTags";
-            String ApiButtonText0110 = "Circle out.\nTags or Types";//Circle out.\nTags or Types            //<-- two places
+            String ApiButtonText0110 = "Circle out.\nFamilies";//Circle out.\nTags or Types            //<-- two places
             //
             String ApiButtonName0120 = "0120_MakeAPlatform";
             String ApiButtonText0120 = "Create\nPlatform";//Create Surface.\nwith Reference Point            //<-- two places

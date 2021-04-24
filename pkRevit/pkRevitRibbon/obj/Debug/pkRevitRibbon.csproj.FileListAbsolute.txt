@@ -55,7 +55,6 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Deb
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\System.Data.SQLite.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\System.Data.SQLite.xml
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.csprojAssemblyReference.cache
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Images\Button0020_pkRevitDatasheets_WholeSchedule.png
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Images\Button0030_OpenParent.png
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Images\Button0040_BringToFront.png
@@ -76,3 +75,6 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Deb
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Images\Button0180_SmileyFace.png
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Images\Button0010_pkRevitDatasheets-2.png
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Images\Button0020_pkRevitDatasheets_WholeSchedule-2.png
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\bin\Debug\Images\Button0110_TypesAndTags2.png
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.csprojAssemblyReference.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.csproj.CoreCompileInputs.cache

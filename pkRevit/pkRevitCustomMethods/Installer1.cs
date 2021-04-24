@@ -165,7 +165,7 @@ namespace pkRevitCustomMethods
 
                     if (int.TryParse(directories[directories.Count() - 1], out int myInt_FromTextBox))
                     {
-                        if (myInt_FromTextBox >= 2017)  //installs on version 2017 and above
+                        if (myInt_FromTextBox >= 2019)  //installs on version 2019 and above
                         {
                             new XDocument(XElementRevitAddIns).Save(myString_ManifestPath);
                         }

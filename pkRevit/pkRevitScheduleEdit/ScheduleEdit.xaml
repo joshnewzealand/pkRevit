@@ -1,0 +1,205 @@
+﻿<Window x:Class="pkRevitScheduleEdit.ScheduleEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pkRevitScheduleEdit"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
+        mc:Ignorable="d"
+       Title="Schedule Edit" Height="590" Width="1043" ResizeMode="CanResizeWithGrip" Closing="Window_Closing" Topmost="True" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <local:StringToBoolConverter x:Key="StringToBoolConverterKey"></local:StringToBoolConverter>
+    </Window.Resources>
+
+    <Grid Grid.ColumnSpan="2" Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="108"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label x:Name="myLabel" Content="Not Saved" HorizontalAlignment="Right" Margin="0,0,168,7" VerticalAlignment="Bottom" Width="78" Foreground="Red" Visibility="Hidden" Height="26"/>
+            <Label Content="Old type name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="118" Margin="313,0,0,0"/>
+            <TextBox x:Name="myTextBox_TypeNameOld" Height="23" Margin="313,26,244,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
+            <Label Content="New type name" HorizontalAlignment="Left" Margin="313,49,0,0" VerticalAlignment="Top" Width="131"/>
+            <TextBox x:Name="myTextBox_TypeNameNew" Height="22" Margin="313,73,244,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="Old family name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="118"/>
+            <TextBox x:Name="myTextBox_FamilyNameOld" Height="24" Margin="0,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Width="298"/>
+            <Label Content="New family name" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top" Width="131"/>
+            <TextBox x:Name="myTextBox_FamilyNameNew" Height="22" Margin="0,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="298"/>
+            <ListView x:Name="myListViewMaster" Margin="0,-64,187,160" HorizontalAlignment="Right" Width="114">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick3"/>
+                        <Setter Property="VerticalContentAlignment" Value="Top"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Date Modified" DisplayMemberBinding="{Binding FamilyFileName}" Width="1000"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button x:Name="myButton_AddType" Content="!Add PRL_AppearsInSchedule" HorizontalAlignment="Right" Margin="0,26,10,0" VerticalAlignment="Top" Width="166" Click="myButton_AddType_Click"/>
+            <Button x:Name="myButton_AddType_Luminaires" Content="Add PRL_AppearsLuminaires" HorizontalAlignment="Right" Margin="0,3,15,0" VerticalAlignment="Top" Width="155" Click="myButton_AddType_Luminaires_Click" />
+        </Grid>
+        <Grid Margin="0,0,0,0" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="myListView_Left" Grid.Column="1" Margin="0,56,0,0" >
+                <ListView.Resources>
+                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    </Style>
+                </ListView.Resources>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick"/>
+                        <Setter Property="VerticalContentAlignment" Value="Top"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Date Modified" DisplayMemberBinding="{Binding Definition.Name}" Width="1000"/>
+                        <!--
+                        <GridViewColumn Header="ALL_Families_Master_List" Width="1000">
+                            <GridViewColumn.DisplayMemberBinding>
+                                <MultiBinding StringFormat="{}{0} Rev{1} ({2})" >
+                                    <Binding Path="FamilyFileName"/>
+                                    <Binding Path="CurrentRevision"/>
+                                    <Binding Path="AdditionalInformation"/>
+                                </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+                        -->
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <ListView x:Name="myListView_Right" Grid.Column="2"   >
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick2"/>
+                        <Setter Property="VerticalContentAlignment" Value="Top"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Date Modified" DisplayMemberBinding="{Binding myDefinitionName}" Width="1000"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <xctk:PropertyGrid x:Name="myPropertiesGrid" PreviewKeyUp="MyPG_PreviewKeyUp" Grid.Column="3" Margin="0,0,0,31"/>
+            <xctk:PropertyGrid x:Name="myPropertiesGrid2" Grid.Column="4" Margin="0,0,0,31"/>
+            <!--
+                <ListView x:Name="myListViewMaster" Margin="0,0,0,31">
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        </Style>
+                    </ListView.Resources>
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Date Modified" DisplayMemberBinding="{Binding FamilyFileName}" Width="1000"/>
+
+                        </GridView>
+                    </ListView.View>
+                    <ListBox Height="100" Width="100"/>>
+                </ListView>
+                -->
+            <Button x:Name="myButtonSave" Content="Save" HorizontalAlignment="Left" Margin="5,0,0,6" VerticalAlignment="Bottom" Width="50" Click="MyButtonSave_Click" Height="20" Grid.Column="3" />
+            <Button x:Name="myButtonSaveClose" Content="Save &amp; Close" Margin="60,0,0,6" VerticalAlignment="Bottom" Click="MyButtonSaveClose_Click" Height="20" Grid.Column="3" HorizontalAlignment="Left" Width="82" />
+            <Button x:Name="myButtonRepick" Content="Repick copy from entity" Grid.Column="4" HorizontalAlignment="Left" Margin="76,0,0,6" VerticalAlignment="Bottom" Width="134" Click="MyButtonRepick_Click"/>
+            <Button x:Name="myCopyOver" Content="🠐 Copy&#xA;" Grid.Column="4" Margin="10,0,0,6" VerticalAlignment="Bottom" Height="20" HorizontalAlignment="Left" Width="61" Click="MyCopyOver_Click"/>
+            <Button x:Name="myButtonRepickOriginal" Content="Repick" Grid.Column="3" HorizontalAlignment="Left" Margin="147,0,0,6" VerticalAlignment="Bottom" Width="43" Click="MyButtonRepickOriginal_Click"/>
+            <Button x:Name="myThrow" Content="Throw" Grid.Column="3" HorizontalAlignment="Left" Margin="195,0,0,6" VerticalAlignment="Bottom" Width="48" Click="MyThrow_Click"/>
+            <ListView x:Name="myListViewTypes" Margin="0,56,0,0">
+
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick4"/>
+                        <Setter Property="VerticalContentAlignment" Value="Top"/>
+
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                        </Style.Resources>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True" >
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Background" Value="LightBlue" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect ShadowDepth="1" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ALL_Families_Master_List" Width="1000">
+                            <GridViewColumn.DisplayMemberBinding>
+                                <MultiBinding StringFormat="{}({0}) {1}" >
+                                    <Binding Path="elementType.Parameters" Converter="{StaticResource StringToBoolConverterKey}" />
+                                    <Binding Path="elementType.Name"/>
+                                </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Background="Black" >
+                                    <TextBlock Text="{Binding Name}" FontSize="14"  Foreground="White"/>
+                                    <TextBlock Text=" Count: " FontSize="14" Foreground="White"/>
+                                    <TextBlock Text="{Binding ItemCount}" FontSize="14"  Foreground="White"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+
+            </ListView>
+
+            <ComboBox x:Name="myComboBox" Grid.ColumnSpan="2" VerticalAlignment="Top" SelectedIndex="3" Margin="6,0,5,0" DropDownClosed="ComboBox_DropDownClosed">
+                <!--
+                <ComboBoxItem Content="Communication Devices"></ComboBoxItem>
+                <ComboBoxItem Content="Data Devices"></ComboBoxItem>
+                <ComboBoxItem Content="Electrical Equipment"></ComboBoxItem>
+                <ComboBoxItem Content="Electrical Fixtures"></ComboBoxItem>
+                <ComboBoxItem Content="Lighting Devices"></ComboBoxItem>
+                <ComboBoxItem Content="Lighting Fixtures"></ComboBoxItem>
+                <ComboBoxItem Content="Nurse Call Devices"></ComboBoxItem>
+                <ComboBoxItem Content="Security Devices"></ComboBoxItem>
+-->
+            </ComboBox>
+            <RadioButton x:Name="rb_GroupedBySchedule" Content="Grouped by Schedule" HorizontalAlignment="Left" Margin="95,31,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Checked="rb_GroupedBySchedule_Checked"/>
+            <RadioButton x:Name="rb_Loose" Content="Loose" HorizontalAlignment="Left" Margin="25,31,0,0" VerticalAlignment="Top" IsChecked="True" Checked="rb_Loose_Checked"/>
+        </Grid>
+    </Grid>
+
+
+</Window>

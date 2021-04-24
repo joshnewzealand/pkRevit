@@ -3548,8 +3548,9 @@ namespace pkRevitDatasheets
 
                     return;
                 }
-
+                eL = 3551;
                 Tuple<Element, Element> couldBeNull = method_butshouldworkonWallTypes(true, uidoc);
+                eL = 3553;
                 if (couldBeNull == null) return;
 
                 // Element elementType = couldBeNull.Item2;
@@ -4284,11 +4285,49 @@ namespace pkRevitDatasheets
 
                 firstElement = doc.GetElement(myIndependentTag_1355.TaggedLocalElementId);
             }
-            if (firstElement.get_Geometry(new Options()) == null)
+
+            if (true)  //testing the type has a type comment
             {
-                MessageBox.Show("Please select an element in Revit - that has GEOMETRY.");
-                return null;
+                if (firstElement.GetTypeId() != null)
+                {
+
+                } else
+                {
+                    MessageBox.Show("Please select an element in Revit - that has GEOMETRY.");
+                    return null;
+                }
             }
+
+
+
+            if (true)  //testing the type has a type comment
+            {
+                try
+                {
+                    Element ele = doc.GetElement(firstElement.GetTypeId());
+                    if(ele == null)
+                    {
+                        MessageBox.Show("Please select an element in Revit - that has GEOMETRY.");
+                        return null;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Please select an element in Revit - that has GEOMETRY.");
+                    return null;
+                }
+            }
+
+
+            //////List<ElementId> listElementID_ThatAppearInModel = new FilteredElementCollector(doc).WhereElementIsNotElementType().Where(x => x.GetTypeId() != null).Select(x => x.GetTypeId()).Distinct().ToList();
+            //////List<Element> listElement_OfAParticular_Family = listElementID_ThatAppearInModel.Select(x => doc.GetElement(x)).Where(x => x != null).Where(x => x.Category != null).Where(x => x.Category.Name == myComboBox.SelectedValue.ToString()).Where(x => x.LookupParameter("Type Comments") != null).ToList();
+
+
+
+            //////if (firstElement.get_Geometry(new Options()) == null)
+            //////{
+
+            //////}
 
 
 

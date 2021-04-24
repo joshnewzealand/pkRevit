@@ -64,7 +64,6 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                 UIDocument uidoc = commandData.Application.ActiveUIDocument;
                 Document doc = uidoc.Document;
 
-
                 Element fam01_Or_Link = null;
                 Reference ref01 = null;
                 Document docLink = null;

@@ -114,7 +114,7 @@ namespace pkRevitRibbon
 
             if (System.IO.File.Exists(myString_TestFileLocation))
             {
-                MessageBoxResult result = System.Windows.MessageBox.Show("File " + System.IO.Path.GetFileName(myString_TestFileLocation) + " exists. Do you want to continue.", "Continue...", System.Windows.MessageBoxButton.YesNoCancel);
+                MessageBoxResult result = System.Windows.MessageBox.Show("Please manually locate file '" + System.IO.Path.GetFileName(myString_TestFileLocation) + "'. Do you want to continue.", "Continue...", System.Windows.MessageBoxButton.YesNoCancel);
 
                 if (result != MessageBoxResult.Yes) return null;
 
@@ -216,7 +216,7 @@ namespace pkRevitRibbon
         public PushButtonData Button0110_TypesAndTags(string Name, string ChecklistsNumber, string path)
         {
             PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0110_pkRevitMisc_TypesAndTags");
-            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0110_TypesAndTags.png"), UriKind.Absolute));
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0110_TypesAndTags2.png"), UriKind.Absolute));
             return myPushButtonData;
         }
 

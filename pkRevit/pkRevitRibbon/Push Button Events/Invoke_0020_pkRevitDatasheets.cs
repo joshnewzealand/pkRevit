@@ -77,8 +77,8 @@ namespace pkRevitRibbon
                     }
                 }
 
-                string strCommandName_Method = "StartMethod_02";
                 string strCommandName = "Entry_0020_pkRevitDatasheets";
+                string strCommandName_Method = "StartMethod_02";
 
                 bool bool_Found = false;
 
@@ -141,7 +141,7 @@ namespace pkRevitRibbon
     {
         //I count 1,6 = 7 places that need to change
 
-        string dllModuleFolder = "pkRevitDatasheets"; //<--------------------------------------------- edit here
+        //string dllModuleFolder = "pkRevitDatasheets"; //<--------------------------------------------- edit here
         string dllModuleName = "pkRevitDatasheets.exe"; //<--------------------------------------------- edit here
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -184,8 +184,8 @@ namespace pkRevitRibbon
                 Assembly objAssembly01 = Assembly.Load(File.ReadAllBytes(Properties.Settings.Default.pkRevitDatasheets_DevLocation_DataSheets));
 
                 bool bool_Found = false;
-                string strCommandName_Method = "StartMethod_02";
                 string strCommandName = "Entry_0020_pkRevitDatasheets";
+                string strCommandName_Method = "StartMethod_02";
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -219,7 +219,7 @@ namespace pkRevitRibbon
                 string pathPreHeader = "DevInvoke_0020_pkRevitDatasheets_WholeSchedule" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + Environment.NewLine;
                 string pathHeader = pathPreHeader + "Please check this file (and directory) exist: " + Environment.NewLine;
                 string path = Properties.Settings.Default.DevelopmentPathRoot + "";
-                RibbonSupportMethods.writeDebug(pathHeader + path + "\\" + dllModuleFolder + "\\AddIn\\" + dllModuleName, true);
+                RibbonSupportMethods.writeDebug(pathHeader + path + "\\...\\" + dllModuleName, true);
             }
             finally
             {

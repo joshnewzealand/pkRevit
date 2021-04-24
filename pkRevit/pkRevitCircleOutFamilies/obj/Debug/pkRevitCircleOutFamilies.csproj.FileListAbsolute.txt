@@ -1,0 +1,37 @@
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\pkRevitCircleOutFamilies.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\pkRevitCircleOutFamilies.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\RevitAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\RevitAPIUI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\RevitAPI.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\RevitAPIUI.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.csproj.CopyComplete
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\Window01_ChooseYourCategory.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies_MarkupCompile.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies_MarkupCompile.lref
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_.rft
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Communication Devices.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Data Devices.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Detail Items.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Electrical Equipment.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Electrical Fixtures.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Entourage.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Fire Alarm Devices.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Furniture Systems.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Furniture.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Lighting Devices.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Lighting Fixtures.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Mechanical Equipment.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Nurse Call Devices.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Plumbing Fixtures.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Security Devices.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Specialty Equipment.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Sprinklers.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Telephone Devices.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\pkRevitCircleOutFamilies.dll.config
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\Window01_ChooseYourCategory.baml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.g.resources
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.csprojAssemblyReference.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Doors.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.csproj.CoreCompileInputs.cache

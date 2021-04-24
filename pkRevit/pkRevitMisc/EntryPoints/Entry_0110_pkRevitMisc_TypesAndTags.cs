@@ -17,7 +17,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             toavoidloadingrevitdlls.commandData = commandData;
             toavoidloadingrevitdlls.executionLocation = executionLocation;
 
-            MessageBox.Show("0110_TypesAndTags-2");
+            MessageBox.Show("no longer used");
 
             return Result.Succeeded;
         }

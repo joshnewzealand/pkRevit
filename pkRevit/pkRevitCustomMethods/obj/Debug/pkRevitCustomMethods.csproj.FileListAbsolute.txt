@@ -53,3 +53,4 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCustomMethods\
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCustomMethods\bin\Debug\System.Data.SQLite.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCustomMethods\bin\Debug\System.Data.SQLite.xml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCustomMethods\obj\Debug\pkRevitCustomMethods.csprojAssemblyReference.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCustomMethods\obj\Debug\pkRevitCustomMethods.csproj.CoreCompileInputs.cache

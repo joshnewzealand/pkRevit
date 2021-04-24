@@ -8,7 +8,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 {
     public partial class Entry_0150_pkRevitMisc
     {
-        public Schedule_Manual_Sort_Order.EE2333_AddSortIndextoSchedule myEE2333_AddSortIndextoSchedule { get; set; }
+        public CommandsWithWindows.Schedule_Manual_Sort_Order.EE2333_AddSortIndextoSchedule myEE2333_AddSortIndextoSchedule { get; set; }
         public ExternalEvent myExternalEvent_EE2333_AddSortIndextoSchedule { get; set; }
 
         int eL = -1;
@@ -22,11 +22,10 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             toavoidloadingrevitdlls.commandData = commandData;
             toavoidloadingrevitdlls.executionLocation = executionLocation;
 
-
             try
             {
 
-                myEE2333_AddSortIndextoSchedule = new Schedule_Manual_Sort_Order.EE2333_AddSortIndextoSchedule();
+                myEE2333_AddSortIndextoSchedule = new CommandsWithWindows.Schedule_Manual_Sort_Order.EE2333_AddSortIndextoSchedule();
                 myExternalEvent_EE2333_AddSortIndextoSchedule = ExternalEvent.Create(myEE2333_AddSortIndextoSchedule);
                 // window2333_SortOrder = new pkRevitMisc.Schedule_Manual_Sort_Order.Window2333_SortOrder(commandData, this, true, 0);
 

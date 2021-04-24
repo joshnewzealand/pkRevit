@@ -78,8 +78,8 @@ namespace pkRevitRibbon
                 }
 
                 bool bool_Found = false;
+                string strCommandName = "Entry_0010_pkRevitDatasheets";
                 string strCommandName_Method = "StartMethod_01";
-                string strCommandName = "Entry_0010_pkRevitDatasheets"; 
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -140,7 +140,7 @@ namespace pkRevitRibbon
     {
         //I count 1,6 = 7 places that need to change
 
-        string dllModuleFolder = "pkRevitDatasheets"; //<--------------------------------------------- edit here
+        //string dllModuleFolder = "pkRevitDatasheets"; //<--------------------------------------------- edit here
         string dllModuleName = "pkRevitDatasheets.exe"; //<--------------------------------------------- edit here
 
 
@@ -189,8 +189,8 @@ namespace pkRevitRibbon
                 ////Properties.Settings.Default.Reload();
 
                 bool bool_Found = false;
-                string strCommandName_Method = "StartMethod_01";
                 string strCommandName = "Entry_0010_pkRevitDatasheets";
+                string strCommandName_Method = "StartMethod_01";
 
                 IEnumerable<Type> myIEnumerableType = GetTypesSafely(objAssembly01);
                 foreach (Type objType in myIEnumerableType)
@@ -225,7 +225,7 @@ namespace pkRevitRibbon
                 string pathPreHeader = "DevInvoke_0010_pkRevitDatasheets" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException + Environment.NewLine + Environment.NewLine;
                 string pathHeader = pathPreHeader + "Please check this file (and directory) exist: " + Environment.NewLine;
                 string path = Properties.Settings.Default.DevelopmentPathRoot + "";
-                RibbonSupportMethods.writeDebug(pathHeader + path + "\\" + dllModuleFolder + "\\AddIn\\" + dllModuleName, true);
+                RibbonSupportMethods.writeDebug(pathHeader + path + "\\...\\" + dllModuleName, true);
             }
             finally
             {
