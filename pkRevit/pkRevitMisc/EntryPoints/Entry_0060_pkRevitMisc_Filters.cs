@@ -67,7 +67,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                 Element fam01_Or_Link = null;
                 Reference ref01 = null;
                 Document docLink = null;
-                ElementType famSym = null;
+                ElementType elementType = null;
 
                 if (uidoc.Selection.GetElementIds().Count == 1)
                 {
@@ -75,7 +75,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                     if (fam01_Or_Link.GetType() == typeof(RevitLinkInstance))
                     {
                         docLink = ((RevitLinkInstance)fam01_Or_Link).GetLinkDocument();
-                    } 
+                    }
                 }
                 eL = 80;
                 if (docLink == null)
@@ -84,7 +84,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                     if (ref01 == null) return Result.Succeeded;
 
                     fam01_Or_Link = doc.GetElement(ref01.ElementId);
-                    famSym = doc.GetElement(fam01_Or_Link.GetTypeId()) as ElementType;
+                    elementType = doc.GetElement(fam01_Or_Link.GetTypeId()) as ElementType;
                 }
                 eL = 88;
 
@@ -94,7 +94,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                     ref01 = uidoc.Selection.PickObject(ObjectType.LinkedElement, new DetailCurveSelectionFilter(doc), "Please pick element. ESC for cancel.");
 
                     fam01_Or_Link = docLink.GetElement(ref01.LinkedElementId);
-                    famSym = doc.GetElement(fam01_Or_Link.GetTypeId()) as ElementType;
+                    elementType = doc.GetElement(fam01_Or_Link.GetTypeId()) as ElementType;
                 }
                 eL = 97;
 
@@ -102,36 +102,71 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                 {
                     MessageBox.Show("Try again, this time selecting the linked file first.");
                     return Result.Succeeded;
-                } 
+                }
 
                 eL = 107;
 
-                if (famSym.Category == null)
+                if (elementType.Category == null)
                 {
                     MessageBox.Show("Filtered can't be applied to annotative elements.");
                     return Result.Succeeded;
                 }
 
-                if (famSym.Category.IsTagCategory)
+                if (elementType.Category.IsTagCategory)
                 {
-                    MessageBox.Show("'" + famSym.FamilyName + "' is a Tag Category." + Environment.NewLine + Environment.NewLine + "...and filters can't be applied to tag categories." + Environment.NewLine + Environment.NewLine + "either: Delete, hide-by-element or hide the entire tag category.");
+                    MessageBox.Show("'" + elementType.FamilyName + "' is a Tag Category." + Environment.NewLine + Environment.NewLine + "...and filters can't be applied to tag categories." + Environment.NewLine + Environment.NewLine + "try either: Hide Element OR Hide Category.");
                     return Result.Succeeded;
                 }
 
-                MessageBoxResult result = System.Windows.MessageBox.Show("Add filter for '" + famSym.FamilyName + "'?" + Environment.NewLine + "'No' will just copy to clipboard.", "Continue", System.Windows.MessageBoxButton.YesNoCancel);
+                bool bool_Stop = true;
+                bool bool_HideJustType = false;
 
-                eL = 118;
+                if (true)
+                {
+                    TaskDialog mainDialog = new TaskDialog("Choose FAMILY or TYPE");
+                    ////mainDialog.MainInstruction = "Hello, viewport check!";
+                    ////mainDialog.MainContent =
+                    ////        "Revit API doesn't automatically know if the user is in an active viewport. "
+                    ////        + "Please click 'Yes' if your are, or 'No' if your not.";
 
-                if (result == MessageBoxResult.No)
-                {
-                    System.Windows.Clipboard.SetText(famSym.FamilyName);
-                    return Result.Succeeded;
+
+                    mainDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Add hide filter for FAMILY.");
+                    mainDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink2, "Add hide filter for TYPE.");
+                    mainDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink3, "Cancel.");
+
+                    mainDialog.CommonButtons = TaskDialogCommonButtons.Close;
+                    mainDialog.DefaultButton = TaskDialogResult.Close;
+
+
+                    TaskDialogResult tResult = mainDialog.Show();
+
+
+                    if (TaskDialogResult.CommandLink1 == tResult) bool_Stop = false;
+
+                    if (TaskDialogResult.CommandLink2 == tResult)
+                    {
+                        bool_HideJustType = true;
+                        bool_Stop = false;
+                    }
                 }
-                else if (result == MessageBoxResult.Cancel)
-                {
-                    return Result.Succeeded;
-                }
-                eL = 129;
+
+                if (bool_Stop) return Result.Succeeded;
+
+
+                ////MessageBoxResult result = System.Windows.MessageBox.Show("Add filter for '" + elementType.FamilyName + "'?" + Environment.NewLine + "'No' will just copy to clipboard.", "Continue", System.Windows.MessageBoxButton.YesNoCancel);
+
+                ////eL = 118;
+
+                ////if (result == MessageBoxResult.No)
+                ////{
+                ////    System.Windows.Clipboard.SetText(elementType.FamilyName);
+                ////    return Result.Succeeded;
+                ////}
+                ////else if (result == MessageBoxResult.Cancel)
+                ////{
+                ////    return Result.Succeeded;
+                ////}
+                ////eL = 129;
 
                 //MessageBox.Show(famSym.Category.Id.ToString());
                 List<ElementId> categories = new List<ElementId>();
@@ -147,7 +182,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
                     if (true)
                     {
-                        List<Element> listOfFilters = new FilteredElementCollector(doc).OfClass(typeof(ParameterFilterElement)).ToList().Where(x => x.Name == famSym.FamilyName).ToList();
+                        List<Element> listOfFilters = new FilteredElementCollector(doc).OfClass(typeof(ParameterFilterElement)).ToList().Where(x => x.Name == elementType.FamilyName).ToList();
                         ParameterFilterElement parameterFilterElement = null;
                         eL = 147;
                         if (listOfFilters.Count > 0)
@@ -159,13 +194,15 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                         {
                             eL = 154;
                             // Create filter element assocated to the input categories
-                            parameterFilterElement = ParameterFilterElement.Create(doc, famSym.FamilyName, categories);
+                            parameterFilterElement = ParameterFilterElement.Create(doc, elementType.FamilyName, categories);
                             eL = 158;
                             // Criterion 1 - this could be one of many elements
                             ElementId exteriorParamId = new ElementId(BuiltInParameter.ALL_MODEL_FAMILY_NAME);
-                            elemFilters.Add(new ElementParameterFilter(ParameterFilterRuleFactory.CreateEqualsRule(exteriorParamId, famSym.FamilyName, true)));
+                            elemFilters.Add(new ElementParameterFilter(ParameterFilterRuleFactory.CreateEqualsRule(exteriorParamId, elementType.FamilyName, true)));
+                            ElementId exteriorParamId_Type = new ElementId(BuiltInParameter.ALL_MODEL_TYPE_NAME);
+                            if (bool_HideJustType) elemFilters.Add(new ElementParameterFilter(ParameterFilterRuleFactory.CreateEqualsRule(exteriorParamId_Type, elementType.Name, true)));
                             eL = 162;
-                            System.Windows.Clipboard.SetText(famSym.FamilyName);
+                            System.Windows.Clipboard.SetText(elementType.FamilyName);
                             eL = 162;
                             LogicalAndFilter elemFilter = new LogicalAndFilter(elemFilters);
                             eL = 166;

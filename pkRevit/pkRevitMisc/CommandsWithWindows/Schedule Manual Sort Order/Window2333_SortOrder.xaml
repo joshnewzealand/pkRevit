@@ -23,9 +23,8 @@
 
                         <GridViewColumn Header="ALL_Families_Master_List" Width="1000">
                             <GridViewColumn.DisplayMemberBinding>
-                                <MultiBinding StringFormat="{}({0}) {1}" >
-                                    <Binding Path="element.Parameters" Converter="{StaticResource StringToBoolConverterKey}" />
-                                    <Binding Path="element.Name"/>
+                                <MultiBinding StringFormat="{}{0}" >
+                                    <Binding Path="element" Converter="{StaticResource StringToBoolConverterKey}" />
                                 </MultiBinding>
                             </GridViewColumn.DisplayMemberBinding>
                         </GridViewColumn>

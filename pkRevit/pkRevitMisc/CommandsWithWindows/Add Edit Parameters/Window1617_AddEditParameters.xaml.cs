@@ -381,6 +381,24 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
         {
             try
             {
+
+                UIDocument uidoc = commandData.Application.ActiveUIDocument;
+                Document doc = uidoc.Document;
+
+                if (uidoc.Selection.GetElementIds().Count > 0)
+                {
+                    if (uidoc.Selection.GetElementIds().First().IntegerValue != myIntegerUpDown.Value.Value)
+                    {
+                        MessageBoxResult result = System.Windows.MessageBox.Show("Note: The 'Selected' element does not match the 'Acquired' element." + Environment.NewLine + Environment.NewLine + "                      This will act on the 'Acquired' element." + Environment.NewLine + Environment.NewLine + "                      Proceed anyway?", "Proceed?", System.Windows.MessageBoxButton.YesNoCancel);
+
+                        if (result != MessageBoxResult.Yes)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+
                 myEE16_AddSharedParameters_InVariousWays.myWindow2 = this;
                 myEE16_AddSharedParameters_InVariousWays.myBool_AddToProject = true;
                 myExternalEvent_EE16_AddSharedParameters_InVariousWays.Raise();
@@ -401,6 +419,23 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
         {
             try
             {
+                UIDocument uidoc = commandData.Application.ActiveUIDocument;
+                Document doc = uidoc.Document;
+
+                if (uidoc.Selection.GetElementIds().Count > 0)
+                {
+                    if (uidoc.Selection.GetElementIds().First().IntegerValue != myIntegerUpDown.Value.Value)
+                    {
+                        MessageBoxResult result = System.Windows.MessageBox.Show("Note: The 'Selected' element does not match the 'Acquired' element." + Environment.NewLine + Environment.NewLine + "                      This will act on the 'Acquired' element." + Environment.NewLine + Environment.NewLine + "                      Proceed anyway?", "Proceed?", System.Windows.MessageBoxButton.YesNoCancel);
+
+                        if (result != MessageBoxResult.Yes)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+
                 myEE16_AddSharedParameters_InVariousWays.myWindow2 = this;
                 myEE16_AddSharedParameters_InVariousWays.myBool_AddToProject = false;
                 myExternalEvent_EE16_AddSharedParameters_InVariousWays.Raise();

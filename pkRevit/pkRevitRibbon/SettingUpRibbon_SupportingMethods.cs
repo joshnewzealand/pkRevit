@@ -38,68 +38,36 @@ namespace pkRevitRibbon
             string stringTargetOokiiVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("OokiiVersion").ToString();
             string stringTargetXceedVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("XceedVersion").ToString();
             string stringTargetSQLiteVersion = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLite").ToString();
-            ////string stringTargetSQLiteVersionBatteries = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLiteBatteries").ToString();
-            ////string stringTargetSQLiteVersionCore = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLiteCore").ToString();
-            ////string stringTargetSQLiteVersionNative = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLiteNative").ToString();
-            ////string stringTargetSQLiteVersionProvider = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SQLiteProvider").ToString();
+
             string stringWindowsAPICodePack = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("WindowsAPICodePack").ToString();
             string stringWindowsAPICodePackShell = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("WindowsAPICodePackShell").ToString();
-            ////string stringSystemMemory = rkbase.OpenSubKey("SOFTWARE\\Wow6432Node\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("SystemMemory").ToString();
+
+            string path = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Josh New Zealand\\pkRevit").GetValue("Path").ToString();
+
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetOokiiVersion).Count() == 0)
             {
-                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-                Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\Ookii.Dialogs.Wpf.dll"));
+                //string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+                Assembly.Load(File.ReadAllBytes(path + "\\Ookii.Dialogs.Wpf.dll"));
             }
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetXceedVersion).Count() == 0)
             {
-                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-                Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\Xceed.Wpf.Toolkit.dll"));
+                //string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+                Assembly.Load(File.ReadAllBytes(path + "\\Xceed.Wpf.Toolkit.dll"));
             }
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersion).Count() == 0)
             {
-                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-                Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\System.Data.SQLite.dll"));
+                //string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+                Assembly.Load(File.ReadAllBytes(path + "\\System.Data.SQLite.dll"));
             }
-            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersionBatteries).Count() == 0)
-            ////{
-            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\SQLitePCLRaw.batteries_v2.dll"));
-            ////}
-
-            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringSystemMemory).Count() == 0)
-            ////{
-            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\System.Memory.dll"));
-            ////}
-
-
-            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersionCore).Count() == 0)
-            ////{
-            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\SQLitePCLRaw.core.dll"));
-            ////}
-
-            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersionNative).Count() == 0)
-            ////{
-            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\SQLitePCLRaw.nativelibrary.dll"));
-            ////}
-
-            ////if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringTargetSQLiteVersionProvider).Count() == 0)
-            ////{
-            ////    string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-            ////    Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\SQLitePCLRaw.provider.dynamic_cdecl.dll"));
-            ////}
-
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringWindowsAPICodePack).Count() == 0)
             {
-                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-                Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\Microsoft.WindowsAPICodePack.dll"));
+                //string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+                Assembly.Load(File.ReadAllBytes(path + "\\Microsoft.WindowsAPICodePack.dll"));
             }
             if (AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName == stringWindowsAPICodePackShell).Count() == 0)
             {
-                string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
-                Assembly.Load(File.ReadAllBytes(stringTargetDirectory + "\\Microsoft.WindowsAPICodePack.Shell.dll"));
+               // string stringTargetDirectory = rkbase.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString();
+                Assembly.Load(File.ReadAllBytes(path + "\\Microsoft.WindowsAPICodePack.Shell.dll"));
             }
             //2 August 2019: End.
 
@@ -114,7 +82,7 @@ namespace pkRevitRibbon
 
             if (System.IO.File.Exists(myString_TestFileLocation))
             {
-                MessageBoxResult result = System.Windows.MessageBox.Show("Please manually locate file '" + System.IO.Path.GetFileName(myString_TestFileLocation) + "'. Do you want to continue.", "Continue...", System.Windows.MessageBoxButton.YesNoCancel);
+                MessageBoxResult result = System.Windows.MessageBox.Show("Please manually locate file '" + myString_TestFileLocation + "'. Do you want to continue.", "Continue...", System.Windows.MessageBoxButton.YesNoCancel);
 
                 if (result != MessageBoxResult.Yes) return null;
 
@@ -191,7 +159,6 @@ namespace pkRevitRibbon
             return myPushButtonData;
         }
 
-
         public PushButtonData Button0080_Spacers(string Name, string ChecklistsNumber, string path)
         {
             PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0080_pkRevitMisc_Spacers");
@@ -205,6 +172,28 @@ namespace pkRevitRibbon
             myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0090_Lines.png"), UriKind.Absolute));
             return myPushButtonData;
         }
+
+        public PushButtonData Button0090_LinesPatterns(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0090_pkRevitMisc_LinesPatterns");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\drawpatterns.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0090_LinesWeights(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0090_pkRevitMisc_LinesWeights");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\drawweights.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0090_Walls(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0090_pkRevitMisc_Walls");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0090_Walls.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
 
         public PushButtonData Button0100_DrawArrows(string Name, string ChecklistsNumber, string path)
         {
@@ -280,6 +269,27 @@ namespace pkRevitRibbon
             myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0200_NurfGun.png"), UriKind.Absolute));
             return myPushButtonData;
         }
+
+        public PushButtonData Button0200_NurfGun_Delete(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0200_pkRevitMisc_NurfGun_Delete");
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0210_LoadFamilies(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0210_pkRevitMisc_LoadFamilies");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0210_LoadFamilies.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
+        public PushButtonData Button0220_LayoutRoom(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0220_pkRevitMisc_LayoutRoom");
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0220_LayoutRoom.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
 
 
         public static void writeDebug(string x, bool AndShow)

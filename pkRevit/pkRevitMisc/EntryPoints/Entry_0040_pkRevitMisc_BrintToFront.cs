@@ -32,15 +32,20 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
         public void Bring_to_Front(UIDocument uid)
         {
-
-
             UIDocument uidoc = uid;
             Document doc = uidoc.Document;
 
             try
             {
+                if(uid.ActiveView.ViewType != ViewType.DrawingSheet)
+                {
+                    MessageBox.Show("Please goto a 'Sheet' type view.");
+                    return;
+                }
+
                 // Create a new instance of the form.
                 System.Windows.Forms.Form myForm = new Form1(doc);
+                myForm.Text = "Send selected viewport to front";
                 myForm.ShowDialog();
             }// end try
             catch

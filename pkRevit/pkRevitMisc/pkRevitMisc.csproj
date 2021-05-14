@@ -77,22 +77,17 @@
       <DependentUpon>Window1617_AddEditParameters.xaml</DependentUpon>
     </Compile>
     <Compile Include="DatabaseMethods Stripped.cs" />
-    <Compile Include="EntryPoints\Entry_0200_pkRevitMisc_NurfGun.cs" />
     <Compile Include="EntryPoints\Entry_0040_pkRevitMisc_BrintToFront.cs" />
     <Compile Include="EntryPoints\Entry_0050_pkRevitMisc_SizePositionViewport.cs" />
     <Compile Include="EntryPoints\Entry_0060_pkRevitMisc_Filters.cs" />
     <Compile Include="EntryPoints\Entry_0080_pkRevitMisc_Spacers.cs" />
+    <Compile Include="EntryPoints\Entry_0090_pkRevitMisc_Walls.cs" />
+    <Compile Include="EntryPoints\Entry_0090_pkRevitMisc_LinesPatterns_LineWeights.cs" />
     <Compile Include="EntryPoints\Entry_0090_pkRevitMisc_Lines.cs" />
     <Compile Include="EntryPoints\Entry_0100_pkRevitMisc_DrawArrows.cs" />
-    <Compile Include="EntryPoints\Entry_0110_pkRevitMisc_TypesAndTags.cs" />
-    <Compile Include="EntryPoints\Entry_0120_pkRevitMisc_MakeAPlatform.cs" />
-    <Compile Include="EntryPoints\Entry_0130_pkRevitMisc_SelectReferencePoint.cs" />
-    <Compile Include="EntryPoints\Entry_0140_pkRevitMisc_RotatePlatform.cs" />
     <Compile Include="EntryPoints\Entry_0150_pkRevitMisc_SortOrder.cs" />
-    <Compile Include="EntryPoints\Entry_0160_pkRevitMisc_EditSchedule.cs" />
     <Compile Include="EntryPoints\Entry_0170_pkRevitMisc_AddFields.cs" />
     <Compile Include="EntryPoints\Entry_0180_pkRevitMisc_SmileyFace.cs" />
-    <Compile Include="EntryPoints\Entry_0190_pkRevitMisc_UnderStandingTransforms.cs" />
     <Compile Include="EntryPoints\Entry_0030_pkRevitMisc_OpenParentView.cs" />
     <Compile Include="CommandsWithWindows\Schedule Manual Sort Order\EE2333_AddSortIndextoSchedule.cs" />
     <Compile Include="CommandsWithWindows\Half One Half Spacers\Form_2D_Spacers.cs">
@@ -128,7 +123,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Content Include="Families\Metric Detail Item.rft">
+    <Content Include="Families\Metric Detail Item 2020.rft">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Families\Metric Detail Item 2021.rft">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Families\Metric Detail Item 2017.rft">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Families\Metric Detail Item 2019.rft">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Families\Metric Detail Item 2018.rft">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

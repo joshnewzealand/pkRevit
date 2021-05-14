@@ -37,7 +37,7 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
                 myWindow2.myListBoxInstanceParameters.SelectedIndex = -1;
                 myWindow2.myListBoxTypeParameters.SelectedIndex = -1;
 
-                string FILE_NAME = System.Environment.GetEnvironmentVariable("ProgramData") + "\\Pedersen Read Limited"; // cSharpPlaypen joshnewzealand
+                string FILE_NAME = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Pedersen Read Limited"; // cSharpPlaypen joshnewzealand
 
                 if (true) //grouping for clarity will alwasy be true
                 {
@@ -67,13 +67,7 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
 
                     MessageBox.Show(myStringCollectup);
 
-                    if (uidoc.Selection.GetElementIds().Count > 0)
-                    {
-                        if (uidoc.Selection.GetElementIds().First().IntegerValue != myWindow2.myIntegerUpDown.Value.Value)
-                        {
-                            MessageBox.Show("Note: The 'Selected' element did not match the 'Acquired' element.");
-                        }
-                    }
+
                 }
             }
 

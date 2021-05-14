@@ -64,12 +64,12 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             TaskDialog mainDialog = new TaskDialog("Hello, viewport check!");
             mainDialog.MainInstruction = "Hello, viewport check!";
             mainDialog.MainContent =
-                    "Revit API doesn't automatically know if the user is in an active viewport. "
-                    + "Please click 'Yes' if your are, or 'No' if your not.";
+                    "This doesn't work when editing in an active viewport on a sheet. "
+                    + "If you ARE in an active viewport on a sheet...click No...then goto a normal plan view and try again.";
 
 
-            mainDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Yes, I am just in an ordinary view.");
-            mainDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink2, "No, I am in an active viewport on a sheet.");
+            mainDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Yes, proceed.");
+            mainDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink2, "No, stop.");
 
             mainDialog.CommonButtons = TaskDialogCommonButtons.Close;
             mainDialog.DefaultButton = TaskDialogResult.Close;
@@ -83,7 +83,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             {
                 YesOrNo = true;
 
-                TaskDialog.Show("Programming stopping", "Please goto an ordinary view.");
+                //TaskDialog.Show("Programming stopping", "Please goto a plan view.");
                 return Result.Succeeded;
             }
 
@@ -93,14 +93,6 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             }
             YesOrNo = false;
 
-            ////////else if (TaskDialogResult.CommandLink2 == tResult)
-            ////////{
-            ////////    YesOrNo = false;
-            ////////}
-            ////////else
-            ////////{
-            ////////    return Result.Succeeded;
-            ////////}
 
             string myString_TempPath = "";
 
@@ -125,530 +117,446 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
         public void _99_AutomaticLayout(int numericUpDown1, int numericUpDown2, UIDocument uid, string myAddinFolder, bool YesOrNo)
         {
+            int eL = -1;
 
-            ////if (useserver) PRL_Parameters = PRL_ParametersServer;
-            ////if (useserverdunedin) PRL_Parameters = PRL_ParametersServerDunedin;
-
-            #region these are mostly notes to self
-            //we need to be able to create a detail family
-            //perferably without having to create the rfa file
-            //place it in the model
-            //during creation we make reference lines
-            //and place dimensions on those reference lines
-            //then this gets  placed on screen
-            //_____________________________________________
-            //it all starts with creating a detail family with coe
-            //create one line and one dimension and that is all there
-            //is too it			
-
-            //thank you joshua this explained it well
-            //the best place i can remember one is not in the rename which i originally thought but
-            //the best place i can remember it is in the wfp make a new family type popup
-
-
-            //do something better here
-
-            //          FamilyInstance myFamilyInstance = myElement as FamilyInstance;
-            //Family myFamily = myFamilyInstance.Symbol.Family;
-
-            //we just need to create a new element
-
-            //are families created just through the new menu
-            #endregion
-
-            int myNumber = numericUpDown1;
-            int myNumberHorizontal = numericUpDown2;
-
-            //Document famDoc = uid.Document.Application.NewFamilyDocument(System.Environment.GetEnvironmentVariable("ProgramData") + "\\Autodesk\\RVT 2017\\Family Templates\\English\\Metric Detail Item.rft");
-            Document famDoc = uid.Document.Application.NewFamilyDocument(myAddinFolder + "\\Metric Detail Item.rft");//uid.Document.Application.NewFamilyDocument(System.Environment.GetEnvironmentVariable("ProgramData") + "\\Autodesk\\RVT 2017\\Family Templates\\English\\Metric Detail Item.rft");
-            Document famDocHorizontal = uid.Document.Application.NewFamilyDocument(myAddinFolder + "\\Metric Detail Item.rft");
-
-            fileName = string.Empty;
-            fileName = myAddinFolder + "\\PRL_Parameters.txt";
-
-
-            //C:\Users\Joshua\Dropbox\For Joshua Lumley-2\20170123 second week back\99 shared links
-
-            if (File.Exists(fileName) == false)
+            try
             {
-                TaskDialog.Show("Error", "Cannot find the shared parameters file.");
-                return;
-            }
-
-            //string myGroupName = "PRL_SubcctSchedule";
-            //string ScheduleType = "Subcct Details"; 
-            //themainsubroutine(settheStringArray(ScheduleType)[0],myGroupName,famDoc);
+                UIDocument uidoc = uid;
+                Document doc = uidoc.Document;
+                View view = uidoc.ActiveView;
+                ////if (useserver) PRL_Parameters = PRL_ParametersServer;
+                ////if (useserverdunedin) PRL_Parameters = PRL_ParametersServerDunedin;
 
 
-            FamilyManager familyManager = famDoc.FamilyManager;
-            FamilyManager familyManagerHorizontal = famDocHorizontal.FamilyManager;
-            UIDocument uidoc = uid;
-            Document doc = uidoc.Document;
-
-            string myStringSharedParameterFileName = "";
-
-            if (uidoc.Application.Application.SharedParametersFilename != null)
-            {
-                myStringSharedParameterFileName = uidoc.Application.Application.SharedParametersFilename; //Q:\Revit Revit Revit\Template 2018\PRL_Parameters.txt
-            }
+                int myNumber = numericUpDown1;
+                int myNumberHorizontal = numericUpDown2;
 
 
-            uidoc.Application.Application.SharedParametersFilename = fileName;
-            DefinitionFile defFile = uidoc.Application.Application.OpenSharedParameterFile();
-            DefinitionGroups myGroups = defFile.Groups;
-            DefinitionGroup myGroup = myGroups.get_Item("_98_PRL_Generic Dimensions");
+                eL = 439;
+                string path = Path.GetTempPath() + "` aa Spacer Families";
+                //////////if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
 
-            if (myStringSharedParameterFileName != "")
-            {
-                uidoc.Application.Application.SharedParametersFilename = myStringSharedParameterFileName;
-            }
+                //////////string path = (System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\` aa Spacer Families");
+                //////////if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
 
-            Definitions myDefinitions = myGroup.Definitions;
-            ExternalDefinition eDef = myDefinitions.get_Item("PRL_WIDTH") as ExternalDefinition;
+                //////////string subdirectory_reversedatetothesecond = (path + ("\\" + (DateTime.Now.ToString("yyyyMMddHHmmss"))));
+                if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
+           
 
-            //ActiveUIDocument.ActiveView.ui
-            #region view checks		
-            View view = uidoc.ActiveView;
+                //////////string FILE_NAME = (subdirectory_reversedatetothesecond + "\\");
+                string FILE_NAME = (path + "\\");
 
-            View3D myView3D = doc.ActiveView as View3D;
+                string VertricalSpacer_FamilyName = FamilyTypeName + " x" + numericUpDown1.ToString() + " " + uid.Application.Application.VersionNumber;
+                string HorizontalSpacer_FamilyName = FamilyTypeNameHorizontal + " x" + numericUpDown2.ToString() + " " + uid.Application.Application.VersionNumber;
 
-            if (myView3D != null)
-            {
-
-                TaskDialog.Show("Not the correct type of view", "'Detail' lines can't be drawn in 3D view.");
-                return;
-            }
-
-            ViewPlan myViewPlan = doc.ActiveView as ViewPlan;
-
-            if (myViewPlan == null)
-            {
-                TaskDialog.Show("Not the correct type of view", "The active view must be a view 'plan'");
-                return;
-            }
+                string mystringFilepath = FILE_NAME + VertricalSpacer_FamilyName + ".rfa";
+                string mystringFilepathHorizontal = FILE_NAME + HorizontalSpacer_FamilyName + ".rfa";
 
 
-            UIView uiview = null;
+                //ActiveUIDocument.ActiveView.ui
+                #region view checks		
 
-            IList<UIView> uiviews = uidoc.GetOpenUIViews();
+                View3D myView3D = doc.ActiveView as View3D;
 
-            foreach (UIView uv in uiviews)
-            {
-                if (uv.ViewId.Equals(view.Id))
+                if (myView3D != null)
                 {
-                    uiview = uv;
-                    break;
-                }
-            }
-            #endregion view checks
-            Rectangle rect = uiview.GetWindowRectangle();
-            IList<XYZ> corners = uiview.GetZoomCorners();
-            XYZ pXchanges = corners[0];
-            XYZ qXchanges = corners[1];
 
-            double twoxpositionsXStatic = ((corners[1].X - corners[0].X) / 20);
-            double twoxpositionsYStatic = ((corners[1].Y - corners[0].Y) / 20);
-            double twoxpositionsX = (corners[0].X + (corners[1].X - corners[0].X) / 20);
-            double twoxpositionsY = (corners[0].Y + (corners[1].Y - corners[0].Y) / 20);
-
-            double YLineLengthStart = pXchanges.Y + twoxpositionsYStatic;
-            double YLineLengthFinish = qXchanges.Y - twoxpositionsYStatic;
-            double YLineLength = YLineLengthFinish - YLineLengthStart;
-            if (YLineLength < 0) YLineLength = YLineLengthStart - YLineLengthFinish;
-
-            double XLineLengthStart = pXchanges.X + twoxpositionsXStatic;
-            double XLineLengthFinish = qXchanges.X - twoxpositionsXStatic;
-            double XLineLength = XLineLengthFinish - XLineLengthStart;
-            if (XLineLength < 0) XLineLength = XLineLengthStart - XLineLengthFinish;
-
-
-            FamilyParameter paramTd;
-            FamilyParameter paramTdHorizontal;
-
-            #region hide this away for a bit
-
-            using (Transaction y = new Transaction(famDoc, "Put in parameter"))
-            {
-                y.Start();
-                paramTd = familyManager.AddParameter(eDef, BuiltInParameterGroup.PG_IDENTITY_DATA, true);
-
-                if (familyManager.Types.Size == 0)
-                    familyManager.NewType(FamilyTypeName);
-
-                //FamilyType myFamilyType = familyManager.CurrentType;
-
-                //myFamilyType.
-
-                // famDoc.Regenerate();
-
-                //familyManagerHorizontal.Set( paramTd, (1 * MeterToFeet));
-                //familyManager.Set( paramTd, (YLineLength));
-
-                y.Commit();
-            }
-
-
-            using (Transaction y = new Transaction(famDocHorizontal, "Put in parameter"))
-            {
-                y.Start();
-                paramTdHorizontal = familyManagerHorizontal.AddParameter(eDef, BuiltInParameterGroup.PG_IDENTITY_DATA, true);
-
-                if (familyManagerHorizontal.Types.Size == 0)
-                    familyManagerHorizontal.NewType(FamilyTypeNameHorizontal);
-
-                // familyManagerHorizontal.Set( paramTdHorizontal, (1 * MeterToFeet));
-
-                y.Commit();
-            }
-
-            #endregion
-
-            FilteredElementCollector viewCollector = new FilteredElementCollector(famDoc);
-            viewCollector.OfClass(typeof(Autodesk.Revit.DB.View));
-
-            List<ReferencePlane> myListReferencePlane = new List<ReferencePlane>();
-            List<ReferencePlane> myListReferencePlaneHorizontal = new List<ReferencePlane>();
-
-            View myView = viewCollector.FirstOrDefault() as View;
-
-            Options goption = new Options();
-            goption.ComputeReferences = true;
-            goption.IncludeNonVisibleObjects = true;
-            goption.View = myView;
-            #region hide all this for a bit
-
-            using (Transaction y = new Transaction(famDoc, "The first one"))
-            {
-                y.Start();
-
-                double Xstat = twoxpositionsXStatic;
-
-                myListReferencePlane.Add(famDoc.FamilyCreate.NewReferencePlane(new XYZ(0.0, 0.0, 0.0), new XYZ(10.0, 0.0, 0.0), new XYZ(0.0, 0.0, 1), myView));
-                myListReferencePlane.Add(famDoc.FamilyCreate.NewReferencePlane(new XYZ(0.0, 10.0, 0.0), new XYZ(10.0, 10.0, 0.0), new XYZ(0.0, 0.0, 1), myView));
-                famDoc.FamilyCreate.NewDetailCurve(myView, Line.CreateBound(new XYZ((Xstat / 2), 0.0, 0.0), new XYZ((Xstat / 2), 10.0, 0.0)));
-
-
-                int myNumberRationlised = ((myNumber * 2) - 2);
-                double myDouble = 10.0 / (myNumber * 2);
-                double myDoubleAccumlation = 0; bool toggle = true;
-                for (int i = 0; i <= myNumberRationlised; i++)
-                {
-                    myDoubleAccumlation = myDoubleAccumlation + myDouble;
-                    myListReferencePlane.Add(famDoc.FamilyCreate.NewReferencePlane(new XYZ(0.0, myDoubleAccumlation, 0.0), new XYZ(Xstat, myDoubleAccumlation, 0.0), new XYZ(0.0, 0.0, 1), myView));
-
-                    if (toggle)
-                    {
-                        famDoc.FamilyCreate.NewDetailCurve(myView, Line.CreateBound(new XYZ(0.0, myDoubleAccumlation, 0.0), new XYZ(Xstat, myDoubleAccumlation, 0.0)));
-                        toggle = false;
-                    }
-                    else { toggle = true; }
-                }
-
-                Line dimlineboundx1 = Line.CreateUnbound(new XYZ(0, 0, 0), new XYZ(0, Xstat, 0));
-
-                famDoc.Regenerate();
-
-                #region hide this for a bit				        
-                //equals
-
-                #endregion
-
-                ReferenceArray references = new ReferenceArray();
-                foreach (ReferencePlane rrr in myListReferencePlane)
-                {
-                    references.Append(rrr.GetReference());
-                }
-
-                ReferenceArray references2 = new ReferenceArray();
-                references2.Append(myListReferencePlane[0].GetReference());
-                references2.Append(myListReferencePlane[1].GetReference());
-
-                Dimension dimension = famDoc.FamilyCreate.NewDimension(myView, dimlineboundx1, references);
-                dimension.AreSegmentsEqual = true;
-
-                Dimension dimension2 = famDoc.FamilyCreate.NewDimension(myView, dimlineboundx1, references2);
-                dimension2.FamilyLabel = paramTd;
-                familyManager.Set(paramTd, (YLineLength));
-
-                y.Commit();
-            }
-
-            #endregion
-
-            using (Transaction y = new Transaction(famDocHorizontal, "The second one (horizontal)"))
-            {
-                double Ystat = twoxpositionsYStatic;
-                y.Start();
-
-                myListReferencePlaneHorizontal.Add(famDocHorizontal.FamilyCreate.NewReferencePlane(new XYZ(0.0, 0.0, 0.0), new XYZ(00.0, 10.0, 0.0), new XYZ(0.0, 0.0, 1), myView));
-                myListReferencePlaneHorizontal.Add(famDocHorizontal.FamilyCreate.NewReferencePlane(new XYZ(10.0, 0.0, 0.0), new XYZ(10.0, 10.0, 0.0), new XYZ(0.0, 0.0, 1), myView));
-                famDocHorizontal.FamilyCreate.NewDetailCurve(myView, Line.CreateBound(new XYZ(0, (Ystat / 2), 0.0), new XYZ(10, (Ystat / 2), 0.0)));
-
-                int myNumberRationlisedHorizontal = ((myNumberHorizontal * 2) - 2); double myDoubleHorizontal = 10.0 / (myNumberHorizontal * 2);
-                double myDoubleAccumlationHorizontal = 0; bool toggleHorizontal = true;
-                for (int i = 0; i <= myNumberRationlisedHorizontal; i++)
-                {
-                    myDoubleAccumlationHorizontal = myDoubleAccumlationHorizontal + myDoubleHorizontal;
-                    myListReferencePlaneHorizontal.Add(famDocHorizontal.FamilyCreate.NewReferencePlane(new XYZ(myDoubleAccumlationHorizontal, 0.0, 0.0), new XYZ(myDoubleAccumlationHorizontal, Ystat, 0.0), new XYZ(0.0, 0.0, 1), myView));
-
-                    if (toggleHorizontal)
-                    {
-                        famDocHorizontal.FamilyCreate.NewDetailCurve(myView, Line.CreateBound(new XYZ(myDoubleAccumlationHorizontal, 0.0, 0.0), new XYZ(myDoubleAccumlationHorizontal, Ystat, 0.0)));
-                        toggleHorizontal = false;
-                    }
-                    else { toggleHorizontal = true; }
-                }
-
-                Line dimlineboundx1Horizontal = Line.CreateUnbound(new XYZ(0, 0, 0), new XYZ(Ystat, 0, 0));
-                //didn't get paid
-                //get some advertisers
-                //
-
-                famDocHorizontal.Regenerate();
-
-                ReferenceArray referencesHorizontal = new ReferenceArray();
-                foreach (ReferencePlane rrr in myListReferencePlaneHorizontal)
-                {
-                    referencesHorizontal.Append(rrr.GetReference());
-                }
-
-                ReferenceArray references2Horizontal = new ReferenceArray();
-                references2Horizontal.Append(myListReferencePlaneHorizontal[0].GetReference());
-                references2Horizontal.Append(myListReferencePlaneHorizontal[1].GetReference());
-
-                Dimension dimensionHorizontal = famDocHorizontal.FamilyCreate.NewDimension(myView, dimlineboundx1Horizontal, referencesHorizontal);
-                dimensionHorizontal.AreSegmentsEqual = true;
-
-                Dimension dimensionHorizontal2 = famDocHorizontal.FamilyCreate.NewDimension(myView, dimlineboundx1Horizontal, references2Horizontal);
-                dimensionHorizontal2.FamilyLabel = paramTdHorizontal;
-                familyManagerHorizontal.Set(paramTdHorizontal, (XLineLength));
-
-                y.Commit();
-            }
-
-            SaveAsOptions options = new SaveAsOptions();
-            options.OverwriteExistingFile = true;
-
-
-            string path = (System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\` aa Spacer Families");
-            if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
-
-            string subdirectory_reversedatetothesecond = (path + ("\\" + (DateTime.Now.ToString("yyyyMMddHHmmss"))));
-            if (!System.IO.Directory.Exists(subdirectory_reversedatetothesecond)) System.IO.Directory.CreateDirectory(subdirectory_reversedatetothesecond);
-
-            string FILE_NAME = (subdirectory_reversedatetothesecond + "\\");
-
-            //    System.IO.File.Create(FILE_NAME).Dispose();
-
-
-            string mystringFilepath = FILE_NAME + FamilyTypeName + " x" + numericUpDown1.ToString() + ".rfa";
-            string mystringFilepathHorizontal = FILE_NAME + FamilyTypeNameHorizontal + " x" + numericUpDown2.ToString() + ".rfa";
-
-            famDoc.SaveAs(mystringFilepath, options);
-            famDocHorizontal.SaveAs(mystringFilepathHorizontal, options);
-
-            famDoc.Close();
-            famDocHorizontal.Close();
-
-            SampleFamilyLoadOptions mySampleFamilyLoadOptions = new SampleFamilyLoadOptions();
-
-            Family family = null;
-            Family familyHorizontal = null;
-
-
-            using (Transaction y = new Transaction(doc, "Make a detail family and stick a line in"))
-            {
-                y.Start();
-                doc.LoadFamily(mystringFilepath, mySampleFamilyLoadOptions, out family);
-                doc.LoadFamily(mystringFilepathHorizontal, mySampleFamilyLoadOptions, out familyHorizontal);
-
-                if (familyHorizontal == null)
-                {
-                    TaskDialog.Show("thisthing", "it is indeed a null");
+                    TaskDialog.Show("Not the correct type of view", "'Detail' lines can't be drawn in 3D view.");
                     return;
                 }
-                else
+
+                ViewPlan myViewPlan = doc.ActiveView as ViewPlan;
+
+                if (myViewPlan == null)
                 {
+                    TaskDialog.Show("Not the correct type of view", "The active view must be a view 'plan'");
+                    return;
                 }
-                y.Commit();
-            }
-
-            ISet<ElementId> myListElementIDforFamilySymbols = family.GetFamilySymbolIds();
-            ISet<ElementId> myListElementIDforFamilySymbolsHorizontal = familyHorizontal.GetFamilySymbolIds();
-
-            FamilySymbol myFamilySymbol = doc.GetElement(myListElementIDforFamilySymbols.FirstOrDefault()) as FamilySymbol;
-            FamilySymbol myFamilySymbolHorizontal = doc.GetElement(myListElementIDforFamilySymbolsHorizontal.FirstOrDefault()) as FamilySymbol;
-
-            XYZ normal = XYZ.BasisZ;
-            XYZ origin = XYZ.Zero;
-
-            // view.Origin.Y
-
-            //View view = doc.ActiveView;	  
-            //BoundingBoxXYZ newBox = new BoundingBoxXYZ();
-            //newBox.set_MinEnabled( 0, true );
-            //newBox.set_MinEnabled( 1, true );
-            //newBox.set_MinEnabled( 2, true );
-            //newBox.Min = new XYZ( viewOne.CropBox.Min.X + viewOne.Origin.X, viewOne.CropBox.Min.Y  + viewOne.Origin.Y, 0 );
-            //newBox.set_MaxEnabled( 0, true );
-            //newBox.set_MaxEnabled( 1, true );
-            //newBox.set_MaxEnabled( 2, true );
-            //newBox.Max = new XYZ( viewOne.CropBox.Max.X + viewOne.Origin.X, viewOne.CropBox.Max.Y + viewOne.Origin.Y, 0 );
-            //viewTwo.CropBox = newBox ;	
 
 
-            using (Transaction y = new Transaction(doc, "data data"))
-            {
-                y.Start();
-                // view.Origin.Y
+                UIView uiview = null;
 
-                //View view = doc.ActiveView;	  
-                //BoundingBoxXYZ newBox = new BoundingBoxXYZ();
-                //newBox.set_MinEnabled( 0, true );
-                //newBox.set_MinEnabled( 1, true );
-                //newBox.set_MinEnabled( 2, true );
-                //newBox.Min = new XYZ( viewOne.CropBox.Min.X + viewOne.Origin.X, viewOne.CropBox.Min.Y  + viewOne.Origin.Y, 0 );
-                //newBox.set_MaxEnabled( 0, true );
-                //newBox.set_MaxEnabled( 1, true );
-                //newBox.set_MaxEnabled( 2, true );
-                //newBox.Max = new XYZ( viewOne.CropBox.Max.X + viewOne.Origin.X, viewOne.CropBox.Max.Y + viewOne.Origin.Y, 0 );
-                //viewTwo.CropBox = newBox ;	
+                IList<UIView> uiviews = uidoc.GetOpenUIViews();
 
-                //Viewport viewportOne = newMyClass.myViewport; //= elementOne as Viewport;
-                //	view.
-                /*			
-                  // doc = this.ActiveUIDocument.Document;
-                   ViewSheet vs = doc.ActiveView as ViewSheet;
-                   Viewport legendVP = new FilteredElementCollector(doc).OfClass(typeof(Viewport)).Cast<Viewport>()
-                       .Where(q => q.SheetId == vs.Id && ((View)doc.GetElement(q.ViewId)).ViewType == ViewType.Legend).First();
-
-                   View legend = doc.GetElement(legendVP.ViewId) as View;
-
-                   Outline legendOutline = legendVP.GetBoxOutline();
-
-                   XYZ intialCenter = legendOutline.MinimumPoint.Subtract(legendOutline.MaximumPoint.Subtract(legendOutline.MinimumPoint).Divide(2));
-
-                   */
-
-
-                View myAGV = uidoc.ActiveGraphicalView as View;
-                //myAGV.Origin
-                //TaskDialog.Show("active graphical view", myAGV.Name);   
-
-
-                ElementCategoryFilter filter = new ElementCategoryFilter(BuiltInCategory.OST_Viewports);
-
-                FilteredElementCollector collector = new FilteredElementCollector(doc);
-
-                ICollection<Element> AllViewports = collector.WherePasses(filter).ToElements();
-
-                //	ElementWorksetFilter elementWorksetFilter = new ElementWorksetFilter(workset.Id, false);
-                //ICollection<Element> worksetElemsfounds = myFilteredElementCollector.WherePasses(elementWorksetFilter).ToElements();
-                Viewport CorrespondingViewport = null;
-
-                //TaskDialog.Show("progress", "line 607");
-                //bool progress = true;
-
-                string writethis = null;
-
-                foreach (Viewport vv in AllViewports)
+                foreach (UIView uv in uiviews)
                 {
-                    //  if( vv.Category.Name == "Viewports" )
-                    // {
-                    //String ViewName = vv.GetParameters("View Name").FirstOrDefault().AsString();
-                    writethis = writethis + Environment.NewLine + vv.Name;
-
-                    //if(progress)	TaskDialog.Show("progress", "line 617");
-                    //progress = false;
-
-                    //Viewport myViewport = vv as Viewport;
-                    //View myAGV = uidoc.ActiveGraphicalView as View;
-                    View myView2 = doc.GetElement(vv.ViewId) as View;
-
-
-                    if (myView2.Name == myAGV.Name)
+                    if (uv.ViewId.Equals(view.Id))
                     {
-                        //TaskDialog.Show("progress", "line 624");
-                        CorrespondingViewport = vv;
+                        uiview = uv;
+                        break;
+                    }
+                }
+                #endregion view checks
+                Rectangle rect = uiview.GetWindowRectangle();
+                IList<XYZ> corners = uiview.GetZoomCorners();
+                XYZ pXchanges = corners[0];
+                XYZ qXchanges = corners[1];
+
+                double twoxpositionsXStatic = ((corners[1].X - corners[0].X) / 20);
+                double twoxpositionsYStatic = ((corners[1].Y - corners[0].Y) / 20);
+                double twoxpositionsX = (corners[0].X + (corners[1].X - corners[0].X) / 20);
+                double twoxpositionsY = (corners[0].Y + (corners[1].Y - corners[0].Y) / 20);
+
+                double YLineLengthStart = pXchanges.Y + twoxpositionsYStatic;
+                double YLineLengthFinish = qXchanges.Y - twoxpositionsYStatic;
+                double YLineLength = YLineLengthFinish - YLineLengthStart;
+                if (YLineLength < 0) YLineLength = YLineLengthStart - YLineLengthFinish;
+
+                double XLineLengthStart = pXchanges.X + twoxpositionsXStatic;
+                double XLineLengthFinish = qXchanges.X - twoxpositionsXStatic;
+                double XLineLength = XLineLengthFinish - XLineLengthStart;
+                if (XLineLength < 0) XLineLength = XLineLengthStart - XLineLengthFinish;
+
+
+                List<Element> alreadyThereVertical = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == VertricalSpacer_FamilyName).ToList();
+                List<Element> alreadyThereHorizontal = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == HorizontalSpacer_FamilyName).ToList();
+
+                if ((alreadyThereVertical.Count == 0) | (alreadyThereHorizontal.Count == 0))
+                {
+                    //Document famDoc = uid.Document.Application.NewFamilyDocument(System.Environment.GetEnvironmentVariable("ProgramData") + "\\Autodesk\\RVT 2017\\Family Templates\\English\\Metric Detail Item.rft");
+                    string string_MetricDetailItem = "\\Metric Detail Item 2017.rft";
+
+
+                    if (uid.Application.Application.VersionNumber == "2018") string_MetricDetailItem = "\\Metric Detail Item 2018.rft";
+                    if (uid.Application.Application.VersionNumber == "2019") string_MetricDetailItem = "\\Metric Detail Item 2019.rft";
+                    if (uid.Application.Application.VersionNumber == "2020") string_MetricDetailItem = "\\Metric Detail Item 2020.rft";
+                    if (uid.Application.Application.VersionNumber == "2021") string_MetricDetailItem = "\\Metric Detail Item 2021.rft";
+
+                    Document famDoc = uid.Document.Application.NewFamilyDocument(myAddinFolder + string_MetricDetailItem);//uid.Document.Application.NewFamilyDocument(System.Environment.GetEnvironmentVariable("ProgramData") + "\\Autodesk\\RVT 2017\\Family Templates\\English\\Metric Detail Item.rft");
+                    Document famDocHorizontal = uid.Document.Application.NewFamilyDocument(myAddinFolder + string_MetricDetailItem);
+
+                    fileName = string.Empty;
+                    fileName = myAddinFolder + "\\PRL_Parameters.txt";
+
+
+                    FamilyManager familyManager = famDoc.FamilyManager;
+                    FamilyManager familyManagerHorizontal = famDocHorizontal.FamilyManager;
+
+                    if (File.Exists(fileName) == false)
+                    {
+                        TaskDialog.Show("Error", "Cannot find the shared parameters file.");
+                        return;
+                    }
+
+                    string myStringSharedParameterFileName = "";
+
+                    if (uidoc.Application.Application.SharedParametersFilename != null)
+                    {
+                        myStringSharedParameterFileName = uidoc.Application.Application.SharedParametersFilename; //Q:\Revit Revit Revit\Template 2018\PRL_Parameters.txt
+                    }
+
+                    eL = 202;
+                    uidoc.Application.Application.SharedParametersFilename = fileName;
+                    DefinitionFile defFile = uidoc.Application.Application.OpenSharedParameterFile();
+                    DefinitionGroups myGroups = defFile.Groups;
+                    DefinitionGroup myGroup = myGroups.get_Item("_98_PRL_Generic Dimensions");
+
+
+                    Definitions myDefinitions = myGroup.Definitions;
+                    ExternalDefinition eDef = myDefinitions.get_Item("PRL_WIDTH") as ExternalDefinition;
+
+
+                    eL = 271;
+                    FamilyParameter paramTd;
+                    FamilyParameter paramTdHorizontal;
+
+                    if (true)
+                    {
+                        #region hide this away for a bit
+                        eL = 276;
+                        using (Transaction y = new Transaction(famDoc, "Put in parameter"))
+                        {
+                            y.Start();
+                            eL = 280;
+                            if (familyManager.GetParameters().Where(x => x.Definition.Name == "PRL_WIDTH").Count() != 0)
+                            {
+                                paramTd = familyManager.GetParameters().Where(x => x.Definition.Name == "PRL_WIDTH").FirstOrDefault();
+                            }
+                            else
+                            {
+                                eL = 281;
+                                paramTd = familyManager.AddParameter(eDef, BuiltInParameterGroup.PG_IDENTITY_DATA, true);
+                            }
+
+                            eL = 282;
+                            if (familyManager.Types.Size == 0)
+                                familyManager.NewType(FamilyTypeName);
+
+                            y.Commit();
+                        }
+                        eL = 296;
+
+                        using (Transaction y = new Transaction(famDocHorizontal, "Put in parameter"))
+                        {
+                            y.Start();
+                            paramTdHorizontal = familyManagerHorizontal.AddParameter(eDef, BuiltInParameterGroup.PG_IDENTITY_DATA, true);
+
+                            if (familyManagerHorizontal.Types.Size == 0)
+                                familyManagerHorizontal.NewType(FamilyTypeNameHorizontal);
+
+                            y.Commit();
+                        }
+
+                        #endregion
+                    }
+
+                    if (myStringSharedParameterFileName != "")
+                    {
+                        uidoc.Application.Application.SharedParametersFilename = myStringSharedParameterFileName;
+                    }
+
+                    eL = 312;
+                    FilteredElementCollector viewCollector = new FilteredElementCollector(famDoc);
+                    viewCollector.OfClass(typeof(Autodesk.Revit.DB.View));
+                    eL = 315;
+                    List<ReferencePlane> myListReferencePlane = new List<ReferencePlane>();
+                    List<ReferencePlane> myListReferencePlaneHorizontal = new List<ReferencePlane>();
+
+                    View myView = viewCollector.FirstOrDefault() as View;
+                    eL = 320;
+                    Options goption = new Options();
+                    goption.ComputeReferences = true;
+                    goption.IncludeNonVisibleObjects = true;
+                    goption.View = myView;
+                    #region hide all this for a bit
+
+                    SaveAsOptions options = new SaveAsOptions();
+                    options.OverwriteExistingFile = true;
+
+                    if (alreadyThereVertical.Count == 0)
+                    {
+
+                        using (Transaction y = new Transaction(famDoc, "The first one"))
+                        {
+                            y.Start();
+
+                            double Xstat = twoxpositionsXStatic;
+
+                            myListReferencePlane.Add(famDoc.FamilyCreate.NewReferencePlane(new XYZ(0.0, 0.0, 0.0), new XYZ(10.0, 0.0, 0.0), new XYZ(0.0, 0.0, 1), myView));
+                            myListReferencePlane.Add(famDoc.FamilyCreate.NewReferencePlane(new XYZ(0.0, 10.0, 0.0), new XYZ(10.0, 10.0, 0.0), new XYZ(0.0, 0.0, 1), myView));
+                            famDoc.FamilyCreate.NewDetailCurve(myView, Line.CreateBound(new XYZ((Xstat / 2), 0.0, 0.0), new XYZ((Xstat / 2), 10.0, 0.0)));
+
+
+                            int myNumberRationlised = ((myNumber * 2) - 2);
+                            double myDouble = 10.0 / (myNumber * 2);
+                            double myDoubleAccumlation = 0; bool toggle = true;
+                            for (int i = 0; i <= myNumberRationlised; i++)
+                            {
+                                myDoubleAccumlation = myDoubleAccumlation + myDouble;
+                                myListReferencePlane.Add(famDoc.FamilyCreate.NewReferencePlane(new XYZ(0.0, myDoubleAccumlation, 0.0), new XYZ(Xstat, myDoubleAccumlation, 0.0), new XYZ(0.0, 0.0, 1), myView));
+
+                                if (toggle)
+                                {
+                                    famDoc.FamilyCreate.NewDetailCurve(myView, Line.CreateBound(new XYZ(0.0, myDoubleAccumlation, 0.0), new XYZ(Xstat, myDoubleAccumlation, 0.0)));
+                                    toggle = false;
+                                }
+                                else { toggle = true; }
+                            }
+
+                            Line dimlineboundx1 = Line.CreateUnbound(new XYZ(0, 0, 0), new XYZ(0, Xstat, 0));
+
+                            famDoc.Regenerate();
+
+                            #region hide this for a bit				        
+                            //equals
+
+                            #endregion
+
+                            ReferenceArray references = new ReferenceArray();
+                            foreach (ReferencePlane rrr in myListReferencePlane)
+                            {
+                                references.Append(rrr.GetReference());
+                            }
+
+                            ReferenceArray references2 = new ReferenceArray();
+                            references2.Append(myListReferencePlane[0].GetReference());
+                            references2.Append(myListReferencePlane[1].GetReference());
+
+                            Dimension dimension = famDoc.FamilyCreate.NewDimension(myView, dimlineboundx1, references);
+                            dimension.AreSegmentsEqual = true;
+
+                            Dimension dimension2 = famDoc.FamilyCreate.NewDimension(myView, dimlineboundx1, references2);
+                            dimension2.FamilyLabel = paramTd;
+                            familyManager.Set(paramTd, (YLineLength));
+
+                            y.Commit();
+                        }
+                    }
+
+                    if (alreadyThereHorizontal.Count == 0)
+                    {
+                        #endregion
+                        eL = 384;
+                        using (Transaction y = new Transaction(famDocHorizontal, "The second one (horizontal)"))
+                        {
+                            double Ystat = twoxpositionsYStatic;
+                            y.Start();
+                            eL = 398;
+                            myListReferencePlaneHorizontal.Add(famDocHorizontal.FamilyCreate.NewReferencePlane(new XYZ(0.0, 0.0, 0.0), new XYZ(00.0, 10.0, 0.0), new XYZ(0.0, 0.0, 1), myView));
+                            eL = 400;
+                            myListReferencePlaneHorizontal.Add(famDocHorizontal.FamilyCreate.NewReferencePlane(new XYZ(10.0, 0.0, 0.0), new XYZ(10.0, 10.0, 0.0), new XYZ(0.0, 0.0, 1), myView));
+                            famDocHorizontal.FamilyCreate.NewDetailCurve(myView, Line.CreateBound(new XYZ(0, (Ystat / 2), 0.0), new XYZ(10, (Ystat / 2), 0.0)));
+                            eL = 402;
+                            int myNumberRationlisedHorizontal = ((myNumberHorizontal * 2) - 2); double myDoubleHorizontal = 10.0 / (myNumberHorizontal * 2);
+                            double myDoubleAccumlationHorizontal = 0; bool toggleHorizontal = true;
+                            for (int i = 0; i <= myNumberRationlisedHorizontal; i++)
+                            {
+                                myDoubleAccumlationHorizontal = myDoubleAccumlationHorizontal + myDoubleHorizontal;
+                                myListReferencePlaneHorizontal.Add(famDocHorizontal.FamilyCreate.NewReferencePlane(new XYZ(myDoubleAccumlationHorizontal, 0.0, 0.0), new XYZ(myDoubleAccumlationHorizontal, Ystat, 0.0), new XYZ(0.0, 0.0, 1), myView));
+
+                                if (toggleHorizontal)
+                                {
+                                    famDocHorizontal.FamilyCreate.NewDetailCurve(myView, Line.CreateBound(new XYZ(myDoubleAccumlationHorizontal, 0.0, 0.0), new XYZ(myDoubleAccumlationHorizontal, Ystat, 0.0)));
+                                    toggleHorizontal = false;
+                                }
+                                else { toggleHorizontal = true; }
+                            }
+
+                            Line dimlineboundx1Horizontal = Line.CreateUnbound(new XYZ(0, 0, 0), new XYZ(Ystat, 0, 0));
+                            eL = 419;
+                            famDocHorizontal.Regenerate();
+
+                            ReferenceArray referencesHorizontal = new ReferenceArray();
+                            foreach (ReferencePlane rrr in myListReferencePlaneHorizontal)
+                            {
+                                referencesHorizontal.Append(rrr.GetReference());
+                            }
+
+                            ReferenceArray references2Horizontal = new ReferenceArray();
+                            references2Horizontal.Append(myListReferencePlaneHorizontal[0].GetReference());
+                            references2Horizontal.Append(myListReferencePlaneHorizontal[1].GetReference());
+
+                            Dimension dimensionHorizontal = famDocHorizontal.FamilyCreate.NewDimension(myView, dimlineboundx1Horizontal, referencesHorizontal);
+                            dimensionHorizontal.AreSegmentsEqual = true;
+
+                            Dimension dimensionHorizontal2 = famDocHorizontal.FamilyCreate.NewDimension(myView, dimlineboundx1Horizontal, references2Horizontal);
+                            dimensionHorizontal2.FamilyLabel = paramTdHorizontal;
+                            familyManagerHorizontal.Set(paramTdHorizontal, (XLineLength));
+
+                            y.Commit();
+                        }
+                        eL = 441;
+                      }
+
+
+                    if (alreadyThereVertical.Count == 0)
+                    {
+                        famDoc.SaveAs(mystringFilepath, options);
+                        famDoc.Close();
+                    }
+
+
+                    if (alreadyThereHorizontal.Count == 0)
+                    {
+
+                        famDocHorizontal.SaveAs(mystringFilepathHorizontal, options);
+                        famDocHorizontal.Close();
+
                     }
                 }
 
-                if (YesOrNo == false)
+
+                SampleFamilyLoadOptions mySampleFamilyLoadOptions = new SampleFamilyLoadOptions();
+
+                Family family = null;
+                Family familyHorizontal = null;
+
+                eL = 465;
+
+                ////MessageBox.Show("this is definitely the place right");
+                ////System.Diagnostics.Process.Start(Path.GetDirectoryName(mystringFilepath));
+                //_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(mystringFilepathHorizontal, true);
+
+                using (Transaction y = new Transaction(doc, "Make a detail family and stick a line in"))
                 {
+                    y.Start();
+
+                    List<Element> myListVertricalSpacer_FamilyName = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == VertricalSpacer_FamilyName).ToList();
+
+                    if (myListVertricalSpacer_FamilyName.Count != 0)
+                    {
+                        family = myListVertricalSpacer_FamilyName.First() as Family;
+                    }
+
+                    List<Element> myListHorizontalSpacer_FamilyName = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == HorizontalSpacer_FamilyName).ToList();
+
+                    if (myListHorizontalSpacer_FamilyName.Count != 0)
+                    {
+                        familyHorizontal = myListHorizontalSpacer_FamilyName.First() as Family;
+                    }
+
+                    if (family == null)
+                    {
+                        doc.LoadFamily(mystringFilepath, mySampleFamilyLoadOptions, out family);
+                    }
+
+                    if (familyHorizontal == null)
+                    {
+                        doc.LoadFamily(mystringFilepathHorizontal, mySampleFamilyLoadOptions, out familyHorizontal);
+                    }
+                    y.Commit();
+                }
+                eL = 471;
+                ISet<ElementId> myListElementIDforFamilySymbols = family.GetFamilySymbolIds();
+                ISet<ElementId> myListElementIDforFamilySymbolsHorizontal = familyHorizontal.GetFamilySymbolIds();
+                eL = 474;
+                FamilySymbol myFamilySymbol = doc.GetElement(myListElementIDforFamilySymbols.FirstOrDefault()) as FamilySymbol;
+                FamilySymbol myFamilySymbolHorizontal = doc.GetElement(myListElementIDforFamilySymbolsHorizontal.FirstOrDefault()) as FamilySymbol;
+                eL = 477;
+                XYZ normal = XYZ.BasisZ;
+                XYZ origin = XYZ.Zero;
+
+
+                using (Transaction y = new Transaction(doc, "Placing the spacers"))
+                {
+                    y.Start();
+
+                    View myAGV = uidoc.ActiveGraphicalView as View;
+
+                    ElementCategoryFilter filter = new ElementCategoryFilter(BuiltInCategory.OST_Viewports);
+
+                    FilteredElementCollector collector = new FilteredElementCollector(doc);
+
+                    ICollection<Element> AllViewports = collector.WherePasses(filter).ToElements();
+                    Viewport CorrespondingViewport = null;
+
+
+                    string writethis = null;
+
+                    foreach (Viewport vv in AllViewports)
+                    {
+                        writethis = writethis + Environment.NewLine + vv.Name;
+
+                        View myView2 = doc.GetElement(vv.ViewId) as View;
+
+
+                        if (myView2.Name == myAGV.Name)
+                        {
+                            CorrespondingViewport = vv;
+                        }
+                    }
                     myFamilySymbol.Activate();
                     myFamilySymbolHorizontal.Activate();
 
-                    doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX, twoxpositionsY, 0.0), myFamilySymbol, view);
-                    doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX, twoxpositionsY, 0.0), myFamilySymbolHorizontal, view);
+                    FamilyInstance myFamInstVertical = doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX, twoxpositionsY, 0.0), myFamilySymbol, view);
+                    FamilyInstance myFamInstHorizontal = doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX, twoxpositionsY, 0.0), myFamilySymbolHorizontal, view);
 
-                    //TaskDialog.Show("correct one", "this one is not");					
+                    myFamInstVertical.GetParameters("PRL_WIDTH")[0].Set(YLineLength);
+                    myFamInstHorizontal.GetParameters("PRL_WIDTH")[0].Set(XLineLength);
 
+                    y.Commit();
                 }
-                else
-                {
-                    //TaskDialog.Show("correct one", "this is the one we should be running");
-
-                    //	TaskDialog.Show("", "Macro doesn't work in active viewport."+ Environment.NewLine +"please open view.");
-
-                    //return;
-                    XYZ myGetBoxCentre = CorrespondingViewport.GetBoxCenter();
-
-                    myFamilySymbol.Activate();
-                    myFamilySymbolHorizontal.Activate();
-
-
-                    double XX;
-                    double YY;
-                    //CorrespondingViewport.GetBoxOutline().
-
-                    XX = 0;
-                    YY = 0;
-
-                    // XX = twoxpositionsXStatic;
-                    //  YY = twoxpositionsYStatic;
-
-
-                    //XX = CorrespondingViewport.GetBoxOutline().MinimumPoint.X	;
-                    //YY = CorrespondingViewport.GetBoxOutline().MinimumPoint.Y;
-                    XX = XX - (XX * 2.0);
-                    YY = YY - (YY * 2.0);
-                    /*  TaskDialog.Show("add or subtract", 				               
-                                                      + XX + "," + YY
-                                                 );*/
-
-
-                    //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + XX, twoxpositionsY + YY, 0.0), myFamilySymbol, view);
-                    //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + XX, twoxpositionsY + YY, 0.0), myFamilySymbolHorizontal, view);
-
-                    //doc.Create.NewFamilyInstance(new XYZ(XX, YY, 0.0), myFamilySymbol, view);
-                    //doc.Create.NewFamilyInstance(new XYZ(XX, YY, 0.0), myFamilySymbolHorizontal, view);
-
-                    //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsXStatic + XX*Convert.ToDouble(myAGV.Scale), twoxpositionsYStatic + YY*Convert.ToDouble(myAGV.Scale), 0.0), myFamilySymbol, view);
-                    //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsXStatic + XX*Convert.ToDouble(myAGV.Scale), twoxpositionsYStatic + YY*Convert.ToDouble(myAGV.Scale), 0.0), myFamilySymbolHorizontal, view);
-
-                    doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + XX * Convert.ToDouble(myAGV.Scale), twoxpositionsY + YY * Convert.ToDouble(myAGV.Scale), 0.0), myFamilySymbol, view);
-                    doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + XX * Convert.ToDouble(myAGV.Scale), twoxpositionsY + YY * Convert.ToDouble(myAGV.Scale), 0.0), myFamilySymbolHorizontal, view);
-
-                    //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX, twoxpositionsY, 0.0), myFamilySymbol, view);
-                    //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX, twoxpositionsY, 0.0), myFamilySymbolHorizontal, view);
-
-                    //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX - myGetBoxCentre.X*view.Scale, twoxpositionsY - myGetBoxCentre.Y*view.Scale, 0.0), myFamilySymbol, view);
-                    //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX - myGetBoxCentre.X*view.Scale, twoxpositionsY - myGetBoxCentre.Y*view.Scale, 0.0), myFamilySymbolHorizontal, view);
-
-                }
-
-                //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + intialCenter.X, twoxpositionsY + intialCenter.Y, 0.0), myFamilySymbol, view);
-                //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + intialCenter.X, twoxpositionsY + intialCenter.Y, 0.0), myFamilySymbolHorizontal, view);
-
-                //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + myOutline.X, twoxpositionsY + myOutline.Y, 0.0), myFamilySymbol, view);
-                //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + myOutline.X, twoxpositionsY + myOutline.Y, 0.0), myFamilySymbolHorizontal, view);
-
-
-                //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + myAGV.Origin.X, twoxpositionsY + myAGV.Origin.Y, 0.0), myFamilySymbol, view);
-                //doc.Create.NewFamilyInstance(new XYZ(twoxpositionsX + myAGV.Origin.X, twoxpositionsY + myAGV.Origin.Y, 0.0), myFamilySymbolHorizontal, view);
-
-                y.Commit();
             }
+
+            #region catch and finally
+            catch (Exception ex)
+            {
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("_99_AutomaticLayout, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+            }
+            finally
+            {
+            }
+            #endregion
         }
 
         public class SampleFamilyLoadOptions : IFamilyLoadOptions
@@ -682,3 +590,4 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
         }
     }
 }
+

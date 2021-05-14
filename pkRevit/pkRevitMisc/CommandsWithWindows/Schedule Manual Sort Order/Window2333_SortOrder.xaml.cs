@@ -30,7 +30,15 @@ namespace pkRevitMisc.CommandsWithWindows.Schedule_Manual_Sort_Order
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((ParameterSet)value).Cast<Parameter>().Where(x => x.Definition.Name == "Type Comments").First().AsString();
+            string str_typeComment = ((Element)value).get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS)?.AsString();
+            string str_FamilyInstance = ((Element)value).get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM)?.AsValueString();
+            string str_FamilySymbol = ((Element)value).get_Parameter(BuiltInParameter.ALL_MODEL_FAMILY_NAME)?.AsString();
+
+            // List<Parameter> pset = ((Element)value).Parameters.Cast<Parameter>().ToList();
+
+            return "(" + str_typeComment + ") " + ((Element)value).Name + ", " + str_FamilyInstance + str_FamilySymbol;
+
+            ////return ((ParameterSet)value).Cast<Parameter>().Where(x => x.Definition.Name == "Type Comments").First().AsString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

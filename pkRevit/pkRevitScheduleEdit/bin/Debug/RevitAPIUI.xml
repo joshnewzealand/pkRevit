@@ -1771,6 +1771,14 @@ the context menu that specified (namely ArrowEditor and MFCTreeView).
    2015
 </since>
     </member>
+    <member name="M:Autodesk.Revit.UI.RecentFileProvider.GetDefaultLocalSavingFolder">
+      <summary>
+   Returns the default saving folder when open a central file.
+</summary>
+      <since>
+   2019
+</since>
+    </member>
     <member name="M:Autodesk.Revit.UI.RecentFileProvider.IsRecentFilePageDisabled">
       <summary>
    Indicates if recent file is disabled.
@@ -1806,6 +1814,14 @@ the context menu that specified (namely ArrowEditor and MFCTreeView).
    2019
 </since>
     </member>
+    <member name="M:Autodesk.Revit.UI.RevitFileInfo.SetLocalPath(System.String)">
+      <exception cref="T:Autodesk.Revit.Exceptions.ArgumentNullException">
+   A non-optional argument was NULL
+</exception>
+      <since>
+   2019
+</since>
+    </member>
     <member name="P:Autodesk.Revit.UI.RevitFileInfo.IsValidObject">
       <summary>
    Specifies whether the .NET object represents a valid Revit entity.
@@ -1821,9 +1837,33 @@ the context menu that specified (namely ArrowEditor and MFCTreeView).
    2014
 </since>
     </member>
+    <member name="P:Autodesk.Revit.UI.RevitFileInfo.IsCloud">
+      <summary>
+   If it is a cloud file.
+</summary>
+      <since>
+   2019
+</since>
+    </member>
+    <member name="P:Autodesk.Revit.UI.RevitFileInfo.IsWorkshared">
+      <summary>
+   If it is a workshared file.
+</summary>
+      <since>
+   2019
+</since>
+    </member>
     <member name="P:Autodesk.Revit.UI.RevitFileInfo.Size">
       <summary>
    The size of the recent file.
+</summary>
+      <since>
+   2019
+</since>
+    </member>
+    <member name="P:Autodesk.Revit.UI.RevitFileInfo.ModelType">
+      <summary>
+   The model type of the recent file.
 </summary>
       <since>
    2019
@@ -2198,6 +2238,113 @@ the context menu that specified (namely ArrowEditor and MFCTreeView).
       <summary>
    An interface that all servers of SnappingService implement.
 </summary>
+    </member>
+    <member name="P:Autodesk.Revit.UI.SiteLinkerUIData.IsValidObject">
+      <summary>
+   Specifies whether the .NET object represents a valid Revit entity.
+</summary>
+      <remarks>
+   If the corresponding Revit native object is destroyed, or creation of the corresponding object is undone,
+   a managed API object containing it is no longer valid. API methods cannot be called on invalidated wrapper objects.
+</remarks>
+      <returns>
+   True if the API object holds a valid Revit native object, false otherwise.
+</returns>
+      <since>
+   2014
+</since>
+    </member>
+    <member name="P:Autodesk.Revit.UI.SiteLinkerUIData.FilePath">
+      <summary>
+   The path of file to link.
+</summary>
+      <since>
+   2019
+</since>
+    </member>
+    <member name="T:Autodesk.Revit.UI.SiteLinkerUIData">
+      <summary>
+   The data associated with the site insert service.
+</summary>
+      <since>
+   2019
+</since>
+    </member>
+    <member name="M:Autodesk.Revit.UI.ISiteLinkerUIServerProxy.ShowLinkDlg(Autodesk.Revit.DB.Document,System.Boolean,Autodesk.Revit.UI.SiteLinkerUIData)">
+      <summary>
+   The method that Revit will invoke to show link topography dialog.
+</summary>
+      <param name="document">
+   The associated document.
+</param>
+      <param name="popSignin">
+   Popup the sign in dialog when user is not signed in.
+</param>
+      <param name="data">
+   The site linker ui data.
+</param>
+      <returns>
+   Indicates whether the site linker ui server is executed successfully.
+</returns>
+      <since>
+   2019
+</since>
+    </member>
+    <member name="M:Autodesk.Revit.UI.ISiteLinkerUIServerProxy.GetDBServerId">
+      <summary>
+   Implement this method to return the id of the server which is associated with this UI server.
+</summary>
+      <remarks>
+   If there's no DB server associated with this UI server, an empty GUID value will be returned.
+</remarks>
+      <returns>
+   The id of the associated DB server.
+</returns>
+      <since>
+   2019
+</since>
+    </member>
+    <member name="M:Autodesk.Revit.UI.ISiteLinkerUIServer.ShowLinkDlg(Autodesk.Revit.DB.Document,System.Boolean,Autodesk.Revit.UI.SiteLinkerUIData)">
+      <summary>
+   The method that Revit will invoke to show link topography dialog.
+</summary>
+      <param name="document">
+   The associated document.
+</param>
+      <param name="popSignin">
+   Popup the sign in dialog when user is not signed in.
+</param>
+      <param name="data">
+   The site linker ui data.
+</param>
+      <returns>
+   Indicates whether the site linker ui server is executed successfully.
+</returns>
+      <since>
+   2019
+</since>
+    </member>
+    <member name="M:Autodesk.Revit.UI.ISiteLinkerUIServer.GetDBServerId">
+      <summary>
+   Implement this method to return the id of the server which is associated with this UI server.
+</summary>
+      <remarks>
+   If there's no DB server associated with this UI server, an empty GUID value will be returned.
+</remarks>
+      <returns>
+   The id of the associated DB server.
+</returns>
+      <since>
+   2019
+</since>
+    </member>
+    <member name="T:Autodesk.Revit.UI.ISiteLinkerUIServer">
+      <summary>
+   The interface used to provide UI of link topography.
+</summary>
+      <since>
+   2019
+</since>
     </member>
     <member name="M:Autodesk.Revit.UI.Plumbing.PipeFittingAndAccessoryPressureDropUIData.GetUIDataItems">
       <summary>
@@ -11523,6 +11670,10 @@ is finished.</para>
     <member name="M:Autodesk.Revit.UI.UIControlledApplication.SetModelBrowserContent(System.Object)">
       <summary> Set the content of backstage.</summary>
     </member>
+    <member name="P:Autodesk.Revit.UI.UIControlledApplication.IsViewerModeActive">
+      <summary> Identifies if the current Revit session is running in Viewer mode  </summary>
+      <since>2019.1</since>
+    </member>
     <member name="P:Autodesk.Revit.UI.UIControlledApplication.IsLateAddinLoading">
       <summary> Indicates whether this add-in is loaded on the fly or not. If it is loaded when Revit is starting up, it
 is false, otherwise it should be true.</summary>
@@ -11921,6 +12072,20 @@ ExternalCommand callbacks.</remarks>
    2010
 </since>
     </member>
+    <member name="M:Autodesk.Revit.UI.UIApplication.UpdateWorksharingActivityIndicator(System.Boolean)">
+      <summary>
+   Updates model status on the Worksharing activity indicator.
+</summary>
+      <remarks>
+   The indicator is enabled only when the active document is cloud Worksharing.
+</remarks>
+      <param name="centralIsBusy">
+   True if the central model is busy.
+</param>
+      <since>
+   2019.1
+</since>
+    </member>
     <member name="M:Autodesk.Revit.UI.UIApplication.OpenAndActivateDocumentOperationInternal(Autodesk.Revit.DB.ModelPath,Autodesk.Revit.DB.IOpenFromCloudCallback)">
       <summary>
    Opens and activates a Revit document.
@@ -12005,6 +12170,9 @@ ExternalCommand callbacks.</remarks>
       <exception cref="T:Autodesk.Revit.Exceptions.RevitServerCommunicationException">
    If there is any server internal error.
 </exception>
+      <exception cref="T:Autodesk.Revit.Exceptions.RevitServerUnauthorizedException">
+   User is not authorized to access the cloud model.
+</exception>
       <exception cref="T:Autodesk.Revit.Exceptions.WrongUserException">
    The local file is not owned by the current user, who therefore is not allowed to modify it.
 </exception>
@@ -12067,6 +12235,7 @@ ExternalCommand callbacks.</remarks>
         <ul>
           <li>When file cannot be opened in Revit LT because it was last saved in a version of Revit prior to 8.1.</li>
           <li>when file has an invalid extension. Try changing the file's extension and opening it again.</li>
+          <li>when file was saved by an application that was not developed or licensed by Autodesk.</li>
         </ul>
       </exception>
       <exception cref="T:Autodesk.Revit.Exceptions.FileArgumentNotFoundException">
@@ -12084,6 +12253,9 @@ ExternalCommand callbacks.</remarks>
 </exception>
       <exception cref="T:Autodesk.Revit.Exceptions.RevitServerCommunicationException">
    If there is any server internal error.
+</exception>
+      <exception cref="T:Autodesk.Revit.Exceptions.RevitServerUnauthorizedException">
+   User is not authorized to access the cloud model.
 </exception>
       <exception cref="T:Autodesk.Revit.Exceptions.WrongUserException">
    The local file is not owned by the current user, who therefore is not allowed to modify it.
@@ -12145,6 +12317,14 @@ ExternalCommand callbacks.</remarks>
 </returns>
       <since>
    2014
+</since>
+    </member>
+    <member name="P:Autodesk.Revit.UI.UIApplication.IsViewerModeActive">
+      <summary>
+   Determines if Revit session is in Viewer mode.
+</summary>
+      <since>
+   2019.1
 </since>
     </member>
     <member name="P:Autodesk.Revit.UI.UIApplication.Application">
@@ -12359,8 +12539,8 @@ the handler will be executed without any condition.</remarks>
     </member>
     <member name="P:Autodesk.Revit.UI.UIApplication.DrawingAreaExtents">
       <summary>Get the rectangle that represents the screen pixel coordinates of drawing area. </summary>
-      <remarks>The drawing area of the Revit window displays views (and sheets and schedules) of the current project. 
-The size of drawing area restricts the max size of the view windows.
+      <remarks>The drawing area of the Revit window displays views (and sheets and schedules) of projects. 
+The size of drawing area restricts the max size of the view titles and windows, the value may be empty if modal browser is opened.
 If there is no project opened, null will be returned. </remarks>
       <since>2011</since>
     </member>
@@ -17157,6 +17337,34 @@ Thrown when the given command already has been bound.
    2010
 </since>
     </member>
+    <member name="M:Autodesk.Revit.UI.UIControlledApplication.UpdateWorksharingActivityIndicator(System.Boolean)">
+      <summary>
+   Updates model status on the Worksharing activity indicator.
+</summary>
+      <remarks>
+   The indicator is enabled only when the active document is cloud Worksharing.
+</remarks>
+      <param name="centralIsBusy">
+   True if the central model is busy.
+</param>
+      <since>
+   2019.1
+</since>
+    </member>
+    <member name="M:Autodesk.Revit.VSTA.ApplicationEntryPoint.UpdateWorksharingActivityIndicator(System.Boolean)">
+      <summary>
+   Updates model status on the Worksharing activity indicator.
+</summary>
+      <remarks>
+   The indicator is enabled only when the active document is cloud Worksharing.
+</remarks>
+      <param name="centralIsBusy">
+   True if the central model is busy.
+</param>
+      <since>
+   2019.1
+</since>
+    </member>
     <member name="M:Autodesk.Revit.UI.UIControlledApplication.OpenAndActivateDocumentOperationInternal(Autodesk.Revit.DB.ModelPath,Autodesk.Revit.DB.IOpenFromCloudCallback)">
       <summary>
    Opens and activates a Revit document.
@@ -17249,6 +17457,9 @@ Thrown when the given command already has been bound.
       <exception cref="T:Autodesk.Revit.Exceptions.RevitServerCommunicationException">
    If there is any server internal error.
 </exception>
+      <exception cref="T:Autodesk.Revit.Exceptions.RevitServerUnauthorizedException">
+   User is not authorized to access the cloud model.
+</exception>
       <exception cref="T:Autodesk.Revit.Exceptions.WrongUserException">
    The local file is not owned by the current user, who therefore is not allowed to modify it.
 </exception>
@@ -17332,6 +17543,9 @@ Thrown when the given command already has been bound.
       <exception cref="T:Autodesk.Revit.Exceptions.RevitServerCommunicationException">
    If there is any server internal error.
 </exception>
+      <exception cref="T:Autodesk.Revit.Exceptions.RevitServerUnauthorizedException">
+   User is not authorized to access the cloud model.
+</exception>
       <exception cref="T:Autodesk.Revit.Exceptions.WrongUserException">
    The local file is not owned by the current user, who therefore is not allowed to modify it.
 </exception>
@@ -17394,6 +17608,7 @@ Thrown when the given command already has been bound.
         <ul>
           <li>When file cannot be opened in Revit LT because it was last saved in a version of Revit prior to 8.1.</li>
           <li>when file has an invalid extension. Try changing the file's extension and opening it again.</li>
+          <li>when file was saved by an application that was not developed or licensed by Autodesk.</li>
         </ul>
       </exception>
       <exception cref="T:Autodesk.Revit.Exceptions.FileArgumentNotFoundException">
@@ -17411,6 +17626,9 @@ Thrown when the given command already has been bound.
 </exception>
       <exception cref="T:Autodesk.Revit.Exceptions.RevitServerCommunicationException">
    If there is any server internal error.
+</exception>
+      <exception cref="T:Autodesk.Revit.Exceptions.RevitServerUnauthorizedException">
+   User is not authorized to access the cloud model.
 </exception>
       <exception cref="T:Autodesk.Revit.Exceptions.WrongUserException">
    The local file is not owned by the current user, who therefore is not allowed to modify it.
@@ -17474,6 +17692,7 @@ Thrown when the given command already has been bound.
         <ul>
           <li>When file cannot be opened in Revit LT because it was last saved in a version of Revit prior to 8.1.</li>
           <li>when file has an invalid extension. Try changing the file's extension and opening it again.</li>
+          <li>when file was saved by an application that was not developed or licensed by Autodesk.</li>
         </ul>
       </exception>
       <exception cref="T:Autodesk.Revit.Exceptions.FileArgumentNotFoundException">
@@ -17491,6 +17710,9 @@ Thrown when the given command already has been bound.
 </exception>
       <exception cref="T:Autodesk.Revit.Exceptions.RevitServerCommunicationException">
    If there is any server internal error.
+</exception>
+      <exception cref="T:Autodesk.Revit.Exceptions.RevitServerUnauthorizedException">
+   User is not authorized to access the cloud model.
 </exception>
       <exception cref="T:Autodesk.Revit.Exceptions.WrongUserException">
    The local file is not owned by the current user, who therefore is not allowed to modify it.
@@ -17607,6 +17829,22 @@ Thrown when the given command already has been bound.
 </returns>
       <since>
    2014
+</since>
+    </member>
+    <member name="P:Autodesk.Revit.UI.UIControlledApplication.IsViewerModeActive">
+      <summary>
+   Determines if Revit session is in Viewer mode.
+</summary>
+      <since>
+   2019.1
+</since>
+    </member>
+    <member name="P:Autodesk.Revit.VSTA.ApplicationEntryPoint.IsViewerModeActive">
+      <summary>
+   Determines if Revit session is in Viewer mode.
+</summary>
+      <since>
+   2019.1
 </since>
     </member>
     <member name="P:Autodesk.Revit.UI.UIControlledApplication.Application">
@@ -18023,15 +18261,15 @@ the handler will be executed without any condition.</remarks>
     </member>
     <member name="P:Autodesk.Revit.UI.UIControlledApplication.DrawingAreaExtents">
       <summary>Get the rectangle that represents the screen pixel coordinates of drawing area. </summary>
-      <remarks>The drawing area of the Revit window displays views (and sheets and schedules) of the current project. 
-The size of drawing area restricts the max size of the view windows.
+      <remarks>The drawing area of the Revit window displays views (and sheets and schedules) of projects. 
+The size of drawing area restricts the max size of the view titles and windows, the value may be empty if modal browser is opened.
 If there is no project opened, null will be returned. </remarks>
       <since>2011</since>
     </member>
     <member name="P:Autodesk.Revit.VSTA.ApplicationEntryPoint.DrawingAreaExtents">
       <summary>Get the rectangle that represents the screen pixel coordinates of drawing area. </summary>
-      <remarks>The drawing area of the Revit window displays views (and sheets and schedules) of the current project. 
-The size of drawing area restricts the max size of the view windows.
+      <remarks>The drawing area of the Revit window displays views (and sheets and schedules) of projects. 
+The size of drawing area restricts the max size of the view titles and windows, the value may be empty if modal browser is opened.
 If there is no project opened, null will be returned. </remarks>
       <since>2011</since>
     </member>

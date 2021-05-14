@@ -7,9 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
 using Autodesk.Revit.UI;
+#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
 
+#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
 using Autodesk.Revit.DB;  //
+#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
 
 namespace _937_PRLoogle_Command02
 {
@@ -17,10 +21,12 @@ namespace _937_PRLoogle_Command02
     {
         public partial class ArcsSeveralClass
         {
-
+#pragma warning disable CS0246 // The type or namespace name 'Arc' could not be found (are you missing a using directive or an assembly reference?)
             public Arc arc;
+#pragma warning restore CS0246 // The type or namespace name 'Arc' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning disable CS0246 // The type or namespace name 'Arc' could not be found (are you missing a using directive or an assembly reference?)
             public Arc arc2;
-
+#pragma warning restore CS0246 // The type or namespace name 'Arc' could not be found (are you missing a using directive or an assembly reference?)
         }
 
 
@@ -42,7 +48,11 @@ namespace _937_PRLoogle_Command02
         }
 
 
+#pragma warning disable CS0246 // The type or namespace name 'TextNoteType' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning disable CS0246 // The type or namespace name 'UIDocument' could not be found (are you missing a using directive or an assembly reference?)
         public static TextNoteType myTextNoteType_2031(UIDocument uidoc, string myTextType)
+#pragma warning restore CS0246 // The type or namespace name 'UIDocument' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning restore CS0246 // The type or namespace name 'TextNoteType' could not be found (are you missing a using directive or an assembly reference?)
         {
             FilteredElementCollector collectorUsed = new FilteredElementCollector(uidoc.Document);
 
@@ -56,8 +66,11 @@ namespace _937_PRLoogle_Command02
             return listElement.FirstOrDefault() as TextNoteType;
         }
 
-
+#pragma warning disable CS0246 // The type or namespace name 'UIDocument' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning disable CS0246 // The type or namespace name 'UIView' could not be found (are you missing a using directive or an assembly reference?)
         public static UIView myUIView(UIDocument uidoc)
+#pragma warning restore CS0246 // The type or namespace name 'UIView' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning restore CS0246 // The type or namespace name 'UIDocument' could not be found (are you missing a using directive or an assembly reference?)
         {
             View view = uidoc.Document.ActiveView;
 
@@ -72,13 +85,15 @@ namespace _937_PRLoogle_Command02
                     break;
                 }
             }
-
             return uiview;
         }
 
+#pragma warning disable CS0246 // The type or namespace name 'Level' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning disable CS0246 // The type or namespace name 'UIDocument' could not be found (are you missing a using directive or an assembly reference?)
         public static Level myReference_fromLevel(UIDocument uidoc)
+#pragma warning restore CS0246 // The type or namespace name 'UIDocument' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning restore CS0246 // The type or namespace name 'Level' could not be found (are you missing a using directive or an assembly reference?)
         {
-
             ElementId levelId = null;
 
             Parameter level = uidoc.Document.ActiveView.LookupParameter("Associated Level");
@@ -101,12 +116,18 @@ namespace _937_PRLoogle_Command02
             return myLevel;
         }
 
+#pragma warning disable CS0246 // The type or namespace name 'XYZ' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning disable CS0246 // The type or namespace name 'UIView' could not be found (are you missing a using directive or an assembly reference?)
         public static IList<XYZ> myXYZ_Corners(UIView uiview)
+#pragma warning restore CS0246 // The type or namespace name 'UIView' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning restore CS0246 // The type or namespace name 'XYZ' could not be found (are you missing a using directive or an assembly reference?)
         {
             return uiview.GetZoomCorners();
         }
 
+#pragma warning disable CS0246 // The type or namespace name 'UIDocument' could not be found (are you missing a using directive or an assembly reference?)
         public static ArcsSeveralClass ArcsSeveral(UIDocument uidoc)
+#pragma warning restore CS0246 // The type or namespace name 'UIDocument' could not be found (are you missing a using directive or an assembly reference?)
         {
             //Rectangle rect2 = uiview.GetWindowRectangle();
 
@@ -122,7 +143,11 @@ namespace _937_PRLoogle_Command02
         }
 
 
+#pragma warning disable CS0246 // The type or namespace name 'TextNoteType' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning disable CS0246 // The type or namespace name 'Document' could not be found (are you missing a using directive or an assembly reference?)
         public static TextNoteType MakeArialNarrow(Document doc, string messageTextType, bool DisplayMessageBox, bool myBool_UseTransactions)
+#pragma warning restore CS0246 // The type or namespace name 'Document' could not be found (are you missing a using directive or an assembly reference?)
+#pragma warning restore CS0246 // The type or namespace name 'TextNoteType' could not be found (are you missing a using directive or an assembly reference?)
         {
             string myString20DegreeFilled = "20 Degree Filled Arrow (PRL)";
 

@@ -121,12 +121,13 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                         XYZ startPoint = new XYZ(0, 0, 0);
                         XYZ endPoint = new XYZ(10, 10, 0);
 
-                        // Create a arc
+                        // Create a arc for the mouth
                         XYZ origin = myTransform.OfPoint(new XYZ(0, 0, 0));
                         XYZ normal = myTransform.OfPoint(new XYZ(1, 1, 0));
-                        XYZ end02 = myTransform.OfPoint((new XYZ(-.7, -.9, 0)));
-                        XYZ end12 = myTransform.OfPoint((new XYZ(.7, -.9, 0)));
-                        XYZ pointOnCurve2 = myTransform.OfPoint((new XYZ(0, -1.25, 0)));
+                        XYZ end02 = myTransform.OfPoint(new XYZ(-.7, -.9, 0));
+                        XYZ end12 = myTransform.OfPoint(new XYZ(.7, -.9, 0));
+                        //XYZ pointOnCurve2 = myTransform.OfPoint(new XYZ(0, -1.25, 0));
+                        XYZ pointOnCurve2 = myTransform.OfPoint(new XYZ(0, -1.25, 0)); //make -0.75
                         Arc geomArc2 = Arc.Create(end02, end12, pointOnCurve2);
 
                         // Create a geometry circle in Revit application
@@ -161,12 +162,12 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
                             try
                             {
-                                doc.Create.NewModelCurve(geomArc2, sketch);
-                                doc.Create.NewModelCurve(myCurve_Ellipse, sketch);
-                                doc.Create.NewModelCurve(geomPlane2, sketch);
-                                doc.Create.NewModelCurve(geomPlane3, sketch);
-                                doc.Create.NewModelCurve(L2, sketch);
-                                doc.Create.NewModelCurve(L3, sketch);
+                                doc.Create.NewModelCurve(geomArc2, sketch); //mouth
+                                doc.Create.NewModelCurve(myCurve_Ellipse, sketch); //head
+                                doc.Create.NewModelCurve(geomPlane2, sketch); //eye
+                                doc.Create.NewModelCurve(geomPlane3, sketch); //eye
+                                doc.Create.NewModelCurve(L2, sketch); //nose
+                                doc.Create.NewModelCurve(L3, sketch); //nose
                             }
 
                             #region catch and finally
@@ -184,6 +185,8 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
                             y.Commit();
                         }
+
+                        break;
 
                     } while (true);
 

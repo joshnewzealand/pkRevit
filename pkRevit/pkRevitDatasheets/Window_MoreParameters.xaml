@@ -6,7 +6,6 @@
         mc:Ignorable="d"
         Title="Window_MoreParameters" Height="997.833" Width="800" Topmost="True" Closing="Window_Closing" ResizeMode="NoResize">
 
-
     <!--<Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

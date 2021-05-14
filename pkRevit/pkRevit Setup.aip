@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DOCUMENT Type="Advanced Installer" CreateVersion="17.4.1" version="17.4.1" Modules="professional" RootPath="." Language="en" Id="{04F809BE-24F0-40E3-A381-A813782FFC21}">
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
+    <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
+    <ROW Property="ALLUSERS" Value="1"/>
+    <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
+    <ROW Property="AiPreferFastOem" MultiBuildValue="DefaultBuild:1"/>
+    <ROW Property="Manufacturer" Value="Josh New Zealand"/>
+    <ROW Property="ProductCode" Value="1033:{BEEFB74C-5C0A-473F-BDEA-A2E4D2DFB89E} " Type="16"/>
+    <ROW Property="ProductLanguage" Value="1033"/>
+    <ROW Property="ProductName" Value="pkRevit"/>
+    <ROW Property="ProductVersion" Value="2.0.0" Type="32"/>
+    <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
+    <ROW Property="UpgradeCode" Value="{2646781A-D00B-453E-B5F7-34127A944730}"/>
+    <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsType9XDisplay" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT40Display" MultiBuildValue="DefaultBuild:Windows NT 4.0" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT50Display" MultiBuildValue="DefaultBuild:Windows 2000" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5X" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+    <ROW Property="WindowsTypeNT5XDisplay" MultiBuildValue="DefaultBuild:Windows XP/2003" ValueLocId="-"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
+    <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
+    <ROW Directory="Families2019_Dir" Directory_Parent="APPDIR" DefaultDir="FAMILI~1|Families 2019"/>
+    <ROW Directory="Families_Dir" Directory_Parent="APPDIR" DefaultDir="Families"/>
+    <ROW Directory="Images_Dir" Directory_Parent="APPDIR" DefaultDir="Images"/>
+    <ROW Directory="Platforms_Dir" Directory_Parent="APPDIR" DefaultDir="PLATFO~1|Platforms"/>
+    <ROW Directory="ProgramMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~1|ProgramMenuFolder" IsPseudoRoot="1"/>
+    <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
+    <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
+    <ROW Component="APPDIR" ComponentId="{9EA605EB-8BB2-4EB2-9118-73BE98C6180C}" Directory_="APPDIR" Attributes="0"/>
+    <ROW Component="ButtonImageUninstall.png" ComponentId="{578A8B92-A9B3-4916-8D96-26D5D372171A}" Directory_="Images_Dir" Attributes="0" KeyPath="ButtonImageUninstall.png" Type="0"/>
+    <ROW Component="FurnitureChairExecutive.rfa" ComponentId="{9ACDD67C-A321-471E-A6E6-BAC192FFE045}" Directory_="Families_Dir" Attributes="0" KeyPath="FurnitureChairExecutive.rfa" Type="0"/>
+    <ROW Component="Microsoft.WindowsAPICodePack.Shell.dll" ComponentId="{F8736A70-D977-4AD1-854B-7287F2D4FBB8}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.WindowsAPICodePack.Shell.dll"/>
+    <ROW Component="Microsoft.WindowsAPICodePack.dll" ComponentId="{93F21B29-8F8B-43FA-85A8-411BB2ECBF0C}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.WindowsAPICodePack.dll"/>
+    <ROW Component="Ookii.Dialogs.Wpf.dll" ComponentId="{810F3AC0-F80B-4B04-9F2F-8BC6E573ACD6}" Directory_="APPDIR" Attributes="0" KeyPath="Ookii.Dialogs.Wpf.dll"/>
+    <ROW Component="PRLBaseCircle_2019_.rft" ComponentId="{0A260A4A-2024-4D7D-AA85-DD7E1EA163FD}" Directory_="Families2019_Dir" Attributes="0" KeyPath="PRLBaseCircle_2019_.rft" Type="0"/>
+    <ROW Component="PRLGMAdaptiveCarrierYoutube.rfa" ComponentId="{C1993B72-1A67-4462-89AD-3ACC8B02009D}" Directory_="Platforms_Dir" Attributes="0" KeyPath="PRLGMAdaptiveCarrierYoutube.rfa" Type="0"/>
+    <ROW Component="ProductInformation" ComponentId="{EFF6464C-3E39-4E20-8327-A347316FB528}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
+    <ROW Component="SHORTCUTDIR" ComponentId="{33DA3C3D-A93C-4610-9497-1FE4A099DEE0}" Directory_="SHORTCUTDIR" Attributes="0"/>
+    <ROW Component="SQLite.Interop.dll" ComponentId="{532D072C-AFB7-4DEF-A686-37AA90FDBCA2}" Directory_="APPDIR" Attributes="256" KeyPath="SQLite.Interop.dll"/>
+    <ROW Component="System.Buffers.dll" ComponentId="{6C521801-2A92-4252-8BFB-37252939278E}" Directory_="APPDIR" Attributes="0" KeyPath="System.Buffers.dll"/>
+    <ROW Component="System.Data.SQLite.dll" ComponentId="{1C3D4E5B-9BDA-4ACD-9997-5AB32AEB6224}" Directory_="APPDIR" Attributes="0" KeyPath="System.Data.SQLite.dll"/>
+    <ROW Component="System.Memory.dll" ComponentId="{03A87437-106C-4B3C-AB23-F416E0282418}" Directory_="APPDIR" Attributes="0" KeyPath="System.Memory.dll"/>
+    <ROW Component="System.Runtime.CompilerServices.Unsafe.dll" ComponentId="{4627AB0E-9BF5-4238-BFA7-1128AE9D66AF}" Directory_="APPDIR" Attributes="0" KeyPath="System.Runtime.CompilerServices.Unsafe.dll"/>
+    <ROW Component="Xceed.Wpf.Toolkit.dll" ComponentId="{94087A96-98D6-4D27-9EED-5A71328660D6}" Directory_="APPDIR" Attributes="0" KeyPath="Xceed.Wpf.Toolkit.dll"/>
+    <ROW Component="pkRevitCircleOutFamilies.dll" ComponentId="{6F7AA665-11EA-4CE1-B82D-0D160C7D1E89}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitCircleOutFamilies.dll"/>
+    <ROW Component="pkRevitCustomActions.dll" ComponentId="{0EE8114A-E9D2-480D-98BD-40AC92E2C962}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitCustomActions.dll"/>
+    <ROW Component="pkRevitDatasheets.exe" ComponentId="{E35F8F8B-3F4C-4740-B1A4-CCF90C63E740}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitDatasheets.exe"/>
+    <ROW Component="pkRevitLoadingPlacing_Families.dll" ComponentId="{19B58BA0-6094-40DD-9768-A3BEAB36A671}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitLoadingPlacing_Families.dll"/>
+    <ROW Component="pkRevitMisc.dll" ComponentId="{EA9CC440-127D-48A9-A187-DB73601AA1F9}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitMisc.dll"/>
+    <ROW Component="pkRevitRibbon.dll" ComponentId="{91F88822-93C0-4457-AC5D-E8E70BF8C429}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitRibbon.dll"/>
+    <ROW Component="pkRevitScheduleEdit.dll" ComponentId="{BE68AB86-419C-4E28-A457-FB41B62B31C9}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitScheduleEdit.dll"/>
+    <ROW Component="pkRevitUnderstandingTransforms.dll" ComponentId="{11350A90-9BDF-4370-8DE2-A74ABA6BC63A}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitUnderstandingTransforms.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
+    <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
+    <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
+    <ROW File="pkRevitCircleOutFamilies.dll" Component_="pkRevitCircleOutFamilies.dll" FileName="PKREVI~1.DLL|pkRevitCircleOutFamilies.dll" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\pkRevitCircleOutFamilies.dll" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_.rft" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~1.RFT|PRL-Base Circle_2019_.rft" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_.rft" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_CommunicationDevices.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~1.RFA|PRL-Base Circle_2019_Communication Devices.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Communication Devices.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_DataDevices.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~2.RFA|PRL-Base Circle_2019_Data Devices.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Data Devices.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_DetailItems.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~3.RFA|PRL-Base Circle_2019_Detail Items.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Detail Items.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_Doors.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~4.RFA|PRL-Base Circle_2019_Doors.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Doors.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_ElectricalEquipment.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~5.RFA|PRL-Base Circle_2019_Electrical Equipment.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Electrical Equipment.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_ElectricalFixtures.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~6.RFA|PRL-Base Circle_2019_Electrical Fixtures.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Electrical Fixtures.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_Entourage.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~7.RFA|PRL-Base Circle_2019_Entourage.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Entourage.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_FireAlarmDevices.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~8.RFA|PRL-Base Circle_2019_Fire Alarm Devices.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Fire Alarm Devices.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_FurnitureSystems.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-BA~9.RFA|PRL-Base Circle_2019_Furniture Systems.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Furniture Systems.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_Furniture.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~10.RFA|PRL-Base Circle_2019_Furniture.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Furniture.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_LightingDevices.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~11.RFA|PRL-Base Circle_2019_Lighting Devices.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Lighting Devices.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_LightingFixtures.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~12.RFA|PRL-Base Circle_2019_Lighting Fixtures.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Lighting Fixtures.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_MechanicalEquipment.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~13.RFA|PRL-Base Circle_2019_Mechanical Equipment.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Mechanical Equipment.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_NurseCallDevices.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~14.RFA|PRL-Base Circle_2019_Nurse Call Devices.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Nurse Call Devices.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_PlumbingFixtures.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~15.RFA|PRL-Base Circle_2019_Plumbing Fixtures.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Plumbing Fixtures.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_SecurityDevices.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~16.RFA|PRL-Base Circle_2019_Security Devices.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Security Devices.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_SpecialtyEquipment.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~17.RFA|PRL-Base Circle_2019_Specialty Equipment.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Specialty Equipment.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_Sprinklers.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~18.RFA|PRL-Base Circle_2019_Sprinklers.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Sprinklers.rfa" SelfReg="false"/>
+    <ROW File="PRLBaseCircle_2019_TelephoneDevices.rfa" Component_="PRLBaseCircle_2019_.rft" FileName="PRL-B~19.RFA|PRL-Base Circle_2019_Telephone Devices.rfa" Attributes="0" SourcePath="pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Telephone Devices.rfa" SelfReg="false"/>
+    <ROW File="SQLite.Interop.dll" Component_="SQLite.Interop.dll" FileName="SQLITE~1.DLL|SQLite.Interop.dll" Attributes="0" SourcePath="pkRevitDatasheets\bin\Debug\x64\SQLite.Interop.dll" SelfReg="false"/>
+    <ROW File="FurnitureChairExecutive.rfa" Component_="FurnitureChairExecutive.rfa" FileName="FURNIT~1.RFA|Furniture Chair Executive.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Furniture Chair Executive.rfa" SelfReg="false"/>
+    <ROW File="FurnitureChairViper.rfa" Component_="FurnitureChairExecutive.rfa" FileName="FURNIT~2.RFA|Furniture Chair Viper.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Furniture Chair Viper.rfa" SelfReg="false"/>
+    <ROW File="FurnitureCouchViper.rfa" Component_="FurnitureChairExecutive.rfa" FileName="FURNIT~3.RFA|Furniture Couch Viper.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Furniture Couch Viper.rfa" SelfReg="false"/>
+    <ROW File="FurnitureDesk.rfa" Component_="FurnitureChairExecutive.rfa" FileName="FURNIT~4.RFA|Furniture Desk.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Furniture Desk.rfa" SelfReg="false"/>
+    <ROW File="FurnitureTableDiningRoundwChairs.rfa" Component_="FurnitureChairExecutive.rfa" FileName="FURNIT~5.RFA|Furniture Table Dining Round w Chairs.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Furniture Table Dining Round w Chairs.rfa" SelfReg="false"/>
+    <ROW File="FurnitureTableNightStand.rfa" Component_="FurnitureChairExecutive.rfa" FileName="FURNIT~6.RFA|Furniture Table Night Stand.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Furniture Table Night Stand.rfa" SelfReg="false"/>
+    <ROW File="GenericAdaptiveNerfGun.rfa" Component_="FurnitureChairExecutive.rfa" FileName="GENERI~1.RFA|Generic Adaptive Nerf Gun.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Generic Adaptive Nerf Gun.rfa" SelfReg="false"/>
+    <ROW File="GenericModelManSittingEating.rfa" Component_="FurnitureChairExecutive.rfa" FileName="GENERI~2.RFA|Generic Model Man Sitting Eating.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Generic Model Man Sitting Eating.rfa" SelfReg="false"/>
+    <ROW File="GenericModelManWomenConstructionWorker.rfa" Component_="FurnitureChairExecutive.rfa" FileName="GENERI~3.RFA|Generic Model Man Women Construction Worker.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Generic Model Man Women Construction Worker.rfa" SelfReg="false"/>
+    <ROW File="GenericModelTippingHatMan.rfa" Component_="FurnitureChairExecutive.rfa" FileName="GENERI~4.RFA|Generic Model Tipping Hat Man.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Generic Model Tipping Hat Man.rfa" SelfReg="false"/>
+    <ROW File="MiniDigger.rfa" Component_="FurnitureChairExecutive.rfa" FileName="MINIDI~1.RFA|MiniDigger.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\MiniDigger.rfa" SelfReg="false"/>
+    <ROW File="PRLGALeader.rfa" Component_="FurnitureChairExecutive.rfa" FileName="PRL-GA~1.RFA|PRL-GA Leader.rfa" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\PRL-GA Leader.rfa" SelfReg="false"/>
+    <ROW File="PRL_Parameters.txt" Component_="FurnitureChairExecutive.rfa" FileName="PRL_PA~1.TXT|PRL_Parameters.txt" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\PRL_Parameters.txt" SelfReg="false"/>
+    <ROW File="ButtonImageUninstall.png" Component_="ButtonImageUninstall.png" FileName="013BUT~1.PNG|013 Button Image Uninstall.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\013 Button Image Uninstall.png" SelfReg="false"/>
+    <ROW File="Button0010_pkRevitDatasheets2.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~1.PNG|Button0010_pkRevitDatasheets-2.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0010_pkRevitDatasheets-2.png" SelfReg="false"/>
+    <ROW File="Button0010_pkRevitDatasheets.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~2.PNG|Button0010_pkRevitDatasheets.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0010_pkRevitDatasheets.png" SelfReg="false"/>
+    <ROW File="Button0020_pkRevitDatasheets_WholeSchedule2.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~3.PNG|Button0020_pkRevitDatasheets_WholeSchedule-2.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0020_pkRevitDatasheets_WholeSchedule-2.png" SelfReg="false"/>
+    <ROW File="Button0020_pkRevitDatasheets_WholeSchedule.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~4.PNG|Button0020_pkRevitDatasheets_WholeSchedule.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0020_pkRevitDatasheets_WholeSchedule.png" SelfReg="false"/>
+    <ROW File="Button0030_OpenParent.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~5.PNG|Button0030_OpenParent.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0030_OpenParent.png" SelfReg="false"/>
+    <ROW File="Button0040_BringToFront.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~6.PNG|Button0040_BringToFront.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0040_BringToFront.png" SelfReg="false"/>
+    <ROW File="Button0050_SizePositionViewport.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~7.PNG|Button0050_SizePositionViewport.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0050_SizePositionViewport.png" SelfReg="false"/>
+    <ROW File="Button0060_Filters.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~8.PNG|Button0060_Filters.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0060_Filters.png" SelfReg="false"/>
+    <ROW File="Button0080_Spacers.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~9.PNG|Button0080_Spacers.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0080_Spacers.png" SelfReg="false"/>
+    <ROW File="Button0090_Lines.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~10.PNG|Button0090_Lines.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0090_Lines.png" SelfReg="false"/>
+    <ROW File="Button0100_DrawArrows.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~11.PNG|Button0100_DrawArrows.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0100_DrawArrows.png" SelfReg="false"/>
+    <ROW File="Button0110_TypesAndTags.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~12.PNG|Button0110_TypesAndTags.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0110_TypesAndTags.png" SelfReg="false"/>
+    <ROW File="Button0110_TypesAndTags2.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~13.PNG|Button0110_TypesAndTags2.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0110_TypesAndTags2.png" SelfReg="false"/>
+    <ROW File="Button0120_MakeAPlatform.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~14.PNG|Button0120_MakeAPlatform.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0120_MakeAPlatform.png" SelfReg="false"/>
+    <ROW File="Button0130_SelectReferencePoint.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~15.PNG|Button0130_SelectReferencePoint.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0130_SelectReferencePoint.png" SelfReg="false"/>
+    <ROW File="Button0140_RotatePlatform.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~16.PNG|Button0140_RotatePlatform.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0140_RotatePlatform.png" SelfReg="false"/>
+    <ROW File="Button0150_SortOrder.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~17.PNG|Button0150_SortOrder.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0150_SortOrder.png" SelfReg="false"/>
+    <ROW File="Button0160_EditSchedule.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~18.PNG|Button0160_EditSchedule.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0160_EditSchedule.png" SelfReg="false"/>
+    <ROW File="Button0170_AddFields.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~19.PNG|Button0170_AddFields.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0170_AddFields.png" SelfReg="false"/>
+    <ROW File="Button0180_SmileyFace.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~20.PNG|Button0180_SmileyFace.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0180_SmileyFace.png" SelfReg="false"/>
+    <ROW File="Button0190_UnderStandingTransforms.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~21.PNG|Button0190_UnderStandingTransforms.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0190_UnderStandingTransforms.png" SelfReg="false"/>
+    <ROW File="Button0200_NurfGun.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~22.PNG|Button0200_NurfGun.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0200_NurfGun.png" SelfReg="false"/>
+    <ROW File="Button0210_LoadFamilies.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~23.PNG|Button0210_LoadFamilies.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0210_LoadFamilies.png" SelfReg="false"/>
+    <ROW File="Button0220_LayoutRoom.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~24.PNG|Button0220_LayoutRoom.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0220_LayoutRoom.png" SelfReg="false"/>
+    <ROW File="pkRevitScheduleEdit.dll" Component_="pkRevitScheduleEdit.dll" FileName="PKREVI~6.DLL|pkRevitScheduleEdit.dll" Attributes="0" SourcePath="pkRevitScheduleEdit\bin\Debug\pkRevitScheduleEdit.dll" SelfReg="false"/>
+    <ROW File="pkRevitUnderstandingTransforms.dll" Component_="pkRevitUnderstandingTransforms.dll" FileName="PKREVI~7.DLL|pkRevitUnderstandingTransforms.dll" Attributes="0" SourcePath="pkRevitUnderstandingTransforms\bin\Debug\pkRevitUnderstandingTransforms.dll" SelfReg="false"/>
+    <ROW File="pkRevitDatasheets.exe" Component_="pkRevitDatasheets.exe" FileName="PKREVI~1.EXE|pkRevitDatasheets.exe" Attributes="0" SourcePath="pkRevitDatasheets\bin\Debug\pkRevitDatasheets.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="pkRevitRibbon.dll" Component_="pkRevitRibbon.dll" FileName="PKREVI~3.DLL|pkRevitRibbon.dll" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\pkRevitRibbon.dll" SelfReg="false"/>
+    <ROW File="pkRevitMisc.dll" Component_="pkRevitMisc.dll" FileName="PKREVI~4.DLL|pkRevitMisc.dll" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\pkRevitMisc.dll" SelfReg="false"/>
+    <ROW File="pkRevitLoadingPlacing_Families.dll" Component_="pkRevitLoadingPlacing_Families.dll" FileName="PKREVI~5.DLL|pkRevitLoadingPlacing_Families.dll" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\pkRevitLoadingPlacing_Families.dll" SelfReg="false"/>
+    <ROW File="drawweights.png" Component_="ButtonImageUninstall.png" FileName="DRAWWE~1.PNG|drawweights.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\drawweights.png" SelfReg="false"/>
+    <ROW File="drawpatterns.png" Component_="ButtonImageUninstall.png" FileName="DRAWPA~1.PNG|drawpatterns.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\drawpatterns.png" SelfReg="false"/>
+    <ROW File="PRLGMAdaptiveCarrierYoutube.rfa" Component_="PRLGMAdaptiveCarrierYoutube.rfa" FileName="PRL-GM~1.RFA|PRL-GM Adaptive Carrier Youtube.rfa" Attributes="0" SourcePath="pkRevitUnderstandingTransforms\bin\Debug\Platforms\PRL-GM Adaptive Carrier Youtube.rfa" SelfReg="false"/>
+    <ROW File="PRLGMChairwithalwaysverticalOFF.rfa" Component_="PRLGMAdaptiveCarrierYoutube.rfa" FileName="PRL-GM~2.RFA|PRL-GM Chair with always vertical OFF.rfa" Attributes="0" SourcePath="pkRevitUnderstandingTransforms\bin\Debug\Platforms\PRL-GM Chair with always vertical OFF.rfa" SelfReg="false"/>
+    <ROW File="PRLGM2020AdaptiveCarrier.rfa" Component_="PRLGMAdaptiveCarrierYoutube.rfa" FileName="PRL-GM~3.RFA|PRL-GM-2020 Adaptive Carrier.rfa" Attributes="0" SourcePath="pkRevitUnderstandingTransforms\bin\Debug\Platforms\PRL-GM-2020 Adaptive Carrier.rfa" SelfReg="false"/>
+    <ROW File="pkRevitCustomActions.dll" Component_="pkRevitCustomActions.dll" FileName="PKREVI~8.DLL|pkRevitCustomActions.dll" Attributes="0" SourcePath="pkRevitCustomMethods\bin\Debug\pkRevitCustomActions.dll" SelfReg="false"/>
+    <ROW File="Xceed.Wpf.Toolkit.dll" Component_="Xceed.Wpf.Toolkit.dll" FileName="XCEEDW~1.DLL|Xceed.Wpf.Toolkit.dll" Attributes="0" SourcePath="pkRevitCustomMethods\bin\Debug\Xceed.Wpf.Toolkit.dll" SelfReg="false"/>
+    <ROW File="Ookii.Dialogs.Wpf.dll" Component_="Ookii.Dialogs.Wpf.dll" FileName="OOKIID~1.DLL|Ookii.Dialogs.Wpf.dll" Attributes="0" SourcePath="pkRevitCustomMethods\bin\Debug\Ookii.Dialogs.Wpf.dll" SelfReg="false"/>
+    <ROW File="System.Data.SQLite.dll" Component_="System.Data.SQLite.dll" FileName="SYSTEM~1.DLL|System.Data.SQLite.dll" Attributes="0" SourcePath="pkRevitCustomMethods\bin\Debug\System.Data.SQLite.dll" SelfReg="false"/>
+    <ROW File="Microsoft.WindowsAPICodePack.Shell.dll" Component_="Microsoft.WindowsAPICodePack.Shell.dll" FileName="MICROS~1.DLL|Microsoft.WindowsAPICodePack.Shell.dll" Attributes="0" SourcePath="pkRevitCustomMethods\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll" SelfReg="false"/>
+    <ROW File="Microsoft.WindowsAPICodePack.dll" Component_="Microsoft.WindowsAPICodePack.dll" FileName="MICROS~2.DLL|Microsoft.WindowsAPICodePack.dll" Attributes="0" SourcePath="pkRevitCustomMethods\bin\Debug\Microsoft.WindowsAPICodePack.dll" SelfReg="false"/>
+    <ROW File="System.Memory.dll" Component_="System.Memory.dll" FileName="SYSTEM~2.DLL|System.Memory.dll" Attributes="0" SourcePath="pkRevitCustomMethods\bin\Debug\System.Memory.dll" SelfReg="false"/>
+    <ROW File="System.Runtime.CompilerServices.Unsafe.dll" Component_="System.Runtime.CompilerServices.Unsafe.dll" FileName="SYSTEM~3.DLL|System.Runtime.CompilerServices.Unsafe.dll" Attributes="0" SourcePath="pkRevitCustomMethods\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll" SelfReg="false"/>
+    <ROW File="System.Buffers.dll" Component_="System.Buffers.dll" FileName="SYSTEM~4.DLL|System.Buffers.dll" Attributes="0" SourcePath="pkRevitCustomMethods\bin\Debug\System.Buffers.dll" SelfReg="false"/>
+    <ROW File="MetricDetailItem2021.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~2.RFT|Metric Detail Item 2021.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2021.rft" SelfReg="false"/>
+    <ROW File="MetricDetailItem2020.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~3.RFT|Metric Detail Item 2020.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2020.rft" SelfReg="false"/>
+    <ROW File="Button0090_Walls.png" Component_="ButtonImageUninstall.png" FileName="BUTTO~25.PNG|Button0090_Walls.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0090_Walls.png" SelfReg="false"/>
+    <ROW File="MetricDetailItem2019.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~1.RFT|Metric Detail Item 2019.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2019.rft" SelfReg="false"/>
+    <ROW File="MetricDetailItem2017.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~4.RFT|Metric Detail Item 2017.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2017.rft" SelfReg="false"/>
+    <ROW File="MetricDetailItem2018.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~5.RFT|Metric Detail Item 2018.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2018.rft" SelfReg="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
+    <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.BuildComponent">
+    <ROW BuildKey="DefaultBuild" BuildName="DefaultBuild" BuildOrder="1" BuildType="1" PackageFolder="Setup Files" Languages="en" InstallationType="4" ExtUI="true" UseLargeSchema="true" MsiPackageType="x64"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.DictionaryComponent">
+    <ROW Path="&lt;AI_DICTS&gt;ui.ail"/>
+    <ROW Path="&lt;AI_DICTS&gt;ui_en.ail"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FileDependencyComponent">
+    <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="Xceed.Wpf.Toolkit.dll"/>
+    <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="Ookii.Dialogs.Wpf.dll"/>
+    <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="System.Data.SQLite.dll"/>
+    <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="Microsoft.WindowsAPICodePack.Shell.dll"/>
+    <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="Microsoft.WindowsAPICodePack.dll"/>
+    <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="System.Memory.dll"/>
+    <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="System.Runtime.CompilerServices.Unsafe.dll"/>
+    <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="System.Buffers.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FileDependencyOptionComponent">
+    <ROW File="pkRevitCustomActions.dll" Exclude="mscorlib.dll|System.dll|System.Configuration.Install.dll|System.Xml.Linq.dll|System.Windows.Forms.dll|System.Core.dll|PresentationFramework.dll|System.Xaml.dll|WindowsBase.dll|PresentationCore.dll|System.Drawing.dll|System.ComponentModel.DataAnnotations.dll|System.Design.dll|System.Security.dll|System.Data.dll|System.Transactions.dll|System.Xml.dll|WindowsFormsIntegration.dll|netstandard.dll|System.Numerics.Vectors.dll|System.Runtime.dll" Sha1="19d3812ae51ff9a4e2173942fcc9d61f25438433"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
+    <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
+    <ROW Fragment="FolderDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\FolderDlg.aip"/>
+    <ROW Fragment="MaintenanceTypeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceTypeDlg.aip"/>
+    <ROW Fragment="MaintenanceWelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\MaintenanceWelcomeDlg.aip"/>
+    <ROW Fragment="SequenceDialogs.aip" Path="&lt;AI_THEMES&gt;classic\fragments\SequenceDialogs.aip"/>
+    <ROW Fragment="Sequences.aip" Path="&lt;AI_FRAGS&gt;Sequences.aip"/>
+    <ROW Fragment="StaticUIStrings.aip" Path="&lt;AI_FRAGS&gt;StaticUIStrings.aip"/>
+    <ROW Fragment="UI.aip" Path="&lt;AI_THEMES&gt;classic\fragments\UI.aip"/>
+    <ROW Fragment="Validation.aip" Path="&lt;AI_FRAGS&gt;Validation.aip"/>
+    <ROW Fragment="VerifyRemoveDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRemoveDlg.aip"/>
+    <ROW Fragment="VerifyRepairDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\VerifyRepairDlg.aip"/>
+    <ROW Fragment="WelcomeDlg.aip" Path="&lt;AI_THEMES&gt;classic\fragments\WelcomeDlg.aip"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
+    <ROW Name="dotNetCustAct.dll_1" SourcePath="&lt;AI_CUSTACTS64&gt;dotNetCustAct.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiControlEventComponent">
+    <ROW Dialog_="WelcomeDlg" Control_="Next" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="FolderDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="FolderDlg" Control_="Back" Event="NewDialog" Argument="WelcomeDlg" Condition="AI_INSTALL" Ordering="1"/>
+    <ROW Dialog_="MaintenanceWelcomeDlg" Control_="Next" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="99"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_MAINT" Ordering="198"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="202"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_INSTALL" Ordering="197"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="FolderDlg" Condition="AI_INSTALL" Ordering="201"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_MAINT" Ordering="101"/>
+    <ROW Dialog_="CustomizeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="ChangeButton" Event="NewDialog" Argument="CustomizeDlg" Condition="AI_MAINT" Ordering="501"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceWelcomeDlg" Condition="AI_MAINT" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RemoveButton" Event="NewDialog" Argument="VerifyRemoveDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="1"/>
+    <ROW Dialog_="MaintenanceTypeDlg" Control_="RepairButton" Event="NewDialog" Argument="VerifyRepairDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="601"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Back" Event="NewDialog" Argument="MaintenanceTypeDlg" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="1"/>
+    <ROW Dialog_="VerifyRepairDlg" Control_="Repair" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Repair&quot;" Ordering="399" Options="1"/>
+    <ROW Dialog_="VerifyRemoveDlg" Control_="Remove" Event="EndDialog" Argument="Return" Condition="AI_MAINT AND InstallMode=&quot;Remove&quot;" Ordering="299" Options="1"/>
+    <ROW Dialog_="PatchWelcomeDlg" Control_="Next" Event="NewDialog" Argument="VerifyReadyDlg" Condition="AI_PATCH" Ordering="201"/>
+    <ROW Dialog_="ResumeDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_RESUME" Ordering="299"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Install" Event="EndDialog" Argument="Return" Condition="AI_PATCH" Ordering="199"/>
+    <ROW Dialog_="VerifyReadyDlg" Control_="Back" Event="NewDialog" Argument="PatchWelcomeDlg" Condition="AI_PATCH" Ordering="203"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCreateFolderComponent">
+    <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
+    <ROW Directory_="SHORTCUTDIR" Component_="SHORTCUTDIR" ManualDelete="false"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH_ORIGINAL" Target="[AI_SETUPEXEPATH]"/>
+    <ROW Action="AI_DATA_SETTER_1" Type="51" Source="NetInstallerClass_x64" Target="/LogFile= /ReqVersion=4.0.30319 /InstallType=notransaction /Action=Install /targetdir=&quot;[APPDIR] &quot; &quot;[#pkRevitCustomActions.dll]&quot; &quot;[TempFolder]NetInstallerClass_Config.xml&quot;"/>
+    <ROW Action="AI_DATA_SETTER_3" Type="51" Source="NetInstallerClass_x64_1" Target="/LogFile= /ReqVersion=4.0.30319 /InstallType=notransaction /Action=Uninstall &quot;[#pkRevitCustomActions.dll]&quot; &quot;[TempFolder]NetInstallerClass_1_Config.xml&quot;"/>
+    <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
+    <ROW Action="AI_DpiContentScale" Type="1" Source="aicustact.dll" Target="DpiContentScale"/>
+    <ROW Action="AI_EnableDebugLog" Type="321" Source="aicustact.dll" Target="EnableDebugLog"/>
+    <ROW Action="AI_InstallModeCheck" Type="1" Source="aicustact.dll" Target="UpdateInstallMode" WithoutSeq="true"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Type="51" Source="AI_SETUPEXEPATH" Target="[AI_SETUPEXEPATH_ORIGINAL]"/>
+    <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
+    <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
+    <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
+    <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="NetInstallerClass_x64" Type="3137" Source="dotNetCustAct.dll_1" Target="LaunchDotNetCustomAction" AdditionalSeq="AI_DATA_SETTER_1"/>
+    <ROW Action="NetInstallerClass_x64_1" Type="3137" Source="dotNetCustAct.dll_1" Target="LaunchDotNetCustomAction" AdditionalSeq="AI_DATA_SETTER_3"/>
+    <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[ProgramFiles64Folder][Manufacturer]\[ProductName]"/>
+    <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
+    <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatCompsComponent">
+    <ROW Feature_="MainFeature" Component_="APPDIR"/>
+    <ROW Feature_="MainFeature" Component_="ProductInformation"/>
+    <ROW Feature_="MainFeature" Component_="pkRevitCircleOutFamilies.dll"/>
+    <ROW Feature_="MainFeature" Component_="PRLBaseCircle_2019_.rft"/>
+    <ROW Feature_="MainFeature" Component_="SQLite.Interop.dll"/>
+    <ROW Feature_="MainFeature" Component_="FurnitureChairExecutive.rfa"/>
+    <ROW Feature_="MainFeature" Component_="pkRevitScheduleEdit.dll"/>
+    <ROW Feature_="MainFeature" Component_="ButtonImageUninstall.png"/>
+    <ROW Feature_="MainFeature" Component_="pkRevitUnderstandingTransforms.dll"/>
+    <ROW Feature_="MainFeature" Component_="pkRevitDatasheets.exe"/>
+    <ROW Feature_="MainFeature" Component_="pkRevitRibbon.dll"/>
+    <ROW Feature_="MainFeature" Component_="pkRevitMisc.dll"/>
+    <ROW Feature_="MainFeature" Component_="pkRevitLoadingPlacing_Families.dll"/>
+    <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
+    <ROW Feature_="MainFeature" Component_="PRLGMAdaptiveCarrierYoutube.rfa"/>
+    <ROW Feature_="MainFeature" Component_="pkRevitCustomActions.dll"/>
+    <ROW Feature_="MainFeature" Component_="Xceed.Wpf.Toolkit.dll"/>
+    <ROW Feature_="MainFeature" Component_="Ookii.Dialogs.Wpf.dll"/>
+    <ROW Feature_="MainFeature" Component_="System.Data.SQLite.dll"/>
+    <ROW Feature_="MainFeature" Component_="Microsoft.WindowsAPICodePack.Shell.dll"/>
+    <ROW Feature_="MainFeature" Component_="Microsoft.WindowsAPICodePack.dll"/>
+    <ROW Feature_="MainFeature" Component_="System.Memory.dll"/>
+    <ROW Feature_="MainFeature" Component_="System.Runtime.CompilerServices.Unsafe.dll"/>
+    <ROW Feature_="MainFeature" Component_="System.Buffers.dll"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
+    <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_STORE_LOCATION" Condition="(Not Installed) OR REINSTALL" Sequence="1501"/>
+    <ROW Action="AI_PREPARE_UPGRADE" Condition="AI_UPGRADE=&quot;No&quot; AND (Not Installed)" Sequence="1399"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="NetInstallerClass_x64" Condition="( ( NOT Installed ) OR ( Installed AND REMOVE &lt;&gt; &quot;ALL&quot; AND AI_INSTALL_MODE &lt;&gt; &quot;Remove&quot; ) ) AND ( VersionNT64 )" Sequence="6402"/>
+    <ROW Action="NetInstallerClass_x64_1" Condition="( Installed AND ( REMOVE = &quot;ALL&quot; OR AI_INSTALL_MODE = &quot;Remove&quot; ) ) AND ( VersionNT64 )" Sequence="1602"/>
+    <ROW Action="AI_DATA_SETTER_1" Condition="( ( NOT Installed ) OR ( Installed AND REMOVE &lt;&gt; &quot;ALL&quot; AND AI_INSTALL_MODE &lt;&gt; &quot;Remove&quot; ) ) AND ( VersionNT64 )" Sequence="6401"/>
+    <ROW Action="AI_DATA_SETTER_3" Condition="( Installed AND ( REMOVE = &quot;ALL&quot; OR AI_INSTALL_MODE = &quot;Remove&quot; ) ) AND ( VersionNT64 )" Sequence="1601"/>
+    <ROW Action="RemoveExistingProducts" Condition="AI_UPGRADE&lt;&gt;&quot;No&quot;" Sequence="1401" SeqType="0" MsiKey="RemoveExistingProducts"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
+    <ROW Action="AI_RESTORE_LOCATION" Condition="APPDIR=&quot;&quot;" Sequence="749"/>
+    <ROW Action="AI_ResolveKnownFolders" Sequence="53"/>
+    <ROW Action="AI_DpiContentScale" Sequence="52"/>
+    <ROW Action="AI_EnableDebugLog" Sequence="51"/>
+    <ROW Action="AI_BACKUP_AI_SETUPEXEPATH" Sequence="99"/>
+    <ROW Action="AI_RESTORE_AI_SETUPEXEPATH" Condition="AI_SETUPEXEPATH_ORIGINAL" Sequence="101"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiLaunchConditionsComponent">
+    <ROW Condition="((VersionNT &lt;&gt; 501) AND (VersionNT &lt;&gt; 502))" Description="[ProductName] cannot be installed on [WindowsTypeNT5XDisplay]." DescriptionLocId="AI.LaunchCondition.NoNT5X" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 400)" Description="[ProductName] cannot be installed on [WindowsTypeNT40Display]." DescriptionLocId="AI.LaunchCondition.NoNT40" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="(VersionNT &lt;&gt; 500)" Description="[ProductName] cannot be installed on [WindowsTypeNT50Display]." DescriptionLocId="AI.LaunchCondition.NoNT50" IsPredefined="true" Builds="DefaultBuild"/>
+    <ROW Condition="VersionNT" Description="[ProductName] cannot be installed on [WindowsType9XDisplay]." DescriptionLocId="AI.LaunchCondition.No9X" IsPredefined="true" Builds="DefaultBuild"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiRegsComponent">
+    <ROW Registry="Path" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Path" Value="[APPDIR]" Component_="ProductInformation"/>
+    <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
+    <ROW Shortcut="pkRevitDatasheets" Directory_="SHORTCUTDIR" Name="PKREVI~1|pkRevitDatasheets" Component_="pkRevitDatasheets.exe" Target="[#pkRevitDatasheets.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="pkRevitDatasheets_1" Directory_="DesktopFolder" Name="STOREA~1|STORE ATTACHMENTS" Component_="pkRevitDatasheets.exe" Target="[#pkRevitDatasheets.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="pkRevitDatasheets_2" Directory_="ProgramMenuFolder" Name="PKREVI~1|pkRevitDatasheets" Component_="pkRevitDatasheets.exe" Target="[#pkRevitDatasheets.exe]" Hotkey="0" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
+    <ATTRIBUTE name="UsedTheme" value="classic"/>
+  </COMPONENT>
+  <COMPONENT cid="caphyon.advinst.msicomp.MsiUpgradeComponent">
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="0.0.1" VersionMax="[|ProductVersion]" Attributes="257" ActionProperty="OLDPRODUCTS"/>
+    <ROW UpgradeCode="[|UpgradeCode]" VersionMin="[|ProductVersion]" Attributes="2" ActionProperty="AI_NEWERPRODUCTFOUND"/>
+  </COMPONENT>
+</DOCUMENT>

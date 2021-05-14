@@ -81,7 +81,7 @@
     <Compile Include="ScheduleEdit.xaml.cs">
       <DependentUpon>ScheduleEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ThisApplication.cs" />
+    <Compile Include="EntryPoints\ThisApplication.cs" />
     <Compile Include="_935_PRLoogle_Command05_EE02-03.cs" />
     <Compile Include="_935_PRLoogle_Command05_EE04.cs" />
   </ItemGroup>

@@ -9,7 +9,9 @@ using System.Data.OleDb;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
 using Autodesk.Revit.UI;
+#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
 using WinForms = System.Windows.Forms;
 
 namespace _952_PRLoogleClassLibrary

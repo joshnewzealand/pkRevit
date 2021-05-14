@@ -1,4 +1,4 @@
-﻿namespace pkRevitCustomMethods
+﻿namespace pkRevitCustomActions
 {
     partial class Installer1
     {

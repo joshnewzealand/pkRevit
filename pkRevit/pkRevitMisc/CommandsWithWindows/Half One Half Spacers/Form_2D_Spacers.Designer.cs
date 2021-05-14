@@ -80,18 +80,18 @@ namespace pkRevitMisc.CommandsWithWindows
                 ////{
                 ////    public partial class Entry_0080_pkRevitMisc
                 //////////{
-
+                eL = 83;
                 pkRevitMisc.EntryPoints.Entry_0080_pkRevitMisc myOriginalClass = new pkRevitMisc.EntryPoints.Entry_0080_pkRevitMisc();
-
+                eL = 85;
                 myOriginalClass._99_AutomaticLayout((int)numericUpDown1.Value, (int)numericUpDown2.Value, uidoc, addinfolder, YesOrNo);
-
+                eL = 87;
                 this.Close();
             }
 
             #region catch and finally
             catch (Exception ex)
             {
-                writeDebug("WindowLoaded, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+                writeDebug("Button1Click, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
             }
             finally
             {

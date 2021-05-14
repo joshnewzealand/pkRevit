@@ -178,5 +178,29 @@ namespace pkRevitRibbon.Properties {
                 this["pkRevit_DevLocation_CircleOutFamilies"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_LoadName_LoadingPlacing_Families {
+            get {
+                return ((string)(this["pkRevit_LoadName_LoadingPlacing_Families"]));
+            }
+            set {
+                this["pkRevit_LoadName_LoadingPlacing_Families"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string pkRevit_DevLocation_LoadingPlacing_Families {
+            get {
+                return ((string)(this["pkRevit_DevLocation_LoadingPlacing_Families"]));
+            }
+            set {
+                this["pkRevit_DevLocation_LoadingPlacing_Families"] = value;
+            }
+        }
     }
 }

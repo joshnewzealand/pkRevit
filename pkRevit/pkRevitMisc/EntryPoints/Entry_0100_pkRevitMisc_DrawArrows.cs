@@ -119,6 +119,14 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                 UIDocument uidoc = commandData.Application.ActiveUIDocument;
                 Document doc = uidoc.Document; // myListView_ALL_Fam_Master.Items.Add(doc.GetElement(uidoc.Selection.GetElementIds().First()).Name);
 
+                ViewPlan myViewPlan = doc.ActiveView as ViewPlan;
+
+                if (myViewPlan == null)
+                {
+                    TaskDialog.Show("Not the correct type of view", "The active view must be a view 'plan'");
+                    return Result.Succeeded;
+                }
+
                 using (Transaction tx = new Transaction(doc))
                 {
                     tx.Start("EE22_ArrowWork");
@@ -232,10 +240,8 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                             }
                         }
 
-
                         int int_i = 1;
                         XYZ xyz_separation = new XYZ(0, 1.5, 0);
-
 
                         Schema schema_ArrowWork_Index = Schema.Lookup(new Guid(myConstantStringSchema_ArrowWork));
                         if (schema_ArrowWork_Index == null) schema_ArrowWork_Index = createSchema_ArrowWork();
@@ -264,7 +270,6 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                         Entity entity = myDatastorage.GetEntity(schema_ArrowWork_Index);
                         IList<int> list = entity.Get<IList<int>>("ArrowWork", DisplayUnitType.DUT_MILLIMETERS);
 
-
                         List<XYZ> listXYZ_Anchor = new List<XYZ>();
                         List<XYZ> listXYZ_End = new List<XYZ>();
 
@@ -278,14 +283,12 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
                             listXYZ_Anchor.Add(leader.Anchor);
                             listXYZ_End.Add(leader.End);
-
                         }
 
                         if (listXYZ_Anchor.Count > 0)
                         {
                             double a_Double_Anchor = listXYZ_Anchor.GroupBy(q => q.X).OrderByDescending(gp => gp.Count()).First().Key;
                             double a_Double_End = listXYZ_End.GroupBy(q => q.X).OrderByDescending(gp => gp.Count()).First().Key;
-
 
                             foreach (int d in list)
                             {

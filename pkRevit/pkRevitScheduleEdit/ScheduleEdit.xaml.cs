@@ -33,6 +33,9 @@ using System.Linq.Expressions;
 using System.Collections.ObjectModel;
 using System.Globalization;
 
+using Autodesk.Revit.UI;
+using Autodesk.Revit.DB;
+
 
 
 namespace pkRevitScheduleEdit
@@ -43,7 +46,29 @@ namespace pkRevitScheduleEdit
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ((ParameterSet)value).Cast<Parameter>().Where(x => x.Definition.Name == "Type Comments").First().AsString();
+            int eL = -1;
+
+            try
+            {
+                string str_typeComment = ((Element)value).get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS)?.AsString();
+                string str_FamilyInstance = ((Element)value).get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM)?.AsValueString();
+                string str_FamilySymbol = ((Element)value).get_Parameter(BuiltInParameter.ALL_MODEL_FAMILY_NAME)?.AsString();
+
+                // List<Parameter> pset = ((Element)value).Parameters.Cast<Parameter>().ToList();
+
+                return "(" + str_typeComment + ") " + ((Element)value).Name + ", " + str_FamilyInstance + str_FamilySymbol;
+            }
+
+            #region catch and finally
+            catch (Exception ex)
+            {
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("StringToBoolConverter Convert, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+            }
+            finally
+            {
+            }
+            #endregion
+            return "error";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -77,7 +102,7 @@ namespace pkRevitScheduleEdit
 
     public partial class ElementAndSchedule
     {
-        public ElementType elementType { get; set; }
+        public Element elementType { get; set; }
         public string viewScheduleName { get; set; }
         public string string_OrderAdded { get; set; }
     }
@@ -113,6 +138,9 @@ namespace pkRevitScheduleEdit
     {
         public DataTable myDataTable { get; set; }
         public ListOfPatternsParent_ALL_Families_Master_List myListOfPatternsParent_ALL_Families_Master_List { get; set; }
+
+        public List<ElementAndSchedule> listElement_AggregatingAllSchedules { get; set; }
+
         public void MakeXML_Write_Command02Method() //this can never be false if myFamilyInstanceeee is null
         {
             Stream stream = new FileStream(myThisApplication.myString_1400_filename_FirstHalf + myThisApplication.myString_1400_filename, FileMode.Create, FileAccess.Write);
@@ -199,13 +227,15 @@ namespace pkRevitScheduleEdit
         }
 
         public ThisApplication myThisApplication { get; set; }
-        public ElementType myElementType { get; set; }
+        public Element myElementType { get; set; }
         public ElementType myElementType2 { get; set; }
 
         public ObservableCollection<ThreeVariables_Internal> myOC_ThreeVariables_Internal { get; set; } /*= new ThreeVariables_Parent() ;*/
 
         public object myObject { get; set; }
         public ThisApplication._935_PRLoogle_Command02_EE05_UpdateFamilyAndTypeName my_935_PRLoogle_Command02_EE05_UpdateFamilyAndTypeName { get; set; }
+
+
         public _935_PRLoogle_Command05_EE03_ForEachPropertiesGrid my_935_PRLoogle_Command05_EE03_ForEachPropertiesGrid;
         public ExternalEvent myExternalEvent;
         public ExternalEvent my_935_PRLoogle_Command02_EE05_UpdateFamilyAndTypeName_Action { get; set; }
@@ -217,8 +247,9 @@ namespace pkRevitScheduleEdit
         public ScheduleEdit(ExternalCommandData cD, ThisApplication myThisApplicationnnnnnnnnnnnnnn)
         {
             int eL = -1;
-
-            commandData = cD;
+            try
+            {
+                commandData = cD;
 
             myEE04_AddTypeParameter = new _935_PRLoogle_Command05_EE04_AddTypeParameter();
             myEE04_AddTypeParameter.myWindow2 = this;
@@ -229,8 +260,7 @@ namespace pkRevitScheduleEdit
             eL = 199;
             myThisApplication = myThisApplicationnnnnnnnnnnnnnn;
 
-            try
-            {
+
                 eL = 204;
                 if (System.IO.File.Exists(myThisApplication.myString_1400_filename_FirstHalf + myThisApplication.myString_1400_filename))
                 {
@@ -249,7 +279,6 @@ namespace pkRevitScheduleEdit
                     Stream stream = new FileStream(myThisApplication.myString_1400_filename_FirstHalf + myThisApplication.myString_1400_filename, FileMode.Create, FileAccess.Write);
                     DataContractSerializer serializer = new DataContractSerializer(typeof(ListOfPatternsParent_ALL_Families_Master_List));
                     serializer.WriteObject(stream, myFromBinPhoto); stream.Close();
-
                   
 
                     PreSourceFrom_Loadand_XMLButton();
@@ -270,13 +299,12 @@ namespace pkRevitScheduleEdit
                 InitializeComponent();
 
                 this.myComboBox.SelectedIndex = Properties.Settings.Default.ComboIndex;
-                this.rb_GroupedBySchedule.IsChecked = Properties.Settings.Default.GroupedBySchedule;
+              //  this.rb_GroupedBySchedule.IsChecked = Properties.Settings.Default.GroupedBySchedule;
 
                 this.Top = Properties.Settings.Default.Top;
                 this.Left = Properties.Settings.Default.Left;
                 this.Height = Properties.Settings.Default.Height;
                 this.Width = Properties.Settings.Default.Width;
-
                 
 
                 if (myDataTable == null)
@@ -294,40 +322,58 @@ namespace pkRevitScheduleEdit
                 }
               
 
-                ObservableCollection<string> cities = null;
+                ObservableCollection<Tuple<string, int>> cities = null;
                 List<ElementId> cities2 = null;
 
                 cities2 = new FilteredElementCollector(doc).WhereElementIsNotElementType().Where(x => x.GetTypeId() != null).Select(x => x.GetTypeId()).Distinct().ToList();
-                cities = new ObservableCollection<string> (cities2.Select(x => doc.GetElement(x)).Where(x => x != null).Where(x => x.Category != null).GroupBy(x => x.Category.Name).Select(x => x.First()).Where(x => x.LookupParameter("Type Comments") != null).Select(x => x.Category.Name).OrderBy(x => x.ToString()));
+                cities = new ObservableCollection<Tuple<string, int>> (cities2.Select(x => doc.GetElement(x)).Where(x => x != null).Where(x => x.Category != null).GroupBy(x => x.Category.Name).Select(x => x.First()).Where(x => x.LookupParameter("Type Comments") != null).Select(x => new Tuple<string, int>(x.Category.Name, x.Category.Id.IntegerValue)).OrderBy(x => x.ToString()));
                 eL = 295;
-               // foreach (string sss in cities) myComboBox.Items.Add(sss);
+                // foreach (string sss in cities) myComboBox.Items.Add(sss);
+                // myComboBox.SelectedValuePath = "Item1";
+
+                cities.Insert(0,new Tuple<string, int>("ALL", -1));
+
                 myComboBox.ItemsSource = cities;
 
                 if(true) //candidate for methodisation 20210423
                 {
                     eL = 243;
-                    myListViewMaster.ItemsSource = myDataTable.DefaultView;  //this one is not important leave it there
+                   /// myListViewMaster.ItemsSource = myDataTable.DefaultView;  //this one is not important leave it there
                     eL = 264;
                     Element myElement = myPrivate_2020(false);
-
+                    eL = 361;
                     if (myElement != null)
                     {
                         int myInt = 0;
-                        foreach (string myCBIiiii in myComboBox.Items)
+                        foreach (Tuple<string, int> myCBIiiii in myComboBox.Items)
                         {
-                            if (myCBIiiii == myElement.Category.Name)
+                            if (myCBIiiii.Item2 == myElement.Category.Id.IntegerValue)
                             {
                                 myComboBox.SelectedIndex = myInt;
                                 break;
                             }
                             myInt++;
                         }
+
+                        eL = 319;
+                        if (myComboBox.SelectedIndex != -1) rePopulate_ListView_Right(myElement.Id.IntegerValue);
                     }
-                    eL = 319;
-                    if (myComboBox.SelectedIndex != -1) rePopulate_ListView_Right();
+
+
+                    ////foreach (Tuple<string, int> myCBI in myComboBox.Items)
+                    ////{
+                    ////    if (myCBI.Item2 == myElement.Category.Id.IntegerValue)
+                    ////    {
+                    ////        myComboBox.SelectedItem = myCBI;
+                    ////        break;
+                    ////    }
+                    ////}
+
+
+
                     eL = 321;
 
-                    myMethod_PopulateEverything(myElement);
+                    if(cities.Count() != 0)  myMethod_PopulateEverything(myElement);
                     bool_ContinueWith_RadioButtonCode = true;
                 }
             }
@@ -346,6 +392,8 @@ namespace pkRevitScheduleEdit
 
         private void rb_GroupedBySchedule_Checked(object sender, RoutedEventArgs e)
         {
+            if (myComboBox.Items.Count == 0) return;
+
             try
             {
                 if(bool_ContinueWith_RadioButtonCode) myMethod_PopulateEverything(null);
@@ -365,10 +413,11 @@ namespace pkRevitScheduleEdit
 
         private void rb_Loose_Checked(object sender, RoutedEventArgs e)
         {
+            if (myComboBox.Items.Count == 0) return;
+
             try
             {
                 if (bool_ContinueWith_RadioButtonCode) myMethod_PopulateEverything(null);
-
             }
 
             #region catch and finally
@@ -388,8 +437,17 @@ namespace pkRevitScheduleEdit
             {
                 //this speaks for itself when it retursn when nothing is selected, but before i get the non lighting ones working we need to make sure this adds and removes normally
 
-                rePopulate_ListView_Right();
+                if (myComboBox.Items.Count == 0) return;
 
+                if (myComboBox.SelectedIndex > 0)
+                {
+                    rePopulate_ListView_Right(((Tuple<string, int>)myComboBox.SelectedItem).Item2); 
+                } else
+                {
+                    myListView_Right.ItemsSource = null;
+                }
+             
+                //rePopulate_ListView_Right();
                 myMethod_PopulateEverything(null);
             }
 
@@ -404,12 +462,10 @@ namespace pkRevitScheduleEdit
             #endregion
         }
 
-
-
-
-        private void rePopulate_ListView_Right()
+        private void rePopulate_ListView_Right(int int_Category)
         {
-            string myEE02_String_FamilyFileName = myComboBox.SelectedValue.ToString();
+            
+            string myEE02_String_FamilyFileName = int_Category.ToString();
             //string myEE02_String_FamilyFileName = ((ComboBoxItem)myComboBox.SelectedValue).Content.ToString();
             string myString_FamilyFileDirectory = myThisApplication.myString_1400_filename_FirstHalf + "\\ALL Parameter Profiles (do not edit directly)\\";
             if (!Directory.Exists(myString_FamilyFileDirectory)) Directory.CreateDirectory(myString_FamilyFileDirectory);
@@ -433,8 +489,6 @@ namespace pkRevitScheduleEdit
             }
         }
 
-
-
         private void MyButtonNewList_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -442,7 +496,7 @@ namespace pkRevitScheduleEdit
 
                 if (true)
                 {
-                    string myEE02_String_FamilyFileName = myComboBox.SelectedValue.ToString();
+                    string myEE02_String_FamilyFileName = ((Tuple<string, int>)myComboBox.SelectedItem).Item1.ToString();
                     string myString_FamilyFileDirectory = myThisApplication.myString_1400_filename_FirstHalf + "\\ALL Parameter Profiles (do not edit directly)\\";
                     if (!Directory.Exists(myString_FamilyFileDirectory)) Directory.CreateDirectory(myString_FamilyFileDirectory);
                     string myString_FamilyFileXAML = myString_FamilyFileDirectory + myEE02_String_FamilyFileName + ".xml";
@@ -469,47 +523,57 @@ namespace pkRevitScheduleEdit
             #endregion
         }
 
+
         public void myMethod_PopulateEverything(Element myElement)
         {
             int eL = -1;
-
+            eL = 475;
             try
             {
                 UIDocument uidoc = myThisApplication.myExternalCommandData.Application.ActiveUIDocument;
                 Document doc = uidoc.Document;
 
-                BuiltInCategory myBuiltInCategory;
-
+                /////////////////////////////////////////////////////BuiltInCategory myBuiltInCategory;
+                eL = 482;
                 if (myElement != null)
                 {
+                    //MessageBox.Show("not at this point");
                     myComboBox.SelectedIndex = -1;
                     //MessageBox.Show(myElementType.Category.Name);
-                    foreach (string myCBI in myComboBox.Items)
+                    foreach (Tuple<string, int> myCBI in myComboBox.Items)
                     {
-                        if (myCBI == myElement.Category.Name)
+                        if (myCBI.Item2 == myElement.Category.Id.IntegerValue)
                         {
                             myComboBox.SelectedItem = myCBI;
                             break;
                         }
                     }
-                    if (myComboBox.SelectedIndex == -1) return;
+                    //((Tuple<string, int>)myComboBox.SelectedItem).Item1
 
-                    rePopulate_ListView_Right();
+                    if (myComboBox.SelectedIndex == -1) return;
+                    eL = 496;
+
+                    //MessageBox.Show("has it updated at this poing");
+
+                    rePopulate_ListView_Right(myElement.Category.Id.IntegerValue);
                     //   MessageBox.Show("asd");
 
                     myElementType = doc.GetElement(myElement.GetTypeId()) as ElementType;
+
+                    if (myElementType == null) myElementType = myElement;
 
                     myListView_Left.ItemsSource = myElementType.Parameters.Cast<Parameter>().OrderBy(x => x.Definition.Name).Where(x => x.Definition.ParameterGroup != BuiltInParameterGroup.PG_IFC & x.Definition.ParameterType != ParameterType.Invalid & !x.Definition.Name.Contains("(Attribute)"));
 
                     MakePropertiesGridHappen(myOC_ThreeVariables_Internal, myPropertiesGrid, myElementType);
 
+                    myTextBox_TypeNameOld_Category.Text = myElementType.Category.Name;
                     myTextBox_TypeNameOld.Text = myElementType.Name;
                     myTextBox_TypeNameNew.Text = myElementType.Name;
 
-                    myTextBox_FamilyNameOld.Text = myElementType.FamilyName;
-                    myTextBox_FamilyNameNew.Text = myElementType.FamilyName;
+                    //////////myTextBox_FamilyNameOld.Text = myElementType.FamilyName;
+                    //////////myTextBox_FamilyNameNew.Text = myElementType.FamilyName;
 
-                    myBuiltInCategory = (BuiltInCategory)myElement.Category.Id.IntegerValue;
+                    /////////////////////////////////////////////////////myBuiltInCategory = (BuiltInCategory)myElement.Category.Id.IntegerValue;
 
                 }
                 else
@@ -519,9 +583,10 @@ namespace pkRevitScheduleEdit
                     myElementType = null;
 
                     myListView_Left.ItemsSource = null;
-
+                    eL = 522;
                     MakePropertiesGridHappen(myOC_ThreeVariables_Internal, myPropertiesGrid, myElementType);
-
+                    eL = 524;
+                    myTextBox_TypeNameOld_Category.Text = "";
                     myTextBox_TypeNameOld.Text = "";
                     myTextBox_TypeNameNew.Text = "";
 
@@ -530,8 +595,9 @@ namespace pkRevitScheduleEdit
 
                     //if ((ComboBoxItem)myComboBox.SelectedItem == null) myComboBox.SelectedIndex = 0;
                     if (myComboBox.SelectedIndex == -1) myComboBox.SelectedIndex = 0;
-
-                    myBuiltInCategory = (BuiltInCategory)doc.Settings.Categories.get_Item(myComboBox.SelectedValue.ToString()).Id.IntegerValue;
+                    eL = 534;
+                   /////////////////////////////////////// myBuiltInCategory = (BuiltInCategory)doc.Settings.Categories.get_Item(myComboBox.SelectedValue.ToString()).Id.IntegerValue;
+                    eL = 535;
                 }
 
                 eL = 485;
@@ -570,26 +636,35 @@ namespace pkRevitScheduleEdit
                 ///
 
                 List<ElementId> listElementID_ThatAppearInModel = new FilteredElementCollector(doc).WhereElementIsNotElementType().Where(x => x.GetTypeId() != null).Select(x => x.GetTypeId()).Distinct().ToList();
-                List<Element> listElement_OfAParticular_Family = listElementID_ThatAppearInModel.Select(x => doc.GetElement(x)).Where(x => x != null).Where(x => x.Category != null).Where(x => x.Category.Name == myComboBox.SelectedValue.ToString()).Where(x => x.LookupParameter("Type Comments") != null).ToList();
 
-               // MessageBox.Show(myComboBox.SelectedValue.ToString() + listElementID_ThatAppearInModel.Count().ToString());
+                List<Element> listElement_OfAParticular_Family = null;
 
-                List<ElementAndSchedule> listElement_AggregatingAllSchedules = new List<ElementAndSchedule>();
-                List<ViewSchedule> listOfSchedules2 = listOfSchedules(doc, myComboBox.SelectedValue.ToString());
-
-                if(!this.rb_GroupedBySchedule.IsChecked.Value)
+                if (((Tuple<string, int>)myComboBox.SelectedItem).Item2 == -1)
                 {
-                    listElement_OfAParticular_Family = listElement_OfAParticular_Family.GroupBy(x => x.Id.IntegerValue).Select(g => g.First()).ToList();
-
-                    foreach (Element ele in listElement_OfAParticular_Family)
-                    {
-                        ElementType elementType = ele as ElementType;
-
-                        listElement_AggregatingAllSchedules.Add(new ElementAndSchedule() { viewScheduleName = " unscheduled", elementType = elementType });
-                    }
+                    listElement_OfAParticular_Family = listElementID_ThatAppearInModel.Select(x => doc.GetElement(x)).Where(x => x != null).Where(x => x.Category != null).Where(x => x.LookupParameter("Type Comments") != null).ToList();
+                } else
+                {
+                    listElement_OfAParticular_Family = listElementID_ThatAppearInModel.Select(x => doc.GetElement(x)).Where(x => x != null).Where(x => x.Category != null).Where(x => x.Category.Id.IntegerValue == ((Tuple<string, int>)myComboBox.SelectedItem).Item2).Where(x => x.LookupParameter("Type Comments") != null).ToList();
                 }
-                
 
+                eL = 576;
+                // MessageBox.Show(myComboBox.SelectedValue.ToString() + listElementID_ThatAppearInModel.Count().ToString());
+
+                 listElement_AggregatingAllSchedules = new List<ElementAndSchedule>();
+
+
+
+
+                List<ViewSchedule> listOfSchedules2 = null;
+
+                if (((Tuple<string, int>)myComboBox.SelectedItem).Item2 == -1)
+                {
+                    listOfSchedules2 = listOfSchedules(doc, ((Tuple<string, int>)myComboBox.SelectedItem).Item2, true);
+                }
+                else
+                {
+                    listOfSchedules2 = listOfSchedules(doc, ((Tuple<string, int>)myComboBox.SelectedItem).Item2, false);
+                }
 
                 if (this.rb_GroupedBySchedule.IsChecked.Value)
                 {
@@ -600,46 +675,116 @@ namespace pkRevitScheduleEdit
                         foreach (ViewSchedule vs in listOfSchedules2)
                         {
                             //  IEnumerable<Element> fec3 = new FilteredElementCollector(doc, vs.Id).GroupBy(x => x.GetTypeId().IntegerValue).Select(x => x.First()).Select(x => (FamilySymbol)doc.GetElement(x.GetTypeId()));
+                            eL = 605;
 
-                            List<Element> ordered_element_List = new FilteredElementCollector(doc, vs.Id).Cast<Element>().ToList();///*.Select(x => doc.GetElement(x.GetTypeId())).ToList()*/.GroupBy(x => x.Id.IntegerValue).Select(g => g.First()).ToList();
+                            List<Element> ordered_element_List = new FilteredElementCollector(doc, vs.Id).Cast<Element>().ToList();
+
+
                             // List<Element> ordered_element_List = new FilteredElementCollector(doc, vs.Id).Cast<Element>().Select(x => doc.GetElement(x.GetTypeId())).ToList();
-
+                            eL = 608;
                             if (vs.Definition.GetSortGroupFieldCount() != 0)
                             {
+                                eL = 611;
                                 ScheduleSortGroupField ssgf = vs.Definition.GetSortGroupField(0);
 
                                 ScheduleField sf = vs.Definition.GetField(ssgf.FieldId);
-
-                                ordered_element_List = ordered_element_List.Select(x => doc.GetElement(x.GetTypeId())).ToList();//.Select(x => x.First()).ToList();
-                                ordered_element_List = ordered_element_List.OrderBy(x => x.LookupParameter(sf.GetName()).AsInteger()).ToList();
-                                ordered_element_List = ordered_element_List.GroupBy(x => x.Id.IntegerValue).Select(g => g.First()).ToList();
+                                eL = 614;
+                                //MessageBox.Show(vs.ViewName);
+                                eL = 615;
+                                if(!vs.Definition.IsItemized)
+                                {
+                                    ordered_element_List = ordered_element_List.Select(x => doc.GetElement(x.GetTypeId())).ToList();//.Select(x => x.First()).ToList();
+                                    ordered_element_List = ordered_element_List.OrderBy(x => x.get_Parameter((BuiltInParameter)sf.ParameterId.IntegerValue)?.AsInteger()).ToList(); //this was formally lookupparameter (go figure
+                                    ordered_element_List = ordered_element_List.GroupBy(x => x.Id.IntegerValue).Select(g => g.First()).ToList();
+                                } else
+                                {
+                                    ordered_element_List = ordered_element_List.OrderBy(x => x.get_Parameter((BuiltInParameter)sf.ParameterId.IntegerValue)?.AsInteger()).ToList();
+                                    ordered_element_List = ordered_element_List.GroupBy(x => x.Id.IntegerValue).Select(g => g.First()).ToList();
+                                }
                             }
                             else
                             {
+                                eL = 622;
                                 ordered_element_List = ordered_element_List.Select(x => doc.GetElement(x.GetTypeId())).ToList();//.Select(x => x.First()).ToList();
                                 ordered_element_List = ordered_element_List.GroupBy(x => x.Id.IntegerValue).Select(g => g.First()).ToList();
                             }
-
+                            eL = 624;
                             foreach (Element ele in ordered_element_List)
                             {
-                                ElementType elementType = ele as ElementType;
-
-                                listElement_AggregatingAllSchedules.Add(new ElementAndSchedule() { viewScheduleName = vs.Name, elementType = elementType });
+                                if (!vs.Definition.IsItemized)
+                                {
+                                    ElementType elementType = ele as ElementType;
+                                    listElement_AggregatingAllSchedules.Add(new ElementAndSchedule() { viewScheduleName = vs.Name, elementType = elementType });
+                                }
+                                else
+                                {
+                                    //ElementType elementType = ele as ElementType;
+                                    listElement_AggregatingAllSchedules.Add(new ElementAndSchedule() { viewScheduleName = vs.Name, elementType = ele });
+                                }
                             }
                         }
                     }
                 }
+
+                eL = 635;
+
+
+
+
+                if (myElement != null)
+                {
+                    IEnumerable<ElementAndSchedule> iEum = listElement_AggregatingAllSchedules.Where(x => x.elementType.Id.IntegerValue == myElement.GetTypeId().IntegerValue);
+                    if (iEum.Count() == 0)
+                    {
+                        this.rb_Loose.IsChecked = true;
+                        //myListViewTypes.SelectedItem = iEum.First();
+                    }
+
+                }
+
+                eL = 581;
+                if (!this.rb_GroupedBySchedule.IsChecked.Value)
+                {
+                    listElement_OfAParticular_Family = listElement_OfAParticular_Family.GroupBy(x => x.Id.IntegerValue).Select(g => g.First()).ToList();
+
+                    foreach (Element ele in listElement_OfAParticular_Family)
+                    {
+                        ElementType elementType = ele as ElementType;
+
+                        listElement_AggregatingAllSchedules.Add(new ElementAndSchedule() { viewScheduleName = " unscheduled", elementType = elementType });
+                    }
+                }
+
+                eL = 594;
+
+                
+
+
+
 
                 myListViewTypes.ItemsSource = listElement_AggregatingAllSchedules;
 
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(myListViewTypes.ItemsSource);
                 PropertyGroupDescription groupDescription = new PropertyGroupDescription("viewScheduleName");
                 view.GroupDescriptions.Add(groupDescription);
+                eL = 660;
 
+                //myElement
+
+
+                // MessageBox.Show(myListViewTypes.Items.Count.ToString());
 
                 if (myElement != null)
                 {
-                    myListViewTypes.SelectedItem = ((List<ElementAndSchedule>)myListViewTypes.ItemsSource).Where(x => x.elementType.Id.IntegerValue == myElement.GetTypeId().IntegerValue).First();
+                    IEnumerable<ElementAndSchedule> iEum = ((List<ElementAndSchedule>)myListViewTypes.ItemsSource).Where(x => x.elementType.Id.IntegerValue == myElement.GetTypeId().IntegerValue);
+                    if(iEum.Count() > 0)
+                    {
+                        myListViewTypes.SelectedItem = iEum.First();
+                    } else
+                    {
+                       // MessageBox.Show("No schedule listing...try switching to 'Loose'");
+                    }
+                    
                 }
             }
 
@@ -654,22 +799,23 @@ namespace pkRevitScheduleEdit
             #endregion
         }
 
-        private List<ViewSchedule> listOfSchedules(Document doc, string string_category)
+        private List<ViewSchedule> listOfSchedules(Document doc, int int_category, bool bool_AddAllCategories)
         {
+           
             List<ViewSchedule> listSched = new List<ViewSchedule>();
 
             FilteredElementCollector collector = new FilteredElementCollector(doc).OfClass(typeof(ViewSchedule));
 
-            Category mcat = null;
-
-            foreach (Category c in doc.Settings.Categories)
-            {
-                if (c.Name == string_category)
-                {
-                    mcat = c;
-                }
-            }
-
+            ////Category mcat = doc.geti;
+            //////MessageBox.Show("hello");
+            //////foreach (Category c in doc.Settings.Categories)
+            //////{
+            //////    if (c.Name == string_category)
+            //////    {
+            //////        mcat = c;
+            //////    }
+            //////}
+            //////MessageBox.Show("hello" + mcat.ToString());
             foreach (ViewSchedule s in collector)
             {
                 ////ScheduleDefinition definition = s.Definition;
@@ -677,12 +823,17 @@ namespace pkRevitScheduleEdit
 
                 // MySchedule mySchedule = new MySchedule();
 
-
-                if (s.Definition.CategoryId == mcat.Id)
+                if(bool_AddAllCategories)
                 {
                     listSched.Add(s);
-
+                } else
+                {
+                    if (s.Definition.CategoryId.IntegerValue == int_category)
+                    {
+                        listSched.Add(s);
+                    }
                 }
+
 
                 // mySchedule.Name = s.ViewName;
             }
@@ -690,46 +841,44 @@ namespace pkRevitScheduleEdit
             return listSched;
         }
 
-
-
-        private void ListViewItem_PreviewMouseDoubleClick4(object sender, MouseButtonEventArgs e)  //removing removing
+        private void ListViewItem_PreviewMouseDoubleClick_DisplayEntityParameters(object sender, MouseButtonEventArgs e)  //display entity parameters
         {
-            //try
-            //{
-            //    SaveGeneral();
-            //}
-
-            //#region catch and finally
-            //catch (Exception ex)
-            //{
-            //    _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(ex.Message + Environment.NewLine + ex.InnerException, true);
-            //}
-            //finally
-            //{
-            //}
-            //#endregion
-
+            int eL = -1;
             try
             {
                 //MessageBox.Show("when opened with nothing selected we need to make sure the left list populates on double click");
-
-                ElementType myFamilySymbol = ((ElementAndSchedule)myListViewTypes.SelectedItem).elementType;
-
-                myElementType = myFamilySymbol;
-
+                eL = 715;
+                ////ElementType myFamilySymbol = ((ElementAndSchedule)myListViewTypes.SelectedItem).elementType;
+                ////eL = 717;
+                ////myElementType = myFamilySymbol;
+                eL = 719;
                 ////UIDocument uidoc = myThisApplication.myExternalCommandData.Application.ActiveUIDocument;
                 ////Document doc = uidoc.Document;
 
+                myElementType = ((ElementAndSchedule)myListViewTypes.SelectedItem).elementType;
+
+                if (myComboBox.SelectedIndex == 0)
+                {
+                    rePopulate_ListView_Right(((ElementAndSchedule)myListViewTypes.SelectedItem).elementType.Category.Id.IntegerValue);
+                }
+              
+
+                if (myOC_ThreeVariables_Internal == null)
+                {
+                    rePopulate_ListView_Right(myElementType.Category.Id.IntegerValue);
+                }
+
                 myListView_Left.ItemsSource = myElementType.Parameters.Cast<Parameter>().OrderBy(x => x.Definition.Name).Where(x => x.Definition.ParameterGroup != BuiltInParameterGroup.PG_IFC & x.Definition.ParameterType != ParameterType.Invalid & !x.Definition.Name.Contains("(Attribute)"));
-
+                eL = 724;
                 MakePropertiesGridHappen(myOC_ThreeVariables_Internal, myPropertiesGrid, myElementType);
-
+                eL = 726;
+                myTextBox_TypeNameOld_Category.Text = myElementType.Category.Name;
                 myTextBox_TypeNameOld.Text = myElementType.Name;
                 myTextBox_TypeNameNew.Text = myElementType.Name;
-
-                myTextBox_FamilyNameOld.Text = myElementType.FamilyName;
-                myTextBox_FamilyNameNew.Text = myElementType.FamilyName;
-
+                eL = 729;
+                ////////////myTextBox_FamilyNameOld.Text = myElementType.FamilyName;
+                ////////////myTextBox_FamilyNameNew.Text = myElementType.FamilyName;
+                eL = 732;
                 //myListView_Right.Items.Refresh();
 
                 e.Handled = true;
@@ -738,7 +887,7 @@ namespace pkRevitScheduleEdit
             #region catch and finally
             catch (Exception ex)
             {
-                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(ex.Message + Environment.NewLine + ex.InnerException, true);
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("ListViewItem_PreviewMouseDoubleClick4, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
             }
             finally
             {
@@ -746,7 +895,7 @@ namespace pkRevitScheduleEdit
             #endregion
         }
 
-        private void MakePropertiesGridHappen(ObservableCollection<ThreeVariables_Internal> myListThreeVariables, PropertyGrid myPropGriddddddd, Element myElementtttttt)
+        public void MakePropertiesGridHappen(ObservableCollection<ThreeVariables_Internal> myListThreeVariables, PropertyGrid myPropGriddddddd, Element myElementtttttt)
         {
             if (myListThreeVariables == null)
             {
@@ -763,22 +912,22 @@ namespace pkRevitScheduleEdit
             Document doc = uidoc.Document;
 
             Type myType = CompileResultType(myListThreeVariables, myElementtttttt);
+
+
             myObject = Activator.CreateInstance(myType);
 
             foreach (ThreeVariables_Internal myThreeVariables in myListThreeVariables)
             {
                 // myObject.GetType().GetProperty(myThreeVariables.myDefinitionName).SetValue(myObject, true);
-
                 //MessageBox.Show(myThreeVariables.myID.ToString());
 
                 //Parameter myParameterDirect = doc.GetElement(new ElementId(myThreeVariables.myID)) as Parameter;
 
                 //if (myElementtttttt.GetOrderedParameters().Where(x => x.Id.IntegerValue == myThreeVariables.myID).Count() == 0) continue;
-                if (myElementtttttt.GetOrderedParameters().Where(x => x.Definition.Name == myThreeVariables.myDefinitionName).Count() == 0) continue;
-
+                if (myElementtttttt.Parameters.Cast<Parameter>().Where(x => x.Id.IntegerValue == myThreeVariables.myID).Count() == 0) continue;
 
                 //Parameter myParameterDirect = myElementtttttt.GetOrderedParameters().Where(x => x.Id.IntegerValue == myThreeVariables.myID).First();
-                Parameter myParameterDirect = myElementtttttt.GetOrderedParameters().Where(x => x.Definition.Name == myThreeVariables.myDefinitionName).First();
+                Parameter myParameterDirect = myElementtttttt.Parameters.Cast<Parameter>().Where(x => x.Definition.Name == myThreeVariables.myDefinitionName).First();
 
                 switch (myThreeVariables.myStorageType)
                 {
@@ -786,6 +935,14 @@ namespace pkRevitScheduleEdit
                         myObject.GetType().GetProperty(Regex.Replace(myThreeVariables.myDefinitionName, "[^0-9a-zA-Z]+", "")).SetValue(myObject, myParameterDirect.AsDouble());
                         break;
                     case StorageType.ElementId:
+                        //if(myParameterDirect.AsElementId().IntegerValue != -1)
+                        //{
+                        if(myParameterDirect !=  null)
+                        {
+                            myObject.GetType().GetProperty(Regex.Replace(myThreeVariables.myDefinitionName, "[^0-9a-zA-Z]+", "")).SetValue(myObject, myParameterDirect.AsValueString());
+                        }
+                        ////}
+
                         //MyTypeBuilder.CreateProperty(tb, myLViiii.Definition.Name, typeof(string));
                         break;
                     case StorageType.Integer:
@@ -832,11 +989,14 @@ namespace pkRevitScheduleEdit
             TypeBuilder tb = MyTypeBuilder.GetTypeBuilder();
             ConstructorBuilder constructor = tb.DefineDefaultConstructor(MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.RTSpecialName);
 
+          ////  IList<string> iList_ = myElementtttttt.Parameters.Cast<Parameter>().Select(x => x.Definition.Name).ToList();
+
+            IList<Parameter> iList_Parameter = myElementtttttt.Parameters.Cast<Parameter>().ToList();
             // NOTE: assuming your list contains Field objects with fields FieldName(string) and FieldType(Type)
             // foreach (var field in yourListOfFields)
             foreach (ThreeVariables_Internal myLViiii in myListThreeeee)
             {
-                if (myElementtttttt.GetOrderedParameters().Where(x => x.Definition.Name == myLViiii.myDefinitionName).Count() == 0) continue;
+                if (iList_Parameter.Where(x => x.Definition.Name == myLViiii.myDefinitionName).Count() == 0) continue;
                 //if (myElementtttttt.GetOrderedParameters().Where(x => x.Id.IntegerValue == myLViiii.myID).Count() == 0) continue;
 
                 //int caseSwitch = 1;
@@ -846,6 +1006,7 @@ namespace pkRevitScheduleEdit
                         MyTypeBuilder.CreateProperty(tb, Regex.Replace(myLViiii.myDefinitionName, "[^0-9a-zA-Z]+", ""), typeof(double));
                         break;
                     case StorageType.ElementId:
+                        MyTypeBuilder.CreateProperty(tb, Regex.Replace(myLViiii.myDefinitionName, "[^0-9a-zA-Z]+", ""), typeof(string));
                         //MyTypeBuilder.CreateProperty(tb, myLViiii.Definition.Name, typeof(string));
                         break;
                     case StorageType.Integer:
@@ -937,6 +1098,8 @@ namespace pkRevitScheduleEdit
 
         private void SaveGeneral()
         {
+            if (myElementType == null) return;
+
             // myPrivateVoid_myBool_CommitEvent();
             if (myTextBox_TypeNameOld.Text != myTextBox_TypeNameNew.Text | myTextBox_FamilyNameOld.Text != myTextBox_FamilyNameNew.Text)
             {
@@ -956,7 +1119,7 @@ namespace pkRevitScheduleEdit
         {
             try
             {
-                SaveGeneral();
+                if (myComboBox.Items.Count != 0) SaveGeneral();
             }
 
             #region catch and finally
@@ -977,6 +1140,7 @@ namespace pkRevitScheduleEdit
         {
             try
             {
+                if (myComboBox.Items.Count == 0) return;
                 SaveGeneral();
             }
 
@@ -1015,12 +1179,12 @@ namespace pkRevitScheduleEdit
         }
 #pragma warning restore CS0618 // Type or member is obsolete
 
-        private void ListViewItem_PreviewMouseDoubleClick3(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("hello world");
-        }
+        ////private void ListViewItem_PreviewMouseDoubleClick3(object sender, MouseButtonEventArgs e)
+        ////{
+        ////    MessageBox.Show("hello world");
+        ////}
 
-        private void ListViewItem_PreviewMouseDoubleClick2(object sender, MouseButtonEventArgs e)  //removing removing
+        private void ListViewItem_PreviewMouseDoubleClick_RemovingParameter(object sender, MouseButtonEventArgs e)  //removing removing
         {
             try
             {
@@ -1038,7 +1202,7 @@ namespace pkRevitScheduleEdit
 
                 if (true)  //candidate for methodisation 22005161126
                 {
-                    string myEE02_String_FamilyFileName = myComboBox.SelectedValue.ToString();
+                    string myEE02_String_FamilyFileName = ((Tuple<string, int>)myComboBox.SelectedItem).Item1.ToString();
                     string myString_FamilyFileDirectory = myThisApplication.myString_1400_filename_FirstHalf + "\\ALL Parameter Profiles (do not edit directly)\\";
                     if (!Directory.Exists(myString_FamilyFileDirectory)) Directory.CreateDirectory(myString_FamilyFileDirectory);
                     string myString_FamilyFileXAML = myString_FamilyFileDirectory + myEE02_String_FamilyFileName + ".xml";
@@ -1071,23 +1235,40 @@ namespace pkRevitScheduleEdit
             }
             #endregion
         }
-        private void ListViewItem_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)  //adding adding adding adding
+        private void ListViewItem_PreviewMouseDoubleClick_AddParameter(object sender, MouseButtonEventArgs e)  //adding adding adding adding
         {
+            int eL = -1;
             try
             {
-                Parameter myParameter = (Parameter)myListView_Left.SelectedItem;
+                if(myOC_ThreeVariables_Internal == null)
+                {
+                    rePopulate_ListView_Right(((ElementAndSchedule)myListViewTypes.SelectedItem).elementType.Category.Id.IntegerValue);
+                }
 
+                Parameter myParameter = (Parameter)myListView_Left.SelectedItem;
+                eL = 1162;
+                if (myOC_ThreeVariables_Internal.Where(x => x.myID == myParameter.Id.IntegerValue).Count() > 0)
+                {
+                    MessageBox.Show("Parameter has already been added.");
+                    return;
+                }
+                eL = 1168;
                 myOC_ThreeVariables_Internal.Add(new ThreeVariables_Internal() { myDefinitionName = myParameter.Definition.Name, myStorageType = myParameter.StorageType, myParameterType = myParameter.Definition.ParameterType, myID = myParameter.Id.IntegerValue });
+
+                myOC_ThreeVariables_Internal = new ObservableCollection<ThreeVariables_Internal>(myOC_ThreeVariables_Internal.OrderBy(i => i.myDefinitionName));
+
+                myListView_Right.ItemsSource = myOC_ThreeVariables_Internal;
+                // myOC_ThreeVariables_Internal = myOC_ThreeVariables_Internal.OrderBy(x => x.myDefinitionName) as ObservableCollection<ThreeVariables_Internal>;
 
                 if (myListView_Right.Items.Count == 0)
                 {
                     MessageBox.Show("There must be at least one item seleced in myListView_Right");
                     return;
                 }
-
+                eL = 1176;
                 if (true)  //candidate for methodisation 22005161126
                 {
-                    string myEE02_String_FamilyFileName = myComboBox.SelectedValue.ToString();
+                    string myEE02_String_FamilyFileName = ((ElementAndSchedule)myListViewTypes.SelectedItem).elementType.Category.Id.IntegerValue.ToString();
                     string myString_FamilyFileDirectory = myThisApplication.myString_1400_filename_FirstHalf + "\\ALL Parameter Profiles (do not edit directly)\\";
                     if (!Directory.Exists(myString_FamilyFileDirectory)) Directory.CreateDirectory(myString_FamilyFileDirectory);
                     string myString_FamilyFileXAML = myString_FamilyFileDirectory + myEE02_String_FamilyFileName + ".xml";
@@ -1101,6 +1282,8 @@ namespace pkRevitScheduleEdit
                     if (myElementType2 != null) MakePropertiesGridHappen(myOC_ThreeVariables_Internal, myPropertiesGrid2, myElementType2);
                 }
 
+                
+                eL = 1192;
                 //myListView_Right.Items.Refresh();
                 e.Handled = true;
             }
@@ -1108,7 +1291,7 @@ namespace pkRevitScheduleEdit
             #region catch and finally
             catch (Exception ex)
             {
-                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(ex.Message + Environment.NewLine + ex.InnerException, true);
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("ListViewItem_PreviewMouseDoubleClick, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
             }
             finally
             {
@@ -1117,6 +1300,7 @@ namespace pkRevitScheduleEdit
         }
         public Element myPrivate_2020(bool myBoolPleaseSelectCheck) //store this in thumbs
         {
+
             UIDocument uidoc = myThisApplication.myExternalCommandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
 
@@ -1147,7 +1331,6 @@ namespace pkRevitScheduleEdit
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
             Properties.Settings.Default.Top = this.Top;
             Properties.Settings.Default.Left = this.Left;
             Properties.Settings.Default.Height = this.Height;
@@ -1157,14 +1340,13 @@ namespace pkRevitScheduleEdit
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Reload();
 
+            System.GC.Collect();
             //MessageBox.Show(this.Height.ToString());
         }
 
         private void MyPG_KeyUp(object sender, KeyEventArgs e)
         {
             myLabel.Visibility = System.Windows.Visibility.Visible;
-
-
         }
 
         private void MyPG_PreviewKeyUp(object sender, KeyEventArgs e)
@@ -1206,7 +1388,7 @@ namespace pkRevitScheduleEdit
 
                 //listElement_AggregatingAllSchedules
 
-
+               // MessageBox.Show("hello world");
             }
 
             #region catch and finally
@@ -1314,13 +1496,17 @@ namespace pkRevitScheduleEdit
             if (myBoolProceedToMakeChange)
             {
                 myElementType = doc.GetElement(myElementID_Previous) as ElementType;
+
+                if (myElementType == null) myElementType = doc.GetElement(myElementID_Previous);
+
                 MakePropertiesGridHappen(myOC_ThreeVariables_Internal, myPropertiesGrid, myElementType);
 
+                myTextBox_TypeNameOld_Category.Text = myElementType.Category.Name;
                 myTextBox_TypeNameOld.Text = myElementType.Name;
                 myTextBox_TypeNameNew.Text = myElementType.Name;
 
-                myTextBox_FamilyNameOld.Text = myElementType.FamilyName;
-                myTextBox_FamilyNameNew.Text = myElementType.FamilyName;
+                ////////////myTextBox_FamilyNameOld.Text = myElementType.FamilyName;
+                ////////////myTextBox_FamilyNameNew.Text = myElementType.FamilyName;
             }
         }
 
@@ -1370,8 +1556,6 @@ namespace pkRevitScheduleEdit
             }
             #endregion
         }
-
-
 
     }
 }

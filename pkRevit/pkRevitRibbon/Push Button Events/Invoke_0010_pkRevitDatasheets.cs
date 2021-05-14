@@ -33,15 +33,12 @@ namespace pkRevitRibbon
                 //if we're not setting the back one back instead of this sae
                 if (Properties.Settings.Default.MakeTheNextOneDevelopment)  //why is this here at all
                 {
-                    //TaskDialog.Show("Switch", "Please switch to development mode.");
                     Properties.Settings.Default.MakeTheNextOneDevelopment = false;
                     Properties.Settings.Default.Save();
                     Properties.Settings.Default.Reload();
-
-                   // return Result.Cancelled;
                 }
 
-                string path = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("TARGETDIR").ToString(); ;
+                string path = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Josh New Zealand\\pkRevit").GetValue("Path").ToString();
 
                 Assembly objAssembly01 = null;
 
@@ -119,8 +116,8 @@ namespace pkRevitRibbon
             #endregion
 
             return Result.Succeeded;
-
         }
+
         private static IEnumerable<Type> GetTypesSafely(Assembly assembly)
         {
             try
@@ -143,7 +140,6 @@ namespace pkRevitRibbon
         //string dllModuleFolder = "pkRevitDatasheets"; //<--------------------------------------------- edit here
         string dllModuleName = "pkRevitDatasheets.exe"; //<--------------------------------------------- edit here
 
-
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             try
@@ -156,7 +152,7 @@ namespace pkRevitRibbon
                 {
                     if (Properties.Settings.Default.MakeTheNextOneDevelopment | !System.IO.File.Exists(myString_TestFileLocation))
                     {
-                        string myString_DefaultLocation = RibbonSupportMethods.Method_InitialDirectory_Go_NoGo(myString_TestFileLocation);
+                        string myString_DefaultLocation = RibbonSupportMethods.Method_InitialDirectory_Go_NoGo(dllModuleName);
                         if (myString_DefaultLocation == null)
                         {
                             Properties.Settings.Default.MakeTheNextOneDevelopment = false;

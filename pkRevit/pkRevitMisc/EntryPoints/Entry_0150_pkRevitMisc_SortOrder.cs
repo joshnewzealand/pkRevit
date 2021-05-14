@@ -24,7 +24,6 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
             try
             {
-
                 myEE2333_AddSortIndextoSchedule = new CommandsWithWindows.Schedule_Manual_Sort_Order.EE2333_AddSortIndextoSchedule();
                 myExternalEvent_EE2333_AddSortIndextoSchedule = ExternalEvent.Create(myEE2333_AddSortIndextoSchedule);
                 // window2333_SortOrder = new pkRevitMisc.Schedule_Manual_Sort_Order.Window2333_SortOrder(commandData, this, true, 0);
@@ -41,8 +40,6 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             {
             }
             #endregion
-
-
 
             return Result.Succeeded;
         }

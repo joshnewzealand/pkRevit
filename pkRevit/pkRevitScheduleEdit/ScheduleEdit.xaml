@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:pkRevitScheduleEdit"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
         mc:Ignorable="d"
-       Title="Schedule Edit" Height="590" Width="1043" ResizeMode="CanResizeWithGrip" Closing="Window_Closing" Topmost="True" Loaded="Window_Loaded">
+       Title="Edit Type Parameters" Height="590" Width="1043" MinHeight="590" MinWidth="1043" ResizeMode="CanResizeWithGrip" Closing="Window_Closing" Topmost="True" Loaded="Window_Loaded">
 
     <Window.Resources>
         <local:StringToBoolConverter x:Key="StringToBoolConverterKey"></local:StringToBoolConverter>
@@ -14,7 +14,7 @@
 
     <Grid Grid.ColumnSpan="2" Margin="0,0,0,0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="108"/>
+            <RowDefinition Height="29"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid>
@@ -24,16 +24,16 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label x:Name="myLabel" Content="Not Saved" HorizontalAlignment="Right" Margin="0,0,168,7" VerticalAlignment="Bottom" Width="78" Foreground="Red" Visibility="Hidden" Height="26"/>
-            <Label Content="Old type name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="118" Margin="313,0,0,0"/>
-            <TextBox x:Name="myTextBox_TypeNameOld" Height="23" Margin="313,26,244,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False"/>
-            <Label Content="New type name" HorizontalAlignment="Left" Margin="313,49,0,0" VerticalAlignment="Top" Width="131"/>
-            <TextBox x:Name="myTextBox_TypeNameNew" Height="22" Margin="313,73,244,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-            <Label Content="Old family name" HorizontalAlignment="Left" VerticalAlignment="Top" Width="118"/>
-            <TextBox x:Name="myTextBox_FamilyNameOld" Height="24" Margin="0,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Width="298"/>
-            <Label Content="New family name" HorizontalAlignment="Left" Margin="0,50,0,0" VerticalAlignment="Top" Width="131"/>
-            <TextBox x:Name="myTextBox_FamilyNameNew" Height="22" Margin="0,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="298"/>
-            <ListView x:Name="myListViewMaster" Margin="0,-64,187,160" HorizontalAlignment="Right" Width="114">
+            <Label x:Name="myLabel" Content="Not Saved" HorizontalAlignment="Right" Margin="0,0,194,-43" VerticalAlignment="Bottom" Width="78" Foreground="Red" Height="26"  Visibility="Hidden" FontWeight="Bold"/>
+            <Label Content="New type name" HorizontalAlignment="Left" Margin="313,-155,0,0" VerticalAlignment="Top" Width="131"/>
+            <TextBox x:Name="myTextBox_TypeNameNew" Height="22" Margin="313,-131,244,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <Label Content="Family" HorizontalAlignment="Left" VerticalAlignment="Top" Width="118" Margin="0,-103,0,0"/>
+            <TextBox x:Name="myTextBox_FamilyNameOld" Height="24" Margin="0,-77,0,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" HorizontalAlignment="Left" Width="276"/>
+            <Label Content="New family name" HorizontalAlignment="Left" Margin="0,-154,0,0" VerticalAlignment="Top" Width="131"/>
+            <TextBox x:Name="myTextBox_FamilyNameNew" Height="22" Margin="0,-130,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  HorizontalAlignment="Left" Width="298"/>
+          
+            <!--
+            <ListView x:Name="myListViewMaster" Margin="0,-111,187,203" HorizontalAlignment="Right" Width="114">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
                         <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick3"/>
@@ -47,19 +47,19 @@
                         <GridViewColumn Header="Date Modified" DisplayMemberBinding="{Binding FamilyFileName}" Width="1000"/>
                     </GridView>
                 </ListView.View>
-            </ListView>
-            <Button x:Name="myButton_AddType" Content="!Add PRL_AppearsInSchedule" HorizontalAlignment="Right" Margin="0,26,10,0" VerticalAlignment="Top" Width="166" Click="myButton_AddType_Click"/>
-            <Button x:Name="myButton_AddType_Luminaires" Content="Add PRL_AppearsLuminaires" HorizontalAlignment="Right" Margin="0,3,15,0" VerticalAlignment="Top" Width="155" Click="myButton_AddType_Luminaires_Click" />
+            </ListView>-->
+            <Button x:Name="myButton_AddType" Content="!Add PRL_AppearsInSchedule" HorizontalAlignment="Right" Margin="0,3,7,0" VerticalAlignment="Top" Width="166" Click="myButton_AddType_Click"/>
+            <Button x:Name="myButton_AddType_Luminaires" Content="Add PRL_AppearsLuminaires" HorizontalAlignment="Right" Margin="0,4,176,0" VerticalAlignment="Top" Width="154" Click="myButton_AddType_Luminaires_Click" />
         </Grid>
         <Grid Margin="0,0,0,0" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="6*"/>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="myListView_Left" Grid.Column="1" Margin="0,56,0,0" >
+            <ListView x:Name="myListView_Left" Grid.Column="1" Margin="0,119,0,0" >
                 <ListView.Resources>
                     <Style TargetType="{x:Type GridViewColumnHeader}">
                         <Setter Property="HorizontalContentAlignment" Value="Left" />
@@ -68,7 +68,7 @@
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick"/>
+                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick_AddParameter"/>
                         <Setter Property="VerticalContentAlignment" Value="Top"/>
                     </Style>
                 </ListView.ItemContainerStyle>
@@ -90,11 +90,11 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <ListView x:Name="myListView_Right" Grid.Column="2"   >
+            <ListView x:Name="myListView_Right" Grid.Column="2" Margin="0,119,0,0"   >
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick2"/>
+                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick_RemovingParameter"/>
                         <Setter Property="VerticalContentAlignment" Value="Top"/>
                     </Style>
                 </ListView.ItemContainerStyle>
@@ -105,8 +105,8 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-            <xctk:PropertyGrid x:Name="myPropertiesGrid" PreviewKeyUp="MyPG_PreviewKeyUp" Grid.Column="3" Margin="0,0,0,31"/>
-            <xctk:PropertyGrid x:Name="myPropertiesGrid2" Grid.Column="4" Margin="0,0,0,31"/>
+            <xctk:PropertyGrid x:Name="myPropertiesGrid" PreviewKeyUp="MyPG_PreviewKeyUp" Grid.Column="3" Margin="0,48,0,31"/>
+            <xctk:PropertyGrid x:Name="myPropertiesGrid2" Grid.Column="4" Margin="0,48,0,31"/>
             <!--
                 <ListView x:Name="myListViewMaster" Margin="0,0,0,31">
                     <ListView.Resources>
@@ -130,12 +130,12 @@
             <Button x:Name="myCopyOver" Content="🠐 Copy&#xA;" Grid.Column="4" Margin="10,0,0,6" VerticalAlignment="Bottom" Height="20" HorizontalAlignment="Left" Width="61" Click="MyCopyOver_Click"/>
             <Button x:Name="myButtonRepickOriginal" Content="Repick" Grid.Column="3" HorizontalAlignment="Left" Margin="147,0,0,6" VerticalAlignment="Bottom" Width="43" Click="MyButtonRepickOriginal_Click"/>
             <Button x:Name="myThrow" Content="Throw" Grid.Column="3" HorizontalAlignment="Left" Margin="195,0,0,6" VerticalAlignment="Bottom" Width="48" Click="MyThrow_Click"/>
-            <ListView x:Name="myListViewTypes" Margin="0,56,0,0">
+            <ListView x:Name="myListViewTypes" Margin="0,119,0,0" >
 
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="{x:Type ListViewItem}">
-                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick4"/>
+                        <EventSetter Event="Control.PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick_DisplayEntityParameters"/>
                         <Setter Property="VerticalContentAlignment" Value="Top"/>
 
                         <Style.Resources>
@@ -159,14 +159,21 @@
                     <GridView>
                         <GridViewColumn Header="ALL_Families_Master_List" Width="1000">
                             <GridViewColumn.DisplayMemberBinding>
-                                <MultiBinding StringFormat="{}({0}) {1}" >
-                                    <Binding Path="elementType.Parameters" Converter="{StaticResource StringToBoolConverterKey}" />
-                                    <Binding Path="elementType.Name"/>
+                                <MultiBinding StringFormat="{}{0}" >
+                                    <Binding Path="elementType" Converter="{StaticResource StringToBoolConverterKey}" />
+                                    <!--
+                                             <Binding Path="elementType.Name"/>
+                                    <Binding Path="elementType.FamilyName"/>                            
+                                    -->
+
+
                                 </MultiBinding>
                             </GridViewColumn.DisplayMemberBinding>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
+
+
 
                 <ListView.GroupStyle>
                     <GroupStyle>
@@ -184,7 +191,7 @@
 
             </ListView>
 
-            <ComboBox x:Name="myComboBox" Grid.ColumnSpan="2" VerticalAlignment="Top" SelectedIndex="3" Margin="6,0,5,0" DropDownClosed="ComboBox_DropDownClosed">
+            <ComboBox x:Name="myComboBox" Grid.ColumnSpan="2" VerticalAlignment="Top" SelectedIndex="3" Margin="6,48,5,0" DropDownClosed="ComboBox_DropDownClosed">
                 <!--
                 <ComboBoxItem Content="Communication Devices"></ComboBoxItem>
                 <ComboBoxItem Content="Data Devices"></ComboBoxItem>
@@ -196,8 +203,15 @@
                 <ComboBoxItem Content="Security Devices"></ComboBoxItem>
 -->
             </ComboBox>
-            <RadioButton x:Name="rb_GroupedBySchedule" Content="Grouped by Schedule" HorizontalAlignment="Left" Margin="95,31,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Checked="rb_GroupedBySchedule_Checked"/>
-            <RadioButton x:Name="rb_Loose" Content="Loose" HorizontalAlignment="Left" Margin="25,31,0,0" VerticalAlignment="Top" IsChecked="True" Checked="rb_Loose_Checked"/>
+            <RadioButton x:Name="rb_GroupedBySchedule" Content="Grouped by Schedule" HorizontalAlignment="Left" Margin="95,76,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Checked="rb_GroupedBySchedule_Checked"/>
+            <RadioButton x:Name="rb_Loose" Content="Loose" HorizontalAlignment="Left" Margin="25,76,0,0" VerticalAlignment="Top" IsChecked="True" Checked="rb_Loose_Checked"/>
+            <TextBox x:Name="myTextBox_TypeNameOld" Height="23" Margin="3,20,3,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="2"/>
+            <Label Content="Type" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Margin="4,-6,0,0" Grid.ColumnSpan="2" Grid.Column="2"/>
+            <TextBox x:Name="myTextBox_TypeNameOld_Category" Height="23" Margin="6,20,5,0" TextWrapping="Wrap" VerticalAlignment="Top" IsEnabled="False" Grid.ColumnSpan="2"/>
+            <Label Content="Category" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Margin="10,-6,0,0" Grid.ColumnSpan="2"/>
+            <Label Content=" ↓ DOUBLE CLICK TO ADD ↓" Grid.Column="1" HorizontalAlignment="Left" Margin="3,96,0,0" VerticalAlignment="Top" Width="132" FontSize="10"/>
+            <Label Content=" ↓ DOUBLE CLICK TO SHOW ↓" HorizontalAlignment="Left" Margin="0,96,0,0" VerticalAlignment="Top" Width="143" FontSize="10"/>
+            <Label Content=" ↓ DOUBLE CLICK TO REMOVE ↓" Grid.Column="2" HorizontalAlignment="Left" Margin="0,96,0,0" VerticalAlignment="Top" Width="148" FontSize="10"/>
         </Grid>
     </Grid>
 

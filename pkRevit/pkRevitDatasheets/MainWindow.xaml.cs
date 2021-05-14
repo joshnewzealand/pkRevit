@@ -308,12 +308,12 @@ namespace pkRevitDatasheets
 
             named_guid = ng;
 
-            win_moreParam = new Window_MoreParameters(this);
-
-            this.Top = Properties.Settings.Default.Top;
+              this.Top = Properties.Settings.Default.Top;
             this.Left = Properties.Settings.Default.Left;
 
             InitializeComponent();
+
+            win_moreParam = new Window_MoreParameters(this);
 
             ProjectNameConverter converter = (ProjectNameConverter)this.FindResource("ProjectNameConverter");
 
@@ -406,8 +406,6 @@ namespace pkRevitDatasheets
 
             named_guid = Guid.Parse("00000000-0000-0000-0000-000000000000");
 
-            win_moreParam = new Window_MoreParameters(this);
-
             this.Top = Properties.Settings.Default.Top;
             this.Left = Properties.Settings.Default.Left;
 
@@ -415,6 +413,8 @@ namespace pkRevitDatasheets
 
 
             InitializeComponent();
+
+            win_moreParam = new Window_MoreParameters(this);
 
             ProjectNameConverter converter = (ProjectNameConverter)this.FindResource("ProjectNameConverter");
 
@@ -613,7 +613,15 @@ namespace pkRevitDatasheets
 
                 if (!dict_GuidToAlias.ContainsKey(named_guid))
                 {
-                    s_NewAliasName = Microsoft.VisualBasic.Interaction.InputBox("Happy with this name?", "This is the first time we've saved from this Project.", s_NewAliasName, -1, -1);
+                    if(s_NewAliasName == "")
+                    {
+                        s_NewAliasName = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name....", "This is the first time we've saved from this Project.", s_NewAliasName, -1, -1);
+                    } else
+                    {
+                        s_NewAliasName = Microsoft.VisualBasic.Interaction.InputBox("Happy with this name?", "This is the first time we've saved from this Project.", s_NewAliasName, -1, -1);
+                    }
+
+                    
 
                     if (s_NewAliasName == "") s_NewAliasName = "Revit Project Alias Name";
 
@@ -622,7 +630,6 @@ namespace pkRevitDatasheets
                     DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<Guid, string>));  //four of four
                     serializer.WriteObject(stream, dict_GuidToAlias); stream.Close();
                 }
-
 
 
                 ComboBoxProjectFilter.ItemsSource = dict_GuidToAlias;
@@ -1817,9 +1824,7 @@ namespace pkRevitDatasheets
 
         Func<Task> testFunc = async () =>
         {
-
             await Task.Delay(100);
-
         };
 
         private void Window_Loaded(object sender, RoutedEventArgs e)  //Window_Loaded  RoutedEventArgs
@@ -1829,11 +1834,11 @@ namespace pkRevitDatasheets
             try
             {
                 using (var hklm = Microsoft.Win32.RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
-                using (var key = hklm.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand"))
+                using (var key = hklm.OpenSubKey("SOFTWARE\\Josh New Zealand\\pkRevit"))
                 {
                     //string stringProductVersion = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\PRearch 2019").GetValue("ProductVersion").ToString();
                     //string stringProductVersion = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\pkRevit joshnewzealand").GetValue("ProductVersion").ToString();
-                    labelBuild.Content = "Build: " + key.GetValue("ProductVersion").ToString();
+                    labelBuild.Content = "Build: " + key.GetValue("Version").ToString();
                 }
 
                 textBoxSearch.Focus();
@@ -3510,7 +3515,7 @@ namespace pkRevitDatasheets
 
             if (results.Cast<DataRow>().Count() != 0)
             {
-                method_UpdateEntry(viewschedule, (Int64)results.Cast<DataRow>().ToList()[0][0], string_SearchStringAccumlation());
+                method_UpdateEntry(viewschedule.Id.IntegerValue, viewschedule.Name, (Int64)results.Cast<DataRow>().ToList()[0][0], string_SearchStringAccumlation());
             }
             else
             {
@@ -3633,9 +3638,32 @@ namespace pkRevitDatasheets
 
                 eL = 3275;
 
-                //foreach (Element element in new FilteredElementCollector(doc, viewschedule.Id).GroupBy(x => x.GetTypeId().IntegerValue).Reverse().Select(x => x.First()))
-                    foreach (Element element in new FilteredElementCollector(doc, viewschedule.Id).GroupBy(x => x.GetTypeId().IntegerValue).Select(x => x.First()).OrderByDescending(x => doc.GetElement(x.GetTypeId()).get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsString()))
+                List<Element> listElement = null;
+
+                if(viewschedule.Definition.GetSortGroupFieldCount() > 0)
+                {
+                    ScheduleSortGroupField scgf = viewschedule.Definition.GetSortGroupField(0);
+
+                    ScheduleField sf = viewschedule.Definition.GetField(scgf.FieldId);
+
+                    if(sf.GetName().StartsWith("SortOrder_"))
                     {
+                        listElement = new FilteredElementCollector(doc, viewschedule.Id).GroupBy(x => x.GetTypeId().IntegerValue).Select(x => x.First()).OrderByDescending(x => doc.GetElement(x.GetTypeId()).get_Parameter((BuiltInParameter)sf.ParameterId.IntegerValue).AsInteger()).ToList();
+                    } else
+                    {
+                        listElement = new FilteredElementCollector(doc, viewschedule.Id).GroupBy(x => x.GetTypeId().IntegerValue).Select(x => x.First()).ToList();
+                    }
+                } else
+                {
+                    listElement = new FilteredElementCollector(doc, viewschedule.Id).GroupBy(x => x.GetTypeId().IntegerValue).Select(x => x.First()).ToList();
+                }
+
+
+                eL = 3646;
+                //                foreach (Element element in new FilteredElementCollector(doc, viewschedule.Id).GroupBy(x => x.GetTypeId().IntegerValue).Select(x => x.First()).Reverse())
+                //                    foreach (Element element in new FilteredElementCollector(doc, viewschedule.Id).GroupBy(x => x.GetTypeId().IntegerValue).Select(x => x.First()).OrderByDescending(x => doc.GetElement(x.GetTypeId()).get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsString()))
+                foreach (Element element in listElement)
+                {
                     extract_And_Insert_Update(false, uidoc, new Tuple<Element, Element>(element, doc.GetElement(element.GetTypeId())), false); //  Tuple<Element, Element> couldBeNull
                 }
 
@@ -4758,7 +4786,7 @@ namespace pkRevitDatasheets
         ////////////////////    }
         ////////////////////    #endregion
         ////////////////////}
-        private void method_UpdateEntry(ViewSchedule viewschedule, Int64 index, string str_SearchTerms)
+        private void method_UpdateEntry(int viewscheduleIdIntegerValue, string viewscheduleName, Int64 index, string str_SearchTerms)
         {
             int eL = -1;
             try
@@ -4769,7 +4797,7 @@ namespace pkRevitDatasheets
                 {
                     //here it is please add a new field here, and to the start DB
                     eL = 2953;
-                    if(viewschedule == null)
+                    if(viewscheduleName == "")
                     {
                         cmdInsert.CommandText = @"update [pkRevitMasterTable] SET [SearchTerms] = @b, [Date] = julianday('now') WHERE ID = @a";
                         cmdInsert.Parameters.Clear();
@@ -4778,8 +4806,8 @@ namespace pkRevitDatasheets
                     {
                         cmdInsert.CommandText = @"update [pkRevitMasterTable] SET [SearchTerms] = @b,  [ScheduleID] = @c,  [ScheduleName] = @d, [Date] = julianday('now') WHERE ID = @a";
                         cmdInsert.Parameters.Clear();
-                        cmdInsert.Parameters.AddWithValue("@c", viewschedule.Id.IntegerValue);
-                        cmdInsert.Parameters.AddWithValue("@d", viewschedule.Name);
+                        cmdInsert.Parameters.AddWithValue("@c", viewscheduleIdIntegerValue);
+                        cmdInsert.Parameters.AddWithValue("@d", viewscheduleName);
                     }
 
                     //cmdInsert.CommandText = @"update [pkRevitMasterTable] SET [Category] = @c, [SearchTerms] = @b, [Date] = julianday('now') WHERE ID = @a";
@@ -5001,7 +5029,7 @@ namespace pkRevitDatasheets
                             win_moreParam.lv_Result_Project.ItemsSource = null;
                         }
                     }
-                    method_UpdateEntry(null, (Int64)dr[0], string_SearchStringAccumlation());
+                    method_UpdateEntry(-1,"", (Int64)dr[0], string_SearchStringAccumlation());
                 }
 
 

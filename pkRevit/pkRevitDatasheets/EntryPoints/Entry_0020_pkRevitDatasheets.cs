@@ -67,10 +67,10 @@ namespace pkRevitDatasheets.EntryPoints  //Entry_0010_pkRevitDatasheets
             }
             GC.Collect();
 
-            string str_CR = Environment.NewLine + "CLICK REFRESH";
-            str_CR = str_CR + str_CR + str_CR;
+            string str_CR = Environment.NewLine + "Please click but 'Refresh' the in the STORE ATTACHMENTS App." + Environment.NewLine + Environment.NewLine + "A shortcut is on your desktop.";
+            str_CR = str_CR;// + Environment.NewLine + Environment.NewLine + "(It is the little green button in the bottom right corner of the main listview).";
 
-            if (myBool_ShowMessageBox) TaskDialog.Show("Commplete", "Schedule has been exported" + str_CR);
+            if (myBool_ShowMessageBox) TaskDialog.Show("Complete", "Schedule has been exported." + Environment.NewLine + str_CR);
 
             if (false)
             {

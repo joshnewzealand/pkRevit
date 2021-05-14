@@ -250,24 +250,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Push Button Events\Invoke_0200_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0040_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0050_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0060_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0080_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0090_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0100_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0110_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0120_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0130_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0140_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0150_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0160_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0170_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0180_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0190_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0030_pkRevitDatasheets.cs" />
-    <Compile Include="Push Button Events\Invoke_0020_pkRevitDatasheets.cs" />
+    <Compile Include="Push Button Events\Invoke_0090_pkRevitMisc_Walls.cs" />
+    <Compile Include="Push Button Events\Invoke_0090_pkRevitMisc_LinesPatterns.cs" />
+    <Compile Include="Push Button Events\Invoke_0090_pkRevitMisc_LinesWeights.cs" />
+    <Compile Include="Push Button Events\Invoke_0200_pkRevitMisc_NurfGun_Delete.cs" />
+    <Compile Include="Push Button Events\Invoke_0210_pkRevitMisc_LoadFamilies.cs" />
+    <Compile Include="Push Button Events\Invoke_0220_pkRevitMisc_LayoutRoom.cs" />
+    <Compile Include="Push Button Events\Invoke_0200_pkRevitMisc_NurfGun.cs" />
+    <Compile Include="Push Button Events\Invoke_0040_pkRevitMisc_BrintToFront.cs" />
+    <Compile Include="Push Button Events\Invoke_0050_pkRevitMisc_SizePositionViewport.cs" />
+    <Compile Include="Push Button Events\Invoke_0060_pkRevitMisc_Filters.cs" />
+    <Compile Include="Push Button Events\Invoke_0080_pkRevitMisc_Spacers.cs" />
+    <Compile Include="Push Button Events\Invoke_0090_pkRevitMisc_Lines.cs" />
+    <Compile Include="Push Button Events\Invoke_0100_pkRevitMisc_DrawArrows.cs" />
+    <Compile Include="Push Button Events\Invoke_0110_pkRevitMisc_TypesAndTags.cs" />
+    <Compile Include="Push Button Events\Invoke_0120_pkRevitMisc_MakeAPlatform.cs" />
+    <Compile Include="Push Button Events\Invoke_0130_pkRevitMisc_SelectReferencePoint.cs" />
+    <Compile Include="Push Button Events\Invoke_0140_pkRevitMisc_RotatePlatform.cs" />
+    <Compile Include="Push Button Events\Invoke_0150_pkRevitMisc_SortOrder.cs" />
+    <Compile Include="Push Button Events\Invoke_0160_pkRevitMisc_EditSchedule.cs" />
+    <Compile Include="Push Button Events\Invoke_0170_pkRevitMisc_AddFields.cs" />
+    <Compile Include="Push Button Events\Invoke_0180_pkRevitMisc_SmileyFace.cs" />
+    <Compile Include="Push Button Events\Invoke_0190_pkRevitMisc_UnderStandingTransforms.cs" />
+    <Compile Include="Push Button Events\Invoke_0030_pkRevitMisc_OpenParentView.cs" />
+    <Compile Include="Push Button Events\Invoke_0020_pkRevitDatasheets_WholeSchedule.cs" />
     <Compile Include="Push Button Events\InvokesToSetDevelopmentPaths.cs" />
     <Compile Include="Push Button Events\Invoke_0010_pkRevitDatasheets.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -311,6 +317,9 @@
     <Content Include="Images\Button0080_Spacers.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\Button0090_Walls.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Images\Button0110_TypesAndTags2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -348,6 +357,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\Button0180_SmileyFace.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0210_LoadFamilies.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\Button0220_LayoutRoom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\drawweights.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\drawpatterns.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

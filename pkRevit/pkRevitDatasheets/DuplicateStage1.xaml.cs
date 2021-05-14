@@ -45,7 +45,6 @@ namespace pkRevitDatasheets
                     return;
                 }
 
-
                     MessageBoxResult result = System.Windows.MessageBox.Show("Delete '" + combing_models.model2._view.myLabel_Directory.Content + "'?", "Warning", System.Windows.MessageBoxButton.YesNoCancel);
 
                 if (result != MessageBoxResult.Yes) return;

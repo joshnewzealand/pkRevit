@@ -9,7 +9,7 @@
 	xmlns:t="clr-namespace:QuickZip.Tools"    
 	xmlns:localhelp2="clr-namespace:pkRevitDatasheets.Converters"    
         mc:Ignorable="d"
-        Title="Schedule-to-Datasheet Lookup" Height="384" Width="1300" ContentRendered="Window_ContentRendered" MinHeight="800" MinWidth="1300" Loaded="Window_Loaded" Closing="Window_Closing" ResizeMode="CanResizeWithGrip">
+        Title="STORE ATTACHMENTS - Schedule-to-Datasheet Lookup" Height="384" Width="1300" ContentRendered="Window_ContentRendered" MinHeight="800" MinWidth="1300" Loaded="Window_Loaded" Closing="Window_Closing" ResizeMode="CanResizeWithGrip">
 
 
     <Window.Resources>

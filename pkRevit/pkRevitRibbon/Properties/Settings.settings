@@ -41,5 +41,11 @@
     <Setting Name="pkRevit_DevLocation_CircleOutFamilies" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="pkRevit_LoadName_LoadingPlacing_Families" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="pkRevit_DevLocation_LoadingPlacing_Families" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>
