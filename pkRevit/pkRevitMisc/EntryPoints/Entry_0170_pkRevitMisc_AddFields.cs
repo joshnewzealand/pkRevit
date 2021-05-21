@@ -26,7 +26,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             toavoidloadingrevitdlls.commandData = commandData;
             toavoidloadingrevitdlls.executionLocation = executionLocation;
 
-            Window1617_AddEditParameters myWindowWindow1617 = new Window1617_AddEditParameters(commandData);
+            Window1617_AddEditParameters myWindowWindow1617 = new Window1617_AddEditParameters(toavoidloadingrevitdlls);
 
             try
             {

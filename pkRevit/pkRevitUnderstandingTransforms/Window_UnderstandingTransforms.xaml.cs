@@ -76,6 +76,14 @@ namespace RevitTransformSliders
         public EE06_PlaceFamily myEE06_PlaceFamily { get; set; }
         public ExternalEvent myExternalEvent_EE06_PlaceFamily { get; set; }
 
+        ////myEE06_PlaceFamily = new EE06_PlaceFamily();
+        ////myEE06_PlaceFamily.myWindow1 = this;
+        ////    myEE06_PlaceFamily.mySlider_Rotate_BasisZ = mySlider_Rotate_BasisZ;
+        ////    myEE06_PlaceFamily.mySlider_Rotate_BasisX = mySlider_Rotate_BasisX;
+        ////    myEE06_PlaceFamily.mySlider_Rotate_BasisY = mySlider_Rotate_BasisY;
+        ////    myEE06_PlaceFamily.setSliderClassInstance = setSliderClassInstance;
+        ////    myExternalEvent_EE06_PlaceFamily = ExternalEvent.Create(myEE06_PlaceFamily);
+
         public string messageConst { get; set; }
         public ExternalCommandData commandData { get; set; }
 

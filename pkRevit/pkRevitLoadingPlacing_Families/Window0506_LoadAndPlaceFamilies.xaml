@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pkRevitLoadingPlacing_Families"
         mc:Ignorable="d"
-        Title="Double-click to place a family" Height="502.812" Width="299.389" Loaded="Window_Loaded" Closing="Window_Closing" ResizeMode="NoResize">
+        Title="Double-click to place a family" Height="502.812" Width="334.389" Loaded="Window_Loaded" Closing="Window_Closing" ResizeMode="NoResize">
     <Grid>
-        <ListView x:Name="myListView" Margin="10,35,10,87">
+        <ListView x:Name="myListView" Margin="10,54,10,87">
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
@@ -31,7 +31,7 @@
 
         </ListView>
         <Button x:Name="myButton_LoadAllFamilies" Content="Load all families into the&#xD;&#xA;model (takes 10 seconds)" Margin="28,402,30,0"  Height="41" VerticalAlignment="Top" Click="myButton_LoadAllFamilies_Click"/>
-        <Label Content="DOUBLE CLICK to place a family" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="238"/>
+        <Label Content="DOUBLE CLICK to place a family, please note...the first&#xD;&#xA;placement of a family takes a little longer due to loading." HorizontalAlignment="Left" Margin="4,5,-6,0" VerticalAlignment="Top" Width="320"/>
 
     </Grid>
 </Window>

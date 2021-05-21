@@ -519,7 +519,7 @@
                 </Button.Background>
             </Button>
         </Grid>
-        <Label x:Name="lbl_ScheduleName_Project" Content="" Margin="-550,322,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="478"/>
+        <!-- <Label x:Name="lbl_ScheduleName_Project" Content="" Margin="-550,322,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="478"/>-->
         <Label x:Name="lbl_ScheduleName" Content="" Margin="-572,348,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="500"/>
         <Button x:Name="buttonNewFromRevit"  FontSize="12"  Content="New From Revit/Sync Parameters" Height="26" Margin="4,28,0,0" VerticalAlignment="Top" Click="buttonNewFromRevit_Click" IsEnabled="False" HorizontalAlignment="Left" Width="205" />
         <Button x:Name="buttonReselect"  FontSize="12"  Content="Reselect from Revit" Height="26" Margin="214,28,0,0" VerticalAlignment="Top" Click="buttonReselect_Click" IsEnabled="False" HorizontalAlignment="Left" Width="112"/>

@@ -31,3 +31,4 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitScheduleEdit\o
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitScheduleEdit\obj\Debug\pkRevitScheduleEdit.csproj.CopyComplete
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitScheduleEdit\obj\Debug\pkRevitScheduleEdit.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitScheduleEdit\obj\Debug\pkRevitScheduleEdit.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitScheduleEdit\obj\Debug\pkRevitScheduleEdit.csproj.CoreCompileInputs.cache

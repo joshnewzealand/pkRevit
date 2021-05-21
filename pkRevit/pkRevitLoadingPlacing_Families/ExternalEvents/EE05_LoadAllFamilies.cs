@@ -17,6 +17,10 @@ namespace pkRevitLoadingPlacing_Families
     public class EE05_LoadAllFamilies : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
         public Window0506_LoadAndPlaceFamilies myWindow1 { get; set; }
+        public string string_JustLoadThisOne  { get; set; }
+
+        public bool bool_Loop_UntilFinished { get; set; } = false;
+        
 
         public void Execute(UIApplication uiapp)
         {
@@ -56,6 +60,8 @@ namespace pkRevitLoadingPlacing_Families
 
                 foreach (Window0506_LoadAndPlaceFamilies.ListView_Class myListView_Class in myWindow1.myListClass)
                 {
+                    if (string_JustLoadThisOne != "") if (string_JustLoadThisOne != myListView_Class.String_Name) continue;
+
                     eL = 59;
                     List<Element> myListFamily = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == myListView_Class.String_Name).ToList();
 
@@ -86,7 +92,9 @@ namespace pkRevitLoadingPlacing_Families
 
                 string myStringStart = myInt.ToString() + " families have been loaded: " + Environment.NewLine + Environment.NewLine;
 
-                MessageBox.Show(myStringStart + myStringMessageBox + Environment.NewLine + Environment.NewLine + "This only happens once per project.");
+                if (string_JustLoadThisOne == "") MessageBox.Show(myStringStart + myStringMessageBox + Environment.NewLine + Environment.NewLine + "This only happens once per project.");
+
+                bool_Loop_UntilFinished  = false;
             }
 
             #region catch and finally

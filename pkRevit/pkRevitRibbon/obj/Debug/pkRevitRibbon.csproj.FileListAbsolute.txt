@@ -82,3 +82,4 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Deb
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.csproj.CopyComplete
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitRibbon\obj\Debug\pkRevitRibbon.csproj.CoreCompileInputs.cache

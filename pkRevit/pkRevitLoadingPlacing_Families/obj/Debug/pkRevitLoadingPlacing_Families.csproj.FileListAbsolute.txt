@@ -29,3 +29,7 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitLoadingPlacing
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitLoadingPlacing_Families\obj\Debug\pkRevitLoadingPlacing_Families.csproj.CopyComplete
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitLoadingPlacing_Families\obj\Debug\pkRevitLoadingPlacing_Families.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitLoadingPlacing_Families\obj\Debug\pkRevitLoadingPlacing_Families.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitLoadingPlacing_Families\bin\Debug\Families\Recessed Downlight Face Based.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitLoadingPlacing_Families\bin\Debug\Families\Recessed Troffer Face Based.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitLoadingPlacing_Families\bin\Debug\Families\Statue Virgin Mary.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitLoadingPlacing_Families\obj\Debug\pkRevitLoadingPlacing_Families.csproj.CoreCompileInputs.cache

@@ -23,6 +23,8 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
+    <ROW Directory="AddEditParameters_Dir" Directory_Parent="CommandsWithWindows_Dir" DefaultDir="ADDEDI~1|Add Edit Parameters"/>
+    <ROW Directory="CommandsWithWindows_Dir" Directory_Parent="APPDIR" DefaultDir="COMMAN~1|CommandsWithWindows"/>
     <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
     <ROW Directory="Families2019_Dir" Directory_Parent="APPDIR" DefaultDir="FAMILI~1|Families 2019"/>
     <ROW Directory="Families_Dir" Directory_Parent="APPDIR" DefaultDir="Families"/>
@@ -35,6 +37,7 @@
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCompsComponent">
     <ROW Component="APPDIR" ComponentId="{9EA605EB-8BB2-4EB2-9118-73BE98C6180C}" Directory_="APPDIR" Attributes="0"/>
     <ROW Component="ButtonImageUninstall.png" ComponentId="{578A8B92-A9B3-4916-8D96-26D5D372171A}" Directory_="Images_Dir" Attributes="0" KeyPath="ButtonImageUninstall.png" Type="0"/>
+    <ROW Component="CategoryInstanceALL.txt" ComponentId="{5D0EFC23-94DA-4D7D-9E4C-5519DD8DEEBA}" Directory_="AddEditParameters_Dir" Attributes="0" KeyPath="CategoryInstanceALL.txt" Type="0"/>
     <ROW Component="FurnitureChairExecutive.rfa" ComponentId="{9ACDD67C-A321-471E-A6E6-BAC192FFE045}" Directory_="Families_Dir" Attributes="0" KeyPath="FurnitureChairExecutive.rfa" Type="0"/>
     <ROW Component="Microsoft.WindowsAPICodePack.Shell.dll" ComponentId="{F8736A70-D977-4AD1-854B-7287F2D4FBB8}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.WindowsAPICodePack.Shell.dll"/>
     <ROW Component="Microsoft.WindowsAPICodePack.dll" ComponentId="{93F21B29-8F8B-43FA-85A8-411BB2ECBF0C}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.WindowsAPICodePack.dll"/>
@@ -57,6 +60,7 @@
     <ROW Component="pkRevitRibbon.dll" ComponentId="{91F88822-93C0-4457-AC5D-E8E70BF8C429}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitRibbon.dll"/>
     <ROW Component="pkRevitScheduleEdit.dll" ComponentId="{BE68AB86-419C-4E28-A457-FB41B62B31C9}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitScheduleEdit.dll"/>
     <ROW Component="pkRevitUnderstandingTransforms.dll" ComponentId="{11350A90-9BDF-4370-8DE2-A74ABA6BC63A}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitUnderstandingTransforms.dll"/>
+    <ROW Component="pkRevitViewportManagement.dll" ComponentId="{DDB8FB32-F76A-4B98-8A24-D43DA51196BB}" Directory_="APPDIR" Attributes="0" KeyPath="pkRevitViewportManagement.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
@@ -149,6 +153,17 @@
     <ROW File="MetricDetailItem2019.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~1.RFT|Metric Detail Item 2019.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2019.rft" SelfReg="false"/>
     <ROW File="MetricDetailItem2017.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~4.RFT|Metric Detail Item 2017.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2017.rft" SelfReg="false"/>
     <ROW File="MetricDetailItem2018.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~5.RFT|Metric Detail Item 2018.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2018.rft" SelfReg="false"/>
+    <ROW File="pkRevitViewportManagement.dll" Component_="pkRevitViewportManagement.dll" FileName="PKREVI~2.DLL|pkRevitViewportManagement.dll" Attributes="0" SourcePath="pkRevitViewportManagement\bin\Debug\pkRevitViewportManagement.dll" SelfReg="false"/>
+    <ROW File="CategoryInstanceALL.txt" Component_="CategoryInstanceALL.txt" FileName="CATEGO~1.TXT|CategoryInstanceALL.txt" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryInstanceALL.txt" SelfReg="false"/>
+    <ROW File="CategoryInstanceSpecific.txt" Component_="CategoryInstanceALL.txt" FileName="CATEGO~2.TXT|CategoryInstanceSpecific.txt" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryInstanceSpecific.txt" SelfReg="false"/>
+    <ROW File="CategoryTypeALL.txt" Component_="CategoryInstanceALL.txt" FileName="CATEGO~3.TXT|CategoryTypeALL.txt" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryTypeALL.txt" SelfReg="false"/>
+    <ROW File="CategoryTypeFamily.txt" Component_="CategoryInstanceALL.txt" FileName="CATEGO~4.TXT|CategoryTypeFamily.txt" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryTypeFamily.txt" SelfReg="false"/>
+    <ROW File="CategoryTypeSpecific.txt" Component_="CategoryInstanceALL.txt" FileName="CATEGO~5.TXT|CategoryTypeSpecific.txt" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryTypeSpecific.txt" SelfReg="false"/>
+    <ROW File="README.txt" Component_="CategoryInstanceALL.txt" FileName="README~1.TXT|READ ME.txt" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\READ ME.txt" SelfReg="false"/>
+    <ROW File="RecessedPanellightFaceBased.rfa" Component_="FurnitureChairExecutive.rfa" FileName="RECESS~3.RFA|Recessed Troffer Face Based.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Recessed Troffer Face Based.rfa" SelfReg="false"/>
+    <ROW File="RecessedDownlightFaceBased.rfa" Component_="FurnitureChairExecutive.rfa" FileName="RECESS~2.RFA|Recessed Downlight Face Based.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Recessed Downlight Face Based.rfa" SelfReg="false"/>
+    <ROW File="StatueVirginMary.rfa" Component_="FurnitureChairExecutive.rfa" FileName="STATUE~1.RFA|Statue Virgin Mary.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Statue Virgin Mary.rfa" SelfReg="false"/>
+    <ROW File="MetricDetailItem2022.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~6.RFT|Metric Detail Item 2022.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2022.rft" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -171,7 +186,7 @@
     <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="System.Buffers.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FileDependencyOptionComponent">
-    <ROW File="pkRevitCustomActions.dll" Exclude="mscorlib.dll|System.dll|System.Configuration.Install.dll|System.Xml.Linq.dll|System.Windows.Forms.dll|System.Core.dll|PresentationFramework.dll|System.Xaml.dll|WindowsBase.dll|PresentationCore.dll|System.Drawing.dll|System.ComponentModel.DataAnnotations.dll|System.Design.dll|System.Security.dll|System.Data.dll|System.Transactions.dll|System.Xml.dll|WindowsFormsIntegration.dll|netstandard.dll|System.Numerics.Vectors.dll|System.Runtime.dll" Sha1="19d3812ae51ff9a4e2173942fcc9d61f25438433"/>
+    <ROW File="pkRevitCustomActions.dll" Exclude="mscorlib.dll|System.dll|System.Configuration.Install.dll|System.Xml.Linq.dll|System.Windows.Forms.dll|System.Core.dll|PresentationFramework.dll|System.Xaml.dll|WindowsBase.dll|PresentationCore.dll|System.Drawing.dll|System.ComponentModel.DataAnnotations.dll|System.Design.dll|System.Security.dll|System.Data.dll|System.Transactions.dll|System.Xml.dll|WindowsFormsIntegration.dll|netstandard.dll|System.Numerics.Vectors.dll|System.Runtime.dll" Sha1="44b4c38b75fb6d1fdf80b7d368e66c0e1b226b69"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
@@ -264,6 +279,8 @@
     <ROW Feature_="MainFeature" Component_="System.Memory.dll"/>
     <ROW Feature_="MainFeature" Component_="System.Runtime.CompilerServices.Unsafe.dll"/>
     <ROW Feature_="MainFeature" Component_="System.Buffers.dll"/>
+    <ROW Feature_="MainFeature" Component_="pkRevitViewportManagement.dll"/>
+    <ROW Feature_="MainFeature" Component_="CategoryInstanceALL.txt"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>

@@ -14,22 +14,22 @@ using System.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
 using Autodesk.Revit.DB;
 #pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
 using Autodesk.Revit.DB.Electrical;
 #pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
 using Autodesk.Revit.DB.Mechanical; //global2019.
 #pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
 using Autodesk.Revit.DB.Plumbing;
 #pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
 using Autodesk.Revit.UI;
 #pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
 using Autodesk.Revit.UI.Selection;
 #pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
 
@@ -94,7 +94,11 @@ namespace _937_PRLoogle_Command02
             try
             {
                 InitializeComponent();
-                
+
+                this.Top = pkRevitCircleOutFamilies.Properties.Settings.Default.Top;
+                this.Left = pkRevitCircleOutFamilies.Properties.Settings.Default.Left;
+                //pkRevitCircleOutFamilies.Properties.Settings.Default.Top = this.Top;
+
                 my_937_PRLoogle_Command02_EE01 = new _937_PRLoogle_Command02_EE01();
                 my_937_PRLoogle_Command02_EE01.myWindow01_ChooseYourCategory = this;
                 my_937_PRLoogle_Command02_EE01.bool_CircleOutTypeOption = false;
@@ -517,6 +521,7 @@ namespace _937_PRLoogle_Command02
 
                 //myTextBox_2007.Text = string_left;
                 myTextBox_2007.Text = "";
+                myTextBox_2022.Text = "";
 
                 List<string> cities = new FilteredElementCollector(doc).OfClass(typeof(Family)).Cast<Family>().Where(x => x.FamilyPlacementType == (FamilyPlacementType)GetEnumValue<FAMILY_PLACEMENT_TYPE>(string_left)  ).Select(x => x.FamilyCategory.Name).Distinct().OrderBy(x => x).ToList();
 
@@ -560,6 +565,9 @@ namespace _937_PRLoogle_Command02
                 string senderString = (string)((ListBoxItem)sender).Content;
 
                 myTextBox_2007.Text = senderString;
+                //myTextBox_2022.Text = "";
+                myTextBox_2022.Text = "";// famSym.Family.Name + "  (" + famSym.Family.GetFamilySymbolIds().Count() + " = type count)";
+                //  MessageBox.Show("do something if it is diffferent?");
             }
 
             #region catch and finally
@@ -573,6 +581,29 @@ namespace _937_PRLoogle_Command02
             #endregion
         }
 
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            int eL = -1;
+
+            try
+            {
+                pkRevitCircleOutFamilies.Properties.Settings.Default.Top = this.Top;
+                pkRevitCircleOutFamilies.Properties.Settings.Default.Left = this.Left;
+                pkRevitCircleOutFamilies.Properties.Settings.Default.Save();
+                pkRevitCircleOutFamilies.Properties.Settings.Default.Reload();
+            }
+
+            #region catch and finally
+            catch (Exception ex)
+            {
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("Window_Closing, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+            }
+            finally
+            {
+            }
+            #endregion
+        }
 
     }
 }

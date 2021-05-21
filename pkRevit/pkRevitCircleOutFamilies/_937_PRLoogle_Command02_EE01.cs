@@ -303,8 +303,11 @@ namespace _937_PRLoogle_Command02
 
                     if (typeof(FamilyInstance) != element.GetType())
                     {
-                        MessageBox.Show("Select element must be of type 'FamilyInstance'");
-                        return;
+                        if(!(element is AnnotationSymbol))
+                        {
+                            MessageBox.Show("Select element must be of type 'FamilyInstance'");
+                            return;
+                        }
                     }
                     FamilyInstance famInt = element as FamilyInstance;
 
@@ -323,7 +326,7 @@ namespace _937_PRLoogle_Command02
                     }
 
 
-                    myWindow01_ChooseYourCategory.myTextBox_2022.Text = famSym.Family.Name + "  (" + famSym.Family.GetFamilySymbolIds().Count() + " = type count)";
+                   myWindow01_ChooseYourCategory.myTextBox_2022.Text = famSym.Family.Name + "  (" + famSym.Family.GetFamilySymbolIds().Count() + " = type count)";
                 }
 
 
@@ -336,7 +339,6 @@ namespace _937_PRLoogle_Command02
                 using (TransactionGroup transGroup = new TransactionGroup(doc))
                 {
                     transGroup.Start("Circle out Families");
-
 
                     using (Transaction y = new Transaction(doc, "Make Circle"))
                     {
@@ -399,19 +401,19 @@ namespace _937_PRLoogle_Command02
                                     case "ViewBased":
                                         if (true)
                                         {
-                                            Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
+                                           ////////////////////////////////////////// Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
                                             eL = 503;
 
                                             try
                                             {
-                                                FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance(myIListXYZ_1829[myInt], itemValue, uidoc.ActiveView);
-
+                                                Level myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().Where(x => x.Name == doc.ActiveView.get_Parameter(BuiltInParameter.PLAN_VIEW_LEVEL).AsString()).FirstOrDefault() as Level;
+                                                XYZ xyzFamilyPosition = new XYZ(myIListXYZ_1829[myInt].X, myIListXYZ_1829[myInt].Y, myLevel.Elevation);
+                                                FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance(xyzFamilyPosition, itemValue, uidoc.ActiveView);
                                             }
                                             catch
                                             {
 
                                             }
-
                                             doc.Regenerate();
                                             uidoc.RefreshActiveView();
 
@@ -423,9 +425,13 @@ namespace _937_PRLoogle_Command02
                                     case "OneLevelBased":
                                         if (true)
                                         {
-                                            Line lineline = Line.CreateUnbound(myIListXYZ_1829[myInt], myIListXYZ_1829[myInt] + new XYZ(1, 0, 0));
+                                            Level myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().Where(x => x.Name == doc.ActiveView.get_Parameter(BuiltInParameter.PLAN_VIEW_LEVEL).AsString()).FirstOrDefault() as Level;
+                                            XYZ xyzFamilyPosition = new XYZ(myIListXYZ_1829[myInt].X, myIListXYZ_1829[myInt].Y, myLevel.Elevation);
 
-                                            Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
+                                            Line lineline = Line.CreateUnbound(xyzFamilyPosition, xyzFamilyPosition  + new XYZ(1, 0, 0));
+
+                                            ///////////////////////////////////Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
+
                                             FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance(lineline, itemValue, (Level)myLevel, StructuralType.NonStructural);
                                             //  FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance()
                                             //_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(famInst_1306.Id.IntegerValue.ToString(), true);
@@ -434,8 +440,10 @@ namespace _937_PRLoogle_Command02
                                     case "TwoLevelsBased":
                                         if (true)
                                         {
-                                            Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
-                                            FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance(myIListXYZ_1829[myInt], itemValue, (Level)myLevel, StructuralType.NonStructural);
+                                            /////////////////////////////////////Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
+                                            Level myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().Where(x => x.Name == doc.ActiveView.get_Parameter(BuiltInParameter.PLAN_VIEW_LEVEL).AsString()).FirstOrDefault() as Level;
+                                            XYZ xyzFamilyPosition = new XYZ(myIListXYZ_1829[myInt].X, myIListXYZ_1829[myInt].Y, myLevel.Elevation);
+                                            FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance(xyzFamilyPosition, itemValue, (Level)myLevel, StructuralType.NonStructural);
                                             //  FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance()
                                             //_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(famInst_1306.Id.IntegerValue.ToString(), true);
                                         }
@@ -451,7 +459,8 @@ namespace _937_PRLoogle_Command02
                                             List<Element> myFEC_WallTypes = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Walls).WhereElementIsElementType().Where(x => ((WallType)x).Kind != WallKind.Curtain).ToList();
                                             eL = 430;
                                             double myX = 0;
-                                            Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
+                                            ////////////////////////////////////////////////////// Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
+                                            Level myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().Where(x => x.Name == doc.ActiveView.get_Parameter(BuiltInParameter.PLAN_VIEW_LEVEL).AsString()).FirstOrDefault() as Level;
                                             eL = 433;
                                             Wall myWall = null;
                                             eL = 435;
@@ -472,46 +481,52 @@ namespace _937_PRLoogle_Command02
                                             eL = 449;
                                             //IList<Reference> sideFaces = HostObjectUtils.GetSideFaces(myWall, ShellLayerType.Interior);
 
-                                            FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance(myIListXYZ_1829[myInt], itemValue, myWall, _937_PRLoogle_Command02_createArcs.myReference_fromLevel(uidoc), StructuralType.NonStructural);
-                                            // MessageBox.Show(famInst_1306.Id.IntegerValue.ToString());
-                                            eL = 458;
-                                            ////doc.Create.NewFamilyInstance(myWall.face)
-
-                                            GeometryElement myGeomeryElement = myWall.get_Geometry(new Options() { ComputeReferences = true });
-                                            GeometryObject myGeometryObject = myGeomeryElement.Where(x => (x as Solid) != null).First();
-                                            Solid solid = myGeometryObject as Solid;
-                                            PlanarFace myPlanarFace = ((Solid)myGeometryObject).Faces.get_Item(0) as PlanarFace;
-
-                                            ////_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(famInst_1306.Id.IntegerValue.ToString(), true);
-                                            if (itemValue.Family.FamilyPlacementType == FamilyPlacementType.WorkPlaneBased) //famInst_1306 == null
+                                            if(true)
                                             {
-                                                doc.Delete(famInst_1306.Id);
-                                                eL = 465;
+                                                XYZ xyzFamilyPosition = new XYZ(myIListXYZ_1829[myInt].X, myIListXYZ_1829[myInt].Y, myLevel.Elevation);
+
+                                                FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance(xyzFamilyPosition, itemValue, myWall, _937_PRLoogle_Command02_createArcs.myReference_fromLevel(uidoc), StructuralType.NonStructural);
+                                                // MessageBox.Show(famInst_1306.Id.IntegerValue.ToString());
+                                                eL = 458;
+                                                ////doc.Create.NewFamilyInstance(myWall.face)
+
+                                                GeometryElement myGeomeryElement = myWall.get_Geometry(new Options() { ComputeReferences = true });
+                                                GeometryObject myGeometryObject = myGeomeryElement.Where(x => (x as Solid) != null).First();
+                                                Solid solid = myGeometryObject as Solid;
+                                                PlanarFace myPlanarFace = ((Solid)myGeometryObject).Faces.get_Item(0) as PlanarFace;
+
+                                                ////_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(famInst_1306.Id.IntegerValue.ToString(), true);
+                                                if (itemValue.Family.FamilyPlacementType == FamilyPlacementType.WorkPlaneBased) //famInst_1306 == null
+                                                {
+                                                    doc.Delete(famInst_1306.Id);
+                                                    eL = 465;
 
 
-                                                XYZ xdir = myPlanarFace.Evaluate(new UV(myPlanarFace.GetBoundingBox().Max.U, 0));
-                                                Line myLine = Line.CreateBound(myPlanarFace.Origin, myPlanarFace.FaceNormal);
+                                                    XYZ xdir = myPlanarFace.Evaluate(new UV(myPlanarFace.GetBoundingBox().Max.U, 0));
+                                                    Line myLine = Line.CreateBound(myPlanarFace.Origin, myPlanarFace.FaceNormal);
 
-                                                //amInst_1306 = doc.Create.NewFamilyInstance(myPlanarFace, myLine, itemValue);
-                                                famInst_1306 = doc.Create.NewFamilyInstance(myPlanarFace, myPlanarFace.Evaluate(myPlanarFace.GetBoundingBox().Max / 2), myPlanarFace.Origin.CrossProduct(myPlanarFace.FaceNormal), itemValue);
+                                                    //amInst_1306 = doc.Create.NewFamilyInstance(myPlanarFace, myLine, itemValue);
+                                                    famInst_1306 = doc.Create.NewFamilyInstance(myPlanarFace, myPlanarFace.Evaluate(myPlanarFace.GetBoundingBox().Max / 2), myPlanarFace.Origin.CrossProduct(myPlanarFace.FaceNormal), itemValue);
 
-                                                doc.Regenerate();
+                                                    doc.Regenerate();
 
-                                                ElementTransformUtils.RotateElement(doc, famInst_1306.Id, Line.CreateUnbound(famInst_1306.GetTotalTransform().Origin, famInst_1306.GetTotalTransform().BasisZ), Math.PI / 2);
+                                                    ElementTransformUtils.RotateElement(doc, famInst_1306.Id, Line.CreateUnbound(famInst_1306.GetTotalTransform().Origin, famInst_1306.GetTotalTransform().BasisZ), Math.PI / 2);
+                                                }
+                                                else
+                                                {
+                                                    PlanViewRange myPlaneViewRange = ((ViewPlan)uidoc.ActiveView).GetViewRange();
+
+                                                    double myDouble_Offset = myPlaneViewRange.GetOffset(PlanViewPlane.CutPlane);
+                                                    ElementTransformUtils.MoveElement(doc, famInst_1306.Id, new XYZ(0, 0, myDouble_Offset / 2));
+                                                }
+                                                eL = 478;
+
+                                                if (famInst_1306.Host == null)
+                                                {
+                                                    doc.Delete(myWall.Id);
+                                                }
                                             }
-                                            else
-                                            {
-                                                PlanViewRange myPlaneViewRange = ((ViewPlan)uidoc.ActiveView).GetViewRange();
 
-                                                double myDouble_Offset = myPlaneViewRange.GetOffset(PlanViewPlane.CutPlane);
-                                                ElementTransformUtils.MoveElement(doc, famInst_1306.Id, new XYZ(0, 0, myDouble_Offset / 2));
-                                            }
-                                            eL = 478;
-
-                                            if (famInst_1306.Host == null)
-                                            {
-                                                doc.Delete(myWall.Id);
-                                            }
                                         }
                                         break;
                                 }

@@ -6,35 +6,67 @@
         xmlns:local="clr-namespace:pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
         mc:Ignorable="d"
-     Title="Add and edit parameters" Height="547.451" Width="671.412" Background="#FFE7F4FF"  ResizeMode="NoResize">
+     Title="Adding shared parameters" Height="507.785" Width="649.412"  ResizeMode="NoResize" Closing="Window_Closing">
     <Grid>
-        <Grid >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="213*"/>
-                <ColumnDefinition Width="452*"/>
-            </Grid.ColumnDefinitions>
-            <Grid >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <ListBox x:Name="myListBoxTypeParameters" Grid.Row="1" Margin="10,23,0,10" FontSize="11" DisplayMemberPath="theParameterName" SelectionChanged="myListBoxTypeParameters_SelectionChanged" SelectionMode="Single"/>
-                <ListBox x:Name="myListBoxInstanceParameters" Margin="10,23,0,0" FontSize="11" SelectionChanged="myListBoxInstanceParameters_SelectionChanged" DisplayMemberPath="theParameterName"  SelectionMode="Single"/>
-                <Label Content="String based Instance Parameters" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" FontSize="10"/>
-                <Label Content="String based Type Parameters" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" FontSize="10" Grid.Row="1"/>
+
+
+        <ListBox x:Name="myListBoxTypeParameters" Margin="-845,191,0,0" FontSize="11" DisplayMemberPath="theParameterName" SelectionChanged="myListBoxTypeParameters_SelectionChanged" SelectionMode="Single" HorizontalAlignment="Left" Width="200" Height="122" VerticalAlignment="Top"/>
+        <ListBox x:Name="myListBoxInstanceParameters" Margin="-838,-18,0,0" FontSize="11" SelectionChanged="myListBoxInstanceParameters_SelectionChanged" DisplayMemberPath="theParameterName"  SelectionMode="Single" HorizontalAlignment="Left" Width="193" Height="142" VerticalAlignment="Top"/>
+        <Label Content="String based Instance Parameters" HorizontalAlignment="Left" VerticalAlignment="Top" Width="160" FontSize="10" Margin="-838,-50,0,0"/>
+        <Label Content="String based Type Parameters" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" FontSize="10" Margin="-838,140,0,0"/>
+
+        <TextBox x:Name="myTextBoxPrevious" Margin="-578,-18,0,0" TextWrapping="Wrap" BorderThickness="1" FontSize="14" IsEnabled="False" Height="142" VerticalAlignment="Top" HorizontalAlignment="Left" Width="372"/>
+        <Button x:Name="myButtonSave" Content="Save" HorizontalAlignment="Left" Margin="-838,329,0,0" VerticalAlignment="Top" Width="76" Height="20" Click="myButtonSave_Click"/>
+        <Button x:Name="myButtonCancel" Content="Cancel" HorizontalAlignment="Left" Margin="-744,329,0,0" VerticalAlignment="Top" Width="76" Height="20" Click="myButtonCancel_Click"/>
+        <TextBox x:Name="myTextBoxNew" Margin="-578,129,0,0" TextWrapping="Wrap" BorderThickness="1" FontSize="14" Height="181" VerticalAlignment="Top" AcceptsReturn="True" IsUndoEnabled="False" IsEnabled="False" HorizontalAlignment="Left" Width="372"/>
+        <Label Content="Element ID" HorizontalAlignment="Left" Margin="434,13,0,0" VerticalAlignment="Top" Width="68"/>
+        <Label x:Name="myLabel_Family" Content="" HorizontalAlignment="Left" Margin="216,48,0,0" VerticalAlignment="Top" Width="312" Height="28"/>
+        <Label x:Name="myLabel_Type" Content="" HorizontalAlignment="Left" Margin="216,70,0,0" VerticalAlignment="Top" Width="312" Height="26"/>
+        <xctk:IntegerUpDown x:Name="myIntegerUpDown" HorizontalAlignment="Left" Margin="362,16,0,0" VerticalAlignment="Top" Width="72" IsEnabled="False" Value="-1"/>
+
+        <Button x:Name="myButtonAcquireSelected" Content="🔄 Acquire Element →" HorizontalAlignment="Left" Margin="162,10,0,0" VerticalAlignment="Top" Width="178" Height="29" FontSize="16" Click="MyButtonAcquireSelected_Click" />
+        <GroupBox Header="Instance Parameters" HorizontalAlignment="Left" Height="265" Margin="22,144,0,0" VerticalAlignment="Top" Width="290">
+            <Grid>
+                <Button x:Name="btn_CategoryInstanceSpecific"  HorizontalAlignment="Left"  Margin="22,26,0,0" VerticalAlignment="Top" Width="166" Height="32" Click="btn_CategoryInstanceSpecific_Click" >
+                    <StackPanel >
+                        <TextBlock x:Name="btn_CategoryInstanceSpecific_textBlock" HorizontalAlignment="Center"><Run Text="Add "/><Run Text="to Specific Category"/></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btn_CategoryInstanceALL"  HorizontalAlignment="Left"  Margin="22,72,0,0" VerticalAlignment="Top" Width="166" Height="32" Click="btn_CategoryInstanceALL_Click" >
+                    <StackPanel >
+                        <TextBlock HorizontalAlignment="Center" Width="120"><Run Text="Add "/><Run Text="to "/><Run Text="A"/><Run Text="LL"/><Run Text=" Categories"/></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="butView_CategoryInstanceSpecific" Content="👁 View" HorizontalAlignment="Left" Margin="198,38,0,0" VerticalAlignment="Top" Width="54" Click="butView_CategoryInstanceSpecific_Click"/>
+                <Button x:Name="butView_CategoryInstanceALL" Content="👁 View" HorizontalAlignment="Left" Margin="198,84,0,0" VerticalAlignment="Top" Width="54" Click="butView_CategoryInstanceALL_Click"/>
             </Grid>
-            <TextBox x:Name="myTextBoxPrevious" Grid.Column="1" Margin="56,138,0,0" TextWrapping="Wrap" BorderThickness="1" FontSize="14" IsEnabled="False" Height="142" VerticalAlignment="Top" HorizontalAlignment="Left" Width="373"/>
-            <Button x:Name="myButtonSave" Content="Save" HorizontalAlignment="Right" Margin="0,478,223,0" VerticalAlignment="Top" Width="76" Grid.Column="1" Height="20" Click="myButtonSave_Click"/>
-            <Button x:Name="myButtonCancel" Content="Cancel" HorizontalAlignment="Right" Margin="0,478,138,0" VerticalAlignment="Top" Width="76" Grid.Column="1" Height="20" Click="myButtonCancel_Click"/>
-            <TextBox x:Name="myTextBoxNew" Margin="56,285,0,0" TextWrapping="Wrap" BorderThickness="1" FontSize="14" Grid.Column="1" Height="181" VerticalAlignment="Top" AcceptsReturn="True" IsUndoEnabled="False" IsEnabled="False" HorizontalAlignment="Left" Width="373"/>
-            <Label Content="Element ID" Grid.Column="1" HorizontalAlignment="Left" Margin="369,4,0,0" VerticalAlignment="Top" Width="67"/>
-            <Button x:Name="myButtonAddParametersToProject" Content="Add Shared Parameters with code &#xA;to Project" Grid.Column="1" HorizontalAlignment="Left" Margin="56,89,0,0" VerticalAlignment="Top" Width="184" Height="35" Click="myButtonAddParametersToProject_Click"/>
-            <Label x:Name="myLabel_Family" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="110,31,0,0" VerticalAlignment="Top" Width="312" Height="27"/>
-            <Label x:Name="myLabel_Type" Content="" Grid.Column="1" HorizontalAlignment="Left" Margin="110,52,0,0" VerticalAlignment="Top" Width="312" Height="27"/>
-            <Button x:Name="myButtonAddParametersToFamily" Content="Add Shared Parameters with code &#xA;to Family OR Category" Grid.Column="1" HorizontalAlignment="Left" Margin="245,89,0,0" VerticalAlignment="Top" Width="184" Height="35" Click="myButtonAddParametersToFamily_Click" />
-            <xctk:IntegerUpDown x:Name="myIntegerUpDown" Grid.Column="1" HorizontalAlignment="Left" Margin="297,7,0,0" VerticalAlignment="Top" Width="72" IsEnabled="False" Value="-1"/>
-        </Grid>
-        <Button x:Name="myButtonAcquireSelected" Content="🔄 Acquire Element --&gt;" HorizontalAlignment="Left" Margin="322,3,0,0" VerticalAlignment="Top" Width="179" Height="29" FontSize="16" Click="MyButtonAcquireSelected_Click" />
+        </GroupBox>
+        <GroupBox Header="Type Parameters" HorizontalAlignment="Left" Height="265" Margin="330,144,0,0" VerticalAlignment="Top" Width="290">
+            <Grid>
+                <Button x:Name="btn_CategoryTypeSpecific"  HorizontalAlignment="Left" Margin="23,25,0,0" VerticalAlignment="Top" Width="166" Height="32" Click="btn_CategoryTypeSpecific_Click" >
+                    <StackPanel>
+                        <TextBlock x:Name="btn_CategoryTypeSpecific_textBlock" HorizontalAlignment="Center"><Run Text="Add "/><Run Text="to Specific Category"/></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btn_CategoryTypeALL"  HorizontalAlignment="Left" Margin="23,71,0,0" VerticalAlignment="Top" Width="166" Height="32" Click="btn_CategoryTypeALL_Click" >
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center"><Run Text="Add "/><Run Text="to A"/><Run Text="LL"/><Run Text=" Categoreis"/></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Label Content="⮤ Excellent option&#xD;&#xA;(because values will travel with&#xD;&#xA;the family between projects)" HorizontalAlignment="Left" Margin="46,174,0,0" VerticalAlignment="Top" Width="176" Height="62"/>
+                <Button x:Name="btn_CategoryTypeFamily"  HorizontalAlignment="Left" Margin="23,148,0,0" VerticalAlignment="Top" Width="166" Height="32" Click="btn_CategoryTypeFamily_Click" >
+                    <StackPanel>
+                        <TextBlock x:Name="btn_CategoryTypeFamily_textBlock" HorizontalAlignment="Center"><Run Text="Add "/><Run Text="to FAMILY"/></TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="butView_CategoryTypeSpecific" Content="👁 View" HorizontalAlignment="Left" Margin="199,37,0,0" VerticalAlignment="Top" Width="54" Click="butView_CategoryTypeSpecific_Click"/>
+                <Button x:Name="butView_CategoryTypeALL" Content="👁 View" HorizontalAlignment="Left" Margin="199,83,0,0" VerticalAlignment="Top" Width="54" Click="butView_CategoryTypeALL_Click"/>
+                <Button x:Name="butView_CategoryTypeFamily" Content="👁 View" HorizontalAlignment="Left" Margin="199,159,0,0" VerticalAlignment="Top" Width="54" Click="butView_CategoryTypeFamily_Click"/>
+
+
+            </Grid>
+        </GroupBox>
+        <Button x:Name="btn_Open_pkRevitFolder" Content="Open folder with parameter files" HorizontalAlignment="Left" Margin="224,424,0,0" VerticalAlignment="Top" Width="192" Click="btn_Open_pkRevitFolder_Click" />
 
     </Grid>
 </Window>

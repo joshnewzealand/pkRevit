@@ -610,27 +610,34 @@ namespace pkRevitDatasheets
                     dict_GuidToAlias = serializer.ReadObject(stream) as Dictionary<Guid, string>; stream.Close();  //two of four
                 }
 
+                ////_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(named_guid.ToString(), true);
+                ////MessageBox.Show("we got here");
 
-                if (!dict_GuidToAlias.ContainsKey(named_guid))
+                if(true)  //candidate for methodisation 20210516
                 {
-                    if(s_NewAliasName == "")
+                    if (!dict_GuidToAlias.ContainsKey(named_guid))
                     {
-                        s_NewAliasName = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name....", "This is the first time we've saved from this Project.", s_NewAliasName, -1, -1);
-                    } else
-                    {
-                        s_NewAliasName = Microsoft.VisualBasic.Interaction.InputBox("Happy with this name?", "This is the first time we've saved from this Project.", s_NewAliasName, -1, -1);
+                        if (s_NewAliasName == "")
+                        {
+                            s_NewAliasName = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name....", "This is the first time we've saved from this Project.", s_NewAliasName, -1, -1);
+                        }
+                        else
+                        {
+                            s_NewAliasName = Microsoft.VisualBasic.Interaction.InputBox("Happy with this name?", "This is the first time we've saved from this Project.", s_NewAliasName, -1, -1);
+                        }
+
+                        if (s_NewAliasName == "") s_NewAliasName = "Revit Project Alias Name";
+
+                        dict_GuidToAlias.Add(named_guid, s_NewAliasName);
+                        Stream stream = new FileStream(string_Default_GuidToAlias, FileMode.Create, FileAccess.Write);
+                        DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<Guid, string>));  //four of four
+                        serializer.WriteObject(stream, dict_GuidToAlias); stream.Close();
+
+                        Properties.Settings.Default.str_carryOverGuid = named_guid;
+                        Properties.Settings.Default.Save();
+                        Properties.Settings.Default.Reload();
                     }
-
-                    
-
-                    if (s_NewAliasName == "") s_NewAliasName = "Revit Project Alias Name";
-
-                    dict_GuidToAlias.Add(named_guid, s_NewAliasName);
-                    Stream stream = new FileStream(string_Default_GuidToAlias, FileMode.Create, FileAccess.Write);
-                    DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<Guid, string>));  //four of four
-                    serializer.WriteObject(stream, dict_GuidToAlias); stream.Close();
                 }
-
 
                 ComboBoxProjectFilter.ItemsSource = dict_GuidToAlias;
                 ComboBoxProjectFilter.DisplayMemberPath = "Value";
@@ -665,9 +672,6 @@ namespace pkRevitDatasheets
 
                     if (lb_Explorer.SelectedIndex == -1) lb_Explorer.SelectedIndex = 0;
                 }
-
-
-
             }
             // ComboBoxProjectFilter.UpdateLayout();
             // ComboBoxProjectFilter.InvalidateVisual();
@@ -730,8 +734,10 @@ namespace pkRevitDatasheets
 
                     if (lb_Explorer.SelectedIndex == -1) lb_Explorer.SelectedIndex = 0;
 
-                    ////////////////////////////rowFilter(bool_IsolationIsOn, false);
+                    ///////////////rowFilter(bool_IsolationIsOn, false);
+                    //MessageBox.Show("DID IT UPDATE");
 
+                    ModeProjectHyperLinks_AllSchedules(true);
                     ///more of this more of this
 
                     // lb_Explorer.SelectedItem = dict_GuidToAlias.ToList().Where(x => x.Key == str_carryOverGuid).First(); //  new Tuple<Guid, string>(str_carryOverGuid, dict_GuidToAlias[str_carryOverGuid]);
@@ -1023,7 +1029,7 @@ namespace pkRevitDatasheets
         {
             str_CurrentModeOfExplorer = "ModeProject";
             str_carryOverGuid = Guid.Parse("00000000-0000-0000-0000-000000000000");
-            lbl_ScheduleName_Project.Content = "All projects";
+            //lbl_ScheduleName_Project.Content = "All projects";
             lbl_ScheduleName.Content = "ALL Schedules";
             str_carryOverScheduleId = 0;
             str_carryOverScheduleId_string = "ALL Schedules"; //in two places
@@ -1116,7 +1122,7 @@ namespace pkRevitDatasheets
                         str_carryOverScheduleId_string = ((DataRowView)lv_MasterList.SelectedItem)["ScheduleName"].ToString();
 
                         lbl_ScheduleName.Content = str_carryOverScheduleId_string;
-                        lbl_ScheduleName_Project.Content = dict_GuidToAlias[str_carryOverGuid];
+                        //lbl_ScheduleName_Project.Content = dict_GuidToAlias[str_carryOverGuid];
                     }
 
                     if (str_carryOverScheduleId != 0)
@@ -1193,7 +1199,7 @@ namespace pkRevitDatasheets
 
 
                 lbl_ScheduleName.Content = str_carryOverScheduleId_string;
-                lbl_ScheduleName_Project.Content = dict_GuidToAlias[str_carryOverGuid];
+                //lbl_ScheduleName_Project.Content = dict_GuidToAlias[str_carryOverGuid];
 
                 RequestNavigate_AndStart();
 
@@ -1265,7 +1271,7 @@ namespace pkRevitDatasheets
                     case "ModeProject":  //the easiest thing to do is to manually select the first time then run this
 
                         str_carryOverGuid = ((KeyValuePair<Guid, string>)lb_Explorer.SelectedItems[0]).Key;
-                        lbl_ScheduleName_Project.Content = ((KeyValuePair<Guid, string>)lb_Explorer.SelectedItems[0]).Value;
+                        //lbl_ScheduleName_Project.Content = ((KeyValuePair<Guid, string>)lb_Explorer.SelectedItems[0]).Value;
                         lbl_ScheduleName.Content = "ALL Schedules";
                         str_carryOverScheduleId = 0;
                         str_carryOverScheduleId_string = "ALL Schedules";  //in two places
@@ -1334,8 +1340,6 @@ namespace pkRevitDatasheets
                         {
                             ModeProjectHyperLinks_AllSchedules(true);
                         }
-
-
 
                         break;
                 }
@@ -1898,6 +1902,8 @@ namespace pkRevitDatasheets
                     }
                 }
 
+                eL = 1901;
+
                 bool_IsolationIsOn = Properties.Settings.Default.bool_IsolationIsOn;
 
                 //////////////if (Properties.Settings.Default.SearchStringRemember != "Type anything here ... to search")
@@ -1911,18 +1917,27 @@ namespace pkRevitDatasheets
                 str_carryOverScheduleId_string = Properties.Settings.Default.str_carryOverScheduleId_string;
                 //str_carryOverCategory_string = Properties.Settings.Default.str_carryOverCategory;
 
+                eL = 1916;
                 str_CurrentModeOfExplorer = Properties.Settings.Default.str_CurrentModeOfExplorer;
-
+                eL = 1918;
                 lbl_ScheduleName.Content = str_carryOverScheduleId_string;
-                lbl_ScheduleName_Project.Content = dict_GuidToAlias[str_carryOverGuid];
+                eL = 1920;
+                //lbl_ScheduleName_Project.Content = dict_GuidToAlias[str_carryOverGuid];
 
+                //_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(str_carryOverGuid.ToString(), true);
 
+                if (!dict_GuidToAlias.ContainsKey(str_carryOverGuid))
+                {
+                    str_carryOverGuid = dict_GuidToAlias.Last().Key;
+                }
+
+                    eL = 1923;
                 method_LoadUpMasterList();
                 //  InvalidateVisual();
                 eL = 343;
-                /////////////////////////////////////////////////////////////////////////////////this.Refresh();
-                // MessageBox.Show(Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive.ToString());
-                
+                ////////////////////////////////////////////////this.Refresh();
+                // MessageBox.Show(Properties.Settings.Default.lvMasterListSelectedIndex_WilListBoxItemExplorer_PreviewMouseUplNotWorkWhenFilterActive.ToString());
+
                 if (true)
                 {
                     tb_tree.Text = "";

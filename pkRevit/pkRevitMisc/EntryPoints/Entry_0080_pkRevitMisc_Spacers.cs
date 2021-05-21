@@ -42,13 +42,25 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
 
+            if (doc.ActiveView.ViewType != ViewType.FloorPlan & doc.ActiveView.ViewType != ViewType.EngineeringPlan & doc.ActiveView.ViewType != ViewType.CeilingPlan)
+            {
+                TaskDialog.Show("Not the correct type of view", "The active view must be a view 'plan'");
+                return Result.Succeeded;
+            }
+
+            //if (uid.ActiveView.ViewType != ViewType.DrawingSheet)
+            //{
+            //    MessageBox.Show("Please goto a 'Sheet' type view.");
+            //    return;
+            //}
+
+
             View myAGV2 = uidoc.ActiveView as View;
 
             ElementCategoryFilter filter2 = new ElementCategoryFilter(BuiltInCategory.OST_Viewports);
 
             FilteredElementCollector collector2 = new FilteredElementCollector(doc);
 
-            ICollection<Element> AllViewports2 = collector2.WherePasses(filter2).ToElements();
 
             Category myCategory = Category.GetCategory(doc, BuiltInCategory.OST_Viewports);
 
@@ -221,6 +233,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                     if (uid.Application.Application.VersionNumber == "2019") string_MetricDetailItem = "\\Metric Detail Item 2019.rft";
                     if (uid.Application.Application.VersionNumber == "2020") string_MetricDetailItem = "\\Metric Detail Item 2020.rft";
                     if (uid.Application.Application.VersionNumber == "2021") string_MetricDetailItem = "\\Metric Detail Item 2021.rft";
+                    if (uid.Application.Application.VersionNumber == "2022") string_MetricDetailItem = "\\Metric Detail Item 2022.rft";
 
                     Document famDoc = uid.Document.Application.NewFamilyDocument(myAddinFolder + string_MetricDetailItem);//uid.Document.Application.NewFamilyDocument(System.Environment.GetEnvironmentVariable("ProgramData") + "\\Autodesk\\RVT 2017\\Family Templates\\English\\Metric Detail Item.rft");
                     Document famDocHorizontal = uid.Document.Application.NewFamilyDocument(myAddinFolder + string_MetricDetailItem);

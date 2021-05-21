@@ -48,7 +48,9 @@ namespace pkRevitLoadingPlacing_Families
                 {
                     Element myElement = doc.GetElement(e.GetModifiedElementIds().First());
 
-                    if (myElement.GetType().Name != "FamilyInstance") return;
+                  //  MessageBox.Show(myElement.GetType().Name);
+
+                    if (myElement.GetType().Name != "FamilyInstance" & myElement.GetType().Name != "View") return;
                 }
 
                 uidoc.Application.Application.DocumentChanged -= new EventHandler<DocumentChangedEventArgs>(OnDocumentChanged);
@@ -130,10 +132,13 @@ namespace pkRevitLoadingPlacing_Families
 
             try
             {
-                if(myFamilySymbol.Family.get_Parameter(BuiltInParameter.FAMILY_WORK_PLANE_BASED).AsInteger() == 0)
+                // uidoc.PromptForFamilyInstancePlacement(myFamilySymbol);
+
+                if (myFamilySymbol.Family.get_Parameter(BuiltInParameter.FAMILY_WORK_PLANE_BASED).AsInteger() == 0)
                 {
                     uidoc.PromptForFamilyInstancePlacement(myFamilySymbol);
-                } else
+                }
+                else
                 {
                     uidoc.PromptForFamilyInstancePlacement(myFamilySymbol, myPromptForFamilyInstancePlacementOptions);  //<-- decided not to use this late in the project
                 }

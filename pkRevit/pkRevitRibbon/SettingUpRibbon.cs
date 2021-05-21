@@ -182,8 +182,8 @@ namespace pkRevitRibbon
             RibbonPanelCurrent_3DSurface.AddItem(myRibbonSupportMethods.Button0130_SelectReferencePoint(ApiButtonName0130, ApiButtonText0130, path));
             RibbonPanelCurrent_3DSurface.AddItem(myRibbonSupportMethods.Button0140_RotatePlatform(ApiButtonName0140, ApiButtonText0140, path));
 
-            RibbonPanelCurrent_ScheduleHelpers.AddItem(myRibbonSupportMethods.Button0150_SortOrder(ApiButtonName0150, ApiButtonText0150, path));
             RibbonPanelCurrent_ScheduleHelpers.AddItem(myRibbonSupportMethods.Button0170_AddFields(ApiButtonName0170, ApiButtonText0170, path));
+            RibbonPanelCurrent_ScheduleHelpers.AddItem(myRibbonSupportMethods.Button0150_SortOrder(ApiButtonName0150, ApiButtonText0150, path));
             RibbonPanelCurrent_ScheduleHelpers.AddItem(myRibbonSupportMethods.Button0160_EditSchedule(ApiButtonName0160, ApiButtonText0160, path));
             //RibbonPanelCurrent_ScheduleHelpers.AddSeparator();
 
@@ -272,12 +272,12 @@ namespace pkRevitRibbon
                 if (cBox.Current.Name == "Release") pushbutton_0030.ClassName = dllName + ".Invoke_0030_pkRevitMisc_OpenParentView";
                 eL = 222;
                 PushButton pushbutton_0040 = RibbonPanelCurrent_Viewport.GetItems().Where(x => x.Name == "0040_BrintToFront").First() as PushButton;  
-                if (cBox.Current.Name == "Development") pushbutton_0040.ClassName = dllName + ".DevInvoke_0040_pkRevitMisc_BrintToFront"; 
-                if (cBox.Current.Name == "Release") pushbutton_0040.ClassName = dllName + ".Invoke_0040_pkRevitMisc_BrintToFront";
+                if (cBox.Current.Name == "Development") pushbutton_0040.ClassName = dllName + ".DevInvoke_0040_pkRevit_WM_BrintToFront"; 
+                if (cBox.Current.Name == "Release") pushbutton_0040.ClassName = dllName + ".Invoke_0040_pkRevit_WM_BrintToFront";
                 eL = 225;
                 PushButton pushbutton_0050 = RibbonPanelCurrent_Viewport.GetItems().Where(x => x.Name == "0050_SizePositionViewport").First() as PushButton;
-                if (cBox.Current.Name == "Development") pushbutton_0050.ClassName = dllName + ".DevInvoke_0050_pkRevitMisc_SizePositionViewport";
-                if (cBox.Current.Name == "Release") pushbutton_0050.ClassName = dllName + ".Invoke_0050_pkRevitMisc_SizePositionViewport";
+                if (cBox.Current.Name == "Development") pushbutton_0050.ClassName = dllName + ".DevInvoke_0050_pkRevit_WM_SizePositionViewport";
+                if (cBox.Current.Name == "Release") pushbutton_0050.ClassName = dllName + ".Invoke_0050_pkRevit_WM_SizePositionViewport";
                 eL = 230;
 
 

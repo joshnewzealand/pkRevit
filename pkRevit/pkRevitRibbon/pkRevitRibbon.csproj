@@ -257,8 +257,8 @@
     <Compile Include="Push Button Events\Invoke_0210_pkRevitMisc_LoadFamilies.cs" />
     <Compile Include="Push Button Events\Invoke_0220_pkRevitMisc_LayoutRoom.cs" />
     <Compile Include="Push Button Events\Invoke_0200_pkRevitMisc_NurfGun.cs" />
-    <Compile Include="Push Button Events\Invoke_0040_pkRevitMisc_BrintToFront.cs" />
-    <Compile Include="Push Button Events\Invoke_0050_pkRevitMisc_SizePositionViewport.cs" />
+    <Compile Include="Push Button Events\Invoke_0040_pkRevit_WM_BrintToFront.cs" />
+    <Compile Include="Push Button Events\Invoke_0050_pkRevit_WM_SizePositionViewport.cs" />
     <Compile Include="Push Button Events\Invoke_0060_pkRevitMisc_Filters.cs" />
     <Compile Include="Push Button Events\Invoke_0080_pkRevitMisc_Spacers.cs" />
     <Compile Include="Push Button Events\Invoke_0090_pkRevitMisc_Lines.cs" />

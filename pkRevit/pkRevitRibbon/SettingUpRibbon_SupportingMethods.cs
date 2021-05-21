@@ -140,14 +140,14 @@ namespace pkRevitRibbon
 
         public PushButtonData Button0040_BringToFront(string Name, string ChecklistsNumber, string path)
         {
-            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0040_pkRevitMisc_BrintToFront");
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0040_pkRevit_WM_BrintToFront");
             myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0040_BringToFront.png"), UriKind.Absolute));
             return myPushButtonData;
         }
 
         public PushButtonData Button0050_SizePositionViewport(string Name, string ChecklistsNumber, string path)
         {
-            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0050_pkRevitMisc_SizePositionViewport");
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0050_pkRevit_WM_SizePositionViewport");
             myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\Button0050_SizePositionViewport.png"), UriKind.Absolute));
             return myPushButtonData;
         }

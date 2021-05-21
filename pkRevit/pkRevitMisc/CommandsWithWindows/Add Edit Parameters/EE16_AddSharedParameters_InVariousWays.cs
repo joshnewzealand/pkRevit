@@ -24,12 +24,13 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
         //public Entry_0170_pkRevitMisc myWindow1 { get; set; }
         public Window1617_AddEditParameters myWindow2 { get; set; }
         public bool myBool_AddToProject { get; set; } = true;
+        public int myInt_LoadType { get; set; }
 
         public void Execute(UIApplication uiapp)
         {
             try
             {
-                UIDocument uidoc = myWindow2.commandData.Application.ActiveUIDocument;
+                UIDocument uidoc = myWindow2.toavoidloadingrevitdlls.commandData.Application.ActiveUIDocument;
                 Document doc = uidoc.Document;
 
                 myWindow2.myTextBoxPrevious.Text = "";
@@ -37,38 +38,10 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
                 myWindow2.myListBoxInstanceParameters.SelectedIndex = -1;
                 myWindow2.myListBoxTypeParameters.SelectedIndex = -1;
 
-                string FILE_NAME = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Pedersen Read Limited"; // cSharpPlaypen joshnewzealand
 
-                if (true) //grouping for clarity will alwasy be true
-                {
-                    if (!System.IO.Directory.Exists(FILE_NAME)) System.IO.Directory.CreateDirectory(FILE_NAME);
-                    FILE_NAME = FILE_NAME + "\\cSharpPlaypen joshnewzealand"; // 
-                    if (!System.IO.Directory.Exists(FILE_NAME)) System.IO.Directory.CreateDirectory(FILE_NAME);
-                    FILE_NAME = (FILE_NAME + "\\Location Of Shared Parameters File.txt");
-                }
+                string myStringCollectup = myMethod_BindParameters();
 
-                string path = "";
-
-                if (true) //read line
-                {
-                    if (!System.IO.File.Exists(FILE_NAME))
-                    {
-                        path = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Pedersen Read Limited\\cSharpPlaypen joshnewzealand").GetValue("TARGETDIR").ToString();
-                    }
-                    else
-                    {
-                        System.IO.StreamReader objReader = new System.IO.StreamReader(FILE_NAME);
-                        path = objReader.ReadLine();
-                    }
-
-                    string myStringCollectup = "";
-                    if (!myBool_AddToProject) myStringCollectup = myStringCollectup + myMethod_BindParameters(path + "\\PlayPenSharedParametersType.txt", true);
-                    if (myBool_AddToProject) myStringCollectup = myStringCollectup + myMethod_BindParameters(path + "\\PlayPenSharedParametersInstance.txt", false);
-
-                    MessageBox.Show(myStringCollectup);
-
-
-                }
+                if (myStringCollectup != "") MessageBox.Show(myStringCollectup);
             }
 
             #region catch and finally
@@ -87,9 +60,9 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
             return "EE07_Part1_Binding";
         }
 
-        public string myMethod_BindParameters(string path, bool IsTypeParameter)
+        public string myMethod_BindParameters()
         {
-            UIDocument uidoc = myWindow2.commandData.Application.ActiveUIDocument;
+            UIDocument uidoc = myWindow2.toavoidloadingrevitdlls.commandData.Application.ActiveUIDocument;
             Document doc = uidoc.Document;
 
             string myStringSharedParameterFileName = "";
@@ -100,9 +73,85 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
             }
 
             int eL = -1;
-
             try
             {
+                string path = "";
+                bool IsTypeParameter = false;
+                bool IsFamily = false;
+
+                string pathSharedParameterFiles = (System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\pk Revit\\Shared Parameter Files");
+                string Instance_Specific = "\\CategoryInstanceSpecific.txt";
+                string Instance_ALL = "\\CategoryInstanceALL.txt";
+                string Type_Specific = "\\CategoryTypeSpecific.txt";
+                string Type_ALL = "\\CategoryTypeALL.txt";
+                string Type_Family = "\\CategoryTypeFamily.txt";
+
+                CategorySet catSet = null;
+
+                if(myInt_LoadType == (int)PARAMETER_LOAD.Instance_Specific | myInt_LoadType == (int)PARAMETER_LOAD.Type_Specific | myInt_LoadType == (int)PARAMETER_LOAD.Type_Family)
+                {
+                    if (doc.GetElement(new ElementId(myWindow2.myIntegerUpDown.Value.Value)) == null)
+                    {
+                        return "Please use 'Acquire Selected' button.";
+                    }
+                }
+
+                eL = 98;
+                switch (myInt_LoadType)
+                {
+                    case (int)PARAMETER_LOAD.Instance_Specific:
+                        path = pathSharedParameterFiles + Instance_Specific;
+                        IsTypeParameter = false;
+                        catSet = uidoc.Application.Application.Create.NewCategorySet();
+
+                        Element aElement = doc.GetElement(new ElementId(myWindow2.myIntegerUpDown.Value.Value));
+                        //catSet.Insert(doc.Settings.Categories.Cast<Category>().Where(x => x.Name == aElement.Category.Name).Last());
+                        catSet.Insert(aElement.Category);
+                        MessageBox.Show("Instance_Specific3");
+                        break;
+                    case (int)PARAMETER_LOAD.Instance_ALL:
+                        path = pathSharedParameterFiles + Instance_ALL;
+                        IsTypeParameter = false;
+                        catSet = uidoc.Application.Application.Create.NewCategorySet();
+                        foreach (Category myCatttt in doc.Settings.Categories) if (myCatttt.AllowsBoundParameters) catSet.Insert(myCatttt);
+                        //MessageBox.Show("Instance_ALL");
+                        break;
+                    case (int)PARAMETER_LOAD.Type_Specific:
+                        path = pathSharedParameterFiles + Type_Specific;
+                        IsTypeParameter = true;
+                        catSet = uidoc.Application.Application.Create.NewCategorySet();
+                        catSet.Insert(doc.GetElement(new ElementId(myWindow2.myIntegerUpDown.Value.Value)).Category);
+                        //MessageBox.Show("Type_Specific");
+                        break;
+                    case (int)PARAMETER_LOAD.Type_ALL:
+                        path = pathSharedParameterFiles + Type_ALL;
+                        IsTypeParameter = true;
+                        catSet = uidoc.Application.Application.Create.NewCategorySet();
+                        foreach (Category myCatttt in doc.Settings.Categories) if (myCatttt.AllowsBoundParameters) catSet.Insert(myCatttt);
+                        //MessageBox.Show("Type_ALL");
+                        break;
+                    case (int)PARAMETER_LOAD.Type_Family:
+                        path = pathSharedParameterFiles + Type_Family;
+                        IsTypeParameter = true;
+                        IsFamily = true;
+                        catSet = uidoc.Application.Application.Create.NewCategorySet();
+                        catSet.Insert(doc.GetElement(new ElementId(myWindow2.myIntegerUpDown.Value.Value)).Category);
+                        break;
+                }
+                eL = 137;
+                ///////////////////////////path = pathSharedParameterFiles + Instance_Specific;
+
+                if (catSet == null)
+                {
+                    if (myStringSharedParameterFileName != "")
+                    {
+                        uidoc.Application.Application.SharedParametersFilename = myStringSharedParameterFileName;
+                    }
+                    return "";
+                }
+
+                eL = 148;
+
                 ///               TECHNIQUE 16 OF 19 (EE16_AddSharedParameters_InVariousWays.cs)
                 ///↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ ADDING SHARED PARAMETERS IN VARIOUS WAYS ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
                 ///
@@ -129,31 +178,25 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
                 /// 
                 ///
                 ///
-				///	https://github.com/joshnewzealand/Revit-API-Playpen-CSharp
+                ///	https://github.com/joshnewzealand/Revit-API-Playpen-CSharp
 
+
+                // throw new InvalidOperationException("Testing that it resets");
+                string myStringCollectup = "";
 
                 uidoc.Application.Application.SharedParametersFilename = path;
-
+                eL = 182;
                 DefinitionFile myDefinitionFile = uidoc.Application.Application.OpenSharedParameterFile();
-
-
+                eL = 184;
                 if (myDefinitionFile == null)
                 {
                     DatabaseMethods.writeDebug(path + Environment.NewLine + Environment.NewLine + "File does not exist OR cannot be opened.", true);
                     return "";
                 }
-
-                CategorySet catSet = uidoc.Application.Application.Create.NewCategorySet();
-                foreach (Category myCatttt in doc.Settings.Categories)
-                {
-                    if (myCatttt.AllowsBoundParameters) catSet.Insert(myCatttt);
-                }
-
-                string myStringCollectup = "";
                 DefinitionGroup group = myDefinitionFile.Groups.get_Item("Default");
+                eL = 189;
 
-
-                if (!IsTypeParameter)
+                if (!IsFamily)
                 {
                     using (Transaction tx = new Transaction(doc))
                     {
@@ -162,111 +205,132 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
                         foreach (Definition myDefinition in group.Definitions)
                         {
                             myStringCollectup = myStringCollectup + " • " + myDefinition.Name + Environment.NewLine;
-                            Binding binding = IsTypeParameter ? uidoc.Application.Application.Create.NewTypeBinding(catSet) as Binding : uidoc.Application.Application.Create.NewInstanceBinding(catSet) as Binding;
 
-                            doc.ParameterBindings.Insert(myDefinition, binding, BuiltInParameterGroup.PG_IDENTITY_DATA);
+                            eL = 201;
+
+                            bool bool_Reinserted = false;
+
+                            BindingMap bindingMap = doc.ParameterBindings;
+                            DefinitionBindingMapIterator it = bindingMap.ForwardIterator();
+                            it.Reset();
+                            while (it.MoveNext())
+                            {
+                                if (it.Key.Name == myDefinition.Name)
+                                {
+
+                                    eL = 213;
+
+                                    if (it.Current is InstanceBinding)
+                                    {
+                                        foreach (Category cat in catSet)
+                                        {
+                                            if (!((InstanceBinding)it.Current).Categories.Contains(cat))
+                                            {
+                                                ((InstanceBinding)it.Current).Categories.Insert(cat);
+                                                bool success = bindingMap.ReInsert(myDefinition, (InstanceBinding)it.Current, BuiltInParameterGroup.PG_IDENTITY_DATA);
+                                            }
+                                        }
+                                    }
+                                    if (it.Current is TypeBinding)
+                                    {
+                                        foreach (Category cat in catSet)
+                                        {
+                                            if (!((TypeBinding)it.Current).Categories.Contains(cat))
+                                            {
+                                                ((TypeBinding)it.Current).Categories.Insert(cat);
+                                                bool success = bindingMap.ReInsert(myDefinition, (TypeBinding)it.Current, BuiltInParameterGroup.PG_IDENTITY_DATA);
+                                            }
+                                        }
+                                    }
+                                    bool_Reinserted = true;
+                                    break;
+                                }
+                            }
+
+                            if (!bool_Reinserted)
+                            {
+                                Binding binding = IsTypeParameter ? uidoc.Application.Application.Create.NewTypeBinding(catSet) as Binding : uidoc.Application.Application.Create.NewInstanceBinding(catSet) as Binding;
+
+                                doc.ParameterBindings.Insert(myDefinition, binding, BuiltInParameterGroup.PG_IDENTITY_DATA);
+                            }
+
+                            //MessageBox.Show("hello world");
                         }
                         tx.Commit();
                     }
-                    myStringCollectup = (IsTypeParameter ? "Type" : "Instance") + " parameters added to Project (all categories):" + Environment.NewLine + myStringCollectup;
-                }
+                    string string_CategoryOrAllCategories = "ALL categories";
 
-                if (IsTypeParameter)
+                    if (catSet.Size == 1) string_CategoryOrAllCategories = "'" + catSet.Cast<Category>().First().Name + "' category";
+
+                    myStringCollectup = (IsTypeParameter ? "Type" : "Instance") + " parameters added to Project (" + string_CategoryOrAllCategories + "):" + Environment.NewLine + myStringCollectup;
+                } else
                 {
-                    if (doc.GetElement(new ElementId(myWindow2.myIntegerUpDown.Value.Value)) != null)  //i would rather this come from the spinner so we can select other entities
+                    Element myElement = doc.GetElement(new ElementId(myWindow2.myIntegerUpDown.Value.Value)) as Element;
+
+                    if (myElement.GetType() == typeof(FamilyInstance))
                     {
-                        Element myElement = doc.GetElement(new ElementId(myWindow2.myIntegerUpDown.Value.Value)) as Element;
+                        eL = 194;
 
-                        if (myElement.GetType() == typeof(FamilyInstance))
+                        FamilyInstance myFamilyInstance = myElement as FamilyInstance;
+
+                        Family myFamily = ((FamilySymbol)doc.GetElement(myFamilyInstance.GetTypeId())).Family;
+
+                        if (myFamily.IsEditable)
                         {
-                            FamilyInstance myFamilyInstance = myElement as FamilyInstance;
+                            Document famDoc = null;
+                            famDoc = doc.EditFamily(myFamily);
 
-                            Family myFamily = ((FamilySymbol)doc.GetElement(myFamilyInstance.GetTypeId())).Family;
+                            bool myBool_GoForthAndAddParameters = false;
 
-                            if (myFamily.IsEditable)
+                            foreach (Definition myDefinition in group.Definitions)
                             {
-                                Document famDoc = null;
-                                famDoc = doc.EditFamily(myFamily);
-
-                                bool myBool_GoForthAndAddParameters = false;
-
-                                foreach (Definition myDefinition in group.Definitions)
+                                myStringCollectup = myStringCollectup + " • " + myDefinition.Name + Environment.NewLine;
+                                if (famDoc.FamilyManager.Parameters.Cast<FamilyParameter>().Where(x => x.Definition.Name == myDefinition.Name).Count() == 0)
                                 {
-
-                                    myStringCollectup = myStringCollectup + " • " + myDefinition.Name + Environment.NewLine;
-                                    if (famDoc.FamilyManager.Parameters.Cast<FamilyParameter>().Where(x => x.Definition.Name == myDefinition.Name).Count() == 0)
-                                    {
-                                        myBool_GoForthAndAddParameters = true;
-                                    }
+                                    myBool_GoForthAndAddParameters = true;
                                 }
+                            }
 
-                                if (myBool_GoForthAndAddParameters)
+                            if (myBool_GoForthAndAddParameters)
+                            {
+                                using (Transaction tx = new Transaction(famDoc))
                                 {
+                                    tx.Start("Shared parameters to Family");
 
-                                    using (Transaction tx = new Transaction(famDoc))
+                                    foreach (ExternalDefinition eD in group.Definitions)
                                     {
-                                        tx.Start("Shared parameters to Family");
-
-                                        foreach (ExternalDefinition eD in group.Definitions)
+                                        if (famDoc.FamilyManager.Parameters.Cast<FamilyParameter>().Where(x => x.Definition.Name == eD.Name).Count() == 0)
                                         {
-                                            if (famDoc.FamilyManager.Parameters.Cast<FamilyParameter>().Where(x => x.Definition.Name == eD.Name).Count() == 0)
-                                            {
-                                                famDoc.FamilyManager.AddParameter(eD, BuiltInParameterGroup.PG_IDENTITY_DATA, false);
-                                            }
+                                            famDoc.FamilyManager.AddParameter(eD, BuiltInParameterGroup.PG_TEXT, false);
                                         }
-
-                                        tx.Commit();
                                     }
-                                    myFamily = famDoc.LoadFamily(doc, new FamilyOption());
+                                    tx.Commit();
                                 }
-                                famDoc.Close(false);
+                                myFamily = famDoc.LoadFamily(doc, new FamilyOption());
                             }
-                            myStringCollectup = (IsTypeParameter ? "Type" : "Instance") + " parameters added to Family:" + Environment.NewLine + myStringCollectup;
+                            famDoc.Close(false);
                         }
-                        else
-                        {
-                            using (Transaction tx = new Transaction(doc))
-                            {
-                                tx.Start("Shared parameters to Project");
-
-                                CategorySet catSet2 = uidoc.Application.Application.Create.NewCategorySet();
-                                catSet2.Insert(myElement.Category);
-
-                                foreach (Definition myDefinition in group.Definitions)
-                                {
-                                    myStringCollectup = myStringCollectup + " • " + myDefinition.Name + Environment.NewLine;
-                                    Binding binding = IsTypeParameter ? uidoc.Application.Application.Create.NewTypeBinding(catSet2) as Binding : uidoc.Application.Application.Create.NewInstanceBinding(catSet2) as Binding;
-
-                                    doc.ParameterBindings.Insert(myDefinition, binding, BuiltInParameterGroup.PG_IDENTITY_DATA);
-                                }
-                                tx.Commit();
-                            }
-                            myStringCollectup = (IsTypeParameter ? "Type" : "Instance") + " parameters added to Category: " + myElement.Category.Name + Environment.NewLine + myStringCollectup;
-                        }
-
-                    }
-                    else
+                        myStringCollectup = (IsTypeParameter ? "Type" : "Instance") + " parameters added to Family:" + Environment.NewLine + myStringCollectup;
+                    } else
                     {
-                        myStringCollectup = "Please use 'Acquire Selected' button.";
+                        MessageBox.Show(myElement.get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM).AsValueString() + Environment.NewLine + Environment.NewLine + "...is a system family and is not *.rfa available.");
                     }
                 }
+
 
                 if (myStringSharedParameterFileName != "")
                 {
                     uidoc.Application.Application.SharedParametersFilename = myStringSharedParameterFileName;
                 }
-
-
                 return (myStringCollectup);
             }
 
             #region catch and finally
             catch (Exception ex)
             {
-                if (myStringSharedParameterFileName != "")
-                {
-                    uidoc.Application.Application.SharedParametersFilename = myStringSharedParameterFileName;
-                }
+                uidoc.Application.Application.SharedParametersFilename = myStringSharedParameterFileName;
+                uidoc.Application.Application.OpenSharedParameterFile();
+                //uidoc.Application.Application.SharedParametersFilename = "";
 
                 _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("EE17_AddSharedParameters_InVariousWays, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
 

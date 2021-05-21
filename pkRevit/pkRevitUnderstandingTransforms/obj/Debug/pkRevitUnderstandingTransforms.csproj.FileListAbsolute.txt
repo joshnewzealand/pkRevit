@@ -35,3 +35,4 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitUnderstandingT
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitUnderstandingTransforms\obj\Debug\pkRevitUnderstandingTransforms.csproj.CopyComplete
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitUnderstandingTransforms\obj\Debug\pkRevitUnderstandingTransforms.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitUnderstandingTransforms\obj\Debug\pkRevitUnderstandingTransforms.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitUnderstandingTransforms\obj\Debug\pkRevitUnderstandingTransforms.csproj.CoreCompileInputs.cache

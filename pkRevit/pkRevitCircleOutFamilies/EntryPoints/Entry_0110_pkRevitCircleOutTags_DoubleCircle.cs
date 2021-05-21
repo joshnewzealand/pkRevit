@@ -1,30 +1,30 @@
-﻿#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+﻿
 using Autodesk.Revit.DB;
-#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
+
 using Autodesk.Revit.DB.Electrical;
-#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
+
 using Autodesk.Revit.DB.Mechanical;
-#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
+
 using Autodesk.Revit.DB.Plumbing;
-#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
+
 using Autodesk.Revit.UI;
-#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
+
 using Autodesk.Revit.UI.Selection;
-#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
 using System;
 using System.Data;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
 using View = Autodesk.Revit.DB.View;
-#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
+
 
 using _952_PRLoogleClassLibrary;
 using System.Diagnostics;
@@ -46,9 +46,9 @@ namespace pkRevitCircleOutFamilies.EntryPoints
 
         public const string messageTextType = "2.0mm Arial Narrow";  //should go into shared code, but there are others, candidate for methodisation 202001011854
         public string messageConst { get; set; }
-#pragma warning disable CS0246 // The type or namespace name 'TextNoteType' could not be found (are you missing a using directive or an assembly reference?)
+
         public TextNoteType myTextNoteType { get; set; }
-#pragma warning restore CS0246 // The type or namespace name 'TextNoteType' could not be found (are you missing a using directive or an assembly reference?)
+
 
 #pragma warning disable CS0246 // The type or namespace name 'ExternalCommandData' could not be found (are you missing a using directive or an assembly reference?)
         public ExternalCommandData myCommandData { get; set; }

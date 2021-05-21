@@ -1,0 +1,50 @@
+﻿<Window x:Class="pkRevitViewportManagement.Window_BringToFront"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:pkRevitViewportManagement"
+        mc:Ignorable="d"
+        Title="Bring Viewport to Front" Height="369" Width="353.667" ResizeMode="NoResize" Topmost="True" Closing="Window_Closing">
+      <Window.Resources>
+        <local:StringToBoolConverter x:Key="StringToBoolConverterKey"></local:StringToBoolConverter>
+    </Window.Resources>
+    <Grid>
+        <ListView x:Name="listview_ListofViewportOnSheet" HorizontalAlignment="Left" Height="233" Margin="10,10,0,0" VerticalAlignment="Top" Width="315">
+
+            <ListView.View>
+                <GridView>
+
+                    <GridViewColumn Header="Viewports"  Width="300">
+                        <GridViewColumn.DisplayMemberBinding>
+                            <MultiBinding StringFormat="{}{0}" >
+                                <Binding Converter="{StaticResource StringToBoolConverterKey}" />
+                            </MultiBinding>
+                        </GridViewColumn.DisplayMemberBinding>
+                    </GridViewColumn>
+                   
+                    
+                    <!--
+                        <GridViewColumn Header="ALL_Families_Master_List" Width="1000">
+                            <GridViewColumn.DisplayMemberBinding>
+                                <MultiBinding StringFormat="{}{0} Rev{1} ({2})" >
+                                    <Binding Path="FamilyFileName"/>
+                                    <Binding Path="CurrentRevision"/>
+                                    <Binding Path="AdditionalInformation"/>
+                                </MultiBinding>
+                            </GridViewColumn.DisplayMemberBinding>
+                        </GridViewColumn>
+                        -->
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="button_Refresh" Content="Refresh" HorizontalAlignment="Left" Margin="250,243,0,0" VerticalAlignment="Top" Width="75" Click="button_Refresh_Click" />
+        <Button x:Name="button_BringSelectedViewportToFront" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="61,277,0,0" VerticalAlignment="Top" Width="174" Height="42" Click="button_BringSelectedViewportToFront_Click">
+            <StackPanel >
+                <TextBlock Text="Bring selected viewport" HorizontalAlignment="Center"/>
+                <TextBlock Text="To-Front" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+    </Grid>
+</Window>

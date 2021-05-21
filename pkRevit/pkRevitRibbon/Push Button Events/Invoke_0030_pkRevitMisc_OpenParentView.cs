@@ -35,7 +35,7 @@ namespace pkRevitRibbon
                     Properties.Settings.Default.Reload();
                 }
 
-                string path = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Josh New Zealand\\pkRevit").GetValue("Path").ToString(); 
+                string path = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\Josh New Zealand\\pkRevit").GetValue("Path").ToString();
 
                 Assembly objAssembly01 = null;
 
@@ -83,7 +83,7 @@ namespace pkRevitRibbon
                         if (objType.Name.ToLower() == strCommandName.ToLower())
                         {
                             object ibaseObject = Activator.CreateInstance(objType);
-                            object[] arguments = new object[] { commandData, "Release|" + path, elements }; 
+                            object[] arguments = new object[] { commandData, "Release|" + path, elements };
                             object result = null;
 
                             result = objType.InvokeMember(strCommandName_Method, BindingFlags.Default | BindingFlags.InvokeMethod, null, ibaseObject, arguments);
@@ -94,7 +94,7 @@ namespace pkRevitRibbon
                     }
                 }
 
-                if (!bool_Found)  
+                if (!bool_Found)
                 {
                     RibbonSupportMethods.writeDebug("Invoke_0030_pkRevitMisc_OpenParentView" + Environment.NewLine + Environment.NewLine + "Count not find 'method', 'class' in 'file'" + Environment.NewLine
                         + strCommandName_Method + Environment.NewLine + strCommandName + Environment.NewLine + path + dllModuleName, true);

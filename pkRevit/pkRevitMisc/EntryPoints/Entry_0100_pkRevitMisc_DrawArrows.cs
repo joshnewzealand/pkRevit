@@ -113,6 +113,10 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
         public Result StartMethod_0100(ExternalCommandData cd, ref string message, ElementSet elements)
         {
+
+            int eL = -1;
+
+
             try
             {
                 ExternalCommandData commandData = cd;
@@ -121,17 +125,19 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
                 ViewPlan myViewPlan = doc.ActiveView as ViewPlan;
 
-                if (myViewPlan == null)
+                if (doc.ActiveView.ViewType != ViewType.FloorPlan & doc.ActiveView.ViewType != ViewType.EngineeringPlan & doc.ActiveView.ViewType != ViewType.CeilingPlan)
                 {
                     TaskDialog.Show("Not the correct type of view", "The active view must be a view 'plan'");
                     return Result.Succeeded;
                 }
 
+                eL = 134;
                 using (Transaction tx = new Transaction(doc))
                 {
                     tx.Start("EE22_ArrowWork");
                     {
                         string myString_FamilyName = "PRL-GA Leader";
+                        //string myString_FamilyName = "PRL-GA LeaderSheet";
                         List<FamilySymbol> myListFamilySymbol_Original = null;
 
                         if (true)  //candidate for methodisation 20201212, but don't forget the two if's immediately after
@@ -144,23 +150,26 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
                                 if (message.Split('|')[0] == "Release")  //constructs a path for release directory (in program files)
                                 {
-                                    myString_TempPath = message.Split('|')[1] + "//Families//" + "PRL-GA Leader" + ".rfa";
+                                    myString_TempPath = message.Split('|')[1] + "//Families//" + myString_FamilyName + ".rfa";
                                 }
                                 if (message.Split('|')[0] == "Dev") //constructs a path for development directory
                                 {
-                                    myString_TempPath = message.Split('|')[1] + "//Families//" + "PRL-GA Leader" + ".rfa";
+                                    myString_TempPath = message.Split('|')[1] + "//Families//" + myString_FamilyName + ".rfa";
                                 }
 
                                 doc.LoadFamily(myString_TempPath, new FamilyOptionOverWrite(), out Family myFamily);
                                 myListFamilySymbol_1738 = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == myString_FamilyName).ToList();
                             }
 
+                            eL = 163;
+
                             myListFamilySymbol_Original = ((Family)myListFamilySymbol_1738.First()).GetFamilySymbolIds().Select(x => doc.GetElement(x) as FamilySymbol).OrderBy(x => x.Name).Reverse().ToList();
+                            eL = 163;
                         }
                         if (myListFamilySymbol_Original == null) return Result.Succeeded; 
-                        if (myListFamilySymbol_Original.Count() == 0) return Result.Succeeded; 
+                        if (myListFamilySymbol_Original.Count() == 0) return Result.Succeeded;
 
-
+                        eL = 167;
                         if (true) //candidate for methodisation 20201213
                         {
                             List<Element> listArrowheads_notNamedArrowHead = null;
@@ -200,6 +209,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                             {
                                 myListFamilySymbol_NotFound.Remove(famSym);
                             }
+                            eL = 211;
 
                             addSingleArrow("Arrow 15 Degree", (3.0) * (1 / 304.8), (int)ARROW_TYPE_CONVERT.ARROW, (int)CLOS.UNCLOSED, ANGLES.ANG_15, (int)FILL.UNFILLED);
                             addSingleArrow("Arrow 30 Degree", (3.0) * (1 / 304.8), (int)ARROW_TYPE_CONVERT.ARROW, (int)CLOS.UNCLOSED, ANGLES.ANG_30, (int)FILL.UNFILLED);
@@ -216,7 +226,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                             addSingleArrow("Heavy End 3mm", (3.0) * (1 / 304.8), (int)ARROW_TYPE_CONVERT.HEAVY_END_TICK_MARK, (int)CLOS.UNCLOSED, ANGLES.ANG_30, (int)FILL.FILLED);
                             addSingleArrow("Open Box 3mm", (3.0) * (1 / 304.8), (int)ARROW_TYPE_CONVERT.BOX, (int)CLOS.UNCLOSED, ANGLES.ANG_30, (int)FILL.UNFILLED);
                             addSingleArrow("Open Dot 1.5mm", (1.5) * (1 / 304.8), (int)ARROW_TYPE_CONVERT.DOT, (int)CLOS.UNCLOSED, ANGLES.ANG_30, (int)FILL.UNFILLED);
-
+                            eL = 227;
                             if (true)
                             {
                                 foreach (FamilySymbol famsym_NF in myListFamilySymbol_NotFound)
@@ -324,16 +334,19 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                             Rectangle rect = uiview.GetWindowRectangle();
                             IList<XYZ> corners = uiview.GetZoomCorners();
                             xyz_CentreScreen = (corners[0] + corners[1]) / 2;
+                            //xyz_CentreScreen = corners[1];// + corners[1]) / 2;
+
+                            int int_337 = 1;
 
                             foreach (FamilySymbol famSym in myListFamilySymbol_Original)
                             {
-                                AnnotationSymbol anno_sym = doc.Create.NewFamilyInstance((xyz_separation * int_i) + xyz_CentreScreen, famSym, view) as AnnotationSymbol;
+                                AnnotationSymbol anno_sym = doc.Create.NewFamilyInstance((xyz_separation * int_i/int_337) + xyz_CentreScreen, famSym, view) as AnnotationSymbol;
                                 list.Add(anno_sym.Id.IntegerValue);
 
                                 anno_sym.addLeader();
                                 Leader leader = anno_sym.GetLeaders()[0];
 
-                                leader.End = new XYZ(10, 0, 0) + (xyz_separation * int_i) + xyz_CentreScreen;
+                                leader.End = new XYZ(10/int_337, 0, 0) + (xyz_separation * int_i /int_337) + xyz_CentreScreen;
                                 int_i++;
                             }
 
@@ -347,7 +360,8 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             #region catch and finally
             catch (Exception ex)
             {
-                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("EE22_ArrowWork" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+                //_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("EE22_ArrowWork" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("EE22_ArrowWork, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
             }
             finally
             {

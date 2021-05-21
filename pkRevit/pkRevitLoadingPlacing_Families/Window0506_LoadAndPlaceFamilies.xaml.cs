@@ -93,25 +93,38 @@ namespace pkRevitLoadingPlacing_Families
                 UIDocument uidoc = commandData.Application.ActiveUIDocument;
                 Document doc = uidoc.Document;
 
-
                 ListView_Class myListView_Class = myListView.SelectedItem as ListView_Class;
 
                 IEnumerable<Element> myIEnumerableElement = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == myListView_Class.String_Name);
 
-                if (myIEnumerableElement.Count() == 0)
+
+                Dispatcher.Invoke(async () =>
                 {
-                    //TaskDialog.Show(".",myListView_Class.String_Name + Environment.NewLine + Environment.NewLine + "Is not present in model" + Environment.NewLine + "...please click the 'Load all families' button below");
-                    MessageBox.Show(myListView_Class.String_Name + Environment.NewLine + Environment.NewLine + "Is not present in model" + Environment.NewLine + "...please click the 'Load all families' button below");
-                    return;
-                }
-                FamilySymbol myFamilySymbol_Carrier = doc.GetElement(((Family)myIEnumerableElement.First()).GetFamilySymbolIds().First()) as FamilySymbol;
+                    if (myIEnumerableElement.Count() == 0)
+                    {
+                        myEE05_LoadAllFamilies.string_JustLoadThisOne = myListView_Class.String_Name;
+                        myExternalEvent_EE05_LoadAllFamilies.Raise();
 
-                SetForegroundWindow(uidoc.Application.MainWindowHandle); //this is an excape event
-                keybd_event(0x1B, 0, 0, 0);
-                keybd_event(0x1B, 0, 2, 0);
 
-                myEE06_PlaceAFamily_OnDoubleClick.myFamilySymbol = myFamilySymbol_Carrier;
-                myExternalEvent_EE06_PlaceAFamily_OnDoubleClick.Raise();
+                        myEE05_LoadAllFamilies.bool_Loop_UntilFinished = true;
+
+                        while (myEE05_LoadAllFamilies.bool_Loop_UntilFinished)
+                        {
+                            await Task.Delay(100);
+                        }
+
+                        myIEnumerableElement = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == myListView_Class.String_Name);
+                    }
+                    FamilySymbol myFamilySymbol_Carrier = doc.GetElement(((Family)myIEnumerableElement.First()).GetFamilySymbolIds().First()) as FamilySymbol;
+
+                    SetForegroundWindow(uidoc.Application.MainWindowHandle); //this is an excape event
+                    keybd_event(0x1B, 0, 0, 0);
+                    keybd_event(0x1B, 0, 2, 0);
+
+                    myEE06_PlaceAFamily_OnDoubleClick.myFamilySymbol = myFamilySymbol_Carrier;
+                    myExternalEvent_EE06_PlaceAFamily_OnDoubleClick.Raise();
+                });
+
 
             }
 
@@ -124,7 +137,6 @@ namespace pkRevitLoadingPlacing_Families
             {
             } 
             #endregion
-
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -186,7 +198,9 @@ namespace pkRevitLoadingPlacing_Families
                     return;
                 }
 
+                //string_JustLoadThisOne
 
+                myEE05_LoadAllFamilies.string_JustLoadThisOne = "";
                 myExternalEvent_EE05_LoadAllFamilies.Raise();
             }
 

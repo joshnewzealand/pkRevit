@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_937_PRLoogle_Command02"
         mc:Ignorable="d"
-        Title="Circle Out Family / Circle Out Family's Type" Height="450" Width="800" Topmost="True" Loaded="Window_Loaded" ResizeMode="NoResize">
+        Title="Circle Out Family / Circle Out Family's Type" Height="450" Width="800" Topmost="True" Loaded="Window_Loaded" ResizeMode="NoResize" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
 
@@ -53,6 +53,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
+        <Label Content="↓" Grid.Column="2" HorizontalAlignment="Left" Margin="97,77,0,0" VerticalAlignment="Top" Height="90" Width="50" FontSize="72"/>
         <Button x:Name="myMakeCircles" Content="Circle Out Family" Grid.Column="2" Margin="54,44,76,0" Height="42" VerticalAlignment="Top" Click="MyMakeCircles_Click" FontSize="16"/>
         <TextBox x:Name="myTextBox_2007" Grid.Column="2" Height="23" Margin="7,10,13,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <ListView x:Name="myListView_1647" Grid.Column="2" Margin="43,-217,-23,502">
@@ -76,8 +77,8 @@
                 <TextBlock HorizontalAlignment="Center"><Run Text="a Family Type"/><Run Text="s"/></TextBlock>
             </StackPanel>
         </Button>
-        <Label Content="↓" Grid.Column="2" HorizontalAlignment="Left" Margin="97,86,0,0" VerticalAlignment="Top" Height="90" Width="50" FontSize="72"/>
-        <Label Content="(select one in model)" Grid.Column="2" HorizontalAlignment="Left" Margin="124,126,0,0" VerticalAlignment="Top" Width="128"/>
+
+        <Label Content="← Select one from&#xD;&#xA;      Family circle" Grid.Column="2" HorizontalAlignment="Left" Margin="130,111,0,0" VerticalAlignment="Top" Width="110"/>
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="367" Margin="12,11,0,0" VerticalAlignment="Top" Width="244">
 
             <ListBox.ItemContainerStyle>
@@ -100,7 +101,7 @@
             </ListBox.ItemContainerStyle>
 
         </ListBox>
-        <Button Content="Check Count" Grid.Column="2" HorizontalAlignment="Left" Margin="144,148,0,0" VerticalAlignment="Top" Width="80" Click="Button_Click_1"/>
+        <Button Content="Check Count" Grid.Column="2" HorizontalAlignment="Left" Margin="80,167,0,0" VerticalAlignment="Top" Width="80" Click="Button_Click_1"/>
         <Label Content="↓" Grid.Column="2" HorizontalAlignment="Left" Margin="97,204,0,0" VerticalAlignment="Top" Height="90" Width="50" FontSize="72"/>
         <TextBox x:Name="myTextBox_2022" Grid.Column="2" Height="23" Margin="7,192,13,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>

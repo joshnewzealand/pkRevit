@@ -12,4 +12,5 @@ namespace RevitTransformSliders
         public ExternalCommandData commandData { get; set; }
         public string executionLocation { get; set; }
     }
+    //public ToAvoidLoadingRevitDLLs toavoidloadingrevitdlls { get; set; }
 }
