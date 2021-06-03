@@ -1,0 +1,124 @@
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryInstanceSpecific.txt
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryInstanceALL.txt
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryTypeALL.txt
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryTypeFamily.txt
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\CategoryTypeSpecific.txt
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\CommandsWithWindows\Add Edit Parameters\READ ME.txt
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\PRL_Parameters.txt
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\Metric Detail Item 2020.rft
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\Metric Detail Item 2021.rft
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\Metric Detail Item 2017.rft
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\Metric Detail Item 2019.rft
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\Metric Detail Item 2018.rft
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\Metric Detail Item 2022.rft
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\PRL-GA Leader 2022.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\PRL-GA Leader 2019.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\PRL-GA Leader 2020.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Families\PRL-GA Leader 2021.rfa
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\pkRevitMisc.dll.config
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\pkRevitMisc.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\pkRevitMisc.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitAPIUI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Xceed.Wpf.AvalonDock.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Xceed.Wpf.Toolkit.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\AdpSDKCSharpWrapper.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\AdskRcManaged.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitAPIFoundation.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitDBCoreAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\PersistenceDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\UtilityAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\APIDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\GraphicsAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\ElementGroupDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\EssentialsDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\GeomUtilAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\FamilyDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\DetailDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\CurtainGridFamilyDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\ArrayElemsDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\EnergyAnalysisDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\BuildingSystemsDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\HostObjDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RoomAreaPlanDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\SiteDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\SculptingDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\StructuralDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\InterfaceAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\InterfaceUtilAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RebarDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\StructuralAnalysisDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\MassingDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\AssemblyDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\DPartDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\NumberingDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\PointCloudAccessAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\StairRampDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\AnalysisAppsDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\MaterialDBAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\IntfATFAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\TextEngineAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\DBManagedServices.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\AdWindows.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitAddInUtility.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\APIInterop.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\UIFramework.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\AddInManager.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitUIAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\BuildingSystemsUIAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\DesktopMFCAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\APIUIAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitMFCAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\EssentialsUIAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\EnergyAnalysisUtilitiesAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\DetailUIAPI.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\UIFrameworkServices.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Autodesk.UI.Windows.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\Autodesk.UI.Themes.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\CompositionServices.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitAPI.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitAPIUI.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\RevitAddInUtility.xml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\cs-CZ\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\de\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\es\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\fr\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\hu\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\it\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\pt-BR\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\ro\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\ru\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\sv\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\cs-CZ\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\de-DE\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\en-GB\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\en-US\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\es-ES\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\fr-FR\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\it-IT\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\ja-JP\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\ko-KR\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\pl-PL\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\pt-BR\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\ru-RU\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\zh-CN\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\bin\Debug\zh-TW\AdWindows.resources.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\pkRevitMisc.csprojAssemblyReference.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\CommandsWithWindows\Add Edit Parameters\Window1617_AddEditParameters.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\CommandsWithWindows\Schedule Manual Sort Order\Window2333_SortOrder.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\GeneratedInternalTypeHelper.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\pkRevitMisc_MarkupCompile.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\pkRevitMisc_MarkupCompile.lref
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\CommandsWithWindows\Add Edit Parameters\Window1617_AddEditParameters.baml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\CommandsWithWindows\Schedule Manual Sort Order\Window2333_SortOrder.baml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\pkRevitMisc.g.resources
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\pkRevitMisc.CommandsWithWindows.Form_2D_Spacers.resources
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\pkRevitMisc.csproj.GenerateResource.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\pkRevitMisc.csproj.CopyComplete
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\pkRevitMisc.dll
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitMisc\obj\Debug\pkRevitMisc.pdb
