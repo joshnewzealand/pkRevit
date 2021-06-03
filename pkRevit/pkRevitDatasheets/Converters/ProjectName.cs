@@ -45,7 +45,7 @@ namespace pkRevitDatasheets
            // window_main = value[0] as MainWindow;
 
             string fileName = window_main.dict_GuidToAlias[new Guid(   ((DataRowView)value)["ProjectGUID"] .ToString())];  //
-            string scheduleName = "⤷" + ((DataRowView)value)["ScheduleName"].ToString();  //
+            string scheduleName = "↳" + ((DataRowView)value)["ScheduleName"].ToString();  //
             return fileName + Environment.NewLine + scheduleName;
         }
 
