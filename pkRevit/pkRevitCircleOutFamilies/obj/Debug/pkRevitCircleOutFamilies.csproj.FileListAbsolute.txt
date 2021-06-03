@@ -1,7 +1,3 @@
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\Window01_ChooseYourCategory.g.cs
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies_MarkupCompile.cache
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies_MarkupCompile.lref
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.csprojAssemblyReference.cache
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_.rft
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Communication Devices.rfa
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\Families 2019\PRL-Base Circle_2019_Data Devices.rfa
@@ -25,9 +21,13 @@ R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamil
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\pkRevitCircleOutFamilies.dll.config
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\pkRevitCircleOutFamilies.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\bin\Debug\pkRevitCircleOutFamilies.pdb
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.csprojAssemblyReference.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\Window01_ChooseYourCategory.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies_MarkupCompile.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies_MarkupCompile.lref
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\Window01_ChooseYourCategory.baml
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.g.resources
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.csproj.CoreCompileInputs.cache
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.csproj.CopyComplete
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.dll
 R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.pdb
-R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitCircleOutFamilies\obj\Debug\pkRevitCircleOutFamilies.csproj.CoreCompileInputs.cache

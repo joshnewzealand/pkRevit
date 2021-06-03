@@ -105,19 +105,24 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                 }
 
                 eL = 107;
-
+                if (elementType == null)
+                {
+                    MessageBox.Show("Selected element is not the kind with 'Types'.");
+                    return Result.Succeeded;
+                }
+                eL = 113;
                 if (elementType.Category == null)
                 {
                     MessageBox.Show("Filtered can't be applied to annotative elements.");
                     return Result.Succeeded;
                 }
-
+                eL = 119;
                 if (elementType.Category.IsTagCategory)
                 {
                     MessageBox.Show("'" + elementType.FamilyName + "' is a Tag Category." + Environment.NewLine + Environment.NewLine + "...and filters can't be applied to tag categories." + Environment.NewLine + Environment.NewLine + "try either: Hide Element OR Hide Category.");
                     return Result.Succeeded;
                 }
-
+                eL = 125;
                 bool bool_Stop = true;
                 bool bool_HideJustType = false;
 
@@ -128,7 +133,6 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                     ////mainDialog.MainContent =
                     ////        "Revit API doesn't automatically know if the user is in an active viewport. "
                     ////        + "Please click 'Yes' if your are, or 'No' if your not.";
-
 
                     mainDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Add hide filter for FAMILY.");
                     mainDialog.AddCommandLink(TaskDialogCommandLinkId.CommandLink2, "Add hide filter for TYPE.");
@@ -194,7 +198,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                         {
                             eL = 154;
                             // Create filter element assocated to the input categories
-                            parameterFilterElement = ParameterFilterElement.Create(doc, elementType.FamilyName, categories);
+                            parameterFilterElement = ParameterFilterElement.Create(doc, bool_HideJustType ?  elementType.FamilyName + " " + elementType.Name : elementType.FamilyName, categories);
                             eL = 158;
                             // Criterion 1 - this could be one of many elements
                             ElementId exteriorParamId = new ElementId(BuiltInParameter.ALL_MODEL_FAMILY_NAME);

@@ -226,8 +226,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                 if ((alreadyThereVertical.Count == 0) | (alreadyThereHorizontal.Count == 0))
                 {
                     //Document famDoc = uid.Document.Application.NewFamilyDocument(System.Environment.GetEnvironmentVariable("ProgramData") + "\\Autodesk\\RVT 2017\\Family Templates\\English\\Metric Detail Item.rft");
-                    string string_MetricDetailItem = "\\Metric Detail Item 2017.rft";
-
+                    string string_MetricDetailItem = "\\Metric Detail Item 2019.rft";
 
                     if (uid.Application.Application.VersionNumber == "2018") string_MetricDetailItem = "\\Metric Detail Item 2018.rft";
                     if (uid.Application.Application.VersionNumber == "2019") string_MetricDetailItem = "\\Metric Detail Item 2019.rft";

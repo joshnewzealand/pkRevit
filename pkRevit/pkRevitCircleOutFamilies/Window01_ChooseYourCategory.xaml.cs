@@ -83,9 +83,7 @@ namespace _937_PRLoogle_Command02
         public pkRevitCircleOutFamilies.EntryPoints.Entry_0110_pkRevitCircleOutFamilies myThisApplication { get; set; }
 
         _937_PRLoogle_Command02_EE01 my_937_PRLoogle_Command02_EE01;
-#pragma warning disable CS0246 // The type or namespace name 'ExternalEvent' could not be found (are you missing a using directive or an assembly reference?)
         ExternalEvent my_937_PRLoogle_Command02_EE01_Action;
-#pragma warning restore CS0246 // The type or namespace name 'ExternalEvent' could not be found (are you missing a using directive or an assembly reference?)
 
 
 

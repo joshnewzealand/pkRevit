@@ -6,10 +6,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="AiPreferFastOem" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="Manufacturer" Value="Josh New Zealand"/>
-    <ROW Property="ProductCode" Value="1033:{BEEFB74C-5C0A-473F-BDEA-A2E4D2DFB89E} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{FC90E9B7-6B1D-4862-AB72-320ED2912552} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="pkRevit"/>
-    <ROW Property="ProductVersion" Value="2.0.0" Type="32"/>
+    <ROW Property="ProductVersion" Value="2.0.2" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{2646781A-D00B-453E-B5F7-34127A944730}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -47,6 +47,7 @@
     <ROW Component="ProductInformation" ComponentId="{EFF6464C-3E39-4E20-8327-A347316FB528}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
     <ROW Component="SHORTCUTDIR" ComponentId="{33DA3C3D-A93C-4610-9497-1FE4A099DEE0}" Directory_="SHORTCUTDIR" Attributes="0"/>
     <ROW Component="SQLite.Interop.dll" ComponentId="{532D072C-AFB7-4DEF-A686-37AA90FDBCA2}" Directory_="APPDIR" Attributes="256" KeyPath="SQLite.Interop.dll"/>
+    <ROW Component="StartDB.db" ComponentId="{6D5C2A28-EDC6-4C45-9EB3-12D5DD4E37E5}" Directory_="APPDIR" Attributes="0" KeyPath="StartDB.db" Type="0"/>
     <ROW Component="System.Buffers.dll" ComponentId="{6C521801-2A92-4252-8BFB-37252939278E}" Directory_="APPDIR" Attributes="0" KeyPath="System.Buffers.dll"/>
     <ROW Component="System.Data.SQLite.dll" ComponentId="{1C3D4E5B-9BDA-4ACD-9997-5AB32AEB6224}" Directory_="APPDIR" Attributes="0" KeyPath="System.Data.SQLite.dll"/>
     <ROW Component="System.Memory.dll" ComponentId="{03A87437-106C-4B3C-AB23-F416E0282418}" Directory_="APPDIR" Attributes="0" KeyPath="System.Memory.dll"/>
@@ -99,8 +100,6 @@
     <ROW File="GenericModelManSittingEating.rfa" Component_="FurnitureChairExecutive.rfa" FileName="GENERI~2.RFA|Generic Model Man Sitting Eating.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Generic Model Man Sitting Eating.rfa" SelfReg="false"/>
     <ROW File="GenericModelManWomenConstructionWorker.rfa" Component_="FurnitureChairExecutive.rfa" FileName="GENERI~3.RFA|Generic Model Man Women Construction Worker.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Generic Model Man Women Construction Worker.rfa" SelfReg="false"/>
     <ROW File="GenericModelTippingHatMan.rfa" Component_="FurnitureChairExecutive.rfa" FileName="GENERI~4.RFA|Generic Model Tipping Hat Man.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Generic Model Tipping Hat Man.rfa" SelfReg="false"/>
-    <ROW File="MiniDigger.rfa" Component_="FurnitureChairExecutive.rfa" FileName="MINIDI~1.RFA|MiniDigger.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\MiniDigger.rfa" SelfReg="false"/>
-    <ROW File="PRLGALeader.rfa" Component_="FurnitureChairExecutive.rfa" FileName="PRL-GA~1.RFA|PRL-GA Leader.rfa" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\PRL-GA Leader.rfa" SelfReg="false"/>
     <ROW File="PRL_Parameters.txt" Component_="FurnitureChairExecutive.rfa" FileName="PRL_PA~1.TXT|PRL_Parameters.txt" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\PRL_Parameters.txt" SelfReg="false"/>
     <ROW File="ButtonImageUninstall.png" Component_="ButtonImageUninstall.png" FileName="013BUT~1.PNG|013 Button Image Uninstall.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\013 Button Image Uninstall.png" SelfReg="false"/>
     <ROW File="Button0010_pkRevitDatasheets2.png" Component_="ButtonImageUninstall.png" FileName="BUTTON~1.PNG|Button0010_pkRevitDatasheets-2.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\Button0010_pkRevitDatasheets-2.png" SelfReg="false"/>
@@ -164,6 +163,12 @@
     <ROW File="RecessedDownlightFaceBased.rfa" Component_="FurnitureChairExecutive.rfa" FileName="RECESS~2.RFA|Recessed Downlight Face Based.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Recessed Downlight Face Based.rfa" SelfReg="false"/>
     <ROW File="StatueVirginMary.rfa" Component_="FurnitureChairExecutive.rfa" FileName="STATUE~1.RFA|Statue Virgin Mary.rfa" Attributes="0" SourcePath="pkRevitLoadingPlacing_Families\bin\Debug\Families\Statue Virgin Mary.rfa" SelfReg="false"/>
     <ROW File="MetricDetailItem2022.rft" Component_="FurnitureChairExecutive.rfa" FileName="METRIC~6.RFT|Metric Detail Item 2022.rft" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\Metric Detail Item 2022.rft" SelfReg="false"/>
+    <ROW File="drawfillpatterns.png" Component_="ButtonImageUninstall.png" FileName="DRAWFI~1.PNG|drawfillpatterns.png" Attributes="0" SourcePath="pkRevitRibbon\bin\Debug\Images\drawfillpatterns.png" SelfReg="false"/>
+    <ROW File="PRLGALeader2022.rfa" Component_="FurnitureChairExecutive.rfa" FileName="PRL-GA~1.RFA|PRL-GA Leader 2022.rfa" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\PRL-GA Leader 2022.rfa" SelfReg="false"/>
+    <ROW File="PRLGALeader2019.rfa" Component_="FurnitureChairExecutive.rfa" FileName="PRL-GA~2.RFA|PRL-GA Leader 2019.rfa" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\PRL-GA Leader 2019.rfa" SelfReg="false"/>
+    <ROW File="PRLGALeader2020.rfa" Component_="FurnitureChairExecutive.rfa" FileName="PRL-GA~3.RFA|PRL-GA Leader 2020.rfa" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\PRL-GA Leader 2020.rfa" SelfReg="false"/>
+    <ROW File="PRLGALeader2021.rfa" Component_="FurnitureChairExecutive.rfa" FileName="PRL-GA~4.RFA|PRL-GA Leader 2021.rfa" Attributes="0" SourcePath="pkRevitMisc\bin\Debug\Families\PRL-GA Leader 2021.rfa" SelfReg="false"/>
+    <ROW File="StartDB.db" Component_="StartDB.db" FileName="StartDB.db" Attributes="0" SourcePath="pkRevitDatasheets\bin\Debug\StartDB.db" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.BootstrOptComponent">
     <ROW BootstrOptKey="GlobalOptions" DownloadFolder="[AppDataFolder][|Manufacturer]\[|ProductName]\prerequisites" Options="2"/>
@@ -186,7 +191,7 @@
     <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="System.Buffers.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FileDependencyOptionComponent">
-    <ROW File="pkRevitCustomActions.dll" Exclude="mscorlib.dll|System.dll|System.Configuration.Install.dll|System.Xml.Linq.dll|System.Windows.Forms.dll|System.Core.dll|PresentationFramework.dll|System.Xaml.dll|WindowsBase.dll|PresentationCore.dll|System.Drawing.dll|System.ComponentModel.DataAnnotations.dll|System.Design.dll|System.Security.dll|System.Data.dll|System.Transactions.dll|System.Xml.dll|WindowsFormsIntegration.dll|netstandard.dll|System.Numerics.Vectors.dll|System.Runtime.dll" Sha1="44b4c38b75fb6d1fdf80b7d368e66c0e1b226b69"/>
+    <ROW File="pkRevitCustomActions.dll" Exclude="mscorlib.dll|System.dll|System.Configuration.Install.dll|System.Xml.Linq.dll|System.Windows.Forms.dll|System.Core.dll|PresentationFramework.dll|System.Xaml.dll|WindowsBase.dll|PresentationCore.dll|System.Drawing.dll|System.ComponentModel.DataAnnotations.dll|System.Design.dll|System.Security.dll|System.Data.dll|System.Transactions.dll|System.Xml.dll|WindowsFormsIntegration.dll|netstandard.dll|System.Numerics.Vectors.dll|System.Runtime.dll" Sha1="e8c75e31bf272f5a7c571b4b03c7a6f9ff66e881"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>
@@ -281,6 +286,7 @@
     <ROW Feature_="MainFeature" Component_="System.Buffers.dll"/>
     <ROW Feature_="MainFeature" Component_="pkRevitViewportManagement.dll"/>
     <ROW Feature_="MainFeature" Component_="CategoryInstanceALL.txt"/>
+    <ROW Feature_="MainFeature" Component_="StartDB.db"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstExSeqComponent">
     <ROW Action="AI_DOWNGRADE" Condition="AI_NEWERPRODUCTFOUND AND (UILevel &lt;&gt; 5)" Sequence="210"/>

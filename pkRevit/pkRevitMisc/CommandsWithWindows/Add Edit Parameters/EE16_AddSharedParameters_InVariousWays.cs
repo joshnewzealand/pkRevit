@@ -107,7 +107,7 @@ namespace pkRevitMisc.CommandsWithWindows.Add_Edit_Parameters
                         Element aElement = doc.GetElement(new ElementId(myWindow2.myIntegerUpDown.Value.Value));
                         //catSet.Insert(doc.Settings.Categories.Cast<Category>().Where(x => x.Name == aElement.Category.Name).Last());
                         catSet.Insert(aElement.Category);
-                        MessageBox.Show("Instance_Specific3");
+                        //MessageBox.Show("Instance_Specific3");
                         break;
                     case (int)PARAMETER_LOAD.Instance_ALL:
                         path = pathSharedParameterFiles + Instance_ALL;

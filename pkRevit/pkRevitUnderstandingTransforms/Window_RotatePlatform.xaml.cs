@@ -769,7 +769,7 @@ namespace pkRevitUnderstandingTransforms
                 {
                     myIntUpDown_Middle2.Value = -1;
                     myBool_Rezero = true;
-                    MessageBox.Show("Please 'pick' or 'place' platform 'AGM'");
+                    MessageBox.Show("Please create a new 'Platform'.");
                     return;
                 }
 

@@ -59,12 +59,18 @@ namespace pkRevitMisc.CommandsWithWindows.Schedule_Manual_Sort_Order
 
         public void Execute(UIApplication uiapp)
         {
+            int eL = -1;
+
+
+
             try
             {
+
                 UIDocument uidoc = uiapp.ActiveUIDocument;
                 Document doc = uidoc.Document; // myListView_ALL_Fam_Master.Items.Add(doc.GetElement(uidoc.Selection.GetElementIds().First()).Name);
 
                 Window2333_SortOrder window2333 = new Window2333_SortOrder();
+
 
                 View view_ActiveView = uidoc.ActiveView;
                 ViewSchedule viewschedule = null;
@@ -139,6 +145,7 @@ namespace pkRevitMisc.CommandsWithWindows.Schedule_Manual_Sort_Order
                         break;
                     }
                 }
+                eL = 146;
 
                 List<elementWithSortOrder> list_elementWithSortOrder = new List<elementWithSortOrder>();
 
@@ -156,7 +163,7 @@ namespace pkRevitMisc.CommandsWithWindows.Schedule_Manual_Sort_Order
                             list_Element = list_Element.OrderBy(y => y.LookupParameter(str_NewParameter).AsInteger()/*,  new SemiNumericComparer()*/).ToList();
                         }
                     }
-
+                    eL = 164;
                     if (true) //candidate exception 
                     {
                         if (fieldAlreadyAdded == false)
@@ -164,17 +171,19 @@ namespace pkRevitMisc.CommandsWithWindows.Schedule_Manual_Sort_Order
                             using (Transaction tx = new Transaction(doc))
                             {
                                 tx.Start("AddSortGroupField");
-
-                                if (list_Element.First().LookupParameter("Type Comments").AsString() != null)
-                                {
-                                    int maxlen = list_Element.Max(x => x.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsString().Length);
-                                    list_Element = list_Element.OrderBy(y => y.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsString().PadLeft(maxlen, '0')/*,  new SemiNumericComparer()*/).ToList();
-                                }
-
+                                eL = 172;
+                                ////if (list_Element.First().LookupParameter("Type Comments").AsString() != null)
+                                ////{
+                                ////    eL = 175;
+                                ////    int maxlen = list_Element.Max(x => x.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsString().Length);
+                                ////    eL = 177;
+                                ////    list_Element = list_Element.OrderBy(y => y.get_Parameter(BuiltInParameter.ALL_MODEL_TYPE_COMMENTS).AsString().PadLeft(maxlen, '0')/*,  new SemiNumericComparer()*/).ToList();
+                                ////}
+                                eL = 178;
                                 ScheduleField schedulableField = viewschedule.Definition.AddField(schedulablefield);
                                 viewschedule.Definition.ClearSortGroupFields();
                                 ScheduleSortGroupField schsortgroupfield = new ScheduleSortGroupField();
-
+                                eL = 182;
                                 schsortgroupfield.FieldId = schedulableField.FieldId;
                                 viewschedule.Definition.AddSortGroupField(schsortgroupfield);
 
@@ -189,7 +198,7 @@ namespace pkRevitMisc.CommandsWithWindows.Schedule_Manual_Sort_Order
                             }
                         }
                     }
-
+                    eL = 197;
                     if (list_Element.GroupBy(x => x.LookupParameter(str_NewParameter).AsInteger()).Where(g => g.Count() > 1).Count() != 0)
                     {
                         MessageBoxResult result = System.Windows.MessageBox.Show("There are double up, do you wish to recount?", "Warning double ups", System.Windows.MessageBoxButton.YesNoCancel);
@@ -217,6 +226,7 @@ namespace pkRevitMisc.CommandsWithWindows.Schedule_Manual_Sort_Order
 
                     list_elementWithSortOrder = list_Element.Select(x => new elementWithSortOrder() { element = x, sortorder = x.LookupParameter(str_NewParameter).AsInteger() }).ToList();
                 }
+                eL = 225;
 
                 window2333.lv_ReorderThis.ItemsSource = list_elementWithSortOrder;
                 window2333.Topmost = true;
@@ -224,13 +234,23 @@ namespace pkRevitMisc.CommandsWithWindows.Schedule_Manual_Sort_Order
                 window2333.viewschedule = viewschedule;
                 window2333.uiapp = uiapp;
 
-                window2333.ShowDialog();
+
+                window2333.myWindow2333_SortOrder_ExternalEvent_Up = new Window2333_SortOrder_ExternalEvent_Up();
+                window2333.myWindow2333_SortOrder_ExternalEvent_Up.myWindow2 = window2333;
+                window2333.myExternalEvent_Up = ExternalEvent.Create(window2333.myWindow2333_SortOrder_ExternalEvent_Up);
+
+                window2333.myWindow2333_SortOrder_ExternalEvent_Down = new Window2333_SortOrder_ExternalEvent_Down();
+                window2333.myWindow2333_SortOrder_ExternalEvent_Down.myWindow2 = window2333;
+                window2333.myExternalEvent_Down = ExternalEvent.Create(window2333.myWindow2333_SortOrder_ExternalEvent_Down);
+
+                window2333.Show();
             }
 
             #region catch and finally
             catch (Exception ex)
             {
-                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("EE20_AddSortIndextoSchedule" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+                //_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("EE20_AddSortIndextoSchedule" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
+                _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("EE20_AddSortIndextoSchedule, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
             }
             finally
             {

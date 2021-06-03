@@ -1,21 +1,25 @@
-﻿using System;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+using global3.Autodesk.Revit.DB.Events;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Autodesk.Revit.DB.Events;
+
 using System.Runtime.InteropServices;
 
 namespace pkRevitLoadingPlacing_Families
 {
 
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE06_PlaceAFamily_OnDoubleClick : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
         [DllImport("user32.dll")]
@@ -111,14 +115,29 @@ namespace pkRevitLoadingPlacing_Families
 			///	https://github.com/joshnewzealand/Revit-API-Playpen-CSharp
             ///	
 
-
-            uidoc.Application.Application.DocumentChanged += new EventHandler<DocumentChangedEventArgs>(OnDocumentChanged);
+            try
+            {
+                uidoc.Application.Application.DocumentChanged += new EventHandler<DocumentChangedEventArgs>(OnDocumentChanged);
 
             PromptForFamilyInstancePlacementOptions myPromptForFamilyInstancePlacementOptions = new PromptForFamilyInstancePlacementOptions();
 
-            if (uidoc.ActiveView.SketchPlane.Name != "Level 1")
+            if (uidoc.ActiveView.SketchPlane == null)
             {
-                Level myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First() as Level;
+                    Level myLevel = null;
+
+                    string str_LevelName = uidoc.ActiveView.LookupParameter("Associated Level").AsString();
+
+                    foreach (Element l in new FilteredElementCollector(doc).OfClass(typeof(Level)).ToElements())
+                    {
+                        Level lvl = l as Level;
+                        if (lvl.Name == str_LevelName)
+                        {
+                            myLevel = lvl;
+                            //TaskDialog.Show("test", lvl.Name + "\n"  + lvl.Id.ToString());
+                        }
+                    }
+
+                    //Level myLevel = doc.GetElement(uidoc.ActiveView.LookupParameter("Associated Level").AsElementId()) as Level;//  new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First() as Level;
                 using (Transaction y = new Transaction(doc, "SetDefaultPlane"))
                 {
                     y.Start();
@@ -127,11 +146,11 @@ namespace pkRevitLoadingPlacing_Families
                 }
             }
 
+
             myPromptForFamilyInstancePlacementOptions.FaceBasedPlacementType = FaceBasedPlacementType.Default;
             SetForegroundWindow(uidoc.Application.MainWindowHandle); //this is an excape event
 
-            try
-            {
+
                 // uidoc.PromptForFamilyInstancePlacement(myFamilySymbol);
 
                 if (myFamilySymbol.Family.get_Parameter(BuiltInParameter.FAMILY_WORK_PLANE_BASED).AsInteger() == 0)

@@ -1,9 +1,14 @@
-﻿using System;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.DB;
+//using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
@@ -13,7 +18,7 @@ using System.Windows.Forms;
 
 namespace pkRevitLoadingPlacing_Families
 {
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE05_LoadAllFamilies : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
         public Window0506_LoadAndPlaceFamilies myWindow1 { get; set; }

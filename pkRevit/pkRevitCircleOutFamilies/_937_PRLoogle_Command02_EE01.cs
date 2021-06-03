@@ -209,23 +209,15 @@ namespace _937_PRLoogle_Command02
         }
     }
 
-#pragma warning disable CS0103 // The name 'Autodesk' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
     [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
-#pragma warning restore CS0246 // The type or namespace name 'Autodesk' could not be found (are you missing a using directive or an assembly reference?)
-#pragma warning restore CS0103 // The name 'Autodesk' does not exist in the current context
-#pragma warning disable CS0246 // The type or namespace name 'IExternalEventHandler' could not be found (are you missing a using directive or an assembly reference?)
     public class _937_PRLoogle_Command02_EE01 : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
-#pragma warning restore CS0246 // The type or namespace name 'IExternalEventHandler' could not be found (are you missing a using directive or an assembly reference?)
     {
         public string myStringCategory { get; set; }
         public bool bool_CircleOutTypeOption { get; set; }
         public bool bool_JustDislayInformation { get; set; }
         public Window01_ChooseYourCategory myWindow01_ChooseYourCategory { get; set; }
 
-#pragma warning disable CS0246 // The type or namespace name 'UIApplication' could not be found (are you missing a using directive or an assembly reference?)
         public void Execute(UIApplication uiapp)
-#pragma warning restore CS0246 // The type or namespace name 'UIApplication' could not be found (are you missing a using directive or an assembly reference?)
         {
             int eL = -1;
 
@@ -275,10 +267,7 @@ namespace _937_PRLoogle_Command02
 
                             if (bool_Continue)
                             {
-                                foreach (var keyPair in temp)
-                                {
-                                    myDictionary.Add(keyPair.Key + intAppend, keyPair.Value);
-                                }
+                                foreach (var keyPair in temp) myDictionary.Add(keyPair.Key + intAppend, keyPair.Value);
                             }
                             bool_Continue = true;
                         }
@@ -287,7 +276,6 @@ namespace _937_PRLoogle_Command02
                     {
                         myDictionary = pkRevitCircleOutFamilies.EntryPoints.Entry_0110_pkRevitCircleOutFamilies.FindFamilyTypes(doc, myBuiltInCategory, true); //0001
                     }
-
                 }
                 else
                 {
@@ -348,8 +336,6 @@ namespace _937_PRLoogle_Command02
                         MyPreProcessor preproccessor = new MyPreProcessor();
                         options.SetFailuresPreprocessor(preproccessor);
                         y.SetFailureHandlingOptions(options);
-
-
                         doc.Create.NewDetailCurve(doc.ActiveView, _937_PRLoogle_Command02_createArcs.ArcsSeveral(uidoc).arc);
                         y.Commit();
                     }
@@ -385,7 +371,13 @@ namespace _937_PRLoogle_Command02
                             FamilySymbol itemValue = myDictionary.ElementAt(index).Value[0];
 
                             eL = 406;
-                            itemValue.Activate();
+                            
+                            if (!itemValue.IsActive)
+                            {
+                                itemValue.Activate();
+                                doc.Regenerate();
+                            }
+                            
 
                             FamilyInstance famInt = doc.Create.NewFamilyInstance(myIListXYZ_1829[myInt], itemValue, _937_PRLoogle_Command02_createArcs.myReference_fromLevel(uidoc), Autodesk.Revit.DB.Structure.StructuralType.NonStructural);
 
@@ -450,10 +442,11 @@ namespace _937_PRLoogle_Command02
 
                                         break;
                                     default:
+
+                                            doc.Delete(famInt.Id);
+                                        //MessageBox.Show("hello world are we hitting here2");
                                         if (true)
                                         {
-                                            doc.Delete(famInt.Id);
-                                            //MessageBox.Show("hello world are we hitting here2");
 
                                             eL = 428;
                                             List<Element> myFEC_WallTypes = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Walls).WhereElementIsElementType().Where(x => ((WallType)x).Kind != WallKind.Curtain).ToList();
@@ -464,9 +457,7 @@ namespace _937_PRLoogle_Command02
                                             eL = 433;
                                             Wall myWall = null;
                                             eL = 435;
-                                            ////////foreach (ElementId myElementID in myFEC_WallTypes.ToElementIds())
-                                            ////////{
-                                            // Creates a geometry line in Revit application
+
                                             XYZ startPoint = new XYZ(myIListXYZ_1829[myInt].X, myIListXYZ_1829[myInt].Y + 5, 0);
                                             XYZ endPoint = new XYZ(myIListXYZ_1829[myInt].X, myIListXYZ_1829[myInt].Y - 5, 0);
                                             Line geomLine = Line.CreateBound(startPoint, endPoint);
@@ -475,9 +466,7 @@ namespace _937_PRLoogle_Command02
                                             myWall.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS).Set("Example 2 Walls");
 
                                             myX = myX + 3;
-                                            ////////    break;
-                                            ////////}
-                                            doc.Regenerate();
+
                                             eL = 449;
                                             //IList<Reference> sideFaces = HostObjectUtils.GetSideFaces(myWall, ShellLayerType.Interior);
 
@@ -489,7 +478,7 @@ namespace _937_PRLoogle_Command02
                                                 // MessageBox.Show(famInst_1306.Id.IntegerValue.ToString());
                                                 eL = 458;
                                                 ////doc.Create.NewFamilyInstance(myWall.face)
-
+                                                doc.Regenerate();
                                                 GeometryElement myGeomeryElement = myWall.get_Geometry(new Options() { ComputeReferences = true });
                                                 GeometryObject myGeometryObject = myGeomeryElement.Where(x => (x as Solid) != null).First();
                                                 Solid solid = myGeometryObject as Solid;
@@ -500,7 +489,6 @@ namespace _937_PRLoogle_Command02
                                                 {
                                                     doc.Delete(famInst_1306.Id);
                                                     eL = 465;
-
 
                                                     XYZ xdir = myPlanarFace.Evaluate(new UV(myPlanarFace.GetBoundingBox().Max.U, 0));
                                                     Line myLine = Line.CreateBound(myPlanarFace.Origin, myPlanarFace.FaceNormal);

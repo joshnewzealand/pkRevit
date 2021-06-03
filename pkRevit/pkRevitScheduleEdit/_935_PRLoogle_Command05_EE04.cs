@@ -45,7 +45,6 @@ namespace pkRevitScheduleEdit
             {
             }
             #endregion
-
         }
         public string GetName()
         {

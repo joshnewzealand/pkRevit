@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>pkRevitMisc</RootNamespace>
     <AssemblyName>pkRevitMisc</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>false</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,11 +36,13 @@
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="RevitAPI">
-      <HintPath>C:\ProgramData\Autodesk\Revit\Macros\2019\RevitAPI.dll</HintPath>
+    <Reference Include="RevitAPI, Version=22.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPI.dll</HintPath>
     </Reference>
-    <Reference Include="RevitAPIUI">
-      <HintPath>C:\ProgramData\Autodesk\Revit\Macros\2019\RevitAPIUI.dll</HintPath>
+    <Reference Include="RevitAPIUI, Version=22.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\Autodesk\Revit 2022\RevitAPIUI.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -81,6 +84,7 @@
     <Compile Include="EntryPoints\Entry_0050_pkRevitMisc_SizePositionViewport.cs" />
     <Compile Include="EntryPoints\Entry_0060_pkRevitMisc_Filters.cs" />
     <Compile Include="EntryPoints\Entry_0080_pkRevitMisc_Spacers.cs" />
+    <Compile Include="EntryPoints\Entry_0090_pkRevitMisc_FilledRegions.cs" />
     <Compile Include="EntryPoints\Entry_0090_pkRevitMisc_Walls.cs" />
     <Compile Include="EntryPoints\Entry_0090_pkRevitMisc_LinesPatterns_LineWeights.cs" />
     <Compile Include="EntryPoints\Entry_0090_pkRevitMisc_Lines.cs" />
@@ -132,9 +136,6 @@
     <Content Include="CommandsWithWindows\Add Edit Parameters\READ ME.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Families\PRL-GA Leader.rfa">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Families\PRL_Parameters.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -156,10 +157,19 @@
     <Content Include="Families\Metric Detail Item 2018.rft">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Families\PRL-GA LeaderSheet.rfa">
+    <Content Include="Families\Metric Detail Item 2022.rft">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Families\Metric Detail Item 2022.rft">
+    <Content Include="Families\PRL-GA Leader 2022.rfa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Families\PRL-GA Leader 2019.rfa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Families\PRL-GA Leader 2020.rfa">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Families\PRL-GA Leader 2021.rfa">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

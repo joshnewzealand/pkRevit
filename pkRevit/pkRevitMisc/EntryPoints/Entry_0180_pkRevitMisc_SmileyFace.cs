@@ -27,6 +27,15 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             }
         }
 
+        public class mouth
+        {
+            public static double mouthEdgeY = -0.9;  //make -.9  or -1.3
+
+            public static XYZ mouthEdge1 = new XYZ(-.7, mouthEdgeY, 0);
+            public static XYZ mouthEdge2 = new XYZ(.7, mouthEdgeY, 0);
+            public static XYZ mouthCentre = new XYZ(0, -1.25, 0);   //make -1.25 or -.75
+        }
+
         public Result StartMethod_0180(ExternalCommandData cd, ref string message, ElementSet elements)
         {
             ExternalCommandData commandData = cd;
@@ -76,7 +85,6 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                         /// * class is actually part of the .NET framework (not Revit API)
                         ///	https://github.com/joshnewzealand/Revit-API-Playpen-CSharp
 
-
                         Reference pickedRef = null;
                         try
                         {
@@ -124,10 +132,9 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                         // Create a arc for the mouth
                         XYZ origin = myTransform.OfPoint(new XYZ(0, 0, 0));
                         XYZ normal = myTransform.OfPoint(new XYZ(1, 1, 0));
-                        XYZ end02 = myTransform.OfPoint(new XYZ(-.7, -.9, 0));
-                        XYZ end12 = myTransform.OfPoint(new XYZ(.7, -.9, 0));
-                        //XYZ pointOnCurve2 = myTransform.OfPoint(new XYZ(0, -1.25, 0));
-                        XYZ pointOnCurve2 = myTransform.OfPoint(new XYZ(0, -1.25, 0)); //make -0.75
+                        XYZ end02 = myTransform.OfPoint(mouth.mouthEdge1);  //make -.9
+                        XYZ end12 = myTransform.OfPoint(mouth.mouthEdge2);  //make -.9
+                        XYZ pointOnCurve2 = myTransform.OfPoint(mouth.mouthCentre); //make -0.75
                         Arc geomArc2 = Arc.Create(end02, end12, pointOnCurve2);
 
                         // Create a geometry circle in Revit application
@@ -274,9 +281,10 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                         // Create a ellipse
                         XYZ origin = new XYZ(0, 0, 0);
                         XYZ normal = new XYZ(1, 1, 0);
-                        XYZ end02 = myXYZ_Centre + (new XYZ(-.7, -.9, 0));
-                        XYZ end12 = myXYZ_Centre + (new XYZ(.7, -.9, 0));
-                        XYZ pointOnCurve2 = myXYZ_Centre + (new XYZ(0, -1.25, 0));
+
+                        XYZ end02 = myXYZ_Centre + mouth.mouthEdge1;
+                        XYZ end12 = myXYZ_Centre + mouth.mouthEdge2;
+                        XYZ pointOnCurve2 = myXYZ_Centre + mouth.mouthCentre;
                         Arc geomArc2 = Arc.Create(end02, end12, pointOnCurve2);
 
                         // Create a geometry circle in Revit application

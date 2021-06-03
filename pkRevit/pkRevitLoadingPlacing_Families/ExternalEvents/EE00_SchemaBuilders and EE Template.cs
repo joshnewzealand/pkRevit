@@ -1,15 +1,18 @@
-﻿using Autodesk.Revit.DB;
+﻿
+extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 
-using Autodesk.Revit.DB.ExtensibleStorage;
 
 
 namespace pkRevitLoadingPlacing_Families
 {
 
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE01_Part1_Template : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
 
@@ -61,11 +64,9 @@ namespace pkRevitLoadingPlacing_Families
         }
     }
 
-
-
+    
     class Schema_FurnLocations
     {
-
         public const string myConstantStringSchema_FurnLocations_Index = "3e2b5963-de35-4d50-9284-cd3154f202fa";
         public const string myConstantStringSchema_FurnLocations = "330a1ede-d77b-4350-963d-3505f7ae5e23";
 
@@ -79,18 +80,21 @@ namespace pkRevitLoadingPlacing_Families
             return mySchemaBuilder.Finish();
         }
 
-
         public static Schema createSchema_FurnLocations()
         {
             Guid myGUID = new Guid(myConstantStringSchema_FurnLocations);
             SchemaBuilder mySchemaBuilder = new SchemaBuilder(myGUID);
             mySchemaBuilder.SetSchemaName("FurnLocations");
 
+            
+
             FieldBuilder mapField_Child = mySchemaBuilder.AddMapField("FurnLocations", typeof(ElementId), typeof(XYZ));
-            mapField_Child.SetUnitType(UnitType.UT_Length);
+            //mapField_Child.SetUnitType(UnitType.UT_Length);
+            mapField_Child.SetSpec(new ForgeTypeId(SpecTypeId.Length.TypeId));
 
             FieldBuilder mapField_Child_Angle = mySchemaBuilder.AddMapField("FurnLocations_Angle", typeof(ElementId), typeof(double));
-            mapField_Child_Angle.SetUnitType(UnitType.UT_Length);
+            //mapField_Child_Angle.SetUnitType(UnitType.UT_Length);
+            mapField_Child_Angle.SetSpec(new ForgeTypeId(SpecTypeId.Length.TypeId));
             IList<int> list = new List<int>() { 111, 222, 333 };
 
 

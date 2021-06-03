@@ -1,0 +1,10 @@
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets.csprojAssemblyReference.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\Window_MoreParameters.baml
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\MainWindow.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\DuplicateStage1.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\Window_MoreParameters.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\App.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets_Content.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\GeneratedInternalTypeHelper.g.cs
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets_MarkupCompile.cache
+R:\_001_GitHubRespositories\joshnewzealand\pkRevit\pkRevit\pkRevitDatasheets\obj\Debug\pkRevitDatasheets_MarkupCompile.lref

@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="pkRevitDatasheets.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="DropboxOrGoogleDriveOrOnedrive_Path" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="lvMasterListSelectedIndex_WillNotWorkWhenFilterActive" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
@@ -46,6 +43,9 @@
     </Setting>
     <Setting Name="str_CurrentModeOfExplorer" Type="System.String" Scope="User">
       <Value Profile="(Default)">ModeProject</Value>
+    </Setting>
+    <Setting Name="DropboxOrGoogleDriveOrOnedrive_Path" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

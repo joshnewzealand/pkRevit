@@ -67,6 +67,8 @@ namespace pkRevitUnderstandingTransforms.External_Events//SetSlider
                 if (setAndSelect(uidoc, myToolKit_IntUpDown, myFamilyInstance_2148)) break;
             }
 
+            //find the familyInstance from the reference
+
             if (myToolKit_IntUpDown.Value.Value == -1) 
             {
                 FilteredElementCollector fec2 = new FilteredElementCollector(doc).WhereElementIsNotElementType().OfCategory(BuiltInCategory.OST_AdaptivePoints);

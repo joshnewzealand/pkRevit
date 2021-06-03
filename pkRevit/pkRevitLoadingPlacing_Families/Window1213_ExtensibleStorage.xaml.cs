@@ -1,5 +1,8 @@
-﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.ExtensibleStorage;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
@@ -52,8 +55,6 @@ namespace pkRevitLoadingPlacing_Families
         public EE13_ExtensibleStorage_Rearrange myEE13_ExtensibleStorage_Rearrange { get; set; }
         public ExternalEvent myExternalEvent_EE13_ExtensibleStorage_Rearrange { get; set; }
 
-
-
         public Window1213_ExtensibleStorage(ExternalCommandData cD)
         {
             commandData = cD;
@@ -64,29 +65,6 @@ namespace pkRevitLoadingPlacing_Families
             {
                 foreach (string myStrrr in EntryPoints.Families_ThatMustBeLoaded.ListStringMustHaveFamilies) myListClass.Add(new ListView_Class() { String_Name = myStrrr, String_FileName = "//Families//" + myStrrr + ".rfa" });
 
-                myEE13_ExtensibleStorage_NewOrSave = new EE13_ExtensibleStorage_NewOrSave();
-                myEE13_ExtensibleStorage_NewOrSave.myWindow1 = this;
-                myExternalEvent_EE13_ExtensibleStorage_NewOrSave = ExternalEvent.Create(myEE13_ExtensibleStorage_NewOrSave);
-
-                myEE13_ExtensibleStorage_Rearrange = new EE13_ExtensibleStorage_Rearrange();
-                myEE13_ExtensibleStorage_Rearrange.myWindow1 = this;
-                myExternalEvent_EE13_ExtensibleStorage_Rearrange = ExternalEvent.Create(myEE13_ExtensibleStorage_Rearrange);
-
-                myEE13_ExtensibleStorage_DeleteItem = new EE13_ExtensibleStorage_DeleteItem();
-                myEE13_ExtensibleStorage_DeleteItem.myWindow1 = this;
-                myExternalEvent_EE13_ExtensibleStorage_DeleteItem = ExternalEvent.Create(myEE13_ExtensibleStorage_DeleteItem);
-
-                myEE13_ExtensibleStorage_DeleteAll = new EE13_ExtensibleStorage_DeleteAll();
-                myEE13_ExtensibleStorage_DeleteAll.myWindow1 = this;
-                myExternalEvent_EE13_ExtensibleStorage_DeleteAll = ExternalEvent.Create(myEE13_ExtensibleStorage_DeleteAll);
-
-                myEE13_ExtensibleStorage_zRandomise = new EE13_ExtensibleStorage_zRandomise();
-                myEE13_ExtensibleStorage_zRandomise.myWindow1 = this;
-                myExternalEvent_EE13_ExtensibleStorage_zRandomise = ExternalEvent.Create(myEE13_ExtensibleStorage_zRandomise);
-
-                myEE12_SetupRoom = new EE12_SetupRoom();
-                myEE12_SetupRoom.myWindow1 = this;
-                myExternalEvent_EE12_SetupRoom = ExternalEvent.Create(myEE12_SetupRoom);
 
                 InitializeComponent();
                 this.Top = Properties.Settings.Default.Win4Top;
@@ -157,11 +135,22 @@ namespace pkRevitLoadingPlacing_Families
 
             try
             {
-                if(myListViewEE.SelectedIndex == -1)
+                int version = int.Parse(myThisApplication.toavoidloadingrevitdlls.commandData.Application.Application.VersionNumber);
+                //ent_Child.Set("FurnLocations", dict_Child, (version < 2021) ? global4.Autodesk.Revit.DB.DisplayUnitType.DUT_MILLIMETERS : new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+
+                if (version < 2021)
+                {
+                    MessageBox.Show("Due to some dramatic changes to the API in 2021, extensible storage is currently not working on versions 2020 and earlier." + Environment.NewLine + Environment.NewLine + "We're really sorry...we're working on it.");
+                    return;
+                }
+
+                if (myListViewEE.SelectedIndex == -1)
                 {
                     MessageBox.Show("Please select an item from the list view.");
                     return;
                 }
+
+
 
                 myEE13_ExtensibleStorage_NewOrSave.myBool_New = false;
                 myExternalEvent_EE13_ExtensibleStorage_NewOrSave.Raise();
@@ -186,6 +175,15 @@ namespace pkRevitLoadingPlacing_Families
 
             try
             {
+                int version = int.Parse(myThisApplication.toavoidloadingrevitdlls.commandData.Application.Application.VersionNumber);
+                //ent_Child.Set("FurnLocations", dict_Child, (version < 2021) ? global4.Autodesk.Revit.DB.DisplayUnitType.DUT_MILLIMETERS : new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+
+                if (version < 2021)
+                {
+                    MessageBox.Show("Due to some dramatic changes to the API in 2021, extensible storage is currently not working on versions 2020 and earlier." + Environment.NewLine + Environment.NewLine + "We're really sorry...we're working on it.");
+                    return;
+                }
+
                 myEE13_ExtensibleStorage_NewOrSave.myBool_New = true;
                 myExternalEvent_EE13_ExtensibleStorage_NewOrSave.Raise();
             }
@@ -223,7 +221,7 @@ namespace pkRevitLoadingPlacing_Families
 
                 if (!ent_Parent.IsValid()) return;
 
-                IDictionary<string, Entity> dict_Parent = ent_Parent.Get<IDictionary<string, Entity>>("FurnLocations_Index", DisplayUnitType.DUT_MILLIMETERS);
+                IDictionary<string, Entity> dict_Parent = ent_Parent.Get<IDictionary<string, Entity>>("FurnLocations_Index");
 
                 myListViewEE.ItemsSource = dict_Parent;
 
@@ -399,6 +397,15 @@ namespace pkRevitLoadingPlacing_Families
 
             try
             {
+                int version = int.Parse(myThisApplication.toavoidloadingrevitdlls.commandData.Application.Application.VersionNumber);
+                //ent_Child.Set("FurnLocations", dict_Child, (version < 2021) ? global4.Autodesk.Revit.DB.DisplayUnitType.DUT_MILLIMETERS : new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+
+                if (version < 2021)
+                {
+                    MessageBox.Show("Due to some dramatic changes to the API in 2021, extensible storage is currently not working on versions 2020 and earlier." + Environment.NewLine + Environment.NewLine + "We're really sorry...we're working on it.");
+                    return;
+                }
+
                 myExternalEvent_EE13_ExtensibleStorage_zRandomise.Raise();
             }
 

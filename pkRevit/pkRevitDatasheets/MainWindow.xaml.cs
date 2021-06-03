@@ -483,14 +483,71 @@ namespace pkRevitDatasheets
             dict_SortOrdered_Project.Add(16, "Connection Type");//connection type
             dict_SortOrdered_Project.Add(17, "Connection Type Dept");//connection type dept
 
-
-            if (bool_Ask_Questionaire)
+            if(true)
             {
-                if /*candidate for methodisation 20210123*/ ((!System.IO.Directory.Exists(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path + @"\pkRevit Storage (do not edit directly)")) | Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path == "")
+                if(!System.IO.Directory.Exists((Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\pkRevit")))
+                {
+                    System.IO.Directory.CreateDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\pkRevit");
+                }
+
+
+                string FILE_NAME = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\pkRevit\\DropboxOrGoogleDriveOrOnedrive_Path.txt");
+
+                if (!System.IO.File.Exists(FILE_NAME))
+                {
+                    System.IO.File.Create(FILE_NAME).Dispose();
+
+                    System.IO.StreamWriter objWriter = new System.IO.StreamWriter(FILE_NAME, true);
+
+                    objWriter.WriteLine("");
+                    objWriter.Close();
+                }
+                System.IO.StreamReader objReader = new System.IO.StreamReader(FILE_NAME, true);
+                Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path = objReader.ReadLine();
+                objReader.Close();
+                Properties.Settings.Default.Save();
+                Properties.Settings.Default.Reload();
+            }
+
+            bool bool_passthisone = false;
+
+            if(true)
+            {
+                string string_MainDirectoryLocation = Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path + @"\pkRevit Storage (do not edit directly)";
+                bool bool_IfDirectoryExists = System.IO.Directory.Exists(string_MainDirectoryLocation);
+
+                string string_DirectoryToCreate = string_MainDirectoryLocation + @"\Database File";
+                bool bool_IfFileExists = System.IO.File.Exists(string_DirectoryToCreate + @"\Full_Index.db");
+
+                if (bool_IfDirectoryExists & !bool_IfFileExists) bool_passthisone = true;
+            }
+
+            if (bool_Ask_Questionaire | bool_passthisone)
+            {
+                //
+                if (false)  //candidate for methodasation 20210602
+                {
+                    string FILE_NAME = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\pkRevit\\DropboxOrGoogleDriveOrOnedrive_Path.txt");
+
+                    System.IO.File.Create(FILE_NAME).Dispose();
+
+                    System.IO.StreamWriter objWriter = new System.IO.StreamWriter(FILE_NAME, true);
+
+                    objWriter.WriteLine(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path);
+                    objWriter.Close();
+
+                    ////System.IO.StreamReader objReader = new System.IO.StreamReader(FILE_NAME, true);
+                    ////objReader.Close();
+                }
+
+                if (bool_passthisone | (!System.IO.Directory.Exists(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path + @"\pkRevit Storage (do not edit directly)")) | Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path == "")
                 {
                     bool bool_ManuallySetInitialDirectory = true;
-
-                    if (System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\PRearch❤️ - General")) //\~Datasheet❤️ Expansion"))
+                   
+                    string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split('\\').Last();
+                    string userNameToMatch = "Joshua.Lumley2";
+                 
+                    if (userName == userNameToMatch)
                     {
                         MessageBoxResult result = System.Windows.MessageBox.Show("First time load...use Teams (recommended)?", "Use Teams?", System.Windows.MessageBoxButton.YesNoCancel);
 
@@ -500,6 +557,20 @@ namespace pkRevitDatasheets
                             Properties.Settings.Default.Save();
                             Properties.Settings.Default.Reload();
 
+
+                            if (true)  //candidate for methodasation 20210602
+                            {
+                                string FILE_NAME = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\pkRevit\\DropboxOrGoogleDriveOrOnedrive_Path.txt");
+
+                                System.IO.File.Create(FILE_NAME).Dispose();
+
+                                System.IO.StreamWriter objWriter = new System.IO.StreamWriter(FILE_NAME, true);
+
+                                objWriter.WriteLine(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path);
+                                objWriter.Close();
+
+                            }
+
                             label_DropboxGoogleDriveOnedrive.Content = Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path;
 
                             bool_ManuallySetInitialDirectory = false;
@@ -507,22 +578,43 @@ namespace pkRevitDatasheets
                     }
                     else if  /*candidate for methodisation 20210123*/ (System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\~PRearch❤️ - General"))
                     {
-                        MessageBoxResult result = System.Windows.MessageBox.Show("First time load...use Teams (recommended)?", "Use Teams?", System.Windows.MessageBoxButton.YesNoCancel);
-
-                        if (result == MessageBoxResult.Yes)
+                       // string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split('\\').Last();
+                       
+                        if (userName == userNameToMatch)  
                         {
-                            Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\~PRearch❤️ - General";//\~Datasheet❤️ Expansion";
-                            Properties.Settings.Default.Save();
-                            Properties.Settings.Default.Reload();
+                            MessageBoxResult result = System.Windows.MessageBox.Show("First time load...use Teams (recommended)?", "Use Teams?", System.Windows.MessageBoxButton.YesNoCancel);
 
-                            label_DropboxGoogleDriveOnedrive.Content = Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path;
+                            if (result == MessageBoxResult.Yes)
+                            {
+                                Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Pedersen Read\~PRearch❤️ - General";//\~Datasheet❤️ Expansion";
+                                Properties.Settings.Default.Save();
+                                Properties.Settings.Default.Reload();
 
-                            bool_ManuallySetInitialDirectory = false;
+
+                                if (true)  //candidate for methodasation 20210602
+                                {
+                                    string FILE_NAME = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\pkRevit\\DropboxOrGoogleDriveOrOnedrive_Path.txt");
+
+                                    System.IO.File.Create(FILE_NAME).Dispose();
+
+                                    System.IO.StreamWriter objWriter = new System.IO.StreamWriter(FILE_NAME, true);
+
+                                    objWriter.WriteLine(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path);
+                                    objWriter.Close();
+
+                                }
+
+                                label_DropboxGoogleDriveOnedrive.Content = Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path;
+
+                                bool_ManuallySetInitialDirectory = false;
+                            }
                         }
-                    }
 
+                    }
+                  
                     if (bool_ManuallySetInitialDirectory)
                     {
+                       // cheat:
                         if (System.IO.Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Dropbox"))
                         {
                             MessageBoxResult result = System.Windows.MessageBox.Show("First time load...use Dropbox?", "Use Dropbox?", System.Windows.MessageBoxButton.YesNoCancel);
@@ -533,6 +625,20 @@ namespace pkRevitDatasheets
                                 Properties.Settings.Default.Save();
                                 Properties.Settings.Default.Reload();
 
+
+                                if (true)  //candidate for methodasation 20210602
+                                {
+                                    string FILE_NAME = (Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\pkRevit\\DropboxOrGoogleDriveOrOnedrive_Path.txt");
+
+                                    System.IO.File.Create(FILE_NAME).Dispose();
+
+                                    System.IO.StreamWriter objWriter = new System.IO.StreamWriter(FILE_NAME, true);
+
+                                    objWriter.WriteLine(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path);
+                                    objWriter.Close();
+
+                                }
+
                                 label_DropboxGoogleDriveOnedrive.Content = Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path;
 
                                 bool_ManuallySetInitialDirectory = false;
@@ -542,14 +648,29 @@ namespace pkRevitDatasheets
 
                     if (bool_ManuallySetInitialDirectory)
                     {
+
                         Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path = "";
                         Properties.Settings.Default.Save();
                         Properties.Settings.Default.Reload();
 
+
+                        if (true)  //candidate for methodasation 20210602
+                        {
+                            string FILE_NAME = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\pkRevit\\DropboxOrGoogleDriveOrOnedrive_Path.txt";
+
+                            System.IO.File.Create(FILE_NAME).Dispose();
+
+                            System.IO.StreamWriter objWriter = new System.IO.StreamWriter(FILE_NAME, true);
+
+                            objWriter.WriteLine(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path);
+                            objWriter.Close();
+
+                        }
+
                         setStoreDirectory();
                     }
                 }
-
+            
                 if (!System.IO.Directory.Exists(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path))
                 {
                     MessageBox.Show("The app will be closed because a database path must be available");
@@ -561,26 +682,38 @@ namespace pkRevitDatasheets
                 label_DropboxGoogleDriveOnedrive.Content = Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path;
             }
 
-            if (!System.IO.Directory.Exists(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path + @"\pkRevit Storage (do not edit directly)"))
+            if (true)
             {
-                MessageBoxResult result2 = System.Windows.MessageBox.Show("Initiating a blank database file...." + Environment.NewLine + Environment.NewLine, "Are you sure?", System.Windows.MessageBoxButton.YesNoCancel);
+                string string_MainDirectoryLocation = Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path + @"\pkRevit Storage (do not edit directly)";
+                bool bool_IfDirectoryExists = System.IO.Directory.Exists(string_MainDirectoryLocation);
 
-                if (result2 == MessageBoxResult.Yes)
+                string string_DirectoryToCreate = string_MainDirectoryLocation + @"\pkRevit Storage (do not edit directly)\Database File";
+                bool bool_IfFileExists = System.IO.File.Exists(string_DirectoryToCreate + @"\Full_Index.db");
+
+                //if (bool_IfDirectoryExists & !bool_IfFileExists) 
+
+                if (!bool_IfDirectoryExists)
                 {
-                    setStoreDirectory_MakeSubDirectories();
+                    MessageBoxResult result2 = System.Windows.MessageBox.Show("Initiating a blank database file...." + Environment.NewLine + Environment.NewLine, "Are you sure?", System.Windows.MessageBoxButton.YesNoCancel);
+
+                    if (result2 == MessageBoxResult.Yes)
+                    {
+                        setStoreDirectory_MakeSubDirectories();
+                    }
+                    else
+                    {
+                        MessageBox.Show("The app will be closed because a database file must be available");
+                        bool_ContinueOpening_DatabaseChecksOut = false;
+                        this.Close();
+                        return;
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("The app will be closed because a database file must be available");
-                    bool_ContinueOpening_DatabaseChecksOut = false;
-                    this.Close();
-                    return;
+                    setStoreDirectory_MakeSubDirectories();
                 }
             }
-            else
-            {
-                setStoreDirectory_MakeSubDirectories();
-            }
+
 
             ///stuff stuff stuff, there are differences, differences, differences
             ///
@@ -615,8 +748,11 @@ namespace pkRevitDatasheets
 
                 if(true)  //candidate for methodisation 20210516
                 {
+
                     if (!dict_GuidToAlias.ContainsKey(named_guid))
                     {
+                        this.Topmost = false;
+
                         if (s_NewAliasName == "")
                         {
                             s_NewAliasName = Microsoft.VisualBasic.Interaction.InputBox("Please enter a name....", "This is the first time we've saved from this Project.", s_NewAliasName, -1, -1);
@@ -625,6 +761,7 @@ namespace pkRevitDatasheets
                         {
                             s_NewAliasName = Microsoft.VisualBasic.Interaction.InputBox("Happy with this name?", "This is the first time we've saved from this Project.", s_NewAliasName, -1, -1);
                         }
+                        this.Topmost = true;
 
                         if (s_NewAliasName == "") s_NewAliasName = "Revit Project Alias Name";
 
@@ -1711,10 +1848,7 @@ namespace pkRevitDatasheets
 
             MessageBoxResult result2 = System.Windows.MessageBox.Show("Careful: This will change the database file...." + Environment.NewLine + Environment.NewLine + "We recommend: Dropbox OR GoogleDrive OR OneDrive" + Environment.NewLine + Environment.NewLine + "Click 'Cancel' if not sure.", "Careful! click 'Cancel' if not sure.", System.Windows.MessageBoxButton.OKCancel);
 
-            if (result2 != MessageBoxResult.OK)
-            {
-                return;
-            }
+            if (result2 != MessageBoxResult.OK) return;
 
             using (var fbd = new FolderBrowserDialog())
             {
@@ -1722,11 +1856,25 @@ namespace pkRevitDatasheets
 
                 if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    string[] files = Directory.GetFiles(fbd.SelectedPath);
+                   // string[] files = Directory.GetFiles(fbd.SelectedPath);
 
                     Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path = fbd.SelectedPath;
                     Properties.Settings.Default.Save();
                     Properties.Settings.Default.Reload();
+
+
+                    if (true)  //candidate for methodasation 20210602
+                    {
+                        string FILE_NAME = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\pkRevit\\DropboxOrGoogleDriveOrOnedrive_Path.txt";
+
+                        System.IO.File.Create(FILE_NAME).Dispose();
+
+                        System.IO.StreamWriter objWriter = new System.IO.StreamWriter(FILE_NAME, true);
+
+                        objWriter.WriteLine(Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path);
+                        objWriter.Close();
+
+                    }
 
                     label_DropboxGoogleDriveOnedrive.Content = Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path;
                 }
@@ -1770,7 +1918,17 @@ namespace pkRevitDatasheets
                     string_Execution = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                 }
 
-                System.IO.File.Copy(string_Execution + @"\StartDB.db", string_DatabaseLocation);
+                string string_DevOrRelease = string_Execution.Split('|')[0];
+
+                if (string_DevOrRelease == "Release" | string_DevOrRelease == "Dev")  //constructs a path for release directory (in program files)
+                {
+                    //myString_TempPath = message.Split('|')[1] + "\\Families";
+                    System.IO.File.Copy(string_Execution.Split('|')[1] + @"\StartDB.db", string_DatabaseLocation);
+                }
+                else
+                {
+                    System.IO.File.Copy(string_Execution + @"\StartDB.db", string_DatabaseLocation);
+                }
 
                 Properties.Settings.Default.lvMasterListSelectedIndex_WillNotWorkWhenFilterActive = -1;
                 Properties.Settings.Default.Save();
@@ -1805,6 +1963,7 @@ namespace pkRevitDatasheets
                 DataContractSerializer serializer = new DataContractSerializer(typeof(Dictionary<int, string>));  //four of four
                 serializer.WriteObject(stream, dict_SortOrdered_Project); stream.Close();
             }
+
         }
 
         public SQLiteConnection OleDbConnection_ButtonOK { get; set; }
@@ -1890,7 +2049,6 @@ namespace pkRevitDatasheets
                 }
                 //DropboxOrGoogleDriveOrOnedrive_Path
                 eL = 850;
-
 
                 ///onDirectorySwitch_OrFirstRender
                 ///
@@ -3644,9 +3802,9 @@ namespace pkRevitDatasheets
                     return false;
                 }
                 eL = 3267;
-                MessageBoxResult result = System.Windows.MessageBox.Show("Extract the entire schedule?", "Warning", System.Windows.MessageBoxButton.YesNoCancel);
+                ////MessageBoxResult result = System.Windows.MessageBox.Show("Extract the entire schedule?", "Warning", System.Windows.MessageBoxButton.YesNoCancel);
 
-                if (result != MessageBoxResult.Yes) return false;
+                ////if (result != MessageBoxResult.Yes) return false;
 
                 ///get it to be a button and not a window
                 ///after this we need to get the thing ordered better on the schedule edit
@@ -4656,6 +4814,8 @@ namespace pkRevitDatasheets
                 Properties.Settings.Default.str_carryOverGuid = str_carryOverGuid;
                 Properties.Settings.Default.str_carryOverScheduleId_string = str_carryOverScheduleId_string;
                 Properties.Settings.Default.str_CurrentModeOfExplorer = str_CurrentModeOfExplorer;
+
+              //  Properties.Settings.Default.DropboxOrGoogleDriveOrOnedrive_Path = "";
 
                 //////////ModeProject  str_CurrentModeOfExplorer
 

@@ -1,4 +1,9 @@
-﻿using Autodesk.Revit.DB;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
+
+//using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
@@ -23,21 +28,52 @@ namespace pkRevitLoadingPlacing_Families.EntryPoints  //Entry_0010_pkRevitDatash
 
         public Result StartMethod_0220(ExternalCommandData cd, ref string message, ElementSet elements)
         {
-            ExternalCommandData commandData = cd;
-            string executionLocation = message;
 
-            toavoidloadingrevitdlls = new pkRevitMisc.ToAvoidLoadingRevitDLLs();
-            toavoidloadingrevitdlls.commandData = commandData;
-            toavoidloadingrevitdlls.executionLocation = executionLocation;
 
             int eL = -1;
-            Window1213_ExtensibleStorage myWindow3 = new Window1213_ExtensibleStorage(commandData);
 
             try
             {
+                ExternalCommandData commandData = cd;
+                string executionLocation = message;
+
+                toavoidloadingrevitdlls = new pkRevitMisc.ToAvoidLoadingRevitDLLs();
+                toavoidloadingrevitdlls.commandData = commandData;
+                toavoidloadingrevitdlls.executionLocation = executionLocation;
+
+                Window1213_ExtensibleStorage myWindow3 = new Window1213_ExtensibleStorage(commandData);
+
+
                 ////////////////////myWindow1 = new MainWindow(commandData, this, true, 0);
                 myWindow3.myThisApplication = this;
                 myWindow3.Topmost = true;
+
+
+                myWindow3.myEE13_ExtensibleStorage_NewOrSave = new EE13_ExtensibleStorage_NewOrSave();
+                myWindow3.myEE13_ExtensibleStorage_NewOrSave.myWindow1 = myWindow3;
+                myWindow3.myExternalEvent_EE13_ExtensibleStorage_NewOrSave = ExternalEvent.Create(myWindow3.myEE13_ExtensibleStorage_NewOrSave);
+
+                myWindow3.myEE13_ExtensibleStorage_Rearrange = new EE13_ExtensibleStorage_Rearrange();
+                myWindow3.myEE13_ExtensibleStorage_Rearrange.myWindow1 = myWindow3;
+                myWindow3.myExternalEvent_EE13_ExtensibleStorage_Rearrange = ExternalEvent.Create(myWindow3.myEE13_ExtensibleStorage_Rearrange);
+
+                myWindow3.myEE13_ExtensibleStorage_DeleteItem = new EE13_ExtensibleStorage_DeleteItem();
+                myWindow3.myEE13_ExtensibleStorage_DeleteItem.myWindow1 = myWindow3;
+                myWindow3.myExternalEvent_EE13_ExtensibleStorage_DeleteItem = ExternalEvent.Create(myWindow3.myEE13_ExtensibleStorage_DeleteItem);
+
+                myWindow3.myEE13_ExtensibleStorage_DeleteAll = new EE13_ExtensibleStorage_DeleteAll();
+                myWindow3.myEE13_ExtensibleStorage_DeleteAll.myWindow1 = myWindow3;
+                myWindow3.myExternalEvent_EE13_ExtensibleStorage_DeleteAll = ExternalEvent.Create(myWindow3.myEE13_ExtensibleStorage_DeleteAll);
+
+                myWindow3.myEE13_ExtensibleStorage_zRandomise = new EE13_ExtensibleStorage_zRandomise();
+                myWindow3.myEE13_ExtensibleStorage_zRandomise.myWindow1 = myWindow3;
+                myWindow3.myExternalEvent_EE13_ExtensibleStorage_zRandomise = ExternalEvent.Create(myWindow3.myEE13_ExtensibleStorage_zRandomise);
+
+                myWindow3.myEE12_SetupRoom = new EE12_SetupRoom();
+                myWindow3.myEE12_SetupRoom.myWindow1 = myWindow3;
+                myWindow3.myExternalEvent_EE12_SetupRoom = ExternalEvent.Create(myWindow3.myEE12_SetupRoom);
+
+
                 myWindow3.Show();
             }
 

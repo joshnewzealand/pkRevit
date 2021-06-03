@@ -46,52 +46,22 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
                         FilteredElementCollector fillPatternsDrafting = new FilteredElementCollector(doc).OfClass(typeof(FillPatternElement));
 
-                        ///lets create a stuff
-                        ///
+                        UIView myUIView_1957 = myUIView(uidoc);
+                        IList<XYZ> myXYZ_Corners_1957 = myXYZ_Corners(myUIView_1957);
+                        XYZ centre3 = myXYZ_Corners_1957[0] + ((myXYZ_Corners_1957[1] - myXYZ_Corners_1957[0]) / 2);
 
-                        //cyan, blue, 50 random colours based on something else
+                        Color myColor_Random01 = new Autodesk.Revit.DB.Color(System.Drawing.Color.LightPink.R, System.Drawing.Color.LightPink.G, System.Drawing.Color.LightPink.B);
+                        colour_AndPosition(doc, centre3, "Solid Light Pink", myColor_Random01, fillRegionTypes, fillPatternsDrafting);
 
-                        IEnumerable<FilledRegionType> myPatterns =
-                            from pattern in fillRegionTypes.Cast<FilledRegionType>()
-                            where pattern.Name.Equals("Solid Black")
-                            select pattern;
+                        Color myColor_Random02 = new Autodesk.Revit.DB.Color(System.Drawing.Color.LightGreen.R, System.Drawing.Color.LightGreen.G, System.Drawing.Color.LightGreen.B);
+                        colour_AndPosition(doc, centre3 + new XYZ(6, 0, 0), "Light Green", myColor_Random02, fillRegionTypes, fillPatternsDrafting);
 
-
-                        ElementType regionType = myPatterns.First();
-
-                        
-                       //doc.Create
-
-                        // MessageBox.Show(myPatterns.Count().ToString());
-
-                        List<CurveLoop> profileloops = new List<CurveLoop>();
-
-                            XYZ[] points = new XYZ[5];
-                            points[0] = new XYZ(0.0, 0.0, 0.0);
-                            points[1] = new XYZ(1.0, 0.0, 0.0);
-                            points[2] = new XYZ(1.0, 1.0, 0.0);
-                            points[3] = new XYZ(0.0, 1.0, 0.0);
-                            points[4] = new XYZ(0.0, 0.0, 0.0);
-
-                            CurveLoop profileloop = new CurveLoop();
-
-                            for (int i = 0; i < 4; i++)
-                            {
-                                Line line = Line.CreateBound(points[i], points[i + 1]);
-                                profileloop.Append(line);
-                            }
-                            profileloops.Add(profileloop);
-
-                            ElementId activeViewId = doc.ActiveView.Id;
-
-                            FilledRegion filledRegion = FilledRegion.Create(doc, regionType.Id, activeViewId, profileloops);
-
+                        Color myColor_Random03 = new Autodesk.Revit.DB.Color(System.Drawing.Color.LightBlue.R, System.Drawing.Color.LightBlue.G, System.Drawing.Color.LightBlue.B);
+                        colour_AndPosition(doc, centre3 + new XYZ(-6, 0, 0), "Light Blue", myColor_Random03, fillRegionTypes, fillPatternsDrafting);
 
                         trans.Commit();
                     }
                 }
-
-
                 if(false)
                 {
 
@@ -171,8 +141,6 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                 }
 
                 return Result.Succeeded;
-
-
             }
 
             #region catch and finally
@@ -186,6 +154,75 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
             #endregion
 
             return Result.Succeeded;
+        }
+
+        private void colour_AndPosition(Document doc, XYZ centre3, string nameOfColour, Color myColor_Random01, FilteredElementCollector fillRegionTypes, FilteredElementCollector fillPatternsDrafting) //"Solid Light Pink"
+        {
+            IEnumerable<FilledRegionType> myPatterns =
+                from pattern in fillRegionTypes.Cast<FilledRegionType>()
+                where pattern.Name.Equals(nameOfColour)
+                select pattern;
+
+            if (myPatterns.Count() == 0)
+            {
+                ElementType regionType = fillRegionTypes.First() as ElementType;
+                FilledRegionType regionCyan = regionType.Duplicate(nameOfColour) as FilledRegionType;
+                regionCyan.ForegroundPatternId = fillPatternsDrafting.First().Id;
+                regionCyan.ForegroundPatternColor = myColor_Random01;
+
+                createFilledRegions(doc, centre3, regionCyan.Id);
+            }
+            else createFilledRegions(doc, centre3, myPatterns.First().Id);
+        }
+
+
+        private void createFilledRegions(Document doc,  XYZ centre3, ElementId regionID)
+        {
+            List<CurveLoop> profileloops = new List<CurveLoop>();
+
+            XYZ[] points = new XYZ[5];
+            points[0] = new XYZ(0.0, 0.0, 0.0) + centre3;
+            points[1] = new XYZ(5.0, 0.0, 0.0) + centre3;
+            points[2] = new XYZ(5.0, 5.0, 0.0) + centre3;
+            points[3] = new XYZ(0.0, 5.0, 0.0) + centre3;
+            points[4] = new XYZ(0.0, 0.0, 0.0) + centre3;
+
+            CurveLoop profileloop = new CurveLoop();
+
+            for (int i = 0; i < 4; i++)
+            {
+                Line line = Line.CreateBound(points[i], points[i + 1]);
+                profileloop.Append(line);
+            }
+            profileloops.Add(profileloop);
+
+            ElementId activeViewId = doc.ActiveView.Id;
+
+            FilledRegion filledRegion = FilledRegion.Create(doc, regionID, activeViewId, profileloops);
+        }
+
+
+        public static IList<XYZ> myXYZ_Corners(UIView uiview)
+        {
+            return uiview.GetZoomCorners();
+        }
+
+        public static UIView myUIView(UIDocument uidoc)
+        {
+            Autodesk.Revit.DB.View view = uidoc.Document.ActiveView;
+
+            UIView uiview = null;
+            IList<UIView> uiviews = uidoc.GetOpenUIViews();
+
+            foreach (UIView uv in uiviews)
+            {
+                if (uv.ViewId.Equals(view.Id))
+                {
+                    uiview = uv;
+                    break;
+                }
+            }
+            return uiview;
         }
     }
 }

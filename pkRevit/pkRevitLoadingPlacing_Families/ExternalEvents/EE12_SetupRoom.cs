@@ -1,23 +1,28 @@
-﻿using System;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.DB;
+//using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Autodesk.Revit.DB.Events;
+using global3.Autodesk.Revit.DB.Events;
 using System.Runtime.InteropServices;
 using _952_PRLoogleClassLibrary;
-using Autodesk.Revit.DB.ExtensibleStorage;
+//using Autodesk.Revit.DB.ExtensibleStorage;
 
 namespace pkRevitLoadingPlacing_Families
 {
 
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE12_SetupRoom : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
         public Window1213_ExtensibleStorage myWindow1 { get; set; }
@@ -116,11 +121,19 @@ namespace pkRevitLoadingPlacing_Families
 
                             List<Element> myListElement = new FilteredElementCollector(doc).OfClass(typeof(Family)).ToList();
 
-                            int int_FamiliesToBeLoadedCount = myWindow1.myListClass.Where(x => myListElement.Any(y => x.String_Name == y.Name)).Count();
+                            List<Window1213_ExtensibleStorage.ListView_Class> myListClass_Temp = new List<Window1213_ExtensibleStorage.ListView_Class>();
+                            foreach (Window1213_ExtensibleStorage.ListView_Class copying in myWindow1.myListClass) myListClass_Temp.Add(copying);
 
-                            if (int_FamiliesToBeLoadedCount < myWindow1.myListClass.Count)
+                            myListClass_Temp.Remove(myListClass_Temp[12]);
+                            myListClass_Temp.Remove(myListClass_Temp[11]);
+                            myListClass_Temp.Remove(myListClass_Temp[6]);
+                            //List<Window1213_ExtensibleStorage.ListView_Class> myListClass_Temp = myWindow1.myListClass;
+
+                            int int_FamiliesToBeLoadedCount = myListClass_Temp.Where(x => myListElement.Any(y => x.String_Name == y.Name)).Count();
+
+                            if (int_FamiliesToBeLoadedCount < myListClass_Temp.Count)
                             {
-                                MessageBox.Show((-int_FamiliesToBeLoadedCount + myWindow1.myListClass.Count) + " families need to be loaded," + Environment.NewLine + Environment.NewLine + "This may take a few moments...");
+                                MessageBox.Show((-int_FamiliesToBeLoadedCount + myListClass_Temp.Count) + " families need to be loaded," + Environment.NewLine + Environment.NewLine + "This may take a few moments...");
                             }
 
 
@@ -169,33 +182,58 @@ namespace pkRevitLoadingPlacing_Families
                             if (true)
                             {
                                 XYZ myXYZ_Location = new XYZ(90.84, -9.55, 4.99); double myDouble_Rotation = 1.57 - (Math.PI / 2);
-                                FamilySymbol myFamilySymbol = myFamilyReturn_FindInModel(doc, 6); //Generic Adaptive Nerf Gun
+                                FamilySymbol myFamilySymbol = myFamilyReturn_FindInModel(doc, 7); //Generic Adaptive Nerf Gun
                                 PlaceAndRotateFamily(uidoc, myFamilySymbol, myXYZ_Location, myDouble_Rotation, myLevel);
                             }
 
                             if (true)
                             {
                                 XYZ myXYZ_Location = new XYZ(82.95, -10.81, 0); double myDouble_Rotation = 0 + (Math.PI / 2);
-                                FamilySymbol myFamilySymbol = myFamilyReturn_FindInModel(doc, 7); //Generic Model Man Sitting Eating
+                                FamilySymbol myFamilySymbol = myFamilyReturn_FindInModel(doc, 8); //Generic Model Man Sitting Eating
                                 PlaceAndRotateFamily(uidoc, myFamilySymbol, myXYZ_Location, myDouble_Rotation, myLevel);
                             }
 
                             if (true)
                             {
                                 XYZ myXYZ_Location = new XYZ(85.37, -7.71, 0); double myDouble_Rotation = 2.36 - (Math.PI);
-                                FamilySymbol myFamilySymbol = myFamilyReturn_FindInModel(doc, 8); //Generic Model Man Women Construction Worker
+                                FamilySymbol myFamilySymbol = myFamilyReturn_FindInModel(doc, 9); //Generic Model Man Women Construction Worker
                                 PlaceAndRotateFamily(uidoc, myFamilySymbol, myXYZ_Location, myDouble_Rotation, myLevel);
                             }
 
                             if (true)
                             {
                                 XYZ myXYZ_Location = new XYZ(92.97, -1.55, 0); double myDouble_Rotation = 2.36 - (Math.PI);
-                                FamilySymbol myFamilySymbol = myFamilyReturn_FindInModel(doc, 9); //Generic Model Tipping Hat Man
+                                FamilySymbol myFamilySymbol = myFamilyReturn_FindInModel(doc, 10); //Generic Model Tipping Hat Man
                                 PlaceAndRotateFamily(uidoc, myFamilySymbol, myXYZ_Location, myDouble_Rotation, myLevel);
                             }
-                        }
+
+        //public static string myString00 = "Furniture Chair Executive";
+        //public static string myString01 = "Furniture Chair Viper";
+        //public static string myString02 = "Furniture Couch Viper";
+        //public static string myString03 = "Furniture Desk";
+        //public static string myString04 = "Furniture Table Dining Round w Chairs";
+        //public static string myString05 = "Furniture Table Night Stand";
+        //public static string myString06 = "Statue Virgin Mary";
+        //public static string myString07 = "Generic Adaptive Nerf Gun";
+        //public static string myString08 = "Generic Model Man Sitting Eating";
+        //public static string myString09 = "Generic Model Man Women Construction Worker";
+        //public static string myString10 = "Generic Model Tipping Hat Man";
+        //public static string myString11 = "Recessed Downlight Face Based";
+        //public static string myString12 = "Recessed Troffer Face Based";
+
+    }
                         tx.Commit();
                     }
+
+                    int version = int.Parse(uiapp.Application.VersionNumber);
+                    //ent_Child.Set("FurnLocations", dict_Child, (version < 2021) ? global4.Autodesk.Revit.DB.DisplayUnitType.DUT_MILLIMETERS : new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+
+                    if (version < 2021)
+                    {
+                        MessageBox.Show("Due to some dramatic changes to the API in 2021, extensible storage is currently not working on versions 2020 and earlier." + Environment.NewLine + Environment.NewLine + "We're really sorry...we're working on it.");
+                        return;
+                    }
+
                     myWindow1.myEE13_ExtensibleStorage_NewOrSave.myBool_New = true;
                     myWindow1.myExternalEvent_EE13_ExtensibleStorage_NewOrSave.Raise();
                 }
@@ -217,7 +255,7 @@ namespace pkRevitLoadingPlacing_Families
             Document doc = uidoc.Document; 
 
             myFamilySymbol.Activate();
-            FamilyInstance myFamilyInstance = doc.Create.NewFamilyInstance(myXYZ_Location, myFamilySymbol, myLevel, Autodesk.Revit.DB.Structure.StructuralType.NonStructural);
+            FamilyInstance myFamilyInstance = doc.Create.NewFamilyInstance(myXYZ_Location, myFamilySymbol, myLevel, global3.Autodesk.Revit.DB.Structure.StructuralType.NonStructural);
             Line myLine = Line.CreateUnbound(myXYZ_Location, XYZ.BasisZ);
 
             ElementTransformUtils.RotateElement(doc, myFamilyInstance.Id, myLine, myDouble_Rotation);

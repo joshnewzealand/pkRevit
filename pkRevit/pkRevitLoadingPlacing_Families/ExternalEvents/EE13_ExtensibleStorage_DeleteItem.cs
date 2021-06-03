@@ -1,24 +1,29 @@
-﻿using System;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.DB;
+//using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Autodesk.Revit.DB.Events;
+using global3.Autodesk.Revit.DB.Events;
 using System.Runtime.InteropServices;
 using _952_PRLoogleClassLibrary;
-using Autodesk.Revit.DB.ExtensibleStorage;
+//using Autodesk.Revit.DB.ExtensibleStorage;
 
 
 namespace pkRevitLoadingPlacing_Families
 {
 
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE13_ExtensibleStorage_DeleteItem : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
         public Window1213_ExtensibleStorage myWindow1 { get; set; }
@@ -44,11 +49,11 @@ namespace pkRevitLoadingPlacing_Families
                 if (schema_FurnLocations_Index == null) schema_FurnLocations_Index = Schema_FurnLocations.createSchema_FurnLocations_Index();
 
                 Entity ent_Parent = myDatastorage.GetEntity(schema_FurnLocations_Index);
-                IDictionary<string, Entity> dict_Parent = ent_Parent.Get<IDictionary<string, Entity>>("FurnLocations_Index", DisplayUnitType.DUT_MILLIMETERS);
+                IDictionary<string, Entity> dict_Parent = ent_Parent.Get<IDictionary<string, Entity>>("FurnLocations_Index");
 
                 KeyValuePair<string, Entity> myKeyValuePair = (KeyValuePair<string, Entity>)myWindow1.myListViewEE.SelectedItem;
                 dict_Parent.Remove(myKeyValuePair.Key);
-                ent_Parent.Set<IDictionary<string, Entity>>("FurnLocations_Index", dict_Parent, DisplayUnitType.DUT_MILLIMETERS);
+                ent_Parent.Set<IDictionary<string, Entity>>("FurnLocations_Index", dict_Parent);
 
                 using (Transaction tx = new Transaction(doc))
                 {

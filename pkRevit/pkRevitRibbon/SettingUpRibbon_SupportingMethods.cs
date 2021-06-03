@@ -194,6 +194,13 @@ namespace pkRevitRibbon
             return myPushButtonData;
         }
 
+        public PushButtonData Button0090_FilledRegions(string Name, string ChecklistsNumber, string path)
+        {
+            PushButtonData myPushButtonData = new PushButtonData(Name, ChecklistsNumber, exeConfigPath(path), mySettingUpRibbon.dllName + ".Invoke_0090_pkRevitMisc_FilledRegions");  //StartMethod_0090_FilledRegions
+            myPushButtonData.LargeImage = new BitmapImage(new Uri(Path.Combine(Path.GetDirectoryName(path) + "\\Images\\drawfillpatterns.png"), UriKind.Absolute));
+            return myPushButtonData;
+        }
+
 
         public PushButtonData Button0100_DrawArrows(string Name, string ChecklistsNumber, string path)
         {

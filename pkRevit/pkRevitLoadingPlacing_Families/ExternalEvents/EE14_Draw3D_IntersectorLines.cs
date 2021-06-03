@@ -1,22 +1,26 @@
-﻿using System;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.DB;
+
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Autodesk.Revit.DB.Events;
+using global3.Autodesk.Revit.DB.Events;
 using System.Runtime.InteropServices;
 using _952_PRLoogleClassLibrary;
-using Autodesk.Revit.DB.ExtensibleStorage;
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
 
 namespace pkRevitLoadingPlacing_Families
 {
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE14_Draw3D_IntersectorLines_Delete : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
 
@@ -40,7 +44,7 @@ namespace pkRevitLoadingPlacing_Families
                     {
                         Entity ent_Parent = myFEC_DataStorage.First().GetEntity(schema_IntersectorLines);
 
-                        IList<ElementId> listInt_sketchPlaneID = ent_Parent.Get<IList<ElementId>>("IntersectorLines_List", DisplayUnitType.DUT_MILLIMETERS);
+                        IList<ElementId> listInt_sketchPlaneID = ent_Parent.Get<IList<ElementId>>("IntersectorLines_List"/*, new ForgeTypeId(UnitTypeId.Millimeters.TypeId)*/);
 
                         doc.Delete(listInt_sketchPlaneID);
                         doc.Delete(ele.Id);
@@ -69,7 +73,7 @@ namespace pkRevitLoadingPlacing_Families
           
 
 
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE14_Draw3D_IntersectorLines : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
 
@@ -102,8 +106,12 @@ namespace pkRevitLoadingPlacing_Families
 
         public void Execute(UIApplication uiapp)
         {
+
+
+            //return;
             try
             {
+
                 UIDocument uidoc = uiapp.ActiveUIDocument;
                 Document doc = uidoc.Document; // myListView_ALL_Fam_Master.Items.Add(doc.GetElement(uidoc.Selection.GetElementIds().First()).Name);
 
@@ -131,6 +139,7 @@ namespace pkRevitLoadingPlacing_Families
                     MessageBox.Show("Please perform step 5 of 19 first." + Environment.NewLine + Environment.NewLine + "(Placing Nerf Gun)");
                     return;
                 }
+
 
                 ///            TECHNIQUE 14 OF 19 (EE14_Draw3D_IntersectorLines.cs)
                 ///↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓ DRAW INTERSECTOR LINES FROM NERF GUN ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
@@ -162,7 +171,8 @@ namespace pkRevitLoadingPlacing_Families
                 /// * class is actually part of the .NET framework (not Revit API)
                 ///
                 ///
-				///	https://github.com/joshnewzealand/Revit-API-Playpen-CSharp
+                ///	https://github.com/joshnewzealand/Revit-API-Playpen-CSharp
+
 
                 uidoc.Selection.SetElementIds(new List<ElementId>());
 
@@ -203,7 +213,7 @@ namespace pkRevitLoadingPlacing_Families
 
                         Random rnd = new Random();
                         OverrideGraphicSettings ogs = new OverrideGraphicSettings();
-                        ogs.SetProjectionLineColor(new Autodesk.Revit.DB.Color((byte)rnd.Next(0, 256), (byte)rnd.Next(0, 256), (byte)rnd.Next(0, 256)));
+                        ogs.SetProjectionLineColor(new global3.Autodesk.Revit.DB.Color((byte)rnd.Next(0, 256), (byte)rnd.Next(0, 256), (byte)rnd.Next(0, 256)));
 
                         using (Transaction tx = new Transaction(doc))
                         {
@@ -301,7 +311,8 @@ namespace pkRevitLoadingPlacing_Families
 
                     Entity ent_Parent = new Entity(schema_IntersectorLines);
 
-                    ent_Parent.Set("IntersectorLines_List", listInt_sketchPlaneID, DisplayUnitType.DUT_MILLIMETERS);
+                    //ent_Parent.Set("IntersectorLines_List", listInt_sketchPlaneID/*, new ForgeTypeId(UnitTypeId.Millimeters.TypeId)*/);
+                    ent_Parent.Set("IntersectorLines_List", listInt_sketchPlaneID);
 
                     using (Transaction tx = new Transaction(doc))
                     {

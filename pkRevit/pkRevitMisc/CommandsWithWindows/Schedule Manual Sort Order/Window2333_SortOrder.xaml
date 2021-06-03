@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pkRevitMisc.CommandsWithWindows.Schedule_Manual_Sort_Order"
         mc:Ignorable="d"
-        Title="Window2333_SortOrder" Height="450" Width="578" ResizeMode="CanResizeWithGrip">
+        Title="Window2333_SortOrder" Height="450" Width="578" ResizeMode="CanResizeWithGrip"  >
     <Window.Resources>
         <local:StringToBoolConverter x:Key="StringToBoolConverterKey"></local:StringToBoolConverter>
     </Window.Resources>

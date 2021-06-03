@@ -1,19 +1,24 @@
-﻿using System;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.DB;
+//using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Autodesk.Revit.DB.ExtensibleStorage;
+//using Autodesk.Revit.DB.ExtensibleStorage;
 
 namespace pkRevitLoadingPlacing_Families
 {
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE13_ExtensibleStorage_zRandomise : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
         public Window1213_ExtensibleStorage myWindow1 { get; set; }
@@ -23,6 +28,8 @@ namespace pkRevitLoadingPlacing_Families
         {
             try
             {
+                MessageBox.Show("hello");
+
                 UIDocument uidoc = uiapp.ActiveUIDocument;
                 Document doc = uidoc.Document;
 
@@ -40,9 +47,9 @@ namespace pkRevitLoadingPlacing_Families
                 {
                     tx.Start("Randomise Colour");
 
-                    KeyValuePair<string, Autodesk.Revit.DB.ExtensibleStorage.Entity> myKeyValuePair = (KeyValuePair<string, Entity>)myWindow1.myListViewEE.SelectedItem;
+                    KeyValuePair<string, global3.Autodesk.Revit.DB.ExtensibleStorage.Entity> myKeyValuePair = (KeyValuePair<string, Entity>)myWindow1.myListViewEE.SelectedItem;
 
-                    IDictionary<ElementId, XYZ> dict_Child = myKeyValuePair.Value.Get<IDictionary<ElementId, XYZ>>("FurnLocations", DisplayUnitType.DUT_MILLIMETERS);
+                    IDictionary<ElementId, XYZ> dict_Child = myKeyValuePair.Value.Get<IDictionary<ElementId, XYZ>>("FurnLocations", new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
 
                     string myStringAggregate_Location = "";
 
@@ -53,7 +60,6 @@ namespace pkRevitLoadingPlacing_Families
 
                         if (Searchelem.Category.Name != "Furniture") continue;
 
-
                         OverrideGraphicSettings ogs = new OverrideGraphicSettings();
                         OverrideGraphicSettings ogsCheeck = doc.ActiveView.GetElementOverrides(myKP.Key);
                         //FillPatternElement myFillPattern = new FilteredElementCollector(doc).OfClass(typeof(FillPatternElement)).Cast<FillPatternElement>().First(a => a.Name.Contains("Solid fill"));
@@ -62,7 +68,7 @@ namespace pkRevitLoadingPlacing_Families
                         FillPatternElement myFillPattern = myListFillPattern[(byte)rnd.Next(0, myListFillPattern.Count - 1)];
 
 
-                        Color myColor_Random01 = new Autodesk.Revit.DB.Color((byte)rnd.Next(0, 256), (byte)rnd.Next(0, 256), (byte)rnd.Next(0, 256));
+                        Color myColor_Random01 = new global3.Autodesk.Revit.DB.Color((byte)rnd.Next(0, 256), (byte)rnd.Next(0, 256), (byte)rnd.Next(0, 256));
                         Color myColor_Random01_Brighter = ChangeColorBrightness(myColor_Random01, (float)0.5);
 
 
@@ -82,10 +88,8 @@ namespace pkRevitLoadingPlacing_Families
                     }
                     tx.Commit();
                 }
-
-
-                myWindow1.myEE13_ExtensibleStorage_NewOrSave.myBool_New = false;
-                myWindow1.myExternalEvent_EE13_ExtensibleStorage_NewOrSave.Raise();
+            myWindow1.myEE13_ExtensibleStorage_NewOrSave.myBool_New = false;
+            myWindow1.myExternalEvent_EE13_ExtensibleStorage_NewOrSave.Raise();
 
             }
 
@@ -98,6 +102,10 @@ namespace pkRevitLoadingPlacing_Families
             {
             }
             #endregion
+
+
+
+
         }
 
 
@@ -121,7 +129,7 @@ namespace pkRevitLoadingPlacing_Families
                 blue = (255 - blue) * correctionFactor + blue;
             }
 
-            Color myColorReturn = new Autodesk.Revit.DB.Color((byte)red, (byte)green, (byte)blue);
+            Color myColorReturn = new global3.Autodesk.Revit.DB.Color((byte)red, (byte)green, (byte)blue);
 
             return myColorReturn;
         }

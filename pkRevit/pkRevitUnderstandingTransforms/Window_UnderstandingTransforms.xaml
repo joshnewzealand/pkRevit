@@ -133,6 +133,6 @@
         <Label x:Name="myLabel_TransformOrigin" Content="..." HorizontalAlignment="Left" Margin="311,432,0,0" VerticalAlignment="Top" Width="438"/>
         <Label  Content="Origin" HorizontalAlignment="Left" Margin="263,432,0,0" VerticalAlignment="Top" Width="48"/>
         <Button x:Name="myButton_Cycle" Content="Cycle" HorizontalAlignment="Left" Margin="903,203,0,0" VerticalAlignment="Top" Width="75" Click="MyButton_Cycle_Click"/>
-        <xctk:IntegerUpDown x:Name="myUpDown_CycleNumber" HorizontalAlignment="Left" Margin="983,203,0,0" VerticalAlignment="Top" Width="49" Value="5" Minimum="1" Maximum="100"/>
+        <xctk:IntegerUpDown x:Name="myUpDown_CycleNumber" HorizontalAlignment="Left" Margin="983,203,0,0" VerticalAlignment="Top" Width="49" Value="3" Minimum="1" Maximum="100"/>
     </Grid>
 </Window>

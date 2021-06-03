@@ -104,7 +104,7 @@ namespace pkRevitRibbon
             #region catch and finally
             catch (Exception ex)
             {
-                RibbonSupportMethods.writeDebug("Invoke_0100_pkRevitMisc_OpenParentView" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);//<--------------------------------------------- edit here
+                RibbonSupportMethods.writeDebug("Invoke_0100_pkRevitMisc_DrawArrows" + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);//<--------------------------------------------- edit here
             }
             finally
             {

@@ -48,7 +48,7 @@ namespace pkRevitMisc.CommandsWithWindows
         public static void writeDebug(string x, bool AndShow)
         {
 
-            string path = (System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\` aa PRLGoogle Backups");
+            string path = (System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\pk Revit\\` Error Codes");
             if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
 
             //string subdirectory_reversedatetothesecond = (path + ("\\" + (DateTime.Now.ToString("yyyyMMddHHmmss"))));

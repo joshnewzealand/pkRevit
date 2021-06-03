@@ -1,24 +1,29 @@
-﻿using System;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.DB;
+//using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Autodesk.Revit.DB.Events;
+using global3.Autodesk.Revit.DB.Events;
 using System.Runtime.InteropServices;
 using _952_PRLoogleClassLibrary;
-using Autodesk.Revit.DB.ExtensibleStorage;
+//using Autodesk.Revit.DB.ExtensibleStorage;
 
 
 namespace pkRevitLoadingPlacing_Families
 {
 
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE13_ExtensibleStorage_Rearrange : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
         public Window1213_ExtensibleStorage myWindow1 { get; set; }
@@ -37,7 +42,7 @@ namespace pkRevitLoadingPlacing_Families
 
                     KeyValuePair<string, Entity> myKeyValuePair = (KeyValuePair<string, Entity>)myWindow1.myListViewEE.SelectedItem;
 
-                    IDictionary<ElementId, XYZ> dict_Child = myKeyValuePair.Value.Get<IDictionary<ElementId, XYZ>>("FurnLocations", DisplayUnitType.DUT_MILLIMETERS);
+                    IDictionary<ElementId, XYZ> dict_Child = myKeyValuePair.Value.Get<IDictionary<ElementId, XYZ>>("FurnLocations", new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
 
                     string myStringAggregate_Location = "";
 
@@ -52,7 +57,7 @@ namespace pkRevitLoadingPlacing_Families
                     }
 
 
-                    IDictionary<ElementId, double> dict_Child_Angle = myKeyValuePair.Value.Get<IDictionary<ElementId, double>>("FurnLocations_Angle", DisplayUnitType.DUT_MILLIMETERS);
+                    IDictionary<ElementId, double> dict_Child_Angle = myKeyValuePair.Value.Get<IDictionary<ElementId, double>>("FurnLocations_Angle", new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
 
                     string myStringAggregate_Angle = "";
 
@@ -71,10 +76,10 @@ namespace pkRevitLoadingPlacing_Families
                     }
 
 
-                    IDictionary<ElementId, ElementId> dict_Child_Pattern = myKeyValuePair.Value.Get<IDictionary<ElementId, ElementId>>("FurnLocations_Pattern", DisplayUnitType.DUT_MILLIMETERS);
-                    IDictionary<ElementId, int> dict_Child_Red = myKeyValuePair.Value.Get<IDictionary<ElementId, int>>("FurnLocations_ColorRed", DisplayUnitType.DUT_MILLIMETERS);
-                    IDictionary<ElementId, int> dict_Child_Green = myKeyValuePair.Value.Get<IDictionary<ElementId, int>>("FurnLocations_ColorGreen", DisplayUnitType.DUT_MILLIMETERS);
-                    IDictionary<ElementId, int> dict_Child_Blue = myKeyValuePair.Value.Get<IDictionary<ElementId, int>>("FurnLocations_ColorBlue", DisplayUnitType.DUT_MILLIMETERS);
+                    IDictionary<ElementId, ElementId> dict_Child_Pattern = myKeyValuePair.Value.Get<IDictionary<ElementId, ElementId>>("FurnLocations_Pattern", new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                    IDictionary<ElementId, int> dict_Child_Red = myKeyValuePair.Value.Get<IDictionary<ElementId, int>>("FurnLocations_ColorRed", new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                    IDictionary<ElementId, int> dict_Child_Green = myKeyValuePair.Value.Get<IDictionary<ElementId, int>>("FurnLocations_ColorGreen", new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                    IDictionary<ElementId, int> dict_Child_Blue = myKeyValuePair.Value.Get<IDictionary<ElementId, int>>("FurnLocations_ColorBlue", new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
 
 
                     int myInt = -1;
@@ -88,7 +93,7 @@ namespace pkRevitLoadingPlacing_Families
                         OverrideGraphicSettings ogs = new OverrideGraphicSettings();
                         OverrideGraphicSettings ogsCheeck = doc.ActiveView.GetElementOverrides(myKP.Key);
 
-                        Color myColor = new Autodesk.Revit.DB.Color((byte)dict_Child_Red[myKP.Key], (byte)dict_Child_Green[myKP.Key], (byte)dict_Child_Blue[myKP.Key]);
+                        Color myColor = new global3.Autodesk.Revit.DB.Color((byte)dict_Child_Red[myKP.Key], (byte)dict_Child_Green[myKP.Key], (byte)dict_Child_Blue[myKP.Key]);
                         Color myColorBrighter = ChangeColorBrightness(myColor, (float)0.5);
 
 
@@ -141,7 +146,7 @@ namespace pkRevitLoadingPlacing_Families
                 blue = (255 - blue) * correctionFactor + blue;
             }
 
-            Color myColorReturn = new Autodesk.Revit.DB.Color((byte)red, (byte)green, (byte)blue);
+            Color myColorReturn = new global3.Autodesk.Revit.DB.Color((byte)red, (byte)green, (byte)blue);
 
             return myColorReturn;
         }

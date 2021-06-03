@@ -101,7 +101,7 @@
             </ListBox.ItemContainerStyle>
 
         </ListBox>
-        <Button Content="Check Count" Grid.Column="2" HorizontalAlignment="Left" Margin="80,167,0,0" VerticalAlignment="Top" Width="80" Click="Button_Click_1"/>
+        <Button Content="Select &amp; check count" Grid.Column="2" HorizontalAlignment="Left" Margin="60,167,0,0" VerticalAlignment="Top" Width="124" Click="Button_Click_1"/>
         <Label Content="↓" Grid.Column="2" HorizontalAlignment="Left" Margin="97,204,0,0" VerticalAlignment="Top" Height="90" Width="50" FontSize="72"/>
         <TextBox x:Name="myTextBox_2022" Grid.Column="2" Height="23" Margin="7,192,13,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>

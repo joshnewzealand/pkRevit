@@ -48,8 +48,8 @@
                     </GridView>
                 </ListView.View>
             </ListView>-->
-            <Button x:Name="myButton_AddType" Content="!Add PRL_AppearsInSchedule" HorizontalAlignment="Right" Margin="0,3,7,0" VerticalAlignment="Top" Width="166" Click="myButton_AddType_Click"/>
-            <Button x:Name="myButton_AddType_Luminaires" Content="Add PRL_AppearsLuminaires" HorizontalAlignment="Right" Margin="0,4,176,0" VerticalAlignment="Top" Width="154" Click="myButton_AddType_Luminaires_Click" />
+            <Button x:Name="myButton_AddType" Content="!Add PRL_AppearsInSchedule" HorizontalAlignment="Right" Margin="0,-68,-2,0" VerticalAlignment="Top" Width="166" Click="myButton_AddType_Click"/>
+            <Button x:Name="myButton_AddType_Luminaires" Content="Add PRL_AppearsLuminaires" HorizontalAlignment="Right" Margin="0,-68,169,0" VerticalAlignment="Top" Width="154" Click="myButton_AddType_Luminaires_Click" />
         </Grid>
         <Grid Margin="0,0,0,0" Grid.Row="1">
             <Grid.ColumnDefinitions>

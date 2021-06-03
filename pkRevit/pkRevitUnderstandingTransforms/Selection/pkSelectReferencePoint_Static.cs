@@ -32,9 +32,6 @@ namespace pkRevitUnderstandingTransforms
 
                 if (uidoc.Selection.GetElementIds().Count > 1)
                 {
-                    //MessageBox.Show("Please only select one element.");
-
-
                     foreach (ElementId eleID in uidoc.Selection.GetElementIds())
                     {
                         Element myElement = doc.GetElement(uidoc.Selection.GetElementIds().First());
@@ -154,7 +151,6 @@ namespace pkRevitUnderstandingTransforms
                             if (str_FamilyName_2148 != "PRL-GM Adaptive Carrier Youtube" & str_FamilyName_2148 != "PRL-GM-2020 Adaptive Carrier")
                             {
                                 MessageBox.Show("Name of family instance is not 'PRL-GM-2020 Adaptive Carrier'");
-                                //MessageBox.Show(str_FamilyName_2148);
                                 return -1;
                             }
                         }
@@ -165,6 +161,14 @@ namespace pkRevitUnderstandingTransforms
                     } else
                     {
                         myFamilyInstance = myElement_SingleSelection as FamilyInstance;
+
+                        string str_FamilyName_2148 = myFamilyInstance.get_Parameter(BuiltInParameter.ELEM_FAMILY_PARAM).AsValueString();
+
+                        if (str_FamilyName_2148 != "PRL-GM Adaptive Carrier Youtube" & str_FamilyName_2148 != "PRL-GM-2020 Adaptive Carrier")
+                        {
+                            MessageBox.Show("Name of family instance is not 'PRL-GM-2020 Adaptive Carrier'");
+                            return -1;
+                        }
                     }
                 }
                 else

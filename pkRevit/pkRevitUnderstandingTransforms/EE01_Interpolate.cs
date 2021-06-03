@@ -120,6 +120,8 @@ namespace RevitTransformSliders
                 ReferencePoint myReferencePoint_Departure = doc.GetElement(new ElementId(myIntUpDown_Middle2.Value.Value)) as ReferencePoint;
 
 
+
+
                 Transform myTransform = myReferencePoint_Departure.GetCoordinateSystem();
 
                 int myIntTimeOut = 0;
@@ -146,7 +148,7 @@ namespace RevitTransformSliders
                             for (int ii = 0; ii <= 24; ii++)
                             {
                                
-                                wait(100);
+                                wait(50);
                                 if (true) //candidate for methodisation 202006141254
                                 {
                                     if (myDouble_ChangePosition != ii)
@@ -155,9 +157,15 @@ namespace RevitTransformSliders
                                         myLabel_ChangeCount.Content = myInt_ChangeCount++.ToString();
                                         using (Transaction y = new Transaction(doc, "a Transform"))
                                         {
+                                            FailureHandlingOptions options = y.GetFailureHandlingOptions();
+                                            MyPreProcessor preproccessor = new MyPreProcessor();
+                                            options.SetFailuresPreprocessor(preproccessor);
+                                            y.SetFailureHandlingOptions(options);
+
                                             y.Start();
 
                                             myReferencePoint_Departure.SetCoordinateSystem(myListTransform_Interpolate[(int)myDouble_ChangePosition]);
+
 
                                             y.Commit();
                                         }
@@ -194,9 +202,12 @@ namespace RevitTransformSliders
                                     myLabel_ChangeCount.Content = myInt_ChangeCount++.ToString();
                                     using (Transaction y = new Transaction(doc, "a Transform"))
                                     {
+
                                         y.Start();
                                         eL = 198;
                                         myReferencePoint_Departure.SetCoordinateSystem(myListTransform_Interpolate[(int)myDouble_ChangePosition]);
+                                        //change this to 
+
 
                                         y.Commit();
                                     }
@@ -234,6 +245,39 @@ namespace RevitTransformSliders
         public string GetName()
         {
             return "External Event Example";
+        }
+
+
+
+        public class MyPreProcessor : IFailuresPreprocessor
+        {
+            FailureProcessingResult IFailuresPreprocessor.PreprocessFailures(FailuresAccessor failuresAccessor)
+            {
+                String transactionName = failuresAccessor.GetTransactionName();
+
+                IList<FailureMessageAccessor> fmas = failuresAccessor.GetFailureMessages();
+
+                if (fmas.Count == 0) return FailureProcessingResult.Continue;
+
+                // We already know the transaction name.
+
+                foreach (FailureMessageAccessor fma in fmas)
+                {
+                    FailureSeverity fseverity = fma.GetSeverity();
+
+                    // ResolveFailure mimics clicking 
+                    // 'Remove Link' button             .
+                    if (fseverity == FailureSeverity.Warning) failuresAccessor.DeleteWarning(fma);
+
+                    //failuresAccessor.ResolveFailure(fma);
+                    // DeleteWarning mimics clicking 'Ok' button.
+                    //failuresAccessor.DeleteWarning( fma );         
+                }
+
+                //return FailureProcessingResult
+                //  .ProceedWithCommit;
+                return FailureProcessingResult.Continue;
+            }
         }
     }
 }

@@ -1,22 +1,33 @@
-﻿using System;
+﻿
+//using Class1V2 = GridV2::Namespace.Class1;
+extern alias global3;
+
+
+using db3 = global3.Autodesk.Revit.DB;
+
+using global3.Autodesk.Revit.DB;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Autodesk.Revit.DB;
+
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Autodesk.Revit.DB.Events;
+using global3.Autodesk.Revit.DB.Events;
 using System.Runtime.InteropServices;
 using _952_PRLoogleClassLibrary;
-using Autodesk.Revit.DB.ExtensibleStorage;
+using global3.Autodesk.Revit.DB.ExtensibleStorage;
+
+//using Class1V2 = global2::Namespace.Class1;
 
 namespace pkRevitLoadingPlacing_Families
 {
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [global3.Autodesk.Revit.Attributes.Transaction(global3.Autodesk.Revit.Attributes.TransactionMode.Manual)]
     public class EE13_ExtensibleStorage_NewOrSave : IExternalEventHandler  //this is the last when one making a checklist change, EE4 must be just for when an element is new
     {
         public Window1213_ExtensibleStorage myWindow1 { get; set; }
@@ -26,8 +37,17 @@ namespace pkRevitLoadingPlacing_Families
         //saving now saving now, saving now saving now , saving now 
         public void Execute(UIApplication uiapp)
         {
+            int version = int.Parse(uiapp.Application.VersionNumber);
+            //ent_Child.Set("FurnLocations", dict_Child, (version < 2021) ? global4.Autodesk.Revit.DB.DisplayUnitType.DUT_MILLIMETERS : new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+
+            if (version < 2021)
+            {
+                MessageBox.Show("Due to some dramatic changes to the API in 2021, extensible storage is currently not working on versions 2020 and earlier." + Environment.NewLine + Environment.NewLine + "We're really sorry...we're working on it.");
+            }
+
             try
             {
+
                 ///            TECHNIQUE 13 OF 19 (EE13_ExtensibleStorage_NewOrSave.cs)
                 ///↓↓↓↓↓↓↓↓↓↓↓↓↓↓ SCHEMA DATA STRUCTURES (ENTITIES) TO THE ELEMENTS ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
                 ///
@@ -122,13 +142,26 @@ namespace pkRevitLoadingPlacing_Families
                     }
                 }
 
-                ent_Child.Set("FurnLocations", dict_Child, DisplayUnitType.DUT_MILLIMETERS);
-                ent_Child.Set("FurnLocations_Angle", dict_Child_Angle, DisplayUnitType.DUT_MILLIMETERS);
+                
+                
 
-                ent_Child.Set("FurnLocations_Pattern", dict_Child_PatternID, DisplayUnitType.DUT_MILLIMETERS);
-                ent_Child.Set("FurnLocations_ColorRed", dict_Child_ColourRed, DisplayUnitType.DUT_MILLIMETERS);
-                ent_Child.Set("FurnLocations_ColorGreen", dict_Child_ColourGreen, DisplayUnitType.DUT_MILLIMETERS);
-                ent_Child.Set("FurnLocations_ColorBlue", dict_Child_ColourBlue, DisplayUnitType.DUT_MILLIMETERS);
+
+                ent_Child.Set("FurnLocations", dict_Child, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                ent_Child.Set("FurnLocations_Angle", dict_Child_Angle, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+
+                ent_Child.Set("FurnLocations_Pattern", dict_Child_PatternID, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                ent_Child.Set("FurnLocations_ColorRed", dict_Child_ColourRed, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                ent_Child.Set("FurnLocations_ColorGreen", dict_Child_ColourGreen, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                ent_Child.Set("FurnLocations_ColorBlue", dict_Child_ColourBlue, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+
+                //global2.Autodesk.Revit.DB.
+                //ent_Child.Set("FurnLocations", dict_Child, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                //ent_Child.Set("FurnLocations_Angle", dict_Child_Angle, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+
+                //ent_Child.Set("FurnLocations_Pattern", dict_Child_PatternID, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                //ent_Child.Set("FurnLocations_ColorRed", dict_Child_ColourRed, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                //ent_Child.Set("FurnLocations_ColorGreen", dict_Child_ColourGreen, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
+                //ent_Child.Set("FurnLocations_ColorBlue", dict_Child_ColourBlue, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
 
 
                 Schema schema_FurnLocations_Index = Schema.Lookup(new Guid(Schema_FurnLocations.myConstantStringSchema_FurnLocations_Index));
@@ -139,7 +172,7 @@ namespace pkRevitLoadingPlacing_Families
 
                 if (ent_Parent.IsValid())
                 {
-                    dict_Parent = ent_Parent.Get<IDictionary<string, Entity>>("FurnLocations_Index", DisplayUnitType.DUT_MILLIMETERS);
+                    dict_Parent = ent_Parent.Get<IDictionary<string, Entity>>("FurnLocations_Index", new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
                 }
                 else
                 {
@@ -159,7 +192,7 @@ namespace pkRevitLoadingPlacing_Families
                 }
 
 
-                ent_Parent.Set("FurnLocations_Index", dict_Parent, DisplayUnitType.DUT_MILLIMETERS);
+                ent_Parent.Set("FurnLocations_Index", dict_Parent, new ForgeTypeId(UnitTypeId.Millimeters.TypeId));
 
 
                 using (Transaction y = new Transaction(doc, "New Furniture Arrangement"))

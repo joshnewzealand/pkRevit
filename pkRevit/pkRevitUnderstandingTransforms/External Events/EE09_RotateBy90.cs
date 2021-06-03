@@ -93,6 +93,10 @@ namespace pkRevitUnderstandingTransforms
             return "External Event Example";
         }
 
+        ////FailureHandlingOptions options = tx.GetFailureHandlingOptions();
+        ////MyPreProcessor preproccessor = new MyPreProcessor();
+        ////options.SetFailuresPreprocessor(preproccessor);
+        ////            tx.SetFailureHandlingOptions(options);
 
         public class MyPreProcessor : IFailuresPreprocessor
         {

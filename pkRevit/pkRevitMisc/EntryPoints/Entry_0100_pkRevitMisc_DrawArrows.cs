@@ -116,7 +116,6 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
             int eL = -1;
 
-
             try
             {
                 ExternalCommandData commandData = cd;
@@ -140,9 +139,13 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                         //string myString_FamilyName = "PRL-GA LeaderSheet";
                         List<FamilySymbol> myListFamilySymbol_Original = null;
 
+                        eL = 142;
+
                         if (true)  //candidate for methodisation 20201212, but don't forget the two if's immediately after
                         {
                             List<Element> myListFamilySymbol_1738 = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == myString_FamilyName).ToList();
+
+                            eL = 146;
 
                             if (myListFamilySymbol_1738.Count != 1)
                             {
@@ -150,15 +153,38 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
 
                                 if (message.Split('|')[0] == "Release")  //constructs a path for release directory (in program files)
                                 {
-                                    myString_TempPath = message.Split('|')[1] + "//Families//" + myString_FamilyName + ".rfa";
+                                    myString_TempPath = message.Split('|')[1] + "\\Families";
                                 }
                                 if (message.Split('|')[0] == "Dev") //constructs a path for development directory
                                 {
-                                    myString_TempPath = message.Split('|')[1] + "//Families//" + myString_FamilyName + ".rfa";
+                                    myString_TempPath = message.Split('|')[1] + "\\Families";
                                 }
+                                eL = 158;
 
-                                doc.LoadFamily(myString_TempPath, new FamilyOptionOverWrite(), out Family myFamily);
-                                myListFamilySymbol_1738 = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == myString_FamilyName).ToList();
+                                string string_MetricDetailItem = myString_FamilyName + " 2019";
+                                if (commandData.Application.Application.VersionNumber == "2020") string_MetricDetailItem = myString_FamilyName + " 2020";
+                                if (commandData.Application.Application.VersionNumber == "2021") string_MetricDetailItem = myString_FamilyName + " 2021";
+                                if (commandData.Application.Application.VersionNumber == "2022") string_MetricDetailItem = myString_FamilyName + " 2022";
+
+                                eL = 172;
+
+                               /// System.IO.File.Copy(myString_TempPath + string_MetricDetailItem, System.IO.Path.GetTempPath() + "\\" + myString_FamilyName + ".rfa", true);
+
+                                ////DatabaseMethods.writeDebug(myString_TempPath + string_MetricDetailItem, true);
+
+                                ////Document famDoc = commandData.Application.Application.NewFamilyDocument(myString_TempPath + string_MetricDetailItem);//uid.Document.Application.NewFamilyDocument(System.Environment.GetEnvironmentVariable("ProgramData") + "\\Autodesk\\RVT 2017\\Family Templates\\English\\Metric Detail Item.rft");
+
+                                ////eL = 176;
+
+                                ////famDoc.SaveAs(System.IO.Path.GetTempPath() + "\\" + myString_FamilyName, new SaveAsOptions() { OverwriteExistingFile = true});
+                                ////famDoc.Close();
+
+                                eL = 175;
+
+                                doc.LoadFamily(myString_TempPath + "\\" + string_MetricDetailItem + ".rfa", new FamilyOptionOverWrite(), out Family myFamily);
+                                myListFamilySymbol_1738 = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(Family))).Where(x => x.Name == string_MetricDetailItem).ToList();
+
+                                //MessageBox.Show(myListFamilySymbol_1738.Count().ToString());
                             }
 
                             eL = 163;
@@ -249,7 +275,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                                 }
                             }
                         }
-
+                        eL = 281;
                         int int_i = 1;
                         XYZ xyz_separation = new XYZ(0, 1.5, 0);
 
@@ -278,7 +304,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                         }
 
                         Entity entity = myDatastorage.GetEntity(schema_ArrowWork_Index);
-                        IList<int> list = entity.Get<IList<int>>("ArrowWork", DisplayUnitType.DUT_MILLIMETERS);
+                        IList<int> list = entity.Get<IList<int>>("ArrowWork");
 
                         List<XYZ> listXYZ_Anchor = new List<XYZ>();
                         List<XYZ> listXYZ_End = new List<XYZ>();

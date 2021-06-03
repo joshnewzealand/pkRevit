@@ -62,10 +62,12 @@ namespace _937_PRLoogle_Command02
         }
 
 
-#pragma warning disable CS0246 // The type or namespace name 'UIView' could not be found (are you missing a using directive or an assembly reference?)
-        public static UIView myUIView(UIDocument uidoc)
-#pragma warning restore CS0246 // The type or namespace name 'UIView' could not be found (are you missing a using directive or an assembly reference?)
+        public static IList<XYZ> myXYZ_Corners(UIView uiview)
+        {
+            return uiview.GetZoomCorners();
+        }
 
+        public static UIView myUIView(UIDocument uidoc)
         {
             View view = uidoc.Document.ActiveView;
 
@@ -82,6 +84,8 @@ namespace _937_PRLoogle_Command02
             }
             return uiview;
         }
+
+
         public static Level myReference_fromLevel(UIDocument uidoc)
         {
             ElementId levelId = null;
@@ -106,11 +110,6 @@ namespace _937_PRLoogle_Command02
             return myLevel;
         }
 
-        public static IList<XYZ> myXYZ_Corners(UIView uiview)
-
-        {
-            return uiview.GetZoomCorners();
-        }
 
         public static ArcsSeveralClass ArcsSeveral(UIDocument uidoc)
         {

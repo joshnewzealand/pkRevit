@@ -1,4 +1,8 @@
-﻿using System;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -13,8 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using _952_PRLoogleClassLibrary;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Events;
+//using Autodesk.Revit.DB;
+using global3.Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 
 namespace pkRevitLoadingPlacing_Families

@@ -107,6 +107,8 @@ namespace pkRevitRibbon
             String ApiButtonText0090_Weights = "Draw\nLine Weights";//Draw.\nLine Styles            //<-- two places
             String ApiButtonName0090_Walls = "0090_Lines_Walls";
             String ApiButtonText0090_Walls = "Draw\nWall Types";//Draw.\nLine Styles            //<-- two places
+            String ApiButtonName0090_Regions = "0090_Lines_Filled Regions";
+            String ApiButtonText0090_Regions = "Draw\nRegion Types";//Draw.\nLine Styles            //<-- two places
             //
             String ApiButtonName0100 = "0100_DrawArrows";
             String ApiButtonText0100 = "Draw\nArrow Types";//Draw.\nArrow Types            //<-- two places
@@ -160,6 +162,7 @@ namespace pkRevitRibbon
             sb1.AddPushButton(myRibbonSupportMethods.Button0090_LinesPatterns(ApiButtonName0090_Patterns, ApiButtonText0090_Patterns, path));
             sb1.AddPushButton(myRibbonSupportMethods.Button0090_LinesWeights(ApiButtonName0090_Weights, ApiButtonText0090_Weights, path));
             sb1.AddPushButton(myRibbonSupportMethods.Button0090_Walls(ApiButtonName0090_Walls, ApiButtonText0090_Walls, path));
+            sb1.AddPushButton(myRibbonSupportMethods.Button0090_FilledRegions(ApiButtonName0090_Regions, ApiButtonText0090_Regions, path));
             sb1.IsSynchronizedWithCurrentItem = false;
             RibbonPanelCurrent_2DHelpers.AddItem(myRibbonSupportMethods.Button0080_Spacers(ApiButtonName0080, ApiButtonText0080, path));
             //RibbonPanelCurrent_2DHelpers.AddSeparator();
@@ -187,10 +190,8 @@ namespace pkRevitRibbon
             RibbonPanelCurrent_ScheduleHelpers.AddItem(myRibbonSupportMethods.Button0160_EditSchedule(ApiButtonName0160, ApiButtonText0160, path));
             //RibbonPanelCurrent_ScheduleHelpers.AddSeparator();
 
-
-            RibbonPanelCurrent_ScheduleToExternalDatabase.AddItem(myRibbonSupportMethods.Button0010_pkRevitDatasheets(ApiButtonName0010, ApiButtonText0010, path));
             RibbonPanelCurrent_ScheduleToExternalDatabase.AddItem(myRibbonSupportMethods.Button0020_pkRevitDatasheets_WholeSchedule(ApiButtonName0020, ApiButtonText0020, path));
-
+            RibbonPanelCurrent_ScheduleToExternalDatabase.AddItem(myRibbonSupportMethods.Button0010_pkRevitDatasheets(ApiButtonName0010, ApiButtonText0010, path));
 
             RibbonPanelCurrent_FunStuff.AddItem(myRibbonSupportMethods.Button0180_SmileyFace(ApiButtonName0180, ApiButtonText0180, path));
             RibbonPanelCurrent_FunStuff.AddItem(myRibbonSupportMethods.Button0220_LayoutRoom(ApiButtonName0220, ApiButtonText0220, path));
@@ -201,10 +202,8 @@ namespace pkRevitRibbon
             sb2.AddPushButton(myRibbonSupportMethods.Button0200_NurfGun_Delete(ApiButtonName0200_Delete, ApiButtonText0200_Delete, path));
             sb2.IsSynchronizedWithCurrentItem = false;
 
-
             return Result.Succeeded;
         }
-
 
         public void SwitchBetweenDeveloperAndRelease(object sender, Autodesk.Revit.UI.Events.ComboBoxCurrentChangedEventArgs e)
         {

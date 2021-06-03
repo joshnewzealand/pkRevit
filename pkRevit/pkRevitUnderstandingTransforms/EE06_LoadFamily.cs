@@ -82,7 +82,7 @@ namespace RevitTransformSliders
         public System.Windows.Controls.Slider mySlider_Rotate_BasisY { get; set; }
 
 
-        private FamilySymbol myMethod_CheckExistanceOfFamily(Document doc, string myString_Family, string myString_Type)
+        public static FamilySymbol myMethod_CheckExistanceOfFamily(Document doc, string myString_Family, string myString_Type)
         {
             FamilySymbol myFamilySymbol = null;
 

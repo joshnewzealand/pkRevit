@@ -1,4 +1,8 @@
-﻿using Autodesk.Revit.DB;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+
+//using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
@@ -27,9 +31,9 @@ namespace pkRevitLoadingPlacing_Families.EntryPoints  //Entry_0010_pkRevitDatash
         public static string myString10 = "Generic Model Tipping Hat Man";
         public static string myString11 = "Recessed Downlight Face Based";
         public static string myString12 = "Recessed Troffer Face Based";
-        //public static string myString10 = "MiniDigger";
+        //public static string myString13 = "MiniDigger";
 
-        public static List<string> ListStringMustHaveFamilies = new List<string>() { myString00, myString01, myString02, myString03, myString04, myString05, myString06, myString07, myString08, myString09, myString10, myString11, myString12};
+        public static List<string> ListStringMustHaveFamilies = new List<string>() { /*myString13 should be the end*/ myString00, myString01, myString02, myString03, myString04, myString05, myString06, myString07, myString08, myString09, myString10, myString11, myString12};
     }
 
     public partial class Entry_0210_pkRevitLoadingPlacing_Families

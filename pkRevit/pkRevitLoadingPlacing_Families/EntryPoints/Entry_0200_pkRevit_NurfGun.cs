@@ -1,4 +1,8 @@
-﻿using Autodesk.Revit.DB;
+﻿extern alias global3;
+
+using global3.Autodesk.Revit.DB;
+
+//using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
@@ -28,40 +32,42 @@ namespace pkRevitLoadingPlacing_Families.EntryPoints  //Entry_0010_pkRevitDatash
 
             public Result StartMethod_0200(ExternalCommandData cd, ref string message, ElementSet elements)
             {
-                ExternalCommandData commandData = cd;
-                string executionLocation = message;
+            int eL = -1;
 
-                toavoidloadingrevitdlls = new pkRevitMisc.ToAvoidLoadingRevitDLLs();
-                toavoidloadingrevitdlls.commandData = commandData;
-                toavoidloadingrevitdlls.executionLocation = executionLocation;
+            ExternalCommandData commandData = cd;
+            string executionLocation = message;
 
-                int eL = -1;
+            toavoidloadingrevitdlls = new pkRevitMisc.ToAvoidLoadingRevitDLLs();
+            toavoidloadingrevitdlls.commandData = commandData;
+            toavoidloadingrevitdlls.executionLocation = executionLocation;
+            try
+            {
+              
+
                 Window1213_ExtensibleStorage myWindow3 = new Window1213_ExtensibleStorage(commandData);
 
-                try
+                UIDocument uidoc = commandData.Application.ActiveUIDocument;
+                Document doc = uidoc.Document;
+
+                List<Element> myListElement = new FilteredElementCollector(doc).OfClass(typeof(FamilyInstance)).Where(x => x.Name == "Nerf Gun").ToList();
+
+                if (myListElement.Count() == 0)
                 {
-                    UIDocument uidoc = commandData.Application.ActiveUIDocument;
-                    Document doc = uidoc.Document;
-
-                    List<Element> myListElement = new FilteredElementCollector(doc).OfClass(typeof(FamilyInstance)).Where(x => x.Name == "Nerf Gun").ToList();
-
-                    if (myListElement.Count() == 0)
-                    {
-                        MessageBox.Show("Please place a nerf gun in the model, (previous button)");
-                        return Result.Succeeded;
-                    }
-
-                    uidoc.Selection.SetElementIds(new List<ElementId>() { myListElement.Last().Id });
-
-                    myEE14_Draw3D_IntersectorLines = new EE14_Draw3D_IntersectorLines();
-                    myExternalEvent_EE14_Draw3D_IntersectorLines = ExternalEvent.Create(myEE14_Draw3D_IntersectorLines);
-                    // window2333_SortOrder = new pkRevitMisc.Schedule_Manual_Sort_Order.Window2333_SortOrder(commandData, this, true, 0);
-
-                    myExternalEvent_EE14_Draw3D_IntersectorLines.Raise();
+                    MessageBox.Show("Please place a nerf gun in the model, (previous button)");
+                    return Result.Succeeded;
                 }
 
-                #region catch and finally
-                catch (Exception ex)
+                uidoc.Selection.SetElementIds(new List<ElementId>() { myListElement.Last().Id });
+
+                myEE14_Draw3D_IntersectorLines = new EE14_Draw3D_IntersectorLines();
+                myExternalEvent_EE14_Draw3D_IntersectorLines = ExternalEvent.Create(myEE14_Draw3D_IntersectorLines);
+                // window2333_SortOrder = new pkRevitMisc.Schedule_Manual_Sort_Order.Window2333_SortOrder(commandData, this, true, 0);
+               // MessageBox.Show("hello world2");
+                myExternalEvent_EE14_Draw3D_IntersectorLines.Raise();
+            }
+
+            #region catch and finally
+            catch (Exception ex)
                 {
                     _952_PRLoogleClassLibrary.DatabaseMethods.writeDebug("Entry_0200_pkRevit_NurfGun, error line:" + eL + Environment.NewLine + ex.Message + Environment.NewLine + ex.InnerException, true);
                 }
@@ -83,11 +89,11 @@ namespace pkRevitLoadingPlacing_Families.EntryPoints  //Entry_0010_pkRevitDatash
                 toavoidloadingrevitdlls.executionLocation = executionLocation;
 
                 int eL = -1;
-                Window1213_ExtensibleStorage myWindow3 = new Window1213_ExtensibleStorage(commandData);
-
                 try
                 {
-                    myEE14_Draw3D_IntersectorLines_Delete = new EE14_Draw3D_IntersectorLines_Delete();
+                Window1213_ExtensibleStorage myWindow3 = new Window1213_ExtensibleStorage(commandData);
+
+                myEE14_Draw3D_IntersectorLines_Delete = new EE14_Draw3D_IntersectorLines_Delete();
                     myExternalEvent_EE14_Draw3D_IntersectorLines_Delete = ExternalEvent.Create(myEE14_Draw3D_IntersectorLines_Delete);
 
 
