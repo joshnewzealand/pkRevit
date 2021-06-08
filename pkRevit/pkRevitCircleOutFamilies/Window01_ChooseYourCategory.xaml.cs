@@ -89,10 +89,10 @@ namespace _937_PRLoogle_Command02
 
         public Window01_ChooseYourCategory()
         {
+            InitializeComponent();
+
             try
             {
-                InitializeComponent();
-
                 this.Top = pkRevitCircleOutFamilies.Properties.Settings.Default.Top;
                 this.Left = pkRevitCircleOutFamilies.Properties.Settings.Default.Left;
                 //pkRevitCircleOutFamilies.Properties.Settings.Default.Top = this.Top;
@@ -124,9 +124,6 @@ namespace _937_PRLoogle_Command02
                 if (myListView_2017.SelectedItems.Count != 1) return;
 
                 eL = 68;
-                //string stringDatabaseName = (string)((DataRowView)myListView_2017.SelectedItem)["TargetDatabaseName"];
-
-
                 string myString_1809 = (string)((DataRowView)myListView_2017.SelectedItem)["Name"];
 
                 eL = 74;

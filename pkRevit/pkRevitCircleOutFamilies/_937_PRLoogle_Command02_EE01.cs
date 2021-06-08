@@ -238,6 +238,11 @@ namespace _937_PRLoogle_Command02
                     if (myStringCategory != "ALL")
                     {
                         List<Category> listCategory2 = doc.Settings.Categories.Cast<Category>().Where(x => x.Name == myStringCategory).ToList();
+
+                        eL = 242;
+
+                        if(listCategory2.Count == 0) return;
+
                         myBuiltInCategory = (BuiltInCategory)listCategory2.FirstOrDefault().Id.IntegerValue;
                     }
 
@@ -355,6 +360,8 @@ namespace _937_PRLoogle_Command02
 
                     IList<XYZ> myIListXYZ_1829 = _947_PRLoogle_Command01.Class3_20190327.myTesselation(_937_PRLoogle_Command02_createArcs.ArcsSeveral(uidoc).arc, myDictionary.Count);//
                     eL = 396;
+                    List<string> listStringNoGoCategories = new List<string>();
+                    
                     for (int index = 0; index < myDictionary.Count; index++)  //this one fans out the families, and i don't think  we ever get there.
                     {
 
@@ -370,27 +377,54 @@ namespace _937_PRLoogle_Command02
                             eL = 459;
                             FamilySymbol itemValue = myDictionary.ElementAt(index).Value[0];
 
-                            eL = 406;
+                           
+
+                            eL = 407;
                             
                             if (!itemValue.IsActive)
                             {
+                                eL = 377;
                                 itemValue.Activate();
+                                eL = 379;
                                 doc.Regenerate();
+                                eL = 380;
                             }
-                            
 
+                            eL = 381;
                             FamilyInstance famInt = doc.Create.NewFamilyInstance(myIListXYZ_1829[myInt], itemValue, _937_PRLoogle_Command02_createArcs.myReference_fromLevel(uidoc), Autodesk.Revit.DB.Structure.StructuralType.NonStructural);
+
+                            eL = 385;
+                            ////if (!uidoc.ActiveView.CanCategoryBeHidden(famInt.Category.Id))
+                            ////{
+                            ////    MessageBox.Show("are we hitting here");
+                            ////}
+                            eL = 386;
+
 
                             if (uidoc.ActiveView.GetCategoryHidden(famInt.Category.Id))
                             {
+                                if (!uidoc.ActiveView.CanCategoryBeHidden(famInt.Category.Id))  //bug fix 0002 - JL_20210608 Circle out will now skip family categories that are hidden in the view template.
+                                {
+                                    if(!listStringNoGoCategories.Contains(famInt.Category.Name))
+                                    {
+                                        MessageBox.Show("The category - '" + famInt.Category.Name + "' -  was hidden in the view template." + Environment.NewLine + Environment.NewLine + "Therefore, this family was skipped." + Environment.NewLine + Environment.NewLine + "ALTERNATIVELY: Please goto a plan view without a template applied.");
+                                    }
+
+                                    listStringNoGoCategories.Add(famInt.Category.Name);
+                                    continue;
+                                }
+
                                 uidoc.ActiveView.SetCategoryHidden(famInt.Category.Id, false);
                             }
+                            eL = 387;
+
 
                             if (famInt.Host == null)
                             {
                                 switch (famFamily.FamilyPlacementType.ToString())
                                 {
                                     case "ViewBased":
+                                        doc.Delete(famInt.Id);
                                         if (true)
                                         {
                                            ////////////////////////////////////////// Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
@@ -415,21 +449,55 @@ namespace _937_PRLoogle_Command02
 
                                         break;
                                     case "OneLevelBased":
+                                        doc.Delete(famInt.Id);
                                         if (true)
                                         {
+                                            goto cheat;  //bug fix 0001 20210608 - JL, circle out families: the case for "OneLevelBased" now jumps straight to the default - it produces a better result
+
                                             Level myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().Where(x => x.Name == doc.ActiveView.get_Parameter(BuiltInParameter.PLAN_VIEW_LEVEL).AsString()).FirstOrDefault() as Level;
-                                            XYZ xyzFamilyPosition = new XYZ(myIListXYZ_1829[myInt].X, myIListXYZ_1829[myInt].Y, myLevel.Elevation);
+                                            XYZ xyzFamilyPosition = new XYZ(myIListXYZ_1829[myInt].X, myIListXYZ_1829[myInt].Y, 0/*myLevel.Elevation*/);
 
                                             Line lineline = Line.CreateUnbound(xyzFamilyPosition, xyzFamilyPosition  + new XYZ(1, 0, 0));
 
                                             ///////////////////////////////////Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
 
-                                            FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance(lineline, itemValue, (Level)myLevel, StructuralType.NonStructural);
+
+
+                                            eL = 465;
+
+                                            FamilyInstance famInst_1306 = null;//= doc.Create.NewFamilyInstance(lineline, itemValue, (Level)myLevel, StructuralType.NonStructural);
+                                            
+                                            if(famInst_1306 == null)
+                                            {
+                                                //MessageBox.Show(itemValue.FamilyName);
+                                                famInst_1306 = doc.Create.NewFamilyInstance(xyzFamilyPosition, itemValue, (Level)myLevel, StructuralType.NonStructural);
+
+                                                ////////if (famInst_1306 == null)
+                                                ////////{
+                                                ////////    MessageBox.Show("Hello world2");
+                                                ////////    famInst_1306 = doc.Create.NewFamilyInstance(xyzFamilyPosition, itemValue, (Level)myLevel, StructuralType.NonStructural);
+                                                ////////}
+                                            }
+
+                                            if (famInst_1306.Host == null)
+                                            {
+                                                doc.Delete(famInst_1306.Id);
+                                                goto cheat;
+                                            }
+                                                //FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance()
+
+                                                eL = 466;
+                                            //doc.Regenerate();
+                                            eL = 467;
+                                            //_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(famInst_1306.Id.IntegerValue.ToString(), true);
+                                            eL = 467;
                                             //  FamilyInstance famInst_1306 = doc.Create.NewFamilyInstance()
                                             //_952_PRLoogleClassLibrary.DatabaseMethods.writeDebug(famInst_1306.Id.IntegerValue.ToString(), true);
                                         }
                                         break;
                                     case "TwoLevelsBased":
+                                        doc.Delete(famInt.Id);
+
                                         if (true)
                                         {
                                             /////////////////////////////////////Element myLevel = new FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().First();
@@ -442,8 +510,9 @@ namespace _937_PRLoogle_Command02
 
                                         break;
                                     default:
-
-                                            doc.Delete(famInt.Id);
+                                    
+                                        doc.Delete(famInt.Id);
+                                    cheat:
                                         //MessageBox.Show("hello world are we hitting here2");
                                         if (true)
                                         {
@@ -512,6 +581,7 @@ namespace _937_PRLoogle_Command02
                                                 if (famInst_1306.Host == null)
                                                 {
                                                     doc.Delete(myWall.Id);
+                                                    famInst_1306.get_Parameter(BuiltInParameter.INSTANCE_FREE_HOST_OFFSET_PARAM).Set(0);
                                                 }
                                             }
 

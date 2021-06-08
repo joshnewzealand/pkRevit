@@ -6,10 +6,10 @@
     <ROW Property="ARPCOMMENTS" Value="This installer database contains the logic and data required to install [|ProductName]." ValueLocId="*"/>
     <ROW Property="AiPreferFastOem" MultiBuildValue="DefaultBuild:1"/>
     <ROW Property="Manufacturer" Value="Josh New Zealand"/>
-    <ROW Property="ProductCode" Value="1033:{FC90E9B7-6B1D-4862-AB72-320ED2912552} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{3B4E3464-B8A8-4923-8B56-6C9836C8D5FD} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="pkRevit"/>
-    <ROW Property="ProductVersion" Value="2.0.2" Type="32"/>
+    <ROW Property="ProductVersion" Value="2.0.3" Type="32"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND"/>
     <ROW Property="UpgradeCode" Value="{2646781A-D00B-453E-B5F7-34127A944730}"/>
     <ROW Property="WindowsType9X" MultiBuildValue="DefaultBuild:Windows 9x/ME" ValueLocId="-"/>
@@ -191,7 +191,7 @@
     <ROW FilePath="APPDIR\pkRevitCustomActions.dll" File="pkRevitCustomActions.dll" FileDependency="System.Buffers.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FileDependencyOptionComponent">
-    <ROW File="pkRevitCustomActions.dll" Exclude="mscorlib.dll|System.dll|System.Configuration.Install.dll|System.Xml.Linq.dll|System.Windows.Forms.dll|System.Core.dll|PresentationFramework.dll|System.Xaml.dll|WindowsBase.dll|PresentationCore.dll|System.Drawing.dll|System.ComponentModel.DataAnnotations.dll|System.Design.dll|System.Security.dll|System.Data.dll|System.Transactions.dll|System.Xml.dll|WindowsFormsIntegration.dll|netstandard.dll|System.Numerics.Vectors.dll|System.Runtime.dll" Sha1="e8c75e31bf272f5a7c571b4b03c7a6f9ff66e881"/>
+    <ROW File="pkRevitCustomActions.dll" Exclude="mscorlib.dll|System.dll|System.Configuration.Install.dll|System.Xml.Linq.dll|System.Windows.Forms.dll|System.Core.dll|PresentationFramework.dll|System.Xaml.dll|WindowsBase.dll|PresentationCore.dll|System.Drawing.dll|System.ComponentModel.DataAnnotations.dll|System.Design.dll|System.Security.dll|System.Data.dll|System.Transactions.dll|System.Xml.dll|WindowsFormsIntegration.dll|netstandard.dll|System.Numerics.Vectors.dll|System.Runtime.dll" Sha1="d2186f79e818597c1e71d93ab21b07cd114f4bff"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.FragmentComponent">
     <ROW Fragment="CommonUI.aip" Path="&lt;AI_FRAGS&gt;CommonUI.aip"/>

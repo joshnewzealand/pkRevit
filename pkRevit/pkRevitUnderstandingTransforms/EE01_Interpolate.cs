@@ -120,7 +120,16 @@ namespace RevitTransformSliders
                 ReferencePoint myReferencePoint_Departure = doc.GetElement(new ElementId(myIntUpDown_Middle2.Value.Value)) as ReferencePoint;
 
 
+                ////////20210603
+                //////FamilyInstance myFamilyInstance = new FilteredElementCollector(doc).WherePasses(new ElementClassFilter(typeof(FamilyInstance))).Cast<FamilyInstance>().Where(x => (x).GetFamilyPointPlacementReferences().Count > 0).Where(x => (x).GetFamilyPointPlacementReferences().First().PointReference.ElementId.IntegerValue == myReferencePoint_Departure.Id.IntegerValue).First();
 
+                //////FamilySymbol myFamilySymbol_Chair = null;
+
+                //////if (myFamilyInstance != null)
+                //////{
+                //////    myFamilySymbol_Chair = EE06_PlaceFamily.myMethod_CheckExistanceOfFamily(doc, "PRL-GM Chair with always vertical OFF", "PRL-GM-2020 Adaptive Carrier Rope White");
+                //////    if (myFamilySymbol_Chair == null) return;
+                //////}
 
                 Transform myTransform = myReferencePoint_Departure.GetCoordinateSystem();
 
@@ -165,6 +174,25 @@ namespace RevitTransformSliders
                                             y.Start();
 
                                             myReferencePoint_Departure.SetCoordinateSystem(myListTransform_Interpolate[(int)myDouble_ChangePosition]);
+
+
+                                            ////if (myFamilyInstance != null & myDouble_ChangePosition != 0) //20210603 //remember to make the cycle one
+                                            ////{
+                                            ////    Element element_4Geometry = doc.GetElement(ElementTransformUtils.CopyElement(doc, myFamilyInstance.Id, XYZ.Zero).First());
+                                            ////    //MessageBox.Show(myFamilyInstance.Id.IntegerValue.ToString());
+                                            ////    doc.Regenerate();
+
+                                            ////    if (myFamilySymbol_Chair != null)
+                                            ////    {
+                                            ////        GeometryElement myGeomeryElement = element_4Geometry.get_Geometry(new Options() { ComputeReferences = true });
+                                            ////        GeometryInstance myGeometryInstance = myGeomeryElement.First() as GeometryInstance;
+                                            ////        GeometryElement myGeomeryElementSymbol = myGeometryInstance.GetSymbolGeometry();
+                                            ////        GeometryObject myGeometryObject = myGeomeryElementSymbol.Where(x => (x as Solid) != null).First();
+                                            ////        PlanarFace myPlanarFace = ((Solid)myGeometryObject).Faces.get_Item(0) as PlanarFace;
+
+                                            ////        doc.Create.NewFamilyInstance(myPlanarFace, myReferencePoint_Departure.Position, myReferencePoint_Departure.GetCoordinateSystem().OfVector(new XYZ(1, 0, 0)), myFamilySymbol_Chair);
+                                            ////    }
+                                            ////}
 
 
                                             y.Commit();

@@ -94,7 +94,7 @@ namespace pkRevitMisc.EntryPoints  //Entry_0010_pkRevitDatasheets
                     ref01 = uidoc.Selection.PickObject(ObjectType.LinkedElement, new DetailCurveSelectionFilter(doc), "Please pick element. ESC for cancel.");
 
                     fam01_Or_Link = docLink.GetElement(ref01.LinkedElementId);
-                    elementType = doc.GetElement(fam01_Or_Link.GetTypeId()) as ElementType;
+                    elementType = docLink.GetElement(fam01_Or_Link.GetTypeId()) as ElementType;  //bug fix 0003 20210608 - @"...is not the kind with 'Types' error message repaired.
                 }
                 eL = 97;
 
